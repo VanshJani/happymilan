@@ -1,49 +1,101 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchFriends, incrementPage } from '../../store/matrimoney-services/slices/UserSentRequestPagination';
-import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
+import Pusher from 'pusher-js';
+import { useRouter } from 'next/router';
+import { setCookie } from 'cookies-next';
+import { QRCodeCanvas } from 'qrcode.react'
 
-function index() {
-    const dispatch = useDispatch();
-    const { userData, status, currentPage, totalPages, loading } = useSelector((state) => state.getsentrequestdata);
+const QRLogin = () => {
+    const [qrValue, setQrValue] = useState('');
+    const router = useRouter();
 
-    useEffect(() => {
-        dispatch(fetchFriends(currentPage, 3));  // 3 items per page as an example
-    }, [currentPage, dispatch]);
+    function setCookiesAndLocalStorage(data) {
 
-    const handleInfiniteScroll = async () => {
-        try {
-            if (
-                window.innerHeight + document.documentElement.scrollTop + 1 >=
-                document.documentElement.scrollHeight &&
-                !loading && // Ensure we're not already loading more data
-                currentPage < totalPages // Ensure there are more pages to load
-            ) {
-                dispatch(incrementPage());
-            }
-        } catch (error) {
-            console.log(error);
+        const token = data?.authToken?.replace('Bearer ', '');
+
+        localStorage.setItem("personal", JSON.stringify(data?.user))
+        const objectData = {
+            userid: data.user.id,
+            token: token,
+            refreshToken: token,
+            user: data.user.email,
+            email: data.user.email,
+            fullName: `${data.user.firstName} ${data.user.lastName}`,
+            tokens: data.tokens
         }
-    };
+
+        localStorage.setItem("authdata", JSON.stringify(objectData));
+
+        setCookie('userid', data.user.id, { secure: true });
+        localStorage.setItem("token", data?.authToken);
+        localStorage.setItem("refoken", data?.authToken);
+        localStorage.setItem('user', data.user.email, { secure: true });
+        localStorage.setItem('email', data.user.email);
+        localStorage.setItem('mobilenumber', data.user.mobileNumber)
+        localStorage.setItem('flName', `${data.user.firstName} ${data.user.lastName}`);
+        setCookie('jwtToken', token, { secure: true });
+        setCookie('authtoken', token, { secure: true });
+        setCookie('email', data.user.email, { secure: true });
+        setCookie('userName', data.user.name, { secure: true });
+        setCookie('data', JSON.stringify(data.tokens), { secure: true });
+
+    }
 
     useEffect(() => {
-        window.addEventListener("scroll", handleInfiniteScroll);
-        return () => window.removeEventListener("scroll", handleInfiniteScroll);
-    }, [loading, currentPage, totalPages]);
+        const generateQRCode = async () => {
+            const axios = require('axios')
+            try {
+                const response = await axios.post('https://happymilan.tech/api/v1/user/auth/generate-qr'); // Call backend to generate QR data
+
+                const { channel, token } = response.data.data;
+                setQrValue(JSON.stringify({ channel, token })); // Set the QR code value
+
+
+                // Enable Pusher logging - don't include this in production
+                Pusher.logToConsole = true;
+
+                const pusher = new Pusher('46b85f99650ffbce8c4d', {
+                    cluster: 'ap2',
+                });
+
+                
+                const channelCreated = pusher.subscribe(channel);
+                // channelCreated.bind('my-event', function (data) {
+                //     alert(JSON.stringify(data));
+                // });
+
+                channelCreated.bind('login-event', function (data) {
+
+                    // alert(JSON.stringify(data));
+                    setCookiesAndLocalStorage(data);
+                    setTimeout(() => {
+                        router.push("/longterm/dashboard")
+                    }, 1000);
+
+                    // login on fe side ( we give user data same as after login api calls)
+                });
+
+                // Cleanup function to unsubscribe from the channel
+                return () => {
+                    channelCreated.unbind_all();
+                    channelCreated.unsubscribe(channel);
+                    pusher.disconnect();
+                };
+
+            } catch (error) {
+                console.error('Error generating QR code:', error);
+            }
+        };
+
+        generateQRCode();
+    }, []);
 
     return (
-        <div className='w-full h-full grid place-items-center'>
-            <ul className=''>
-                {userData?.map((res, index) => (
-                    <li key={index} className='h-[400px] w-[300px] border-[1px] border-[#000]'>
-                        {res?.friend?.name}
-                        <Image src={res?.friend?.profilePic} height={100} width={100} loading='lazy' alt='image' />
-                    </li>
-                ))}
-                {loading && <p>Loading more...</p>}
-            </ul>
+        <div>
+            <div>{qrValue ?
+                <QRCodeCanvas value={qrValue} size={120} />
+                : <p>Loading....</p>}</div>
         </div>
     );
-}
+};
 
-export default index;
+export default QRLogin;

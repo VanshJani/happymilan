@@ -78,7 +78,7 @@ export const updateMyEducationData = createAsyncThunk(
 
       if (response.ok) {
         const result = await response.json();
-        console.log("🚀 ~ result after env edu:", result)
+        
         return result.data;
 
       } else if (response.status === 401) {
@@ -175,8 +175,6 @@ export const updateMyProfessionalData = createAsyncThunk(
 export const updateMyPartnerPrefdata = createAsyncThunk(
   'myProfile/updatePartnerPrefdata',
   async ({ partnerPrefId, UpdatedDataforPartnerPrefdata }, thunkAPI) => {
-    console.log("🚀 ~ UpdatedDataforPartnerPrefdata:", UpdatedDataforPartnerPrefdata)
-    console.log("🚀 ~ partnerPrefId:", partnerPrefId)
 
     try {
       const token = getCookie("authtoken")
@@ -236,7 +234,7 @@ export const updateMyHobbies = createAsyncThunk(
 
       if (response.ok) {
         const result = await response.json();
-        console.log("🚀 ~ result:", result)
+        
         return result.userData.hobbies;
 
       } else if (response.status === 401) {
@@ -712,7 +710,7 @@ export const fetchMyhoobies = createAsyncThunk('myProfile/fetchmyhobbies', async
 
       if (response.ok) {
         const result = await response.json();
-        console.log("🚀 ~ fetchMyhoobies ~ result:", result)
+       
         return result.data?.user?.hobbies;
       } else if (response.status === 401) {
 

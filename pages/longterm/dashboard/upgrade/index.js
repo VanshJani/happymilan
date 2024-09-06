@@ -65,6 +65,15 @@ const PricingPage = () => {
     const handleSearch = (searchTerm) => {
     };
 
+
+    const HandleTabChange = (data1,data2) => {
+        
+        return {
+    }
+        setCurrentTab(index + 1)
+
+    }
+
     return (
         <>
             <ProtectedRoutes />
@@ -92,7 +101,7 @@ const PricingPage = () => {
                                                 <div
                                                     key={index}
                                                     id={currentTab === index + 1 ? "grad-button" : ""}
-                                                    onClick={() => setCurrentTab(index + 1)}
+                                                    onClick={()=>HandleTabChange(tab,index)}
                                                     className={`cursor-pointer flex items-center justify-center rounded-[25px] w-[131px] 2xl:h-[50px] xl:h-[40px] lg:h-[35px] text-black`}
                                                 >
                                                     {tab.label}

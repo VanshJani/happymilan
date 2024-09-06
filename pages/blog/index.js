@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import AuthNavbar from '../_components/layout/AuthNavbar'
+import Navbar from '../_components/layout/AuthNavbar'
 import Footer from '../_components/layout/Footer'
 import Image from 'next/image'
 
@@ -46,7 +46,7 @@ function index() {
 
     return (
         <>
-            <AuthNavbar />
+            <Navbar />
             <div className='w-full h-full grid place-items-center'>
                 <div className='w-full mt-[100px]  grid place-items-center pt-[80px]'>
                     <div className=''>

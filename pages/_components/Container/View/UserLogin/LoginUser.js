@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loginAsync } from '../../../../../store/reducers/loginReducer';
 import { STATUSES } from '../../../../../store/reducers/MyProfile';
 import ResetPassword from './ResetPassword';
+import QRLogin from '../../../../test';
 
 function LoginUser() {
 
@@ -135,8 +136,8 @@ function LoginUser() {
                                     </ul>
                                 </div>
                                 <div>
-                                    <div>
-                                        <Image alt="qr-code" width={125} height={125} className="h-[100px] w-[100px] md:w-[100px] md:h-[100px] 2xl:w-[125px] 2xl:h-[125px] xl:w-[100px] xl:h-[100px]" src="/loginassests/login-QR.svg" />
+                                    <div className=''>
+                                        <QRLogin />
                                     </div>
                                 </div>
                             </div>

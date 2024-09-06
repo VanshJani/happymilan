@@ -76,9 +76,6 @@ function SampleUserProfile({ users }) {
     const [CurrURL, SetCurURL] = useState("");
     const [UserID, SetUserID] = useState("");
 
-
-
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isRegisterModalOpen, setisRegisterModalOpen] = useState(false);
     const [isReportModalOpen, setisReportModalOpen] = useState(false);

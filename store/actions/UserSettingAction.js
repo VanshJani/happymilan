@@ -143,7 +143,6 @@ export const Updateprivacyquestionsfailure = (error) => ({
 
 
 export const UpdateDisplayName = (SelectedDisplayName) => {
-    console.log("🚀 ~ UpdateDisplayName ~ SelectedDisplayName:", SelectedDisplayName)
     return (dispatch) => {
         dispatch({
             type: UPDATE_DISPLAY_NAME
@@ -158,7 +157,7 @@ export const UpdateDisplayName = (SelectedDisplayName) => {
         let config = {
             method: 'put',
             maxBodyLength: Infinity,
-            url: `https://happymilan.tech/api/v1/user/auth/update-user/`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/update-user/`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${Token}`

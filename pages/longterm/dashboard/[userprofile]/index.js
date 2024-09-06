@@ -9,7 +9,9 @@ const UploadSection = dynamic(() => import('./comp/UploadSection'));
 const MoreSuggestion = dynamic(() => import('../../../_components/Container/MoreSuggestion'));
 
 function index({ params }) {
-  console.log("🚀 ~ index ~ params:", params)
+  if (params) {
+    console.log("🚀 ~ index ~ params:", params)
+  }
   const handleSearch = (searchTerm) => { }
 
   return (

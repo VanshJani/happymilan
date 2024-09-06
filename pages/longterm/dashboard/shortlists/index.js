@@ -31,8 +31,7 @@ function index() {
   return (
     <>
 
-      <Layout Show={false}>
-        {/* Main Section Start */}
+      <Layout Show={false} >
 
 
         <div id='main-centerlized-content' className='flex justify-center flex-col'>

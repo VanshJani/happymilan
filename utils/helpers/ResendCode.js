@@ -34,7 +34,6 @@ const useOtpResend = (initialCountdown = 60) => {
         }, 1000);
 
         if (countdown === 0) {
-            console.log("🚀 ~ useEffect ~ countdown:", countdown)
             setIsCounting(false);
             // Handle post-countdown logic here, like enabling the resend button
         }

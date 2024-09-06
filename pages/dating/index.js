@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBar from './component/NavBar'
+import DatingNavBar from './component/NavBar'
 import SideBar from './component/SideBar'
 import UserStory from './component/UserStory'
 import UserCard from './component/UserCard'
@@ -10,7 +10,7 @@ function index() {
 
     return (
         <>
-            <NavBar />
+            <DatingNavBar />
 
             <SideBar />
 

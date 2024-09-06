@@ -18,7 +18,7 @@ const Message = () => {
   }, [userData]);
 
   const onDeleteMessage = (msgId) => {
-    console.log("🚀 ~ onDeleteMessage ~ msgId:", msgId)
+    
     setMessages(prevMessages => prevMessages.filter(message => message.id !== msgId));
   };
 
@@ -33,8 +33,7 @@ const Message = () => {
     getLastConversation();
 
     socket.on('message', (data) => {
-      console.log("🚀 ~ socket.on ~ data:", data);
-
+     
       if(data?.data?.message === 'file upload url generated'){
         setMessages((prev) =>{
           return [...prev, data.data?.chatMessage]

@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 
 const Pagination = ({ URL, currentPage, totalPages, onPageChange, darkMode }) => {
@@ -17,12 +16,13 @@ const Pagination = ({ URL, currentPage, totalPages, onPageChange, darkMode }) =>
         for (let i = startPage; i <= endPage; i++) {
             buttons.push(
                 // <Link key={i} href={`${URL}?page=${i}`} className='inline-block'>
-                    <div
-                        id={currentPage === i ? "grid-active-btn" : (darkMode ? "DarkPagination" : "pagination-count")}
-                        onClick={() => onPageChange(i)}
-                        className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>
-                        {i}
-                    </div>
+                <div
+                    key={i}
+                    id={currentPage === i ? "grid-active-btn" : (darkMode ? "DarkPagination" : "pagination-count")}
+                    onClick={() => onPageChange(i)}
+                    className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>
+                    {i}
+                </div>
                 // </Link>
             );
         }

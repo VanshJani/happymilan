@@ -10,12 +10,9 @@ function DisplayNameSelect({ HandleChangeUserName }) {
     const getInitials = (firstName, lastName) => {
 
         if (UserNames?.name === `${firstName?.charAt(0)} ${lastName}`) {
-            console.log("Namess 1 == ")
             return `${lastName?.charAt(0)} ${firstName}`;
         } else {
-            console.log("Namess 2 == ")
             return `${firstName?.charAt(0)} ${lastName}`;
-
         }
     };
     const generateRandomName = (firstName, lastName, cast) => {

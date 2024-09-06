@@ -5,7 +5,6 @@ import Image from 'next/image';
 import SideBar from './comp/Sidebar';
 import dynamic from 'next/dynamic';
 import NavBar from '../../../_components/layout/NavBar';
-// import NavBar from '../../../_components/layout/NavBar';
 const Credentials = dynamic(() => import('./credentials/comp/Credential'));
 const DeleteProfile = dynamic(() => import('./deleteprofile/comp/Deleteprofile'));
 const EmailAlert = dynamic(() => import('./emailalert'));

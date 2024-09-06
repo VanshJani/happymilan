@@ -9,10 +9,10 @@ import { Pagination } from 'swiper';
 import Image from 'next/image';
 import { Dialog, Skeleton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchshortlistdata } from '../../../../../store/reducers/GetShortlistList';
 import { RemoveShortlist } from '../../../../../store/actions/GetingAlluser';
 import { sendRequest } from '../../../../../store/actions/UsersAction';
 import dynamic from 'next/dynamic';
+import { fetchshortlistUsers } from '../../../../../store/matrimoney-services/slices/getShortlistUsersSlice';
 // Dynamic imports
 const SendRequestBtn = dynamic(() => import('../../../../_components/common/Buttons/SendRequestBtn'), { ssr: false });
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'), { ssr: false });
@@ -189,29 +189,43 @@ function UserProfile() {
 
     const dispatch = useDispatch();
 
-    const { data, shortlistUserdata, status } = useSelector((state) => state.shortlistdata)
+    // const { data, shortlistUserdata, status } = useSelector((state) => state.shortlistdata)
+
+    const { userData,
+        totalPages,
+        limit,
+        pagesdata,
+        loading,
+        error,
+        status } = useSelector((state) => state.shortlistusers)
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const Pages = {
+        currentPage: currentPage,
+    }
+
+    useEffect(() => {
+        dispatch(fetchshortlistUsers(Pages))
+    }, [currentPage])
 
 
 
     const HandleRemoveShortlist = (res) => {
 
-        const shortlistdata = data.find(data => data?.shortlistId === res?.id)
-        dispatch(RemoveShortlist(shortlistdata?.id))
+        const shortlistdata = userData.find(data => data?.id === res?.id)
+       
+        dispatch(RemoveShortlist(res?.id))
         setshortlistText("Shortlisted has been removed")
         setopenShortlistModal(true)
         setTimeout(() => {
             setopenShortlistModal(false);
-            dispatch(fetchshortlistdata())
+            dispatch(fetchshortlistUsers())
         }, 800);
         console.log(shortlistdata?.id)
 
     }
-
-
-    useEffect(() => {
-
-        dispatch(fetchshortlistdata())
-    }, [])
 
 
     const HandleRequestModal = (res) => {
@@ -322,7 +336,7 @@ function UserProfile() {
     return (
         <>
 
-            {shortlistUserdata && shortlistUserdata.length > 0 ?
+            {userData && userData.length > 0 ?
                 <>
                     <div>
 
@@ -330,7 +344,7 @@ function UserProfile() {
 
                             {
 
-                                shortlistUserdata.map((res, index) => {
+                                userData.map((res, index) => {
 
                                     return (
                                         <>
@@ -341,14 +355,14 @@ function UserProfile() {
                                                 >
                                                     <div className="w-[350px]">
                                                         <div className="p-[15px] w-full ">
-                                                            {res?.userProfilePic &&
-                                                                res?.userProfilePic.length > 0 ? (
+                                                            {res?.shortlistId?.userProfilePic &&
+                                                                res?.shortlistId?.userProfilePic.length > 0 ? (
                                                                 <Swiper
                                                                     pagination={{ clickable: true }}
                                                                     modules={[Pagination]}
                                                                     className="mySwiper relative 2xl:w-[197px] xl:w-[187px] w-[185px] h-[260px]"
                                                                 >
-                                                                    {res?.userProfilePic
+                                                                    {res?.shortlistId?.userProfilePic
                                                                         .slice(0, 3)
                                                                         .map((Imageres, theindex) => (
                                                                             <SwiperSlide key={theindex}>
@@ -412,7 +426,7 @@ function UserProfile() {
                                                                     className="2xl:text-[20px] xl:text-[15px] text-[15px] cursor-pointer text-[#000] dark:text-[#FFF]"
                                                                     style={ProfileName}
                                                                 >
-                                                                    {res?.name}
+                                                                    {res?.shortlistId?.name}
                                                                 </h1>
                                                                 <h1
                                                                     style={statusText}
@@ -488,7 +502,7 @@ function UserProfile() {
                                                                             src={"/assests/Black/RightTick.svg"}
                                                                             className="inline pr-[5px]"
                                                                         />
-                                                                        {res?.maritalStatus ? res?.maritalStatus : "NA , NA"}
+                                                                        {res?.shortlistId?.maritalStatus ? res?.shortlistId?.maritalStatus : "NA , NA"}
                                                                     </li>
                                                                     <li
                                                                         className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -501,7 +515,7 @@ function UserProfile() {
                                                                             src={"/assests/Black/RightTick.svg"}
                                                                             className="inline pr-[5px]"
                                                                         />
-                                                                        {`${res?.religion ? res?.religion : "NA"}, ${res?.cast ? res?.cast : "NA"}`}
+                                                                        {`${res?.shortlistId?.religion ? res?.shortlistId?.religion : "NA"}, ${res?.shortlistId?.cast ? res?.shortlistId?.cast : "NA"}`}
                                                                     </li>
                                                                     <li
                                                                         className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -514,7 +528,7 @@ function UserProfile() {
                                                                             src={"/assests/Black/RightTick.svg"}
                                                                             className="inline pr-[5px]"
                                                                         />
-                                                                        {`${res?.address ? res?.address?.currentCity : "NA"} , ${res?.address ? res?.address?.currentCountry : "NA"}`}
+                                                                        {`${res?.shortlistId?.address ? res?.shortlistId?.address?.currentCity : "NA"} , ${res?.shortlistId?.address ? res?.shortlistId?.address?.currentCountry : "NA"}`}
                                                                     </li>
                                                                     <li
                                                                         className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -527,7 +541,7 @@ function UserProfile() {
                                                                             src={"/assests/Black/RightTick.svg"}
                                                                             className="inline pr-[5px]"
                                                                         />
-                                                                        {`${res?.motherTongue ? res?.motherTongue : "NA , NA"}  `}
+                                                                        {`${res?.shortlistId?.motherTongue ? res?.shortlistId?.motherTongue : "NA , NA"}  `}
                                                                     </li>
 
                                                                     <li
@@ -541,7 +555,7 @@ function UserProfile() {
                                                                             src={"/assests/Black/RightTick.svg"}
                                                                             className="inline pr-[5px]"
                                                                         />
-                                                                        {res?.userProfessional ? res?.userProfessional?.jobTitle : "NA , NA"}
+                                                                        {res?.shortlistId?.userProfessional ? res?.shortlistId?.userProfessional?.jobTitle : "NA , NA"}
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -551,12 +565,12 @@ function UserProfile() {
                                                                     className="text-[#979797] text-[14px] 2xl:text-[12px] xl:text-[12px] pr-[10px]"
                                                                 >
                                                                     {handleTextOverflow(
-                                                                        res?.writeBoutYourSelf
-                                                                            ? res?.writeBoutYourSelf
+                                                                        res?.shortlistId?.writeBoutYourSelf
+                                                                            ? res?.shortlistId?.writeBoutYourSelf
                                                                             : "NA",
                                                                     )}
-                                                                    {res?.writeBoutYourSelf &&
-                                                                        res?.writeBoutYourSelf.length >
+                                                                    {res?.shortlistId?.writeBoutYourSelf &&
+                                                                        res?.shortlistId?.writeBoutYourSelf.length >
                                                                         MAX_CHARACTERS && (
                                                                             <span className="text-[#0F52BA]">
                                                                                 {" "}
@@ -569,7 +583,7 @@ function UserProfile() {
 
                                                         <div className="absolute right-0 mt-[-10px]">
                                                             <SendRequestBtn
-                                                                RequestId={sentrequest[res?.id]}
+                                                                RequestId={sentrequest[res?.shortlistId?.id]}
                                                                 HandleRequestModal={() => HandleRequestModal(res)}
                                                             />
                                                         </div>

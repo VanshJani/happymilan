@@ -453,8 +453,6 @@ export const getSentrequestData = () => {
 
         const axios = require('axios');
         const Token = getCookie("authtoken")
-        const CurrentUserID = getCookie("userid")
-
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
@@ -470,6 +468,7 @@ export const getSentrequestData = () => {
                 dispatch({
                     type: GET_SENTREQUEST_DATA_SUCCESS, payload: {
                         data: response.data,
+                        total
                         // sentUsersdata: userDataArray  //Pending--v2
                     }
                 });
@@ -782,9 +781,7 @@ export const Cancelfriendrequestfailure = (error) => (
 
 
 export const Updateprofileimage = (requestdata, seconddata) => {
-    // console.log("🚀 ~ Updateprofileimage ~ seconddata:", seconddata)
-    // console.log("🚀 ~ Updateprofileimage ~ requestdata:", requestdata)
-
+   
     return async (dispatch) => {
         dispatch({ type: UPDATE_PROFILE_IMAGE })
 
@@ -818,16 +815,10 @@ export const Updateprofileimage = (requestdata, seconddata) => {
                 })
                 .then(data => {
                     // Handle the response data here (e.g., update UI, etc.)
-                    console.log('Response from server:', data);
-                    const alldata = data.data.url
-                    console.log("🚀 ~ return ~ alldata:", alldata)
-
+                                    
                     fetch(seconddata.blob)
                         .then(response => response.blob())
                         .then(blobData => {
-
-                            console.log("🚀 ~ blobData:", blobData)
-
 
                             const axios = require('axios');
                             let config = {
@@ -852,13 +843,11 @@ export const Updateprofileimage = (requestdata, seconddata) => {
                                 });
                         })
                 })
-            console.log("🚀 ~ return ~ data:", data)
+           
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);
                 });
-            // })
-            // console.log("🚀 ~ blobData:", blobData)
-
+           
 
 
         } catch (error) {
@@ -904,7 +893,6 @@ export const Getcancelrequestdata = () => {
             .then((response) => {
                 dispatch({ type: GET_CANCELREQUEST_DATA_SUCCESS, payload: response.data })
 
-                console.log("🚀 ~ .then ~ response:", response.data)
             })
 
             .catch((error) => {
@@ -929,8 +917,7 @@ export const Getcancelrequestdatafailure = (error) => (
 )
 
 export const Deleteimage = (imagedata) => {
-    console.log("🚀 ~ Deleteimage ~ imagedata:", imagedata)
-
+   
     return async (dispatch) => {
         dispatch({ type: DELETE_IMAGE })
 
@@ -1233,9 +1220,6 @@ export const Uploadmystory = (requestdata, seconddata, theblob, Caption) => {
                         .then(response => response.blob())
                         .then(blobData => {
 
-                            console.log("🚀 ~ blobData:", blobData)
-
-
                             const axios = require('axios');
                             let config = {
                                 method: 'put',
@@ -1265,10 +1249,6 @@ export const Uploadmystory = (requestdata, seconddata, theblob, Caption) => {
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);
                 });
-            // })
-            // console.log("🚀 ~ blobData:", blobData)
-
-
 
         } catch (error) {
             // Handle any errors that occurred outside of the fetch
@@ -1370,7 +1350,6 @@ export const DeleteMystatus = (StatusID) => {
 //Get match score 
 
 export const GetMatchScore = (MatchID) => {
-    console.log("🚀 ~ GetMatchScore ~ MatchID:", MatchID)
     return async (dispatch) => {
 
         dispatch({
@@ -1383,7 +1362,7 @@ export const GetMatchScore = (MatchID) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `https://happymilan.tech/api/v1/user/user/get-match-user/${MatchID}`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/get-match-user/${MatchID}`,
             headers: {
                 'Authorization': `Bearer ${token}`
             }

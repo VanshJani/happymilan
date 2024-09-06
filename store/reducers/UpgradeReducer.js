@@ -1,5 +1,7 @@
-import { GET_UPGRADE_PLANS, GET_UPGRADE_PLANS_BY_ID, GET_UPGRADE_PLANS_BY_ID_FAILURE, 
-GET_UPGRADE_PLANS_BY_ID_SUCCESS, GET_UPGRADE_PLANS_FAILURE, GET_UPGRADE_PLANS_SUCCESS } from "../type";
+import {
+    GET_PLANS_BY_NAME_FAILURE, GET_PLANS_BY_NAME_REQUEST, GET_PLANS_BY_NAME_SUCCESS, GET_UPGRADE_PLANS, GET_UPGRADE_PLANS_BY_ID, GET_UPGRADE_PLANS_BY_ID_FAILURE,
+    GET_UPGRADE_PLANS_BY_ID_SUCCESS, GET_UPGRADE_PLANS_FAILURE, GET_UPGRADE_PLANS_SUCCESS
+} from "../type";
 
 const initialState = {
     loading: false,
@@ -72,6 +74,29 @@ const UpgradePlansReducer = (state = initialState, action) => {
                 }
 
             };
+        case GET_PLANS_BY_NAME_REQUEST:
+            return {
+                ...state,
+                plans: {
+                    loading: true
+                }
+            }
+        case GET_PLANS_BY_NAME_SUCCESS:
+            return {
+                ...state,
+                plans: {
+                    loading: false,
+                    data: action.payload
+                }
+            }
+        case GET_PLANS_BY_NAME_FAILURE:
+            return {
+                ...state,
+                plans: {
+                    loading: false,
+                    error: "Something Went Wrong !"
+                }
+            }
         default:
             return state;
     }

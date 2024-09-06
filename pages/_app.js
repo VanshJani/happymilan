@@ -40,6 +40,9 @@ export default function MyApp({
         <meta name="description" content="Your meta description goes hereerrr" />
         {/* Add more meta tags as needed */}
       </Head>
+
+      {/* <NavBar /> */}
+
       <Provider store={store}>
         <SessionProvider>
           <DarkModeProvider>

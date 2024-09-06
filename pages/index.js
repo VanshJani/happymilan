@@ -1,12 +1,12 @@
 import React from 'react'
 import HomePage from './_components/Home/NewLand'
-import AuthNavbar from "./_components/layout/AuthNavbar"
+import Navbar from "./_components/layout/AuthNavbar"
 
 function index() {
 
   return (
     <>
-      <AuthNavbar />
+      <Navbar />
       <HomePage />
     </>
   )

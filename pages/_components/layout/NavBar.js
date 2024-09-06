@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Image from "next/image";
 import { AppBar, Badge, Dialog, DialogContent, Modal, Stack } from "@mui/material";
 import { getCookie } from 'cookies-next';
+// Import only the specific Material-UI components and icons you need
 import Drawer from '@mui/material/Drawer';
 import { useDispatch, useSelector } from "react-redux";
 import propTypes from 'prop-types'
@@ -32,12 +33,6 @@ const RequestNotification = dynamic(() => import("../../../components/LongTerm/N
 const ProfileImage = dynamic(() => import("../common/profile/ProfileImage"));
 const UpgradeButton = dynamic(() => import("../common/Buttons/UpgradeButton"));
 
-
-
-function NavBar({ handleSearch }) {
-
-
-    
 const userId = {
     fontFamily: "Poppins",
     fontSize: "14px",
@@ -92,6 +87,10 @@ const planPrice2 = {
 
 
 
+function NavBar({ handleSearch }) {
+
+
+
 
     const [token, settoken] = useState()
     const [Uname, SetUname] = useState();
@@ -121,13 +120,10 @@ const planPrice2 = {
         boxShadow: "0px 0px 5px 5px rgba(0, 0, 0, 0.03)"
     }
 
-    // Debounce the handleSearch function to limit the search executions
-    // const debouncedHandleSearch = debounce(handleSearch, 300); log out
 
     const handleChange = (event) => {
-        const { value } = event.target;
+        const { value } = event?.target;
         setSearchTerm(value);
-        // Call the debounced handleSearch function with the search term Log out
         handleSearch(value);
     };
 
@@ -257,9 +253,6 @@ const planPrice2 = {
 
     const [innerDrawerOpen, setInnerDrawerOpen] = useState(false);
     const toggleInnerDrawer = (res) => {
-
-        console.log("done...")
-        console.log("🚀 ~ toggleInnerDrawer ~ res:", res)
         SetChatUser(res)
         updateUser(res)
 
@@ -434,7 +427,7 @@ const planPrice2 = {
         else {
             const Token = getCookie("authtoken")
 
-            const socket = io.connect(`https://happymilan.tech`, {
+            const socket = io.connect(`${process.env.NEXT_PUBLIC_SOCKET_AUTH_URL}`, {
                 path: '/api/socket.io',
                 query: { token: Token }
             });
@@ -494,7 +487,7 @@ const planPrice2 = {
                 id="nav-links"
                 className="p-1 p-[5px]  font-normal poppins rounded-[100%] dark:hover:bg-[#383838] hover:bg-[#F3F8FF] w-[40px] h-[40px] grid place-items-center"
             >
-                <Image alt="img" width={26} height={26} className="cursor-pointer" onClick={toggleDrawer('right', true)}  layout="responsive" style={{ width: 'auto', height: "auto" }} src={darkMode ? "/assests/dashboard/icon/chat-icon-dark.svg" : "/assests/dashboard/icon/chat-icon-light.svg"} />
+                <Image alt="img" width={26} height={26} className="cursor-pointer" onClick={toggleDrawer('right', true)} layout="responsive" style={{ width: 'auto', height: "auto" }} src={darkMode ? "/assests/dashboard/icon/chat-icon-dark.svg" : "/assests/dashboard/icon/chat-icon-light.svg"} />
 
             </div>
             <div

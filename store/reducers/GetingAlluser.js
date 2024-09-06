@@ -14,6 +14,7 @@ import {
     users: [],
     loading: false,
     error: null,
+    data : [],
   };
   
   const allUsersReducer = (state = initialState, action) => {

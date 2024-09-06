@@ -40,8 +40,6 @@ const MultiSelect = ({ formData, updateFormData }) => {
 
     // Handle selection
     const handleSelectChange = (selected) => {
-        console.log("🚀 ~ handleSelectChange ~ selected:", selected)
-
         setSelectedOptions(selected || []);
     };
 

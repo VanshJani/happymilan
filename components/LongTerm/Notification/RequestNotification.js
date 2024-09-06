@@ -44,6 +44,7 @@ function RequestNotification() {
   };
 
   const HanldeReject = (res) => {
+   
     dispatch(rejectRequest(res));
 
     setshortlistText("Shortlisted has been removed");

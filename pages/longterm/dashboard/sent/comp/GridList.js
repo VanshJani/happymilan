@@ -35,7 +35,7 @@ function GridList() {
 
     useEffect(() => {
         dispatch(fetchFriends("Gridview", Pages))
-    }, [currentPage])
+    }, [currentPage,setCurrentPage])
 
     const handlePageChange = (page) => {
         setCurrentPage(page);

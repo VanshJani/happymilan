@@ -3,7 +3,6 @@ import React from 'react'
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import NavBar from '../../../../_components/layout/NavBar';
-// import NavBar from '../../../../_components/layout/NavBar';
 
 function SideBar() {
 

@@ -13,7 +13,7 @@ export const checkUserPlan = createAsyncThunk('auth/checkUserPlan', async () => 
 
   const config = {
     method: 'get',
-    url: 'https://happymilan.tech/api/v1/user/user/checkPlan',
+    url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/checkPlan`,
     headers: {
       Authorization: `Bearer ${token}`,
     },

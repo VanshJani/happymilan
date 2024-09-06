@@ -19,7 +19,6 @@ import Avatar from "react-avatar";
 import StyledBadge from "../../../../../components/common/animation/StyleBadge";
 
 function Userprofile({ params, toggleDrawer }) {
-  console.log("🚀 ~ Userprofile ~ params:", params)
   const Username = {
     color: "#000",
     fontFamily: "Poppins",
@@ -739,7 +738,6 @@ function Userprofile({ params, toggleDrawer }) {
   const { userprofile } = router.query;
 
   const { user, loading, error } = useSelector((state) => state.userById);
-  console.log("🚀 ~ Userprofile ~ user:", user)
 
   const [ActiveTab, SetActiveTab] = useState(1);
 
@@ -876,21 +874,17 @@ function Userprofile({ params, toggleDrawer }) {
           className={`flex m-[10px] 2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] lg:w-full w-full bg-[#FFF]`}
         >
           <div
-            // id='profile-background-grad'
             className="ml-[-5px] mt-[-3px] bg-custom-gradient w-full h-[100px] 2xl:h-[138px] xl:h-[138px] md:h-[138px] lg:h-[138px] bg-[#0F52BA] rounded-[10px]"
           >
             <div>
               <div className="absolute right-[35px] pt-[10px]">
                 <ul className="flex space-x-[20px] items-center">
                   <li>
-                    {/* <div className=" flex justify-center rounded-[50%] group:hover:bg-[#F0F1F2] hover:opacity-25 w-[30px] h-[30px]">
-                    </div> */}
                     <Image loading="lazy"
                       width={4}
                       height={16}
                       alt="more"
                       src="/assests/Black/3Dots2.svg"
-                      // className="cursor-pointer relative top-[-25px] right-[-15px]"
                       className="cursor-pointer"
                       aria-describedby={id}
                       variant="contained"

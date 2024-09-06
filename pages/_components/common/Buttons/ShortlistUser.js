@@ -17,6 +17,7 @@ function ShortlistUser({ UserId }) {
 
     const HandleShortlist = () => {
 
+        console.log(UserId)
         SetshortlistedUser(!shortlistedUser)
         dispatch(addToShortlist(UserId)); // Dispatch the action with the shortlist ID
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 
-function ShareModal({ isOpen, onClose, data, UserID }) {
+function ShareModal({ isOpen, onClose, data, }) {
   if (!isOpen) return null;
   const TitleText = {
     fontFamily: "Poppins",
@@ -41,9 +41,10 @@ function ShareModal({ isOpen, onClose, data, UserID }) {
   };
 
   const NewTabOpen = () => {
+    // // const baseUrl = window.location.origin; // This will automatically take care of local and hosted environments
     // const baseUrl = window.location.origin; // This will automatically take care of local and hosted environments
-    const baseUrl = window.location.origin; // This will automatically take care of local and hosted environments
-    const url = `${baseUrl}/longterm/dashboard/${UserID}`;
+    // // const url = `${baseUrl}/longterm/dashboard/${UserID}`;
+    const url = data;
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 

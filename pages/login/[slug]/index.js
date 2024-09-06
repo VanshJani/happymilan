@@ -7,7 +7,6 @@ function Home() {
 
     useEffect(() => {
         const handleBeforeUnload = (event) => {
-            console.log("🚀 ~ handleBeforeUnload ~ event:", event)
             // Modern browsers require returnValue to be set
             event.preventDefault();
             event.returnValue = ''; // Some browsers require this line for compatibility

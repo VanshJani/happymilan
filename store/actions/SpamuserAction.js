@@ -9,8 +9,6 @@ export const UpdateSpamUser = (data) => ({
 
 export const PostSpamUser = (spamdetails) => {
 
-    console.log("🚀 ~ GetSearchUsersData ~ spamdetails:", spamdetails)
-
     return async (dispatch) => {
         dispatch({ type: POST_SPAM_REPORT_USER })
 
@@ -20,7 +18,7 @@ export const PostSpamUser = (spamdetails) => {
             "spamUserId": spamdetails?.spamUserId,
             "reason": spamdetails?.reason
         };
-    
+
         if (spamdetails?.remark) {
             data.remark = spamdetails.remark;
         }
@@ -28,7 +26,7 @@ export const PostSpamUser = (spamdetails) => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://happymilan.tech/api/v1/user/spam/create-spam',
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/spam/create-spam`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

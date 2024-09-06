@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutuser } from "../../../store/actions/UsersAction";
 
 
-function AuthNavbar({ background }) {
+function CommonNavbar({ background }) {
     const router = useRouter();
     const isBlogActive = router.pathname.startsWith('/blog');
     const isSuccessActive = router.pathname.startsWith('/successstories');
@@ -446,4 +446,4 @@ function AuthNavbar({ background }) {
     )
 }
 
-export default AuthNavbar
+export default CommonNavbar

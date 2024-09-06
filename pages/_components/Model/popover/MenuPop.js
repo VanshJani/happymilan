@@ -38,9 +38,9 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
     const handleClick = (event, res) => {
         SetUserData(res)
         setAnchorEl(event.currentTarget);
-        SetCurrentUserID(res.id);
+        SetCurrentUserID(res._id);
 
-        const userId = res.id;
+        const userId = res._id;
         const currentUrl = window.location.href;
         const urlWithUserId = `${currentUrl}/${userId}`;
 

@@ -61,7 +61,6 @@ const loginAuth = createSlice({
         state.handleError = null
 
         const data = action.payload.data;
-        console.log("🚀 ~ .addCase ~ data:", data)
 
         // Store user data in state
         state.user = data.user.name;
@@ -93,7 +92,7 @@ function SocketConnect(data) {
   // const socket = useSocket();
 
 
-  const socket = io.connect(`https://happymilan.tech`, {
+  const socket = io.connect(`${process.env.NEXT_PUBLIC_SOCKET_AUTH_URL}`, {
     path: '/api/socket.io',
     query: { token: data.tokens.refresh.token }
   });
@@ -110,8 +109,6 @@ function SocketConnect(data) {
 
 function setCookiesAndLocalStorage(data) {
 
-
-  console.log("🚀 ~ setCookiesAndLocalStorage ~ data:", data)
   localStorage.setItem("personal", JSON.stringify(data?.user))
   const objectData = {
     userid: data.user.id,
@@ -137,10 +134,6 @@ function setCookiesAndLocalStorage(data) {
   setCookie('email', data.user.email, { secure: true });
   setCookie('userName', data.user.name, { secure: true });
   setCookie('data', JSON.stringify(data.tokens), { secure: true });
-
-
-
-
 
 }
 

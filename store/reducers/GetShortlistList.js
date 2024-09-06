@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { STATUSES } from "./MyProfile";
-import { getCookie } from "cookies-next";
 import { RemoveShortlist } from "../actions/GetingAlluser";
 
 
@@ -15,17 +14,6 @@ const ShortlistData = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchshortlistdata.pending, (state, action) => {
-                state.status = STATUSES.LOADING
-            })
-            .addCase(fetchshortlistdata.fulfilled, (state, action) => {
-                state.data = action.payload.filterUsers;
-                state.shortlistUserdata = action.payload.userDataArray
-                state.status = STATUSES.IDLE;
-            })
-            .addCase(fetchshortlistdata.rejected, (state, action) => {
-                state.status = STATUSES.ERROR;
-            })
             .addCase(RemoveShortlist.pending, (state, action) => {
                 state.status = STATUSES.LOADING
             })
@@ -41,87 +29,6 @@ const ShortlistData = createSlice({
 
 })
 
-//Thunk 
-export const fetchshortlistdata = createAsyncThunk('shortlist/fetchData', async () => {
-    try {
-        const token = getCookie("authtoken");
-        const axios = require('axios');
-        const currentuser = getCookie("userid")
 
-        const config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: `https://happymilan.tech/api/v1/user/shortlist/get-short-list/${currentuser}`,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        };
-
-        const response = await axios(config);
-        const result = response.data;
-
-        console.log("🚀 ~ fetchshortlistdata ~ result:", result);
-
-        const filterUsers = result.data.filter(user => user?.userId == currentuser);
-        console.log("🚀 ~ fetchshortlistdata ~ filterUsers:", filterUsers)
-
-        const fetchPromises = result?.data?.map(element => FetchshortlistdatausingID(element?.shortlistId));
-        console.log("🚀 ~ fetchshortlistdata ~ fetchPromises:", fetchPromises)
-
-        // Use Promise.all() to wait for all promises to resolve
-        const userDataArray = await Promise.all(fetchPromises);
-
-        console.log("data array : ", userDataArray);
-
-        // return { response };
-        return { userDataArray, filterUsers };
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-
-
-
-});
-
-
-
-// export const FetchshortlistdatausingID = async (userId) => {
-
-//     try {
-//         const token = getCookie("authtoken")
-
-//         if (!token) {
-//             throw new Error('Token not found');
-//         }
-
-//         const myHeaders = new Headers();
-//         myHeaders.append('Authorization', `Bearer ${token}`);
-
-//         const requestOptions = {
-//             method: 'GET',
-//             headers: myHeaders,
-//             redirect: 'follow',
-//         };
-
-//         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/${userId}`, requestOptions);
-
-//         if (response.ok) {
-//             const result = await response.json();
-//             console.log("🚀 ~ FetchshortlistdatausingID ~ result:", result)
-//             return result.data;
-//         } else if (response.status === 401) {
-//             // Handle unauthorized access (e.g., redirect to login page or refresh token)
-//             throw new Error('Unauthorized');
-//         } else {
-//             console.error('API request failed:', response.statusText);
-//             throw new Error('API request failed');
-//         }
-//     } catch (error) {
-//         console.error('Error fetching user data:', error.message);
-//         throw error;
-//     }
-
-// }
 
 export default ShortlistData.reducer;

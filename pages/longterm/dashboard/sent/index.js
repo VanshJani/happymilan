@@ -91,9 +91,7 @@ function index() {
               <MoreSuggestion />
             </div>
           </div>
-          <div className='pt-[100px]'>
-            <Footer />
-          </div>
+          
         </div>
       </Layout>
     </>

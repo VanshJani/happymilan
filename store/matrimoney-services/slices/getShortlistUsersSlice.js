@@ -2,16 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getCookie } from 'cookies-next';
 import axios from 'axios';
 
-// Thunk for fetching friends Pending--v2
-export const fetchFriends = (View, Pages) => async (dispatch, getState) => {
-    dispatch(fetchFriendsRequest());
+// Thunk for fetching friends
+export const fetchshortlistUsers = ( Pages) => async (dispatch, getState) => {
+    dispatch(fetchshortlistrequest());
 
     try {
         const token = getCookie("authtoken");
 
         const config = {
             method: 'get',
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sentv2?page=${Pages?.currentPage}&limit=${View === "Gridview" ? "6" : "10"}`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/shortlist/get-short-list-paginat/669e4c96ecc5ee0a32564469?limit=6`,
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -20,7 +20,7 @@ export const fetchFriends = (View, Pages) => async (dispatch, getState) => {
         const response = await axios.request(config);
         const data = response.data;
 
-        dispatch(fetchFriendsSuccess({
+        dispatch(fetchshortlistsuccess({
             userData: data.data.results,
             totalPages: data.data.totalPages,
             currentPage: data.data.page,
@@ -28,13 +28,13 @@ export const fetchFriends = (View, Pages) => async (dispatch, getState) => {
             pagesdata: data.data
         }));
     } catch (error) {
-        dispatch(fetchFriendsFailure(error.message));
+        dispatch(fetchshortlistfaliure(error.message));
     }
 };
 
 // Slice
-const friendsSlice = createSlice({
-    name: 'friends',
+const shortlistusersSlice = createSlice({
+    name: 'shortlist',
     initialState: {
         userData: [],
         totalPages: 1,
@@ -55,11 +55,11 @@ const friendsSlice = createSlice({
             state.pagesdata = '';
             state.totalPages = 1;
         },
-        fetchFriendsRequest: (state) => {
+        fetchshortlistrequest: (state) => {
             state.status = 'loading';
             state.loading = true;
         },
-        fetchFriendsSuccess: (state, action) => {
+        fetchshortlistsuccess: (state, action) => {
             state.status = 'succeeded';
             state.loading = false;
             state.userData = action.payload.userData;  // Append only new data
@@ -68,7 +68,7 @@ const friendsSlice = createSlice({
             state.limit = action.payload.limit;
             state.pagesdata = action.payload.pagesdata;
         },
-        fetchFriendsFailure: (state, action) => {
+        fetchshortlistfaliure: (state, action) => {
             state.status = 'failed';
             state.loading = false;
             state.error = action.payload;
@@ -76,6 +76,6 @@ const friendsSlice = createSlice({
     },
 });
 
-export const { incrementPage, resetFriends, fetchFriendsRequest, fetchFriendsSuccess, fetchFriendsFailure } = friendsSlice.actions;
+export const { incrementPage, resetFriends, fetchshortlistrequest, fetchshortlistsuccess, fetchshortlistfaliure } = shortlistusersSlice.actions;
 
-export default friendsSlice.reducer;
+export default shortlistusersSlice.reducer;

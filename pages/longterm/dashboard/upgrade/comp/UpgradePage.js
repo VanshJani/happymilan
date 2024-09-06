@@ -82,7 +82,7 @@ function UpgradePage() {
 
         try {
 
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/razorpay/order`, { "planId": "667a53da5f57120e070eeed7" },
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/razorpay/order`, { "planId": data?.id },
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,

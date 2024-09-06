@@ -206,7 +206,7 @@ function UserStory({ formData, updateFormData }) {
 
         if (ActiveTab === 2) {
 
-         
+            console.log("Done")
             dispatch(Uploadmystory(thedata, imagesrc, blobData, StoryCaption))
         } else { SetActiveTab(ActiveTab + 1) }
     }

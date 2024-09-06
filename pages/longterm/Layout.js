@@ -1,3 +1,5 @@
+// app/layout.js
+
 import useUserActivity from "../../utils/hooks/UserActivity";
 import Footer from "../_components/layout/Footer";
 import NavBar from "../_components/layout/NavBar";

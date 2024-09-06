@@ -44,7 +44,13 @@ function index({ data }) {
         fontWeight: "400",
         lineHeight: "normal",
     }
-  
+    const Text2 = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "28px" /* 116.667% */
+    }
     const Text5 = {
         color: "#000",
         fontFamily: "Poppins",
@@ -184,7 +190,6 @@ function index({ data }) {
                                                     </svg>
                                                     <textarea style={{resize:"none"}} maxLength={200} className='hover:border-[#000] border-[1px] border-[#E9E9E9] rounded-[14px] outline-none pl-[50px] pt-[20px] w-full h-[110px]' placeholder='Share your wishes or comments' />
                                                 </div>
-                                              
                                             </div>
                                             <div className='absolute grid place-items-end relative top-[-50px] right-[19px]'>
                                                 <button style={TitleText} className='text-[14px] w-[81px] h-[40px] rounded-[10px]' id='grad-button'>Send</button>

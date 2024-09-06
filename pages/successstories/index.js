@@ -1,8 +1,8 @@
 import React from "react";
+import AuthNavbar from "../_components/layout/AuthNavbar";
+import Footer from "../_components/layout/Footer";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import NavBar from "../_components/layout/NavBar";
-import Footer from "../_components/layout/Footer";
 
 function index() {
   const router = useRouter();
@@ -82,7 +82,7 @@ function index() {
 
   return (
     <>
-      <NavBar />
+      <AuthNavbar />
       <div className="w-full h-full grid place-items-center">
         <div className="  mt-[100px] w-full md:w-full 2xl:w-[1200px] xl:w-[1200px]  lg:w-full">
           <div className="w-full grid place-items-center">
@@ -186,7 +186,7 @@ function index() {
         </div>
 
         <div id="footer-section" className="w-full">
-          <Footer/>
+          <Footer />
         </div>
       </div>
     </>

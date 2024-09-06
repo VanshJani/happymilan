@@ -29,15 +29,6 @@ function index() {
         fontWeight: "400",
         lineHeight: "normal",
     }
-
-    const Text3 = {
-        color: "#6A6A6A",
-        fontFamily: "Poppins",
-        fontSize: "10px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal",
-    }
     return (
         <>
             <AuthNavbar />

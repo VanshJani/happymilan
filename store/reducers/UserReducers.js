@@ -96,7 +96,7 @@ const initialState = {
     },
     sentrequestdata: {
         data: null,
-        sentUsersdata: null
+        sentUsersdata: null //Pending--v2
     },
     blockuserdata: {
         data: null,
@@ -457,7 +457,7 @@ const userReducer = (state = initialState, action) => {
                 loading: false,
                 sentrequestdata: {
                     data: action.payload.data,
-                    sentUsersdata: action.payload.sentUsersdata
+                    // sentUsersdata: action.payload.sentUsersdata  //Pending--v2
                 },
                 error: null
             }

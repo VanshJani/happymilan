@@ -8,7 +8,6 @@ import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useDarkMode } from '../../../ContextProvider/DarkModeContext';
 import UserProfile from '../../_components/Container/UserProfile'
-import useUserActivity from '../../../utils/hooks/UserActivity';
 import ProfileNotFound from '../../../components/common/Error/ProfileNotFound';
 import Layout from '../Layout';
 // Lazy load your components;
@@ -31,7 +30,6 @@ function index() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [listType, setListType] = useState(false);
 
-  useUserActivity();
 
   const { data, status } = useSelector((state) => state.myprofile);
 
@@ -81,7 +79,7 @@ function index() {
 
         // Update search results based on API response
 
-        setSearchResults(response.data.data);
+        setSearchResults(response?.data.data);
 
       })
       .catch((error) => {

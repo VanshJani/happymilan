@@ -13,7 +13,7 @@ export const UserActivityProvider = ({ children }) => {
 
     useEffect(() => {
         const Token = getCookie("authtoken");
-        const newSocket = io.connect(`https://happymilan.tech`, {
+        const newSocket = io.connect(`${process.env.NEXT_PUBLIC_SOCKET_AUTH_URL}`, {
             path: '/api/socket.io',
             query: { token: Token }
         });

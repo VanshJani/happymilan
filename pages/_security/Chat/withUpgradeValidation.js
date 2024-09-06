@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { checkUserPlan } from '../../../store/reducers/Authreducer';
+// import { checkUserPlan } from '../../../../store/slices/authSlice';
 
 function UpgradeValidation(WrappedComponent) {
 
@@ -25,24 +26,20 @@ function UpgradeValidation(WrappedComponent) {
         const dispatch = useDispatch();
         const router = useRouter();
         const { hasPlan, status } = useSelector((state) => state.auth);
-        console.log("1")
         useEffect(() => {
             if (status === 'idle') {
                 dispatch(checkUserPlan());
-                console.log("2")
+              
             }
         }, [dispatch, status]);
 
         useEffect(() => {
             if (status === 'succeeded' && !hasPlan) {
 
-                console.log("Router....")
-                // router.push('/');
             }
         }, [hasPlan, router, status]);
 
         if (status === 'loading') {
-            console.log("3")
             return <p>Loading...</p>;
         }
 

@@ -13,12 +13,11 @@ import { Pagination } from 'swiper';
 import Image from 'next/image';
 import { Dialog, DialogContent } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSentrequestData } from '../../../../../store/actions/UsersAction';
 import UserprofileSkeleton from '../../../../../components/common/shader/UserprofileSkeleton';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
+import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination';
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'));
 
 function SentRequest() {
@@ -148,19 +147,16 @@ function SentRequest() {
             handleClose()
         }, 2000);
     };
-    const dispatch = useDispatch();
 
-    const { userData,
-        totalPages,
-        limit,
-        pagesdata,
-        loading,
-        error,
-        status } = useSelector((state) => state.getsentrequestdata)
+    const dispatch = useDispatch();
+    const { userData, loading, error, currentPage, totalPages, status } = useSelector(state => state.getsentrequestdata);
 
     useEffect(() => {
-        dispatch(fetchFriends("listview", 1))
-    }, [])
+        // Initial fetch
+        dispatch(fetchFriends('ListView', { currentPage: 1 }));
+    }, [dispatch]);
+
+
 
 
     if (status == "loading") {
@@ -344,6 +340,8 @@ function SentRequest() {
                             })
 
                         }
+
+                        {/* <button onClick={handlePageChange}>Load More</button> */}
 
                     </div>
 

@@ -57,7 +57,6 @@ function NewUser({ SetOtpBoxActive }) {
             initialValues: initialValues,
             validationSchema: SignupSchema,
             onSubmit: (values) => {
-                // console.log("🚀 ~ UsernameTab ~ values:", values)
                 dispatch(SendCodeAction(values))
 
             }
@@ -124,7 +123,6 @@ function NewUser({ SetOtpBoxActive }) {
 
         useEffect(() => {
             const handleBeforeUnload = (event) => {
-               
                 // Modern browsers require returnValue to be set
                 event.preventDefault();
                 event.returnValue = ''; // Some browsers require this line for compatibility
@@ -235,7 +233,6 @@ function NewUser({ SetOtpBoxActive }) {
 
         useEffect(() => {
             const handleBeforeUnload = (event) => {
-              
                 // Modern browsers require returnValue to be set
                 event.preventDefault();
                 event.returnValue = ''; // Some browsers require this line for compatibility
@@ -258,7 +255,6 @@ function NewUser({ SetOtpBoxActive }) {
             initialValues: initialState,
             validationSchema: PasswordSchema,
             onSubmit: (values) => {
-           
                 dispatch(SubmitPasswordAction(values))
 
             }
@@ -338,7 +334,7 @@ function NewUser({ SetOtpBoxActive }) {
             }, 400)
         }
 
-        
+        console.log("The Message : ", message)
     }, [step]);
 
 

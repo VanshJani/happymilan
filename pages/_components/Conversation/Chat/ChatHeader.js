@@ -114,8 +114,7 @@ const Header = () => {
     const currentUser = getCookie("authtoken")
 
     socket?.on('typing', (data) => {
-        console.log("🚀 ~ socket?.on ~ data:", data)
-
+       
         // Check if the typing event is for the current user
         if (data.from != currentUser) { // Replace currentUserID with the ID of the current user
             // Update UI to indicate that the user is typing

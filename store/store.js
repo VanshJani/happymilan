@@ -18,6 +18,7 @@ import UserStoryView from './reducers/UserStoryView';
 import UpgradePlansReducer from './reducers/UpgradeReducer';
 import SignupReducer from './reducers/SignUpReducer';
 import UserSentRequestGetSlice from './matrimoney-services/slices/UserSentRequestPagination'
+import getShortlistUsersSlice from './matrimoney-services/slices/getShortlistUsersSlice';
 
 const store = configureStore({
   reducer: {
@@ -38,8 +39,8 @@ const store = configureStore({
     upgradeplans: UpgradePlansReducer,
     chatSafetyConsent: SafetyConsentReducer,
     signUp: SignupReducer,
-    getsentrequestdata: UserSentRequestGetSlice
-
+    getsentrequestdata: UserSentRequestGetSlice,
+    shortlistusers: getShortlistUsersSlice
   },
 });
 

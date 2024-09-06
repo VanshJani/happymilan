@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import AuthNavbar from '../_components/layout/AuthNavbar'
+import CommonNavbar from '../_components/layout/AuthNavbar'
 import GlobalFooter from '../_components/layout/GlobalFooter'
 import { Box, Modal, Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
@@ -81,6 +81,15 @@ function index() {
         fontWeight: "500",
         lineHeight: "normal",
     }
+
+    //     color: #000;
+    // text-align: center;
+    // font-family: Poppins;
+    // font-size: 16px;
+    // font-style: normal;
+    // font-weight: 500;
+    // line-height: normal;
+
 
     const ModalText = {
         color: "#000",
@@ -163,7 +172,7 @@ function index() {
 
     return (
         <>
-            <AuthNavbar />
+            <CommonNavbar />
 
             <div className='w-full h-full 2xl:pt-[120px] xl:pt-[100px] pt-[100px] space-y-[50px]'>
                 <div className='pb-[120px]'>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import AuthNavbar from '../_components/layout/AuthNavbar'
+import CommonNavbar from '../_components/layout/AuthNavbar'
 import Image from 'next/image'
 import { getCookie } from 'cookies-next'
 import GlobalFooter from '../_components/layout/GlobalFooter'
@@ -98,7 +98,7 @@ function index() {
     return (
         <>
 
-            <AuthNavbar />
+            <CommonNavbar />
             <div className='pt-[100px] 2xl:pt-[120px] xl:pt-[90px] lg:pt-[90px] space-y-[80px]'>
                 <div className='w-full flex justify-center items-center'>
                     <div className='w-[75%] flex justify-evenly space-x-[176px] items-center'>

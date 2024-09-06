@@ -264,7 +264,7 @@ const MediaMsg = ({ menu, userMessage, Outgoing, sendAt, Top, setTop, onDeleteMe
                                     <Typography style={messageText} variant='body2' color={"#000"}>
                                         {userMessage.message.length > 65 ? (
                                             <>
-                                            
+                                                {console.log("Message New Line")}
                                                 {userMessage.message.slice(0, 65)} {<br />} {userMessage.message.slice(65)}
                                             </>
                                         ) : (
@@ -397,7 +397,7 @@ const VideoMsg = ({ menu, userMessage, Outgoing, sendAt, Top, setTop, onDeleteMe
                                     <Typography style={messageText} variant='body2' color={"#000"}>
                                         {userMessage.message.length > 65 ? (
                                             <>
-                                               
+                                                {console.log("Message New Line")}
                                                 {userMessage.message.slice(0, 65)} {<br />} {userMessage.message.slice(65)}
                                             </>
                                         ) : (
@@ -780,81 +780,82 @@ const TypingMessage = () => {
 }
 
 const AudioMessage = ({ el, Outgoing, userMessage, sendAt, onDeleteMessage }) => {
-  
+
     const { userData, updateUser } = useContext(UserContext);
 
-const [isPlaying, setIsPlaying] = useState(false);
-const [currentTime, setCurrentTime] = useState(0);
-const [duration, setDuration] = useState(0);
-const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const audioRef = useRef(null);
 
-const handlePlay = () => {
-    if (audioRef.current) {
-        audioRef.current.play();
-        setIsPlaying(true);
-    }
-};
-
-const handlePause = () => {
-    if (audioRef.current) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-    }
-};
-
-const handlePlayPause = () => {
-    if (isPlaying) {
-        handlePause();
-    } else {
-        handlePlay();
-    }
-};
-
-const handleTimeUpdate = () => {
-    if (audioRef.current) {
-        const currentTime = audioRef.current.currentTime;
-        const duration = audioRef.current.duration;
-
-        setCurrentTime(isFinite(currentTime) ? currentTime : 0);
-        setDuration(isFinite(duration) ? duration : 0);
-    }
-};
-
-const handleSeek = (e) => {
-    if (audioRef.current) {
-        audioRef.current.currentTime = e.target.value;
-        setCurrentTime(e.target.value);
-    }
-};
-
-function formatDuration(durationSeconds) {
-    const minutes = Math.floor(durationSeconds / 60);
-    const seconds = Math.floor(durationSeconds % 60);
-    const formattedSeconds = seconds.toString().padStart(2, "0");
-    return `${minutes}:${formattedSeconds}`;
-}
-
-useEffect(() => {
-    const audioElement = audioRef.current;
-
-    const handleLoadedMetadata = () => {
-        if (audioElement) {
-            setDuration(isFinite(audioElement.duration) ? audioElement.duration : 0);
+    const handlePlay = () => {
+        if (audioRef.current) {
+            audioRef.current.play();
+            setIsPlaying(true);
         }
     };
 
-    if (audioElement) {
-        audioElement.addEventListener("loadedmetadata", handleLoadedMetadata);
-        audioElement.addEventListener("timeupdate", handleTimeUpdate);
-    }
-
-    return () => {
-        if (audioElement) {
-            audioElement.removeEventListener("loadedmetadata", handleLoadedMetadata);
-            audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+    const handlePause = () => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            setIsPlaying(false);
         }
     };
-}, []);
+
+    const handlePlayPause = () => {
+        if (isPlaying) {
+            handlePause();
+        } else {
+            handlePlay();
+        }
+    };
+
+    const handleTimeUpdate = () => {
+        if (audioRef.current) {
+            const currentTime = audioRef.current.currentTime;
+            const duration = audioRef.current.duration;
+
+            setCurrentTime(isFinite(currentTime) ? currentTime : 0);
+            setDuration(isFinite(duration) ? duration : 0);
+        }
+    };
+
+    const handleSeek = (e) => {
+        if (audioRef.current) {
+            audioRef.current.currentTime = e.target.value;
+            setCurrentTime(e.target.value);
+        }
+    };
+
+    function formatDuration(durationSeconds) {
+        const minutes = Math.floor(durationSeconds / 60);
+        const seconds = Math.floor(durationSeconds % 60);
+        const formattedSeconds = seconds.toString().padStart(2, "0");
+        return `${minutes}:${formattedSeconds}`;
+    }
+
+    useEffect(() => {
+        const audioElement = audioRef.current;
+
+        const handleLoadedMetadata = () => {
+            console.log("Metadata Loaded: ", audioElement.duration);
+            if (audioElement) {
+                setDuration(isFinite(audioElement.duration) ? audioElement.duration : 0);
+            }
+        };
+
+        if (audioElement) {
+            audioElement.addEventListener("loadedmetadata", handleLoadedMetadata);
+            audioElement.addEventListener("timeupdate", handleTimeUpdate);
+        }
+
+        return () => {
+            if (audioElement) {
+                audioElement.removeEventListener("loadedmetadata", handleLoadedMetadata);
+                audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+            }
+        };
+    }, []);
 
     // #audio-img #audio-button
 

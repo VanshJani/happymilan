@@ -1,5 +1,5 @@
 import { getCookie } from "cookies-next";
-import { GET_UPGRADE_PLANS, GET_UPGRADE_PLANS_BY_ID, GET_UPGRADE_PLANS_BY_ID_FAILURE, GET_UPGRADE_PLANS_BY_ID_SUCCESS, GET_UPGRADE_PLANS_FAILURE, GET_UPGRADE_PLANS_SUCCESS } from "../type"
+import { GET_PLANS_BY_NAME_FAILURE, GET_PLANS_BY_NAME_REQUEST, GET_PLANS_BY_NAME_SUCCESS, GET_UPGRADE_PLANS, GET_UPGRADE_PLANS_BY_ID, GET_UPGRADE_PLANS_BY_ID_FAILURE, GET_UPGRADE_PLANS_BY_ID_SUCCESS, GET_UPGRADE_PLANS_FAILURE, GET_UPGRADE_PLANS_SUCCESS } from "../type"
 
 export const GetupgradePlans = (currentPage) => {
     return async (dispatch) => {
@@ -50,7 +50,38 @@ export const GetupgradePlans = (currentPage) => {
     }
 }
 
-export const getPlansByID = () => {
+
+export const GetPlansByName = (PlanName) => {
+    return async (dispatch) => {
+
+        dispatch({ type: GET_PLANS_BY_NAME_REQUEST })
+        const axios = require('axios');
+        const token = getCookie('authtoken')
+
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/plan/get-plan-by-name/${PlanName}`,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+
+        axios.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                dispatch({ type: GET_PLANS_BY_NAME_SUCCESS, payload: response.data })
+
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch({ type: GET_PLANS_BY_NAME_FAILURE })
+            });
+
+    }
+}
+
+export const getPlansByID = (PlanID) => {
     return async (dispatch) => {
         dispatch({ type: GET_UPGRADE_PLANS_BY_ID })
 
@@ -60,7 +91,7 @@ export const getPlansByID = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/plan/get-plan/667a53da5f57120e070eeed7`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/plan/get-plan/${PlanID}`,
             headers: {
                 'Authorization': `Bearer ${AuthToken}`
             }
