@@ -43,6 +43,7 @@ const Pagination = ({ URL, currentPage, totalPages, onPageChange, darkMode }) =>
                     }
                 </button>
             )}
+
             {renderButtons()}
             {currentPage < totalPages && (
                 <button onClick={() => onPageChange(currentPage + 1)} className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] dark:border-[#FFF] border-[black] grid place-items-center rounded-full'>

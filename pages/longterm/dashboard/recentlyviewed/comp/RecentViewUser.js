@@ -15,10 +15,10 @@ import { sendRequest } from '../../../../../store/actions/UsersAction';
 import { addToShortlist } from '../../../../../store/actions/GetingAlluser';
 import RegisterAlertModal from '../../../../_components/Model/Models/RegisterAlertModal';
 import ReportModal from '../../../../_components/Model/Models/ReportModal';
-import ProfileMenu from '../../../../_components/Model/popover/MenuPop';
 import BlockUserModal from "../../../../_components/Model/Models/BlockModal";
 import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal';
 import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
+import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'), { ssr: false });
 const ShowMore = dynamic(() => import('../../../../_components/common/profile/UserBio'), { ssr: false });
 const SendRequestBtn = dynamic(() => import('../../../../_components/common/Buttons/SendRequestBtn'), { ssr: false });
@@ -202,7 +202,7 @@ function RecentViewUser() {
                                                                     return (
                                                                         <>
                                                                             <SwiperSlide key={Index}>
-                                                                                <Image  loading='lazy' alt='img' width={197} height={258} style={{ borderRadius: "10px", objectFit: "cover" }} className='w-[197px] h-[258px]' src={imageurl.url} />
+                                                                                <Image loading='lazy' alt='img' width={197} height={258} style={{ borderRadius: "10px", objectFit: "cover" }} className='w-[197px] h-[258px]' src={imageurl.url} />
                                                                             </SwiperSlide>
                                                                         </>
                                                                     )
@@ -238,7 +238,7 @@ function RecentViewUser() {
                                                                     </div>
                                                                 </li>
                                                                 <li>
-                                                                    <ProfileMenu openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
+                                                                    <ProfileMenu HandleCancelRequest={() => HandleCancelRequest(res, res?.viewerId?.id)} MenuTitle={"accepted"} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res.viewerId} />
                                                                 </li>
                                                             </ul>
                                                         </div>

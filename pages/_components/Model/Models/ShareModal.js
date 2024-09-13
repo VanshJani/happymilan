@@ -25,7 +25,7 @@ function ShareModal({ isOpen, onClose, data, }) {
     lineHeight: "normal",
   };
 
-  const [buttonText, setButtonText] = useState(false);
+  const [Copied, IsCopied] = useState(false);
 
   const handleCopy = () => {
     console.log(data);
@@ -33,9 +33,10 @@ function ShareModal({ isOpen, onClose, data, }) {
     navigator.clipboard
       .writeText(data)
       .then(() => {
-        // Change the button text to indicate the copy action
-        // setButtonText('Copied!');
-        setButtonText(true);
+        IsCopied(true)
+        setTimeout(() => {
+          IsCopied(false)
+        }, 2000);
       })
       .catch((error) => console.error("Failed to copy:", error));
   };
@@ -180,8 +181,6 @@ function ShareModal({ isOpen, onClose, data, }) {
                       twitterx
                     </label>
                   </div>
-                  {/* <Image width={55} height={55} src="/assests/social/linkedin.svg" />
-                                    <span className=" pt-[10px] text-[10px] text-[black]" style={TitleText}>LinkedIn</span> */}
                 </div>
               </div>
             </div>
@@ -191,55 +190,25 @@ function ShareModal({ isOpen, onClose, data, }) {
               <input
                 value={data}
                 type="text"
-                className="outline-none border-none bg-[#F7F7F7] rounded-[8px] w-full pr-[70px] pl-[10px]  h-[50px]"
+                className="text-[14px] outline-none border-none bg-[#F7F7F7] rounded-[8px] w-full pr-[80px] pl-[10px]  h-[50px]"
               />
-              <button
-                id="grad-button"
-                onClick={handleCopy}
-                style={TitleText}
-                className="text-[14px] lg:relative  top-[-50px] left-[220px] w-[66px] text-[#fff] bg-[#0F52BA] rounded-[8px] h-[50px] grid place-items-center"
-              >
-                {!buttonText ? (
-                  <>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-6 h-6"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
-                      />
-                    </svg>
-                  </>
-                ) : (
-                  <>
-                    <div
+              <button onClick={handleCopy} id="grad-btn" class="relative right-[-210px] top-[-43px] text-[#FFF] dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5  bg-white border-gray-200 border">
+                {!Copied ?
+                  <span id="default-message" class="inline-flex items-center">
 
-                      className="bg-custom-gradient w-[50px] h-[40px] absolute top-[-45px] flex items-center justify-center text-white rounded"
-                    >
-                      <p className="text-[10px]"> Copied ! </p>
-                    </div>
-                    <div
-                      className="absolute top-[-12px] w-[10px] h-[10px] bg-[black]"
-                      id="Arrow-bottom"
-                    ></div>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="w-6 h-6"
-                    >
-                      <path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75 0 0 1 21 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875 0 0 1 7.5 16.125V3.375Z" />
-                      <path d="M15 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 17.25 7.5h-1.875A.375.375 0 0 1 15 7.125V5.25ZM4.875 6H6v10.125A3.375 3.375 0 0 0 9.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V7.875C3 6.839 3.84 6 4.875 6Z" />
+                    <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="#FFF" viewBox="0 0 18 20">
+                      <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z" />
                     </svg>
-                  </>
-                )}
+                    <span class="text-xs font-semibold">Copy</span>
+                  </span>
+                  :
+                  <span id="success-message" class=" inline-flex items-center">
+                    <svg class="w-3 h-3 text-blue-700 dark:text-blue-500 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                      <path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span class="text-xs font-semibold text-[#FFF] dark:text-blue-500">Copied</span>
+                  </span>
+                }
               </button>
             </div>
           </div>

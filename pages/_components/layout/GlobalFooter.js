@@ -29,7 +29,7 @@ function GlobalFooter() {
                 <ul className='space-y-[15px]'>
                     <li style={footerlinks} className={`${router.pathname == "/aboutus" ? "text-[#0F52BA]" : "text-[#000] hover:text-[#0F52BA]"}`}>
                         <Link href="/aboutus">About</Link></li>
-                    <li style={footerlinks} className={`${router.pathname == "/successstories" ? "text-[#0F52BA]" : "text-[#000] hover:text-[#0F52BA]"}`}>
+                    <li style={footerlinks} className={`${router.pathname.startsWith("/successstories") ? "text-[#0F52BA]" : "text-[#000] hover:text-[#0F52BA]"}`}>
                         <Link href="/successstories">Success  Stories</Link>
                     </li>
                     <li style={footerlinks} className={`${router.pathname == "/faq" ? "text-[#0F52BA]" : "text-[#000] hover:text-[#0F52BA]"}`}>
@@ -50,8 +50,8 @@ function GlobalFooter() {
                     <li style={footerlinks} className={`${router.pathname == "/privacypolicy" ? "text-[#0F52BA]" : "text-[#000] hover:text-[#0F52BA]"}`}>
                         <Link href="/privacypolicy">Privacy Policy</Link>
                     </li>
-                    <li style={footerlinks} className='hover:text-[#0F52BA] text-[#000]'>
-                        Report
+                    <li style={footerlinks} className={`${router.pathname.startsWith("/blog") ? "text-[#0F52BA]" : "text-[#000] hover:text-[#0F52BA]"}`}>
+                        Blogs
                     </li>
                 </ul>
                 <ul className='flex justify-between w-[131.551px]'>

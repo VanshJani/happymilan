@@ -318,19 +318,18 @@ function SampleUserProfile({ users }) {
                                                 </div>
                                             </div>
                                             <div className="w-full pt-[15px] 2xl:pt-[15px] xl:pt-[20px]">
-                                                <div className="flex justify-between  h-[50px]">
-                                                    <div>
-
+                                                <div className="flex justify-between">
+                                                    <div className="w-[50%] ">
                                                         <h1
                                                             onClick={() => HandlePushUser(res._id)}
-                                                            className="2xl:text-[20px] xl:text-[15px] text-[15px] cursor-pointer text-[#000] dark:text-[#FFF]  hover:opacity-75 duration-100"
+                                                            className="2xl:text-[18px] xl:text-[15px] text-[10px] cursor-pointer text-[#000] dark:text-[#FFF] hover:opacity-75 duration-100 break-words"
                                                             style={ProfileName}
                                                         >
                                                             {capitalizeFirstLetter(res.name)}
                                                         </h1>
                                                         <h1
                                                             style={statusText}
-                                                            className={`text-[#17C270]`}
+                                                            className="text-[#17C270] break-words"
                                                         >
                                                             {res?.isUserActive ?
                                                                 <span className="text-[9px] text-[#0091FF]">Online now</span>
@@ -339,11 +338,12 @@ function SampleUserProfile({ users }) {
                                                             }
                                                         </h1>
                                                     </div>
+
                                                     <div className="pr-[8px]">
                                                         {/* <ul className="flex justify-evenly space-x-[20px] pr-[10px] pt-[10px]"> */}
                                                         <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
 
-                                                            <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]`}>
+                                                            <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] flex space-x-[10px] top-[-8px] p-[5px] relative left-[5px]`}>
 
                                                                 <MatchScoreModal user={res} />
 
@@ -493,7 +493,7 @@ function SampleUserProfile({ users }) {
                                                     </div>
                                                 </div>
 
-                                                <div className="absolute right-0 mt-[-10px]">
+                                                <div className="absolute right-0 bottom-[18px]">
                                                     <SendRequestBtn
                                                         userdata={res?.name}
                                                         Requeststatus={res?.friendsDetails}

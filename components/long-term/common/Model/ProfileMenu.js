@@ -1,12 +1,15 @@
-import Image from "next/image";
-import { useDarkMode } from "../../../../ContextProvider/DarkModeContext";
-import icons from "../../../../utils/icons/icons";
-import React, { useState } from "react";
-import { Dialog, Popover } from "@mui/material";
-import { updateSpamUserdata } from "../../../../store/reducers/SpamReportReducer";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react'
+import icons from '../../../../utils/icons/icons'
+import { useDarkMode } from '../../../../ContextProvider/DarkModeContext';
+import Image from 'next/image';
+import ShareModal from '../../../../pages/_components/Model/Models/ShareModal';
+import { Dialog, Popover } from '@mui/material';
+import BlockUserModal from '../../../../pages/_components/Model/Models/BlockModal';
+import ReportModal from '../../../../pages/_components/Model/Models/ReportModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSpamUserdata } from '../../../../store/reducers/SpamReportReducer';
 
-const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal, OpenReportModal, openBlockModal, Sections }) => {
+function ProfileMenu({ res, Section, HandleCancelRequest }) {
 
     const { darkMode, toggleDarkMode } = useDarkMode();
 
@@ -33,21 +36,70 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
     // const [Username,SetUsername] = useState("")
 
     const [UserData, SetUserData] = useState("");
+    const [CurrURL, SetCurURL] = useState("")
 
+    // Block Modal Section -- start
+
+
+    const [blockprofile, setblockprofile] = useState(false);
+    const [isBlockModalOpen, setisBlockModalOpen] = useState(false);
+
+    const openBlockModal = () => {
+        setisBlockModalOpen(true);
+    }
+    const closeBlockModal = () => { setisBlockModalOpen(false) }
+
+    // Block Modal Section -- End
+
+    // Report Modal Section - Start
+
+    const [isReportModalOpen, setisReportModalOpen] = useState(false);
+
+    const dispatch = useDispatch();
+    const spamUserData = useSelector(state => state.Spamuser.SpamUserdata);
+
+    const OpenReportModal = () => {
+        setisReportModalOpen(true);
+
+    };
+
+    const CloseReportModal = () => {
+        setisReportModalOpen(false);
+    };
+
+
+    const ReportModalHandle = () => {
+        handleClose();
+        OpenReportModal();
+        console.log(res)
+
+        dispatch(updateSpamUserdata({
+            ...spamUserData,
+            spamUserId: res?.id,
+            UserName: res?.firstName + " " + res?.lastName
+        }));
+
+    }
+
+
+    // Report Modal Section - End
 
     const handleClick = (event, res) => {
         SetUserData(res)
         setAnchorEl(event.currentTarget);
-        SetCurrentUserID(res._id);
+        SetCurrentUserID(res?.id || res?._id || "");
 
-        const userId = res._id;
+        const userId = res?.id || res?._id || "";
         const currentUrl = window.location.href;
-        const urlWithUserId = `${currentUrl}/${userId}`;
+
+        // Remove "/sent" from the URL if it exists
+        const newUrl = currentUrl.replace('/sent', '');
+
+        // Append userId to the modified URL
+        const urlWithUserId = `${newUrl}/${userId}`;
 
         SetCurURL(urlWithUserId);
-        if (MenuTitle != "accepted") {
 
-        }
     };
 
     const handleClose = () => {
@@ -57,17 +109,34 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
 
-    const [blockprofile, setblockprofile] = useState(false);
 
     const [openURLModal, setOpenURLModal] = React.useState(false);
 
+
+    const HandleOpenShareModal = () => {
+        openModal()
+        handleClose();
+    }
+
+    const [UserID, SetUserID] = useState("");
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = (e) => {
+        setIsModalOpen(true);
+
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+
     const handleClickOpen = () => {
-        const userId = CurrentUserID;
-        const currentUrl = window.location.href;
-        const urlWithUserId = `${currentUrl}/${userId}`;
 
         navigator.clipboard
-            .writeText(urlWithUserId)
+            .writeText(CurrURL)
             .then(() => {
                 setOpenURLModal(true);
                 handleClose(); // Reset copied state after 2 seconds
@@ -79,28 +148,50 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
         }, 800);
     };
 
+    // All Sections 
 
-    const dispatch = useDispatch();
-    const spamUserData = useSelector(state => state.Spamuser.SpamUserdata);
-
-
-    const ReportModalHandle = () => {
-        handleClose();
-        OpenReportModal();
-        console.log(res)
-
-        dispatch(updateSpamUserdata({
-            ...spamUserData,
-            spamUserId: res.id ? res?.id : res?._id,
-            UserName: res?.firstName + " " + res?.lastName
-        }));
-
+    const SecntSection = () => {
+        return (
+            <>
+            </>
+        )
     }
 
-    const HandleOpenShareModal = () => {
-        openModal()
-        handleClose();
+    const AcceptedSection = () => {
+        return (
+
+            <li
+                onClick={HandleCancelRequest}
+                style={Text3}
+                className="cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
+            >
+                <div className=" ml-[20px] flex space-x-[24px]">
+                    <Image loading="lazy"
+                        alt="copy"
+                        width={14}
+                        height={14}
+                        src="/assests/Black/UnfriendUser.svg"
+                    />{" "}
+                    <p>Unfriend {UserData?.name ? UserData?.name : ""}</p>
+                </div>
+            </li>
+        )
     }
+
+
+
+    const renderSection = () => {
+        switch (Section) {
+            case 'sent':
+                return <SecntSection />
+            case 'accepted':
+                return <AcceptedSection />
+            default:
+                return ""
+        }
+    }
+
+
 
     return (
         <>
@@ -113,6 +204,9 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
                     {darkMode ? icons.more.dark : icons.more.light}
                 </span>
             </div>
+
+            {/* Modal  */}
+
             <Popover
                 id={id}
                 open={open}
@@ -135,10 +229,8 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
                         marginLeft: "-10px",
                     }, // Add this to remove the shadow
                 }}
-              
-
             >
-                <div className={` flex flex- col items-center bg-[#FFF] rounded-[10px] w-[220px] ${MenuTitle ? "h-[180px]" : "h-[150px]"}`}>
+                <div className={`flex flex-col items-center bg-[#FFF] rounded-[10px] w-[220px] h-[full] pb-[10px] `}>
                     <div className="w-full h-full">
                         <ul className="w-full flex flex-col justify-center items-center space-y-[0px]">
                             <li
@@ -217,46 +309,27 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
                                     <p> Report this profile</p>
                                 </div>
                             </li>
-                            <li
-                                onClick={handleClickOpen}
-                                style={Text3}
-                                className="cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
-                            >
-                                <div className=" ml-[20px] flex space-x-[24px]">
-                                    <Image
-                                        loading="lazy"
-                                        alt="icon"
-                                        width={12}
-                                        height={14}
-                                        src="/assests/dashboard/icon/copy-icon.svg"
-                                    />{" "}
-                                    <p>Copy URL</p>
-                                </div>
-                            </li>
-                            {MenuTitle == "accepted" ? <>
-                                <li
-                                    onClick={HandleCancelRequest}
-                                    style={Text3}
-                                    className="cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
-                                >
-                                    <div className=" ml-[20px] flex space-x-[24px]">
-                                        <Image loading="lazy"
-                                            alt="copy"
-                                            width={14}
-                                            height={14}
-                                            src="/assests/Black/UnfriendUser.svg"
-                                        />{" "}
-                                        <p>Unfriend</p>
-                                    </div>
-                                </li>
-                            </>
-                                :
-                                ""}
+                            {renderSection()}
                         </ul>
-                    </div>
-                </div >
-            </Popover >
 
+                    </div>
+                </div>
+            </Popover>
+
+
+            {/* All Models */}
+            <ShareModal UserID={UserID} isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
+            <BlockUserModal
+                isOpen={isBlockModalOpen}
+                onClose={closeBlockModal}
+            />
+
+            <ReportModal
+                title={"helo"}
+                isOpen={isReportModalOpen}
+                onClose={CloseReportModal}
+                ReportData={CurrURL}
+            />
 
             <React.Fragment>
                 <Dialog
@@ -284,13 +357,9 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
                 </Dialog>
             </React.Fragment>
 
+            {/* All Models */}
+
         </>
     )
 }
-
-
-// export default ProfileMenu;
-export default ProfileMenu;
-
-
-
+export default ProfileMenu

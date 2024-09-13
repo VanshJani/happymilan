@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, {  useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 import { Checkbox } from '@material-tailwind/react';
-import { updateMyAddressData } from '../../../../../../store/reducers/MyProfile';
+import { fetchAdressData, updateMyAddressData } from '../../../../../../store/reducers/MyProfile';
 import { capitalizeFirstLetter } from '../../../../../../utils/form/Captitelize';
 import { useDarkMode } from '../../../../../../ContextProvider/DarkModeContext';
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton';
@@ -15,6 +15,10 @@ const AddressTab = ({ AddressID }) => {
 
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchAdressData(AddressID?.id))
+    }, [])
 
     const { loading, data } = useSelector((state) => state.myprofile.profileData.adressData)
 
@@ -95,9 +99,9 @@ const AddressTab = ({ AddressID }) => {
 
 
     const [CurrentAddressData, SetCurrentAddressData] = useState({
-        currentResidenceAddress: AddressID?.currentResidenceAddress ? AddressID.currentResidenceAddress : "",
-        currentCity: AddressID?.currentCity ? AddressID.currentCity : "",
-        currentCountry: AddressID?.currentCountry ? AddressID.currentCountry : "",
+        currentResidenceAddress: data?.currentResidenceAddress ? data.currentResidenceAddress : "",
+        currentCity: data?.currentCity ? data.currentCity : "",
+        currentCountry: data?.currentCountry ? data.currentCountry : "",
 
     })
 
@@ -218,16 +222,16 @@ const AddressTab = ({ AddressID }) => {
                                         <div className="w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 2xl:gap-[32px] xl:gap-[32px] lg:gap-[32px] md:gap-[32px] gap-[30px]">
                                             <div className='col-span-2'>
                                                 <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Current Residing Address</p>
-                                                <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{AddressID?.currentResidenceAddress ? capitalizeFirstLetter(AddressID.currentResidenceAddress) : "NA"}</h1>
+                                                <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{CurrentAddressData?.currentResidenceAddress ? capitalizeFirstLetter(CurrentAddressData.currentResidenceAddress) : "NA"}</h1>
                                             </div>
 
                                             <div>
                                                 <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Current City</p>
-                                                <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{AddressID?.currentCity ? capitalizeFirstLetter(AddressID.currentCity) : "NA"}</h1>
+                                                <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{CurrentAddressData?.currentCity ? capitalizeFirstLetter(CurrentAddressData.currentCity) : "NA"}</h1>
                                             </div>
                                             <div>
                                                 <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Current Residing Country</p>
-                                                <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{AddressID?.currentCountry ? capitalizeFirstLetter(AddressID.currentCountry) : "NA"}</h1>
+                                                <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{CurrentAddressData?.currentCountry ? capitalizeFirstLetter(CurrentAddressData.currentCountry) : "NA"}</h1>
                                             </div>
 
                                         </div>

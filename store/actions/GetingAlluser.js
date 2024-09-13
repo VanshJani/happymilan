@@ -8,6 +8,10 @@ export const FETCH_ALL_USERS_REQUEST = 'FETCH_ALL_USERS_REQUEST';
 export const FETCH_ALL_USERS_SUCCESS = 'FETCH_ALL_USERS_SUCCESS';
 export const FETCH_ALL_USERS_FAILURE = 'FETCH_ALL_USERS_FAILURE';
 
+export const FETCH_ALL_USERS_PAGINATED_REQUEST = "FETCH_ALL_USERS_PAGINATED_REQUEST"
+export const FETCH_ALL_USERS_PAGINATED_SUCCESS = "FETCH_ALL_USERS_PAGINATED_SUCCESS"
+export const FETCH_ALL_USERS_PAGINATED_FAILURE = "FETCH_ALL_USERS_PAGINATED_FAILURE"
+
 
 export const ADD_TO_SHORTLIST_REQUEST = 'ADD_TO_SHORTLIST_REQUEST';
 export const ADD_TO_SHORTLIST_SUCCESS = 'ADD_TO_SHORTLIST_SUCCESS';
@@ -32,7 +36,7 @@ export const likeUser = (userId) => ({
 });
 
 export const CreateLikeUser = (user) => {
- 
+
   return async (dispatch) => {
 
     const axios = require('axios');
@@ -120,13 +124,49 @@ export const removeRequest = (userId) => ({
   payload: userId,
 });
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+// function shuffleArray(array) {
+//   for (let i = array.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [array[i], array[j]] = [array[j], array[i]];
+//   }
+//   return array;
+// }
+
+
+export const fetchallusersPagination = (CurrentPage) => async (dispatch) => {
+  dispatch({ type: FETCH_ALL_USERS_PAGINATED_REQUEST });
+
+  try {
+    const token = getCookie("authtoken")
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/getUserByGender?page=${CurrentPage}&limit=6`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = response?.data?.data
+    console.log("🚀 ~ fetchallusersPagination ~ data:", data)
+
+    dispatch({
+      type: FETCH_ALL_USERS_PAGINATED_SUCCESS,
+      // payload: response?.data?.data,
+      payload: {
+        userData: data?.users,
+        totalPages: data?.totalPages,
+        currentPage: data?.currentPage,
+        // limit: data?.limit,
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_ALL_USERS_PAGINATED_FAILURE,
+      payload: error.message,
+    });
   }
-  return array;
-}
+};
 
 
 export const fetchAllUsers = () => async (dispatch) => {
@@ -142,12 +182,10 @@ export const fetchAllUsers = () => async (dispatch) => {
         },
       }
     );
-    const theuser = getCookie('email');
-    const filterUsers = response.data.data.filter(user => user.email !== theuser)
-    const shuffledata = shuffleArray(filterUsers);
+
     dispatch({
       type: FETCH_ALL_USERS_SUCCESS,
-      payload: shuffledata,
+      payload: response?.data?.data,
     });
   } catch (error) {
     dispatch({

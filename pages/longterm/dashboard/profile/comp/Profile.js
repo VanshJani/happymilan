@@ -115,7 +115,6 @@ function Profile() {
             }
             else if (name == "birthTime") {
                 const currentDate = new Date();
-
                 // Extract the date parts
                 const year = currentDate.getFullYear();
                 const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JavaScript
@@ -568,7 +567,7 @@ function Profile() {
                                     <li>
                                         <div className='flex items-center space-x-[10px]'>
                                             <Image loading='lazy' alt='upIcon' width={14} height={14} src='/assests/dashboard/icon/up-arrow.svg' />
-                                        {/* Pending--v2  */}
+                                            {/* Pending--v2  */}
                                             <h1 style={Text3} className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{"0"}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>Sent</span></h1>
                                         </div>
                                     </li>

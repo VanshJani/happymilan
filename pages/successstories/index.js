@@ -3,6 +3,7 @@ import AuthNavbar from "../_components/layout/AuthNavbar";
 import Footer from "../_components/layout/Footer";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import GlobalFooter from "../_components/layout/GlobalFooter";
 
 function index() {
   const router = useRouter();
@@ -96,7 +97,7 @@ function index() {
                   </li>
                   <li>
                     <button
-                      
+
                       onClick={() => router.push("/successstories/addstories")}
                       className="w-[144px]  h-[40px] rounded-[23px] hover:bg-[#F3F8FF]  border-[1px] border-[#8225AF]"
                       style={TitleText}
@@ -166,13 +167,14 @@ function index() {
                             Read story
                           </p>
                         </div>
-                        <div className="m-5 relative top-[30px]">
+                        <div className="group m-5 relative top-[30px]">
+                          <div className=" opacity-[0.2] group-hover:bg-[#F2F7FF] w-[30px] h-[30px] absolute top-[-6px] right-[-6px] rounded-full "></div>
                           <Image
                             loading="lazy"
                             alt="img"
                             width={8}
                             height={8}
-                            className="cursor-pointer w-[18px] h-[18px]"
+                            className="group cursor-pointer w-[18px] h-[18px]"
                             src="/group-1061.svg"
                           />
                         </div>
@@ -184,11 +186,11 @@ function index() {
             })}
           </div>
         </div>
-
-        <div id="footer-section" className="w-full">
-          <Footer />
-        </div>
+       
       </div>
+      <div id="footer-section" className="border-t-[1px] border-t-[#DEDEDE] w-full mt-[100px]">
+          <GlobalFooter />
+        </div>
     </>
   );
 }

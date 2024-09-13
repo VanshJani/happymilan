@@ -80,7 +80,7 @@ function NewUser({ SetOtpBoxActive }) {
                         <li className='text-center'>
                             <div className='flex'>
                                 <Image src={"/assests/login/user-icon.svg"} alt='email' width={18} height={14} className='absolute mt-[18px] ml-[20px]' />
-                                <input type='email' placeholder='Enter Your Email or Mobile' name='email' value={values.email} autocomplete="off" onChange={handleChange} className={`w-[300px] h-[50px] border-[1px] border-[#E6E6E6] ${errors.email && touched.email ? "border-[red]" : "hover:border-[#000]  focus:border-[#000]"} outline-none rounded-[25px] pl-[50px]`} style={inpText} />
+                                <input type='email' placeholder='Enter Your Email or Mobile' name='email' value={values.email} autoComplete="off" onChange={handleChange} className={`w-[300px] h-[50px] border-[1px] border-[#E6E6E6] ${errors.email && touched.email ? "border-[red]" : "hover:border-[#000]  focus:border-[#000]"} outline-none rounded-[25px] pl-[50px]`} style={inpText} />
                             </div>
                             {errors.email && touched.email
                                 ? (<span style={ErrorsText}>{errors.email}</span>)

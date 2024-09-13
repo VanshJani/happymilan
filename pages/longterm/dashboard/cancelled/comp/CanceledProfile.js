@@ -8,17 +8,22 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-const  ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'))
-import { Dialog  } from '@mui/material';
+const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'))
+import { Dialog } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
+import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
+import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
+import ShowMore from '../../../../_components/common/profile/UserBio';
 
-function CanceledProfile({thedata , isauthuserID}) {
+function CanceledProfile({ thedata, isauthuserID }) {
 
+    const { darkMode } = useDarkMode();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
-   
+
     const [CurrentUserID, SetCurrentUserID] = useState("");
-    const [CurrURL,SetCurURL] = useState("")
+    const [CurrURL, SetCurURL] = useState("")
 
     const handleClick = (event, res) => {
         setAnchorEl(event.currentTarget);
@@ -41,7 +46,7 @@ function CanceledProfile({thedata , isauthuserID}) {
     const [blockprofile, setblockprofile] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    
+
     const openModal = () => {
         setIsModalOpen(true);
         handleClose();
@@ -112,9 +117,9 @@ function CanceledProfile({thedata , isauthuserID}) {
 
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("helo")
-    },[])
+    }, [])
 
 
     const [openURLModal, setOpenURLModal] = React.useState(false);
@@ -122,25 +127,25 @@ function CanceledProfile({thedata , isauthuserID}) {
     const handleClickOpen = () => {
 
 
-            const userId = CurrentUserID;
-            const currentUrl = window.location.href;
-            const urlWithUserId = `${currentUrl}/${userId}`;
-    
-        
-    
-            navigator.clipboard.writeText(urlWithUserId)
-                .then(() => {
-                    setOpenURLModal(true);
-                    handleClose() // Reset copied state after 2 seconds
-                })
-                .catch(error => console.error('Failed to copy URL: ', error));
-    
-    
-            setTimeout(() => {
-                setOpenURLModal(false);
-    
-            }, 800);
-        };
+        const userId = CurrentUserID;
+        const currentUrl = window.location.href;
+        const urlWithUserId = `${currentUrl}/${userId}`;
+
+
+
+        navigator.clipboard.writeText(urlWithUserId)
+            .then(() => {
+                setOpenURLModal(true);
+                handleClose() // Reset copied state after 2 seconds
+            })
+            .catch(error => console.error('Failed to copy URL: ', error));
+
+
+        setTimeout(() => {
+            setOpenURLModal(false);
+
+        }, 800);
+    };
 
 
     return (
@@ -151,7 +156,7 @@ function CanceledProfile({thedata , isauthuserID}) {
 
                     {
 
-                        thedata?.data.map((res,index) => {
+                        thedata?.data.map((res, index) => {
                             // const { images } = res
 
                             return (
@@ -169,7 +174,7 @@ function CanceledProfile({thedata , isauthuserID}) {
                                                         className="mySwiper relative 2xl:w-[197px] xl:w-[185px] w-[185px] h-[260px]"
                                                     >
                                                         <SwiperSlide>
-                                                            <Image loading='lazy' alt='img-1' width={197} height={258} className='w-[197px] h-[258px]' style={{objectFit:"cover",borderRadius:"10px"}} src={res?.user.id == isauthuserID ? res?.friend.profilePic : res?.user.profilePic} />
+                                                            <Image loading='lazy' alt='img-1' width={197} height={258} className='w-[197px] h-[258px]' style={{ objectFit: "cover", borderRadius: "10px" }} src={res?.user.id == isauthuserID ? res?.friend.profilePic : res?.user.profilePic} />
                                                         </SwiperSlide>
                                                         <SwiperSlide>
                                                             <Image loading='lazy' alt='img-2' width={197} height={258} className='w-[197px] h-[258px]' src={"/assests/dashboard/ignore/ignore-2.svg"} />
@@ -192,68 +197,157 @@ function CanceledProfile({thedata , isauthuserID}) {
                                                             <li className='text-[10px]' style={Text4}>You & Her</li>
                                                             <li><Image loading='lazy' alt='star-icon' width={15} height={14} src='/assests/Black/Stars-2.svg' /></li>
                                                             <li>
-
-                                                                <Image loading='lazy' width={3} height={14} alt='more' src='/assests/Black/3Dots.svg' className='cursor-pointer' aria-describedby={id} variant="contained" onClick={(event)=>handleClick(event,res)} />
-                                                                <Popover
-                                                                    id={id}
-                                                                    open={open}
-                                                                    anchorEl={anchorEl}
-                                                                    onClose={handleClose}
-                                                                    anchorOrigin={{
-                                                                        vertical: 'top',
-                                                                        horizontal: 'left',
-                                                                    }}
-                                                                    transformOrigin={{
-                                                                        vertical: 'top',
-                                                                        horizontal: 'right',
-                                                                    }}
-                                                                    PaperProps={{
-                                                                        style: { boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px', borderRadius: "10px", marginLeft: "-10px" } // Add this to remove the shadow
-                                                                    }}
-                                                                >
-                                                                    <div className='bg-[#FFF] rounded-[10px] w-[128px] h-[150px]'>
-
-                                                                        <ul className='flex flex-col justify-center space-y-[12px] ml-[12px] '>
-                                                                            <li style={Text3} onClick={openModal} className='cursor-pointer flex  items-center space-x-[12px] text-[14px] mt-[15px]'> <Image loading='lazy' alt='img' width={13} height={14} src='/assests/dashboard/icon/share-icon.svg' /> <p>Share</p></li>
-                                                                            <li style={Text3} onClick={() => setblockprofile(!blockprofile)} className='cursor-pointer flex  items-center space-x-[12px] text-[14px]'> {blockprofile ? <> <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                <path id="Vector" d="M7 14C6.03167 14 5.12167 13.8162 4.27 13.4488C3.41833 13.0813 2.6775 12.5825 2.0475 11.9525C1.4175 11.3225 0.91875 10.5817 0.55125 9.73C0.18375 8.87833 0 7.96833 0 7C0 6.03167 0.18375 5.12167 0.55125 4.27C0.91875 3.41833 1.4175 2.6775 2.0475 2.0475C2.6775 1.4175 3.41833 0.91875 4.27 0.55125C5.12167 0.18375 6.03167 0 7 0C7.96833 0 8.87833 0.18375 9.73 0.55125C10.5817 0.91875 11.3225 1.4175 11.9525 2.0475C12.5825 2.6775 13.0813 3.41833 13.4488 4.27C13.8162 5.12167 14 6.03167 14 7C14 7.96833 13.8162 8.87833 13.4488 9.73C13.0813 10.5817 12.5825 11.3225 11.9525 11.9525C11.3225 12.5825 10.5817 13.0813 9.73 13.4488C8.87833 13.8162 7.96833 14 7 14ZM7 12.95C8.66104 12.95 10.068 12.3736 11.2208 11.2208C12.3736 10.068 12.95 8.66104 12.95 7C12.95 6.29228 12.8275 5.61076 12.5825 4.95546C12.3375 4.30015 11.9933 3.70417 11.55 3.1675L3.1675 11.55C3.6925 12.005 4.28454 12.3521 4.94363 12.5913C5.60272 12.8304 6.28818 12.95 7 12.95ZM2.4675 10.8325L10.8325 2.4675C10.2958 2.0125 9.69985 1.6625 9.04454 1.4175C8.38924 1.1725 7.70772 1.05 7 1.05C5.33896 1.05 3.93203 1.6264 2.77921 2.77921C1.6264 3.93203 1.05 5.33896 1.05 7C1.05 7.71182 1.17833 8.39727 1.435 9.05637C1.69167 9.71546 2.03583 10.3075 2.4675 10.8325Z"
-                                                                                    fill="red" />
-                                                                            </svg>
-                                                                                <p className='text-[red]'>Unblock</p> </> : <> <Image loading='lazy' alt='img' width={14} height={14} src='/assests/dashboard/icon/block-icon.svg' /><p>Block</p> </>} </li>
-                                                                            <li style={Text3} className='cursor-pointer flex  items-center space-x-[12px] text-[14px]'> <Image loading='lazy' alt='img' width={14} height={14} src='/assests/dashboard/icon/report-icon.svg' /><p> Report</p></li>
-                                                                            <li style={Text3} onClick={handleClickOpen} className='cursor-pointer flex  items-center space-x-[12px] text-[14px]'> <Image loading='lazy' alt='img' width={12} height={14} src='/assests/dashboard/icon/copy-icon.svg' /> <p>Copy URL</p></li>
-                                                                        </ul>
-
-                                                                    </div>
-                                                                </Popover>
+                                                                <ProfileMenu res={res?.user.id == isauthuserID ? res?.friend : res?.user} Section={'cancel'} />
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                                 <div className='mt-[10px] 2xl:mt-[10px] xl:mt-[5px] pl-[2px]'>
                                                     <div id="user-card">
+                                                        {/* <ul id="user-card-grid">
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
+                                                        </ul> */}
+
                                                         <ul id="user-card-grid">
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image
+                                                                    loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {`${res?.user?.id === isauthuserID ? (res?.friend?.age ?? 'NA') : (res?.user?.age ?? 'NA')}, ${res?.user?.id === isauthuserID ? (res?.friend?.height ?? 'NA') : (res?.user?.height ?? 'NA')}`}
+                                                            </li>
+
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image
+                                                                    loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {res?.user?.id === isauthuserID ? (
+                                                                    (capitalizeFirstLetter(res?.friend?.maritalStatus) ?? 'NA')
+                                                                ) : (
+                                                                    (capitalizeFirstLetter(res?.user?.maritalStatus) ?? 'NA')
+                                                                )}
+                                                            </li>
+
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image
+                                                                    loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {res?.user?.id === isauthuserID ? (
+                                                                    `${res?.friend?.religion ? capitalizeFirstLetter(res.friend.religion) : "NA"}, ${res?.user?.cast ? capitalizeFirstLetter(res.user.cast) : "NA"}`
+                                                                ) : (
+                                                                    `${res?.friend?.religion ? capitalizeFirstLetter(res.friend.religion) : "NA"}, ${res?.user?.cast ? capitalizeFirstLetter(res.user.cast) : "NA"}`
+                                                                )}
+                                                            </li>
+
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image
+                                                                    loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {res?.user?.id === isauthuserID ? (
+                                                                    `${capitalizeFirstLetter(res?.friend?.address?.currentCity ?? 'NA')}, ${capitalizeFirstLetter(res?.friend?.address?.currentCountry ?? 'NA')}`
+                                                                ) : (
+                                                                    `${capitalizeFirstLetter(res?.user?.address?.currentCity ?? 'NA')}, ${capitalizeFirstLetter(res?.user?.address?.currentCountry ?? 'NA')}`
+                                                                )}
+
+                                                            </li>
+
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image
+                                                                    loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {/* {res?.user?.id === isauthuserID ? (
+                                                                    `${res?.friend?.motherTongue ? capitalizeFirstLetter(res.friend.motherTongue) : "NA"}, ${res?.user?.motherTongue ? capitalizeFirstLetter(res.user.motherTongue) : "NA"}`
+                                                                ) : "NA"} */}
+
+                                                                {res?.user?.id === isauthuserID ? (
+                                                                    `${capitalizeFirstLetter(res?.friend?.motherTongue ?? 'NA')}`
+                                                                ) :
+                                                                    `${capitalizeFirstLetter(res?.user?.motherTongue ?? 'NA')}`
+                                                                }
+
+
+                                                            </li>
+
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image
+                                                                    loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {res?.user?.id === isauthuserID ? (
+                                                                    `${capitalizeFirstLetter(res?.friend?.userProfessional?.jobTitle ?? 'NA')}`
+                                                                ) :
+                                                                    `${capitalizeFirstLetter(res?.user?.userProfessional?.jobTitle ?? 'NA')}`
+                                                                }
+                                                            </li>
                                                         </ul>
+
+
                                                     </div>
                                                     <div className='mt-[20px] 2xl:mt-[20px] xl:mt-[15px]'>
-                                                        <p style={Text3} className='text-[#979797] text-[14px] 2xl:text-[12px] xl:text-[12px] '>{""}<span className='text-[#0F52BA]'> more </span></p>
+                                                        <ShowMore userid={res?.user?.id === isauthuserID ? res?.friend?.id : res?.user?.id} text={res?.user?.id === isauthuserID ? res?.friend?.writeBoutYourSelf : res?.user?.writeBoutYourSelf} maxLength={100} />
                                                     </div>
                                                 </div>
                                                 <div className='flex justify-end items-center mt-[20px] lg:mt-0 2xl:mt-[20px] xl:mt-[20px] mr-[20px] space-x-[10px]'>
-                                                    <ul className='flex space-x-[10px]'>
-                                                        <li><h1 className='text-[16px] 2xl:text-[16px] xl:text-[14px]' style={BoldText}>Ignored</h1></li>
-                                                        <li>
-                                                            <Image loading='lazy' alt='dislike-icon' width={24} height={23} src='/assests/Black/dislike-2.svg' />
+                                                    <div className="absolute right-[140px] bottom-[40px]">
+                                                        <ul className='flex space-x-[10px] items-center'>
+                                                            <li><h1 className='text-[16px] 2xl:text-[16px] xl:text-[14px]' style={BoldText}>Ignored</h1></li>
+                                                            <li>
+                                                                <Image loading='lazy' alt='dislike-icon' width={24} height={23} src='/assests/Black/dislike-2.svg' />
 
-                                                        </li>
-                                                    </ul>
-
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,7 +368,7 @@ function CanceledProfile({thedata , isauthuserID}) {
             </div>
 
 
-            <ShareModal  isOpen={isModalOpen} onClose={closeModal} data={CurrURL}/>
+            <ShareModal isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
             <React.Fragment>
                 <Dialog
                     open={openURLModal}

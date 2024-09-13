@@ -3,6 +3,7 @@ import AuthNavbar from "../../_components/layout/AuthNavbar";
 import Footer from "../../_components/layout/Footer";
 import { useRouter } from "next/router";
 import UploadImage from "./UploadImage";
+import GlobalFooter from "../../_components/layout/GlobalFooter";
 
 function index() {
     const router = useRouter();
@@ -135,8 +136,8 @@ function index() {
                     </div>
                 </div>
 
-                <div id="footer-section" className="w-full pt-0">
-                    <Footer />
+                <div id="footer-section" className="border-t-[1px] border-t-[#DEDEDE] w-full mt-[50px]">
+                    <GlobalFooter />
                 </div>
             </div >
         </>

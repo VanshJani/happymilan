@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loginAsync } from '../../../../../store/reducers/loginReducer';
 import { STATUSES } from '../../../../../store/reducers/MyProfile';
 import ResetPassword from './ResetPassword';
-import QRLogin from '../../../../test';
+import QRLogin from '../../../../../utils/API/QRCode';
+// import QRLogin from '../../../../test';
 
 function LoginUser() {
 

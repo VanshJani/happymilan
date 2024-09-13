@@ -6,6 +6,7 @@ import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import Accordion from '../../../components/common/Features/Accordion';
 import GlobalFooter from '../layout/GlobalFooter';
+import styled from 'styled-components';
 
 function NewLand() {
 
@@ -35,6 +36,20 @@ function NewLand() {
             behavior: 'smooth',
         });
     };
+
+
+    const GradientTextLi = styled.li`
+     fontFamily: "Poppins",
+        fontSize: "44px",
+        fontStyle: "normal",
+        fontWeight: "700",
+        lineHeight: "70px", /* 159.091% */
+        background: 'linear-gradient(98deg, #0F52BA -6.94%, #8225AF 63.93%)',
+        backgroundClip: 'text',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        color: 'transparent', // Ensure text color is transparent
+    `;
 
     const GradientText = {
         fontFamily: "Poppins",
@@ -157,8 +172,20 @@ function NewLand() {
         lineHeight: "normal",
     };
 
+    const AccordingBodyList = styled.ul`
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+`;
 
-    const Object = [
+
+
+
+
+    const profilesData = [
         {
             id: 1,
             name: "long-term",
@@ -182,26 +209,29 @@ function NewLand() {
         },
     ]
 
-    const [Profiles, SetProfiles] = useState({
-        id: 1,
-        title: "Long Term",
-        content: "By creating this profile, you can find compatible partners for marriage and lifelong companionship",
-        image: "/heroSec/longTerm-img.jpg"
-    })
+    const [activeProfile, setActiveProfile] = useState(profilesData[0]); // Start with the first profile
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    const HandleProfile = (e) => {
-
-
-        const selectedProfile = Object.find((state) => state.name == e.target.name)
-        if (selectedProfile) {
-            SetProfiles({
-                id: selectedProfile.id,
-                title: selectedProfile.title,
-                content: selectedProfile.content,
-                image: selectedProfile?.image
-            })
+    // Handle manual change
+    const handleProfileChange = (index) => {
+        if (index >= 0 && index < profilesData.length) {
+            setCurrentIndex(index);
+            setActiveProfile(profilesData[index]);
         }
-    }
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) => {
+                const nextIndex = (prevIndex + 1) % profilesData.length;
+                setActiveProfile(profilesData[nextIndex]);
+                return nextIndex;
+            });
+        }, 5000); // Change every 5 seconds
+
+        return () => clearInterval(interval); // Clear interval on component unmount
+    }, []);
+
 
 
     const [token, setToken] = useState("");
@@ -239,26 +269,34 @@ function NewLand() {
                         <h1 className='text-black text-center font-poppins font-bold leading-[50px] 2xl:text-[54px] xl:text-[40px] text-[40px]'>Single App, Multiple Choices. </h1>
                         <div>
                             <ul className='flex justify-center space-x-[20px]'>
-                                <li>
-                                    <button onClick={HandleProfile} name='long-term' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]  border-[1px] border-[#000] ${Profiles?.id == 1 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"}`}>Long Term</button>
+                                {
+                                    profilesData.map((profile, index) => {
+                                        return (
+                                            <li>
+                                                <button onClick={() => handleProfileChange(index)} name={profile?.name} className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]  border-[1px] border-[#000] ${index == currentIndex ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"}`}>{profile?.title}</button>
+                                            </li>
+                                        )
+                                    })
+                                }
+                                {/* <li>
+                                    <button onClick={handleProfileChange} name='long-term' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]  border-[1px] border-[#000] ${Profiles?.id == 1 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"}`}>Long Term</button>
                                 </li>
                                 <li>
-                                    <button onClick={HandleProfile} name='dating' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]   border-[1px] border-[#000] ${Profiles?.id == 2 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"} `}>Dating</button>
+                                    <button onClick={handleProfileChange} name='dating' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]   border-[1px] border-[#000] ${Profiles?.id == 2 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"} `}>Dating</button>
                                 </li>
                                 <li>
-                                    <button onClick={HandleProfile} name='friendship' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]  border-[1px] border-[#000] ${Profiles?.id == 3 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"}`}>Friendship</button>
-                                </li>
+                                    <button onClick={handleProfileChange} name='friendship' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]  border-[1px] border-[#000] ${Profiles?.id == 3 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"}`}>Friendship</button>
+                                </li> */}
                             </ul>
                         </div>
                     </div>
                     <div className=''>
 
-                        {/* <div className='2xl:pl-[175px] xl:pl-[85px] pl-[8%] flex justify-evenly  2xl:space-x-[160px] xl:space-x-[100px] space-x-[100px]'> */}
                         <div className='flex justify-between pr-[0px] 2xl:pl-[200px] xl:pl-[160px]'>
                             <div className='mt-[20px]'>
                                 <ul className='w-full space-y-[23px]'>
-                                    <li style={GradientText}>{Profiles?.title}</li>
-                                    <li className='w-[483px]' style={ContentText}>{Profiles?.content}</li>
+                                    <li style={GradientText}>{activeProfile?.title}</li>
+                                    <li className='w-[483px]' style={ContentText}>{activeProfile?.content}</li>
                                     <li className='space-x-[25px]'>
                                         <button onClick={GotoLogin} id='grad-button' className='w-[158px] h-[50px] rounded-[32px]'>{token ? "Explore Now" : "Create Profile"}</button>
                                         <button onClick={() => router.push("/longterm/features")} className='w-[158px] h-[50px] rounded-[32px] border-[1px] border-[#8225AF] hover:bg-[#EFF5FF]'>Learn More</button>
@@ -268,7 +306,7 @@ function NewLand() {
                             </div>
 
                             <div className=''>
-                                <Image width={0} height={0} alt='img-1' src={Profiles?.image} loading='lazy' className={`w-[auto] 2xl:h-[385px] xl:h-[330px] h-[300px] relative right-[80px]`} />
+                                <Image width={0} height={0} alt='img-1' src={activeProfile?.image} loading='lazy' className={`w-[auto] 2xl:h-[385px] xl:h-[330px] h-[300px] relative right-[80px]`} />
                             </div>
 
                         </div>
@@ -357,7 +395,7 @@ function NewLand() {
                                 </ul>
                             </div>
                             <div>
-                                <Image width={0} height={0} alt='chat-ui' loading='lazy' src={"/heroSec/assests/chat-img-1.svg"} className='2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px]' />
+                                <Image width={0} height={0} alt='chat-ui'  loading='lazy' src={"https://stage.happymilan.tech/heroSec/assests/chat-img-1.svg"} className='2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px]' />
                             </div>
                         </div>
                     </div>
@@ -427,7 +465,7 @@ function NewLand() {
                         <ul className='flex flex-col items-center space-y-[13px] mt-[80px]'>
                             <li className='w-[70%]'>
                                 <Accordion title={"How do I create an account on HappyMilan?"}>
-                                    <ul style={AccordingBody}>
+                                    <AccordingBodyList>
                                         <li>
                                             Step 1: Click on{" "}
                                             <span className="text-[#0F52BA]"> “Sign up.”</span>
@@ -460,7 +498,7 @@ function NewLand() {
                                         <li className="mt-[21px]">
                                             Wish you’ll have great experience on HappyMilan.com
                                         </li>
-                                    </ul>
+                                    </AccordingBodyList>
                                 </Accordion>
                             </li>
                             <li className='w-[70%]'>

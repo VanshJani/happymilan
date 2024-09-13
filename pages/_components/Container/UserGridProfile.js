@@ -12,6 +12,8 @@ import ShortlistUser from '../common/Buttons/ShortlistUser'
 import Avatar from 'react-avatar'
 import Pagination from '../../../components/common/Features/Pagination'
 import ProfileSkeletonLoader from '../../../components/common/animation/GridSkeleton'
+import { fetchallusersPagination } from '../../../store/actions/GetingAlluser'
+import MatchScoreModal from '../Model/Models/MatchScoreModal'
 
 // Dynamically imported components
 const ShareModal = dynamic(() => import("../Model/Models/ShareModal"));
@@ -66,11 +68,11 @@ function UserGridProfile() {
 
 
     const dispatch = useDispatch();
-    const { totalPages, data, loading, pagesdata } = useSelector((state) => state.usersact.UserGridData)
+    const { totalPages, userData, loading } = useSelector((state) => state.alluser.Paginated)
     const [CurrentPageofUserdata, SetCurrentPageofUserdata] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
-        dispatch(FetchGriduserdata(currentPage))
+        dispatch(fetchallusersPagination(currentPage))
     }, [currentPage, setCurrentPage, CurrentPageofUserdata, SetCurrentPageofUserdata])
 
 
@@ -170,16 +172,17 @@ function UserGridProfile() {
                             <>
                                 {
                                     // UserGridProfile
-                                    pagesdata?.results?.map((user, index) => {
+                                    userData?.map((user, index) => {
                                         return (
 
                                             <div key={user.id} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
                                                 <div className='flex justify-between pt-[10px]'>
                                                     <ul className='pl-[10px] flex space-x-[10px]'>
-                                                        <li>
-                                                            <Image quality={25} loading='lazy' alt='couple-icon' width={17} height={14} src='/assests/Black/Couple2.svg' />
+                                                        <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}>
+
+                                                            <MatchScoreModal user={user} />
+
                                                         </li>
-                                                        <li className='text-[#000] dark:text-[#FFF] text-[10px]' style={Text4}>You & Her </li>
                                                     </ul>
                                                     <ul className='pr-[10px] flex space-x-[30px]'>
                                                         <li>
@@ -188,8 +191,7 @@ function UserGridProfile() {
                                                             </li>
                                                         </li>
                                                         <li>
-                                                            <ProfileMenu SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={user} />
-
+                                                            <ProfileMenu Sections={"Grid"} SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={user} />
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -204,12 +206,15 @@ function UserGridProfile() {
                                                 <div className='text-center'>
 
                                                     <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{user?.name}</h1>
-                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>32, 5’3”</p>
+                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.age ? user?.age : "NA"}, {user?.height ? user?.height : "NA"}”</p>
                                                     <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.religion ? user?.religion : "NA"}, {user?.cast ? user?.cast : "NA"}</p>
                                                     <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.maritalStatus ? user?.maritalStatus : "NA"}</p>
 
                                                 </div>
-                                                <GridLikeUser RequestId={sentrequest[user?.id]}
+                                                <GridLikeUser
+                                                    userLikeDetails={user?.userLikeDetails}
+                                                    RequestedStatus={user?.friendsDetails}
+                                                    RequestId={sentrequest[user?.id ? user?.id : user?._id]}
                                                     HandleRequestModal={() => HandleRequestModal(user)} from={"GridProfile"} currentPage={currentPage} user={user} key={index} />
                                             </div>
                                         )

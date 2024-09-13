@@ -5,10 +5,11 @@ import AuthNavbar from "../../_components/layout/AuthNavbar";
 import Footer from "../../_components/layout/Footer";
 import Image from "next/image";
 import ShareModal from "../../_components/Model/Models/ShareModal";
+import GlobalFooter from "../../_components/layout/GlobalFooter";
 
 
 function Page() {
-    
+
     const router = useRouter();
 
     const TitleText = {
@@ -50,7 +51,7 @@ function Page() {
             <AuthNavbar />
             <div className="mt-[80px] w-full h-full grid place-items-center">
                 <div className="pt-[50px] xl:w-[980px] 2xl:w-[1100px]">
-                    <div className="w-[100px] fixed  right-16 grid place-items-center ">
+                    <div className="hover:bg-[#F2F7FF] p-[10px] rounded-full w-[50px] fixed  right-16 grid place-items-center ">
                         <Image alt="arrow-icon" width={32} height={32} className="lg:block hidden cursor-pointer" onClick={() => router.back()} src="/assests/common/arrow-back.svg" />
                     </div>
                     <div className="lg:w-[850px] 2xl:w-[850px] xl:w-[850px] w-full h-full">
@@ -65,7 +66,7 @@ function Page() {
                                     <Image alt="img" width={42} height={42} className='inline' src='/assests/common/blog-1-profile.svg' />
                                     <span className='ml-[10px] text-[14px]' style={Username}>Riya & Rohan </span>
                                 </div>
-                                <div onClick={openModal} className="flex justify-center items-center cursor-pointer">
+                                <div onClick={openModal} className="hover:bg-[#F2F7FF] p-[10px] rounded-[23px] flex justify-center items-center cursor-pointer">
                                     <h1 className="inline text-[16px] mr-[10px]" style={Username}>Share</h1><Image alt="img" width={17} height={14} className="inline" src="/assests/common/Share-arrow.svg" />
                                 </div>
                             </div>
@@ -86,8 +87,8 @@ function Page() {
                     <button onClick={() => router.back()} className="border-[1px] border-[#ECECEC] rounded-[5px] h-[30px] w-[100px]">Back</button>
                 </div>
 
-                <div id='footer-section' className='w-full'>
-                    <Footer />
+                <div id="footer-section" className="border-t-[1px] border-t-[#DEDEDE] w-full mt-[100px]">
+                    <GlobalFooter />
                 </div>
 
             </div>

@@ -1048,6 +1048,8 @@ export const GetrecentuserprofileData = () => {
         axios.request(config)
             .then((response) => {
 
+                // const filteredData = response.data.data
+
                 dispatch({ type: GET_RECENT_USERPROFILE_DATA_SUCCESS, payload: response.data.data })
             })
             .catch((error) => {

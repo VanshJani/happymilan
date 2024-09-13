@@ -7,29 +7,17 @@ import { addToShortlist, CreateLikeUser } from '../../../../store/actions/Geting
 import { FetchGriduserdata, Getlikeduserdata, GetrecentuserprofileData } from '../../../../store/actions/UsersAction';
 import { Dialog } from '@mui/material';
 
-function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleRequestModal }) {
+function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleRequestModal, RequestedStatus, userLikeDetails }) {
+    console.log("🚀 ~ GridLikeUser ~ userLikeDetails:", userLikeDetails)
 
     const { data, loading } = useSelector((state) => state.usersact.LikedUsersData);
     const [isUserLiked, setIsUserLiked] = useState(false);
     const [isUsershortlist, setisUsershortlist] = useState(false);
     const [isUserDisliked, setIsUserDisliked] = useState(false);
-    // const [isRequestSent, setisRequestSent] = useState(false);
-
-    // const SentRequestData = useSelector((state) => state.usersact.sentrequestdata.sentUsersdata)
-
-    useEffect(() => {
-        // const FilledSent = SentRequestData?.some(item => item?.id === user?.id)
-        // setisRequestSent(FilledSent)
-
-        if (data?.results) {
-            const liked = data.results.some(item => item.likedUserId === user?.id && item.isLike);
-            const disliked = data.results.some(item => item.likedUserId === user?.id && !item.isLike);
-            setIsUserLiked(liked);
-            setIsUserDisliked(disliked)
-        }
 
 
-    }, [data, currentPage]);
+    const [isLiked, setIsLiked] = useState(userLikeDetails?.isLike); // Initial state comes from props
+    const [isDisliked, setIsDisliked] = useState(!userLikeDetails?.isLike);
 
 
     const dispatch = useDispatch();
@@ -51,12 +39,14 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
     };
 
     const handleLikeClick = () => {
-        setIsUserLiked(!isUserLiked); // Toggle like state
-        if (!isUserLiked) {
-
+        setIsUserLiked(!isUserLiked);
+        // Toggle like state
+        if (!isLiked) {
+            setIsLiked(true)
+            setIsDisliked(false)
             socket?.emit('createUserLike', {
-                "userId": currentUserId,
-                "likedUserId": user?.id
+                "userId": userLikeDetails?.user,
+                "likedUserId": userLikeDetails?.likedUserId ,
             })
 
             setshortlistText(`You Liked ${theUserName}'s profile.`);
@@ -85,13 +75,16 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
 
 
     const handleDislikeUser = () => {
-        if (!isUserDisliked) {
+        if (!isDisliked) {
 
-            const res = data.results.find((item) => item.likedUserId === user?.id)
+            setIsLiked(false)
+            setIsDisliked(true)
+
+            // const res = data.results.find((item) => item.likedUserId === user?.id)
 
             socket?.emit('updateUserLike', {
-                "userId": currentUserId,
-                "likedUserId": res?.likedUserId,
+                "userId": userLikeDetails?.user,
+                "likedUserId": userLikeDetails?.likedUserId,
                 "isLike": false
             })
 
@@ -117,7 +110,7 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
     };
 
     const HandleShortlist = () => {
-        dispatch(addToShortlist(user?._id)); // Dispatch the action with the shortlist ID
+        dispatch(addToShortlist(user?._id));
 
         setshortlistText("Profile has been shortlisted");
         setopenShortlistModal(true);
@@ -140,7 +133,7 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
                 <div className='flex space-x-[15px] justify-center'>
                     <div><Image onClick={handleDislikeUser} onMouseEnter={() => SetOnHover({ DislikeHover: true })} onMouseLeave={() => SetOnHover({ DislikeHover: false })} loading='lazy' alt='ignore' width={40} height={40} className='cursor-pointer w-[40px] h-[40px]'
                         src={
-                            isUserDisliked ?
+                            !isDisliked ?
                                 '/assests/gridSection/afterDislikeUser.svg'
                                 : OnHover.DislikeHover ?
                                     '/assests/gridSection/afterDislikeUser.svg'
@@ -148,7 +141,7 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
                         } /></div>
                     <div>
                         <Image onClick={handleLikeClick} onMouseEnter={() => SetOnHover({ LikeHover: true })} onMouseLeave={() => SetOnHover({ LikeHover: false })} loading='lazy' alt='like' width={40} height={40} className='cursor-pointer w-[40px] h-[40px]'
-                            src={isUserLiked
+                            src={isLiked
                                 ? "/assests/animation/After-Like.svg"
                                 : OnHover.LikeHover ?
                                     "/assests/animation/After-Like.svg"
@@ -166,7 +159,7 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
                                     : '/assests/dashboard/icon/shortlist-before-icon.svg'} />
                     </div>
                     <div><Image onClick={HandleRequestModal} onMouseEnter={() => SetOnHover({ SentRequestHover: true })} onMouseLeave={() => SetOnHover({ SentRequestHover: false })} loading='lazy' alt='send' width={40} height={40} className='cursor-pointer w-[40px] h-[40px]'
-                        src={RequestId 
+                        src={RequestId
                             // Pending--v2 || isRequestSent 
                             ?
                             '/assests/dashboard/icon/send-icon-2.svg'
@@ -182,30 +175,88 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
     return (
         <>
             <div className='flex space-x-[15px] justify-center'>
-                <div><Image onMouseEnter={() => SetOnHover({ DislikeHover: true })} onMouseLeave={() => SetOnHover({ DislikeHover: false })} loading='lazy' quality={45} onClick={handleDislikeUser} alt='ignore' width={40} height={40} className='cursor-pointer w-[40px] h-[40px]'
-                    src={
-                        isUserDisliked ?
-                            '/assests/gridSection/afterDislikeUser.svg'
-                            : OnHover.DislikeHover ?
-                                '/assests/gridSection/afterDislikeUser.svg'
-                                : '/assests/dashboard/icon/ignore-icon-2.svg'
-                    } /></div>
+
+
                 <div>
-                    <Image onMouseEnter={() => SetOnHover({ LikeHover: true })} onMouseLeave={() => SetOnHover({ LikeHover: false })} loading='lazy' quality={45} onClick={handleLikeClick} alt='like' width={40} height={40} className='cursor-pointer w-[40px] h-[40px]'
-                        src={isUserLiked
-                            ? "/assests/animation/After-Like.svg"
-                            : OnHover.LikeHover ?
-                                "/assests/animation/After-Like.svg"
-                                : '/assests/dashboard/icon/heart-icon-2.svg'} />
+                    {/* Dislike Button */}
+                    <Image
+                        onMouseEnter={() => SetOnHover({ DislikeHover: true })}
+                        onMouseLeave={() => SetOnHover({ DislikeHover: false })}
+                        loading='lazy'
+                        quality={45}
+                        onClick={handleDislikeUser}
+                        alt='ignore'
+                        width={40}
+                        height={40}
+                        className='cursor-pointer w-[40px] h-[40px]'
+                        src={
+                            userLikeDetails
+                                ? (!userLikeDetails.isLike
+                                    ? '/assests/gridSection/afterDislikeUser.svg'  // Show 'after dislike' if isLike is false
+                                    : (OnHover.DislikeHover
+                                        ? '/assests/gridSection/afterDislikeUser.svg'  // Show hover effect if no data exists
+                                        : '/assests/dashboard/icon/ignore-icon-2.svg')) // Show the default icon if isLike is true
+                                : (OnHover.DislikeHover
+                                    ? '/assests/gridSection/afterDislikeUser.svg'  // Show hover effect if no data exists
+                                    : '/assests/dashboard/icon/ignore-icon-2.svg') // Default icon
+                        }
+                    />
                 </div>
-                <div><Image onMouseEnter={() => SetOnHover({ SentRequestHover: true })} onMouseLeave={() => SetOnHover({ SentRequestHover: false })} quality={45} loading='lazy' onClick={HandleRequestModal} alt='send' width={40} height={40} className='cursor-pointer w-[40px] h-[40px]'
-                    src={RequestId 
-                        // Pending--v2 || isRequestSent 
-                        ?
-                        '/assests/dashboard/icon/send-icon-2.svg'
-                        : OnHover.SentRequestHover ?
-                            '/assests/dashboard/icon/send-icon-2.svg'
-                            : '/assests/gridSection/Grid-before-sent.svg'} /></div>
+
+                <div>
+                    {/* Like Button */}
+                    <Image
+                        onMouseEnter={() => SetOnHover({ LikeHover: true })}
+                        onMouseLeave={() => SetOnHover({ LikeHover: false })}
+                        loading='lazy'
+                        quality={45}
+                        onClick={handleLikeClick}
+                        alt='like'
+                        width={40}
+                        height={40}
+                        className='cursor-pointer w-[40px] h-[40px]'
+                        src={
+                            userLikeDetails
+                                ? (userLikeDetails.isLike
+                                    ? "/assests/animation/After-Like.svg"  // Show 'after like' if isLike is true
+                                    : '/assests/dashboard/icon/heart-icon-2.svg') // Show default heart icon if isLike is false
+                                : (OnHover.LikeHover
+                                    ? "/assests/animation/After-Like.svg"  // Show hover effect if no data exists
+                                    : '/assests/dashboard/icon/heart-icon-2.svg') // Default heart icon
+                        }
+                    />
+                </div>
+
+
+                <div>
+                    <Image
+                        onMouseEnter={() => SetOnHover({ SentRequestHover: true })}
+                        onMouseLeave={() => SetOnHover({ SentRequestHover: false })}
+                        quality={45}
+                        loading='lazy'
+                        onClick={HandleRequestModal}
+                        alt='send'
+                        width={40}
+                        height={40}
+                        className='cursor-pointer w-[40px] h-[40px]'
+                        src={
+                            RequestedStatus?.status === 'accepted' || RequestedStatus?.status === 'requested' || RequestedStatus?.status === 'sent'
+                                ? '/assests/dashboard/icon/send-icon-2.svg' // Show sent image if status is accepted
+
+                                : RequestedStatus?.status === 'rejected'
+                                    ?
+                                    (OnHover.SentRequestHover
+                                        ? '/assests/dashboard/icon/send-icon-2.svg'  // Show hover icon when no status exists
+                                        : '/assests/gridSection/Grid-before-sent.svg') // Show sent image if status is rejected
+
+                                    : (!RequestedStatus && OnHover.SentRequestHover
+                                        ? '/assests/dashboard/icon/send-icon-2.svg'  // Show hover icon when no status exists
+                                        : '/assests/gridSection/Grid-before-sent.svg') // Default image when no status exists and no hover
+                        }
+                    />
+                </div>
+
+
             </div>
 
 

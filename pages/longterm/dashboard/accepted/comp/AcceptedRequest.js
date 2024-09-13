@@ -199,7 +199,6 @@ function AcceptedRequest() {
                                                 <div className='w-[350px]'>
                                                     <div className='p-[15px] w-full '>
                                                         <Swiper
-
                                                             pagination={{ clickable: true }}
                                                             modules={[Pagination]}
                                                             className="mySwiper relative 2xl:w-[197px] xl:w-[187px] w-[185px] h-[260px]"

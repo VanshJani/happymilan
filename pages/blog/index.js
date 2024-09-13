@@ -3,6 +3,7 @@ import React from 'react'
 import Navbar from '../_components/layout/AuthNavbar'
 import Footer from '../_components/layout/Footer'
 import Image from 'next/image'
+import GlobalFooter from '../_components/layout/GlobalFooter'
 
 function index() {
     const Title = {
@@ -71,7 +72,7 @@ function index() {
 
                                             </div>
                                             <div className='w-full lg:w-auto grid place-items-center lg:block pt-[20px]'>
-                                                <Link href="/blog/1"> <button style={Content} className='w-[214px] h-[50px] rounded-[24px] bg-[#F8F8F8] inline'><span className='pr-[15px]'>Read Full Article</span> <Image alt="img" width={16} height={16} className='inline' src='/assests/common/blog-arrow.svg' /></button></Link>
+                                                <Link href="/blog/1"> <button style={Content} className='w-[214px] h-[50px] rounded-[24px] hover:bg-[#F2F7FF] bg-[#F8F8F8] inline'><span className='pr-[15px]'>Read Full Article</span> <Image alt="img" width={16} height={16} className='inline' src='/assests/common/blog-arrow.svg' /></button></Link>
                                             </div>
 
                                         </div>
@@ -101,7 +102,7 @@ function index() {
 
                                             </div>
                                             <div className='w-full lg:w-auto grid place-items-center lg:block pt-[20px]'>
-                                                <Link href="/blog/1"> <button style={Content} className='w-[214px] h-[50px] rounded-[24px] bg-[#F8F8F8] inline'><span className='pr-[15px]'>Read Full Article</span> <Image alt="img" width={16} height={16} className='inline' src='/assests/common/blog-arrow.svg' /></button></Link>
+                                                <Link href="/blog/1"> <button style={Content} className='w-[214px] h-[50px] rounded-[24px] hover:bg-[#F2F7FF] bg-[#F8F8F8] inline'><span className='pr-[15px]'>Read Full Article</span> <Image alt="img" width={16} height={16} className='inline' src='/assests/common/blog-arrow.svg' /></button></Link>
                                             </div>
 
                                         </div>
@@ -116,16 +117,18 @@ function index() {
 
                     <div className='w-full grid place-items-center lg:pl-[25px] pt-[45px]'>
                         <div className='flex gap-x-[25px]'>
-                            <div style={PagginationText} className=' text-[20px] rounded-[50%] grid cursor-pointer place-items-center h-[44px] w-[44px] bg-[#0F52BA] text-[#FFF]'>1</div>
-                            <div style={PagginationText} className=' text-[20px] hover:bg-[#0F52BA] cursor-pointer hover:text-[#FFF] hover:border-[#0F52BA] duration-300 rounded-[50%] border-[1px] border-[black] grid place-items-center h-[44px] w-[44px] bg-[#FFF] text-[#000]'>2</div>
-                            <div style={PagginationText} className=' text-[20px] hover:bg-[#0F52BA] cursor-pointer hover:text-[#FFF] hover:border-[#0F52BA] duration-300 rounded-[50%] border-[1px] border-[black] grid place-items-center h-[44px] w-[44px] bg-[#FFF] text-[#000]'>3</div>
-                            <div style={PagginationText} className=' text-[20px] hover:bg-[#0F52BA] cursor-pointer hover:text-[#FFF] hover:border-[#0F52BA] duration-300 rounded-[50%] border-[1px] border-[black] grid place-items-center h-[44px] w-[44px] bg-[#FFF] text-[#000]'>4</div>
+                            <div style={PagginationText} className=' text-[20px] rounded-[50%] grid cursor-pointer place-items-center h-[44px] w-[44px] bg-[#EFF5FF] text-[#000] border-[1px] border-[#000]'>1</div>
+                            <div style={PagginationText} className=' text-[20px] hover:bg-[#EFF5FF] cursor-pointer hover:text-[#000] hover:border-[#000] duration-300 rounded-[50%] border-[1px] border-[black] grid place-items-center h-[44px] w-[44px] bg-[#FFF] text-[#000]'>2</div>
+                            <div style={PagginationText} className=' text-[20px] hover:bg-[#EFF5FF] cursor-pointer hover:text-[#000] hover:border-[#000] duration-300 rounded-[50%] border-[1px] border-[black] grid place-items-center h-[44px] w-[44px] bg-[#FFF] text-[#000]'>3</div>
+                            <div style={PagginationText} className=' text-[20px] hover:bg-[#EFF5FF] cursor-pointer hover:text-[#000] hover:border-[#000] duration-300 rounded-[50%] border-[1px] border-[black] grid place-items-center h-[44px] w-[44px] bg-[#FFF] text-[#000]'>4</div>
                         </div>
                     </div>
                 </div>
-                <div id='footer-section' className='w-full'>
-                    <Footer />
+                {/* <div id='footer-section' className='w-full'> */}
+                <div id="footer-section" className="border-t-[1px] border-t-[#DEDEDE] w-full mt-[100px]">
+                    <GlobalFooter />
                 </div>
+                {/* </div> */}
             </div>
         </>
     )

@@ -140,7 +140,7 @@ function index() {
 
                     {searchTerm === '' ? (
                       <>
-                        {!listType ? <UserProfile users={users} /> : <UserGridProfile />}
+                        {!listType ? <UserProfile users={users?.users} /> : <UserGridProfile />}
                       </>
                     ) : (
                       <div>

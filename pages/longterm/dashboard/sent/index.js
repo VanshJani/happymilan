@@ -3,12 +3,10 @@ import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Layout from '../../Layout'
+import SidePanel from '../../../../components/long-term/common/SidePanel';
 const UserStory = dynamic(() => import('../../../_components/Container/UserStory'));
 const SentRequest = dynamic(() => import('./comp/SentRequest'));
 const GridList = dynamic(() => import('./comp/GridList'));
-const ProfileComplete = dynamic(() => import('../../../_components/Container/ProfileComplete'));
-const MoreSuggestion = dynamic(() => import('../../../_components/Container/MoreSuggestion'));
-const Footer = dynamic(() => import('../../../_components/layout/Footer'));
 
 function index() {
 
@@ -68,10 +66,10 @@ function index() {
                 </div>
 
                 {/* User Card  */}
-
-                {!Listtype ?
-                  <SentRequest /> : <GridList />}
-
+                <div cl>
+                  {!Listtype ?
+                    <SentRequest /> : <GridList />}
+                </div>
 
               </div>
               <div className='block lg:block 2xl:hidden xl:hidden relative top-[60px] pl-[15px]'>
@@ -84,14 +82,9 @@ function index() {
               </div>
             </div>
 
-            <div className=" hidden  absolute 2xl:top-[250px] xl:top-[245px] right-10 2xl:flex xl:flex flex-col space-y-[30px] justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]">
-
-              <ProfileComplete />
-
-              <MoreSuggestion />
-            </div>
+            <SidePanel />
           </div>
-          
+
         </div>
       </Layout>
     </>

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination'
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import ProfileSkeletonLoader from '../../../../../components/common/animation/GridSkeleton'
+import Avatar from 'react-avatar'
 import Link from 'next/link'
 
 function GridList() {
@@ -13,7 +14,16 @@ function GridList() {
         ProfileName: { color: "#000", fontFamily: "Poppins", fontWeight: "600", lineHeight: "normal" },
         ListText: { color: "#000", fontFamily: "Poppins", fontWeight: "400", lineHeight: "24px" },
         Text4: { color: "#000", fontFamily: "Poppins", fontWeight: "400", lineHeight: "12px" },
-        ProfileCard: { borderRadius: "10px", background: "#FFF", boxShadow: "0px 0px 14px 0px rgba(0, 0, 0, 0.07)" }
+        ProfileCard: { borderRadius: "10px", background: "#FFF", boxShadow: "0px 0px 14px 0px rgba(0, 0, 0, 0.07)" },
+        ImageNotFoundText: {
+            color: "#B3CBF1",
+            textAlign: "center",
+            fontFamily: "Poppins",
+            fontSize: "12px",
+            fontStyle: "normal",
+            fontWeight: "500",
+            lineHeight: "normal"
+        }
     }), []);
 
     const dispatch = useDispatch();
@@ -35,7 +45,7 @@ function GridList() {
 
     useEffect(() => {
         dispatch(fetchFriends("Gridview", Pages))
-    }, [currentPage,setCurrentPage])
+    }, [currentPage, setCurrentPage])
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -109,8 +119,21 @@ function GridList() {
 
                                 } </>}
                 </div>
-                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} darkMode={false} />
+                {userData.length > 0 ? <>  <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} darkMode={false} /> </> : ""}
             </div>
+
+            {
+                userData.length === 0 && (
+                    <div className='h-[500px] grid place-items-center'>
+                        <div className='grid place-items-center space-y-[5px]'>
+                            {/* <Image loading='lazy' alt='not-found' width={34} height={34} src={"/assets/dashboard/icon/NotFound-img.svg"} /> */}
+                            <Image loading='lazy' alt='not-found' width={34} height={34} src={"/assests/dashboard/icon/NotFound-img.svg"} />
+
+                            <h1 className='inline' style={profileStyles?.ImageNotFoundText}>No Profiles Found</h1>
+                        </div>
+                    </div>
+                )
+            }
         </>
     )
 }

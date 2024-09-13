@@ -25,7 +25,7 @@ function MoreSuggestion() {
     }, [dispatch]);
 
     useEffect(() => {
-        fetchAllUsersdata(users, setUsers, setVisibleUsers);
+        fetchAllUsersdata(users?.users, setUsers, setVisibleUsers);
     }, [users]);
 
     const handleLoadMoreUsers = () => {
@@ -166,7 +166,7 @@ function MoreSuggestion() {
                                 </li>
                             ))
                         ) : (
-                            visibleUsers.map((res, index) => (
+                            visibleUsers?.map((res, index) => (
                                 <li key={res._id}>
                                     <div className='flex justify-between items-center'>
                                         <div className='flex space-x-[20px]'>
