@@ -812,32 +812,6 @@ function Userprofile({ params, toggleDrawer }) {
   const thedata = useSelector((state) => state.myprofile);
 
 
-  const HandleRequestModal = (res) => {
-    if (thedata.data.userProfileCompleted) {
-      console.log("Done")
-      dispatch(sendRequest(res.id));
-
-      setsentRequest((prevState) => ({
-        ...prevState,
-        [res.id]: !prevState[res.id], // Update the sentRequests state for the specific user ID
-      }));
-
-      if (!sentrequest[res.id]) {
-        setshortlistText("Request Sent..");
-        setopenShortlistModal(true);
-      } else {
-        setshortlistText("Request Removed..");
-        setopenShortlistModal(true);
-      }
-
-      setTimeout(() => {
-        setopenShortlistModal(false);
-      }, 800);
-    } else {
-      OpenRegisterModal();
-    }
-  };
-
 
 
   const [openShortlistModal, setopenShortlistModal] = React.useState(false)

@@ -17,7 +17,7 @@ function index() {
     <>
 
 
-      <Layout Show={false} handleSearch={handleSearch}>
+      <Layout Section="profile" Show={false} handleSearch={handleSearch}>
 
         {/* Main Section Start */}
 
@@ -42,21 +42,15 @@ function index() {
 
               {/* User Card  */}
 
+            </div>
 
+            <div className='hidden  absolute 2xl:top-[175px] xl:top-[175px] right-10  xl:flex 2xl:flex flex-col space-y-[50px] justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
+              {/* Side Section 2 */}
+              <UploadSection />
 
+              <MoreSuggestion />
             </div>
           </div>
-
-          {/* <div className='z-[-10] absolute 2xl:top-[180px] xl:top-[180px] right-0 flex flex-col space-y-[50px] justify-center items-center w-full 2xl:w-[450px] xl:w-[350px]'> */}
-          <div className='hidden  absolute 2xl:top-[175px] xl:top-[175px] right-10  xl:flex 2xl:flex flex-col space-y-[50px] justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
-            {/* Side Section 2 */}
-            <UploadSection />
-
-            <MoreSuggestion />
-          </div>
-
-
-
         </div>
       </Layout>
     </>

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { getCookie } from "cookies-next";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { markshortlistseen } from "../../../store/reducers/NotificationReducer";
 import ProfileImage from "../common/profile/ProfileImage";
@@ -48,8 +47,6 @@ function SideBar() {
 
     // Listen for incoming messages
     onMessage(messaging, (payload) => {
-      console.log('Message received:', payload);
-
       // Display the message as a toast notification
       setNotificationCount((prevCount) => prevCount + 1);
     });
@@ -66,7 +63,7 @@ function SideBar() {
       >
         <div id="sidebarScroll" className="h-full px-3 py-4 overflow-y-auto bg-[#FFF] dark:bg-[#18191A] dark:border-r dark:border-[#292929]">
           <div className="p-[10px] space-y-[20px]">
-            <div onClick={() => router.push("/longterm/dashboard/profile")} className="cursor-pointer w-[50px] hover:opacity-90 duration-100">
+            <div onClick={() => router.push("/longterm/dashboard/profile")} className="cursor-pointer rounded-full h-[50px] w-[50px] hover:opacity-90 duration-100">
               <ProfileImage size={47} />
             </div>
             <div>

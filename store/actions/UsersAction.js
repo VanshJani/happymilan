@@ -468,7 +468,7 @@ export const getSentrequestData = () => {
                 dispatch({
                     type: GET_SENTREQUEST_DATA_SUCCESS, payload: {
                         data: response.data,
-                        total
+                       
                         // sentUsersdata: userDataArray  //Pending--v2
                     }
                 });
@@ -477,65 +477,6 @@ export const getSentrequestData = () => {
                 console.log(error);
                 dispatch({ type: GET_SENTREQUEST_DATA_FAILURE, payload: error.message });
             });
-
-
-        //     try {
-        //         const axios = require('axios');
-        //         const token = getCookie("authtoken");
-
-        //         const config = {
-        //             method: 'get',
-        //             url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sent`,
-        //             headers: {
-        //                 'Authorization': `Bearer ${token}`
-        //             }
-        //         };
-
-        //         const response = await axios(config);
-
-        //         const friendRequests = response.data.data.map((res) => res.friend);
-        //         const friendIds = friendRequests.reduce((ids, friendArray) => {
-        //             // Ensure friendArray is an object with id property before extracting id
-        //             if (friendArray && friendArray.id) {
-        //                 ids.push(friendArray.id);
-        //             } else {
-        //                 console.error('Friend array is not in the expected format:', friendArray);
-        //             }
-        //             return ids;
-        //         }, []);
-
-
-        //         // Define the batch size for fetching user data
-        //         const batchSize = 50;
-        //         const numBatches = Math.ceil(friendIds.length / batchSize);
-
-        //         const userDataArray = [];
-
-        //         // Fetch user data in batches
-        //         for (let i = 0; i < numBatches; i++) {
-        //             const start = i * batchSize;
-        //             const end = Math.min((i + 1) * batchSize, friendIds.length);
-        //             const batchIds = friendIds.slice(start, end);
-
-        //             const batchUserData = await fetchUserDataBatch(batchIds);
-        //             userDataArray.push(...batchUserData);
-        //         }
-
-        //         console.log("User data for accepted friends:", userDataArray);
-
-
-        //         // dispatch({ type: GET_ACCEPTED_REQUEST_DATA_SUCCESS, payload: response.data });
-        //         dispatch({
-        //             type: GET_SENTREQUEST_DATA_SUCCESS, payload: {
-        //                 data: response.data,
-        //                 // sentUsersdata: userDataArray  //Pending--v2
-        //             }
-        //         });
-        //     } catch (error) {
-        //         console.error('Error fetching accepted request data:', error);
-        //         dispatch({ type: GET_SENTREQUEST_DATA_FAILURE, payload: error.message });
-        //     }
-
 
     }
 }
@@ -1352,6 +1293,7 @@ export const DeleteMystatus = (StatusID) => {
 //Get match score 
 
 export const GetMatchScore = (MatchID) => {
+    console.log("🚀 ~ GetMatchScore ~ MatchID:", MatchID)
     return async (dispatch) => {
 
         dispatch({

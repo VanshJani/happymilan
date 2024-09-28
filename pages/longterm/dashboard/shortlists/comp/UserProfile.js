@@ -13,6 +13,7 @@ import { RemoveShortlist } from '../../../../../store/actions/GetingAlluser';
 import { sendRequest } from '../../../../../store/actions/UsersAction';
 import dynamic from 'next/dynamic';
 import { fetchshortlistUsers } from '../../../../../store/matrimoney-services/slices/getShortlistUsersSlice';
+import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
 // Dynamic imports
 const SendRequestBtn = dynamic(() => import('../../../../_components/common/Buttons/SendRequestBtn'), { ssr: false });
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'), { ssr: false });
@@ -137,11 +138,7 @@ function UserProfile() {
     }
 
 
-    const likeloading = useSelector(
-        (state) => state.usersact.LikedUsersData.likeloading
-    );
 
-    const [ActiveLike, setActiveLike] = useState(false);
 
     //For TextOverflow
 
@@ -172,19 +169,9 @@ function UserProfile() {
 
 
 
-    const [openURLModal, setOpenURLModal] = React.useState(false);
     const [openShortlistModal, setopenShortlistModal] = React.useState(false)
 
     const [shortlistText, setshortlistText] = useState();
-
-
-    const handleClickOpen = () => {
-        setOpenURLModal(true);
-        setTimeout(() => {
-            setOpenURLModal(false);
-            handleClose()
-        }, 2000);
-    };
 
 
     const dispatch = useDispatch();
@@ -192,11 +179,6 @@ function UserProfile() {
     // const { data, shortlistUserdata, status } = useSelector((state) => state.shortlistdata)
 
     const { userData,
-        totalPages,
-        limit,
-        pagesdata,
-        loading,
-        error,
         status } = useSelector((state) => state.shortlistusers)
 
 
@@ -215,7 +197,7 @@ function UserProfile() {
     const HandleRemoveShortlist = (res) => {
 
         const shortlistdata = userData.find(data => data?.id === res?.id)
-       
+
         dispatch(RemoveShortlist(res?.id))
         setshortlistText("Shortlisted has been removed")
         setopenShortlistModal(true)
@@ -336,292 +318,279 @@ function UserProfile() {
     return (
         <>
 
-            {userData && userData.length > 0 ?
-                <>
-                    <div>
+            <div>
 
-                        <div className='flex flex-col'>
+                <div className='flex flex-col'>
 
-                            {
+                    {
 
-                                userData.map((res, index) => {
+                        userData.map((res, index) => {
 
-                                    return (
-                                        <>
-                                            <div key={index} className="relative 2xl:left-[40px] xl:left-[55px] lg:left-[10px] left-[40px]">
-                                                <div
-                                                    style={Box}
-                                                    className={`bg-[#FFF] dark:bg-[#242526] relative left-[-4px]  xl:left-[-3px] 2xl:left-[-3px]  flex m-[10px] lg:w-[590px]  2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] bg-[#FFF]`}
-                                                >
-                                                    <div className="w-[350px]">
-                                                        <div className="p-[15px] w-full ">
-                                                            {res?.shortlistId?.userProfilePic &&
-                                                                res?.shortlistId?.userProfilePic.length > 0 ? (
-                                                                <Swiper
-                                                                    pagination={{ clickable: true }}
-                                                                    modules={[Pagination]}
-                                                                    className="mySwiper relative 2xl:w-[197px] xl:w-[187px] w-[185px] h-[260px]"
-                                                                >
-                                                                    {res?.shortlistId?.userProfilePic
-                                                                        .slice(0, 3)
-                                                                        .map((Imageres, theindex) => (
-                                                                            <SwiperSlide key={theindex}>
-                                                                                <Image
-                                                                                    placeholder="blur"
-                                                                                    blurDataURL="data:..."
-                                                                                    alt={`img${theindex + 1}`}
-                                                                                    width={197}
-                                                                                    height={258}
-                                                                                    style={{
-                                                                                        width: "197px",
-                                                                                        height: "258px",
-                                                                                        borderRadius: "10px",
-                                                                                        objectFit: "cover",
-                                                                                    }}
-                                                                                    className="w-[197px] h-[258px]"
-                                                                                    src={Imageres.url}
-                                                                                    loading="lazy"
-                                                                                />
-                                                                            </SwiperSlide>
-                                                                        ))}
-                                                                </Swiper>
-                                                            ) : (
-                                                                <div>
-                                                                    <div
-                                                                        style={{
-                                                                            backgroundColor: "#F8FBFF",
-                                                                            width: "197px",
-                                                                            height: "258px",
-                                                                            display: "flex",
-                                                                            justifyContent: "center",
-                                                                            alignItems: "center",
-                                                                            borderRadius: "10px"
-                                                                        }}
+                            return (
+                                <>
+                                    <div key={index} className="relative 2xl:left-[40px] xl:left-[55px] lg:left-[10px] left-[40px]">
+                                        <div
+                                            style={Box}
+                                            className={`bg-[#FFF] dark:bg-[#242526] relative left-[-4px]  xl:left-[-3px] 2xl:left-[-3px]  flex m-[10px] lg:w-[590px]  2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] bg-[#FFF]`}
+                                        >
+                                            <div className="w-[350px]">
+                                                <div className="p-[15px] w-full ">
+                                                    {res?.shortlistId?.userProfilePic &&
+                                                        res?.shortlistId?.userProfilePic.length > 0 ? (
+                                                        <Swiper
+                                                            pagination={{ clickable: true }}
+                                                            modules={[Pagination]}
+                                                            className="mySwiper relative 2xl:w-[197px] xl:w-[187px] w-[185px] h-[260px]"
+                                                        >
+                                                            {res?.shortlistId?.userProfilePic
+                                                                .slice(0, 3)
+                                                                .map((Imageres, theindex) => (
+                                                                    <SwiperSlide key={theindex}>
+                                                                        <Image
+                                                                            placeholder="blur"
+                                                                            blurDataURL="data:..."
+                                                                            alt={`img${theindex + 1}`}
+                                                                            width={197}
+                                                                            height={258}
+                                                                            style={{
+                                                                                width: "197px",
+                                                                                height: "258px",
+                                                                                borderRadius: "10px",
+                                                                                objectFit: "cover",
+                                                                            }}
+                                                                            className="w-[197px] h-[258px]"
+                                                                            src={Imageres.url}
+                                                                            loading="lazy"
+                                                                        />
+                                                                    </SwiperSlide>
+                                                                ))}
+                                                        </Swiper>
+                                                    ) : (
+                                                        <div>
+                                                            <div
+                                                                style={{
+                                                                    backgroundColor: "#F8FBFF",
+                                                                    width: "197px",
+                                                                    height: "258px",
+                                                                    display: "flex",
+                                                                    justifyContent: "center",
+                                                                    alignItems: "center",
+                                                                    borderRadius: "10px"
+                                                                }}
+                                                            >
+                                                                <div className="grid place-items-center space-y-[5px]">
+                                                                    <Image loading="lazy"
+                                                                        alt="not-Found"
+                                                                        width={34}
+                                                                        height={34}
+                                                                        src={"/assests/dashboard/icon/NotFound-img.svg"}
+                                                                    />
+                                                                    <h1
+                                                                        className="inline"
+                                                                        style={ImageNotFoundText}
                                                                     >
-                                                                        <div className="grid place-items-center space-y-[5px]">
-                                                                            <Image loading="lazy"
-                                                                                alt="not-Found"
-                                                                                width={34}
-                                                                                height={34}
-                                                                                src={"/assests/dashboard/icon/NotFound-img.svg"}
-                                                                            />
-                                                                            <h1
-                                                                                className="inline"
-                                                                                style={ImageNotFoundText}
-                                                                            >
-                                                                                No Image
-                                                                            </h1>
-                                                                        </div>
-                                                                    </div>
+                                                                        No Image
+                                                                    </h1>
                                                                 </div>
-                                                            )}
+                                                            </div>
                                                         </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className="w-full pt-[15px] 2xl:pt-[15px] xl:pt-[20px]">
+                                                <div className="flex justify-between  h-[50px]">
+                                                    <div>
+                                                        {/* <Link href={`/longterm/dashboard/${res.id}`}><h1 className='2xl:text-[20px] xl:text-[15px] text-[15px]' style={ProfileName}>{res.name}</h1></Link> */}
+                                                        <h1
+                                                            onClick={() => HandlePushUser(res.id)}
+                                                            className="2xl:text-[20px] xl:text-[15px] text-[15px] cursor-pointer text-[#000] dark:text-[#FFF]"
+                                                            style={ProfileName}
+                                                        >
+                                                            {res?.shortlistId?.name}
+                                                        </h1>
+                                                        <h1
+                                                            style={statusText}
+                                                            className={`text-[#17C270]`}
+                                                        >
+                                                            {"Online now"}
+                                                        </h1>
                                                     </div>
-                                                    <div className="w-full pt-[15px] 2xl:pt-[15px] xl:pt-[20px]">
-                                                        <div className="flex justify-between  h-[50px]">
-                                                            <div>
-                                                                {/* <Link href={`/longterm/dashboard/${res.id}`}><h1 className='2xl:text-[20px] xl:text-[15px] text-[15px]' style={ProfileName}>{res.name}</h1></Link> */}
-                                                                <h1
-                                                                    onClick={() => HandlePushUser(res.id)}
-                                                                    className="2xl:text-[20px] xl:text-[15px] text-[15px] cursor-pointer text-[#000] dark:text-[#FFF]"
-                                                                    style={ProfileName}
-                                                                >
-                                                                    {res?.shortlistId?.name}
-                                                                </h1>
-                                                                <h1
-                                                                    style={statusText}
-                                                                    className={`text-[#17C270]`}
-                                                                >
-                                                                    {"Online now"}
-                                                                </h1>
-                                                            </div>
-                                                            <div className="pr-[8px]">
-                                                                <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
-                                                                    <li className="cursor-pointer hover:bg-[#F2F7FF] items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]">
-                                                                        <div>
-                                                                            <Image
-                                                                                loading="lazy"
-                                                                                alt="couple-icon"
-                                                                                width={17}
-                                                                                height={14}
-                                                                                src="/assests/Black/Couple2.svg"
+                                                    <div className="pr-[8px]">
+                                                        <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
+                                                            <li className="cursor-pointer hover:bg-[#F2F7FF] items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]">
+                                                                <div>
+                                                                    <Image
+                                                                        loading="lazy"
+                                                                        alt="couple-icon"
+                                                                        width={17}
+                                                                        height={14}
+                                                                        src="/assests/Black/Couple2.svg"
 
-                                                                            />
-                                                                        </div>
-                                                                        <div className="">
-                                                                            <span className="relative top-[-2px] text-[10px] text-[#000] dark:text-[#FFF]"
-                                                                                style={Text4}>
-                                                                                Match Score
-                                                                            </span>
-                                                                        </div>
-                                                                    </li>
-                                                                    <li
-                                                                        className="cursor-pointer"
-                                                                        onClick={() => HandleRemoveShortlist(res)}
-                                                                    >
-                                                                        <div className="cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]">
-                                                                            <Image loading="lazy"
-                                                                                width={15}
-                                                                                height={14}
-                                                                                alt="star"
-                                                                                src={"/assests/Black/filled-star.svg"}
-                                                                            />
-                                                                        </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <ProfileMenu SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
+                                                                    />
+                                                                </div>
+                                                                <div className="">
+                                                                    <span className="relative top-[-2px] text-[10px] text-[#000] dark:text-[#FFF]"
+                                                                        style={Text4}>
+                                                                        Match Score
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li
+                                                                className="cursor-pointer"
+                                                                onClick={() => HandleRemoveShortlist(res)}
+                                                            >
+                                                                <div className="cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]">
+                                                                    <Image loading="lazy"
+                                                                        width={15}
+                                                                        height={14}
+                                                                        alt="star"
+                                                                        src={"/assests/Black/filled-star.svg"}
+                                                                    />
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <ProfileMenu SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
 
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div className="mt-[10px] 2xl:mt-[10px] xl:mt-[5px] pl-[2px]">
-                                                            <div id="user-card">
-                                                                <ul id="user-card-grid">
-                                                                    <li
-                                                                        className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
-                                                                        style={ListText}
-                                                                    >
-                                                                        <Image loading="lazy"
-                                                                            alt="mark"
-                                                                            width={15}
-                                                                            height={14}
-                                                                            src={"/assests/Black/RightTick.svg"}
-                                                                            className="inline pr-[5px]"
-                                                                        />
-                                                                        {`'32,5'3`}
-                                                                    </li>
-                                                                    <li
-                                                                        className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
-                                                                        style={ListText}
-                                                                    >
-                                                                        <Image loading="lazy"
-                                                                            alt="mark"
-                                                                            width={15}
-                                                                            height={14}
-                                                                            src={"/assests/Black/RightTick.svg"}
-                                                                            className="inline pr-[5px]"
-                                                                        />
-                                                                        {res?.shortlistId?.maritalStatus ? res?.shortlistId?.maritalStatus : "NA , NA"}
-                                                                    </li>
-                                                                    <li
-                                                                        className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
-                                                                        style={ListText}
-                                                                    >
-                                                                        <Image loading="lazy"
-                                                                            alt="mark"
-                                                                            width={15}
-                                                                            height={14}
-                                                                            src={"/assests/Black/RightTick.svg"}
-                                                                            className="inline pr-[5px]"
-                                                                        />
-                                                                        {`${res?.shortlistId?.religion ? res?.shortlistId?.religion : "NA"}, ${res?.shortlistId?.cast ? res?.shortlistId?.cast : "NA"}`}
-                                                                    </li>
-                                                                    <li
-                                                                        className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
-                                                                        style={ListText}
-                                                                    >
-                                                                        <Image loading="lazy"
-                                                                            alt="mark"
-                                                                            width={15}
-                                                                            height={14}
-                                                                            src={"/assests/Black/RightTick.svg"}
-                                                                            className="inline pr-[5px]"
-                                                                        />
-                                                                        {`${res?.shortlistId?.address ? res?.shortlistId?.address?.currentCity : "NA"} , ${res?.shortlistId?.address ? res?.shortlistId?.address?.currentCountry : "NA"}`}
-                                                                    </li>
-                                                                    <li
-                                                                        className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
-                                                                        style={ListText}
-                                                                    >
-                                                                        <Image loading="lazy"
-                                                                            alt="mark"
-                                                                            width={15}
-                                                                            height={14}
-                                                                            src={"/assests/Black/RightTick.svg"}
-                                                                            className="inline pr-[5px]"
-                                                                        />
-                                                                        {`${res?.shortlistId?.motherTongue ? res?.shortlistId?.motherTongue : "NA , NA"}  `}
-                                                                    </li>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-[10px] 2xl:mt-[10px] xl:mt-[5px] pl-[2px]">
+                                                    <div id="user-card">
+                                                        <ul id="user-card-grid">
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={"/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {`'32,5'3`}
+                                                            </li>
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={"/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {res?.shortlistId?.maritalStatus ? res?.shortlistId?.maritalStatus : "NA , NA"}
+                                                            </li>
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={"/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {`${res?.shortlistId?.religion ? res?.shortlistId?.religion : "NA"}, ${res?.shortlistId?.cast ? res?.shortlistId?.cast : "NA"}`}
+                                                            </li>
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={"/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {`${res?.shortlistId?.address ? res?.shortlistId?.address?.currentCity : "NA"} , ${res?.shortlistId?.address ? res?.shortlistId?.address?.currentCountry : "NA"}`}
+                                                            </li>
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={"/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {`${res?.shortlistId?.motherTongue ? res?.shortlistId?.motherTongue : "NA , NA"}  `}
+                                                            </li>
 
-                                                                    <li
-                                                                        className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
-                                                                        style={ListText}
-                                                                    >
-                                                                        <Image loading="lazy"
-                                                                            alt="mark"
-                                                                            width={15}
-                                                                            height={14}
-                                                                            src={"/assests/Black/RightTick.svg"}
-                                                                            className="inline pr-[5px]"
-                                                                        />
-                                                                        {res?.shortlistId?.userProfessional ? res?.shortlistId?.userProfessional?.jobTitle : "NA , NA"}
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div className="mt-[20px] 2xl:mt-[20px] xl:mt-[15px] h-[45px]">
-                                                                <p
-                                                                    style={Text3}
-                                                                    className="text-[#979797] text-[14px] 2xl:text-[12px] xl:text-[12px] pr-[10px]"
-                                                                >
-                                                                    {handleTextOverflow(
-                                                                        res?.shortlistId?.writeBoutYourSelf
-                                                                            ? res?.shortlistId?.writeBoutYourSelf
-                                                                            : "NA",
-                                                                    )}
-                                                                    {res?.shortlistId?.writeBoutYourSelf &&
-                                                                        res?.shortlistId?.writeBoutYourSelf.length >
-                                                                        MAX_CHARACTERS && (
-                                                                            <span className="text-[#0F52BA]">
-                                                                                {" "}
-                                                                                more{" "}
-                                                                            </span>
-                                                                        )}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="absolute right-0 mt-[-10px]">
-                                                            <SendRequestBtn
-                                                                RequestId={sentrequest[res?.shortlistId?.id]}
-                                                                HandleRequestModal={() => HandleRequestModal(res)}
-                                                            />
-                                                        </div>
+                                                            <li
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                style={ListText}
+                                                            >
+                                                                <Image loading="lazy"
+                                                                    alt="mark"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    src={"/assests/Black/RightTick.svg"}
+                                                                    className="inline pr-[5px]"
+                                                                />
+                                                                {res?.shortlistId?.userProfessional ? res?.shortlistId?.userProfessional?.jobTitle : "NA , NA"}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div className="mt-[20px] 2xl:mt-[20px] xl:mt-[15px] h-[45px]">
+                                                        <p
+                                                            style={Text3}
+                                                            className="text-[#979797] text-[14px] 2xl:text-[12px] xl:text-[12px] pr-[10px]"
+                                                        >
+                                                            {handleTextOverflow(
+                                                                res?.shortlistId?.writeBoutYourSelf
+                                                                    ? res?.shortlistId?.writeBoutYourSelf
+                                                                    : "NA",
+                                                            )}
+                                                            {res?.shortlistId?.writeBoutYourSelf &&
+                                                                res?.shortlistId?.writeBoutYourSelf.length >
+                                                                MAX_CHARACTERS && (
+                                                                    <span className="text-[#0F52BA]">
+                                                                        {" "}
+                                                                        more{" "}
+                                                                    </span>
+                                                                )}
+                                                        </p>
                                                     </div>
                                                 </div>
 
+                                                <div className="absolute right-0 mt-[-10px]">
+                                                    <SendRequestBtn
+                                                        RequestId={sentrequest[res?.shortlistId?.id]}
+                                                        HandleRequestModal={() => HandleRequestModal(res)}
+                                                    />
+                                                </div>
                                             </div>
+                                        </div>
+
+                                    </div>
 
 
 
-                                        </>
-                                    )
-                                })
+                                </>
+                            )
+                        })
 
-                            }
-
-
-
-                        </div>
-
-                    </div>
-
-                    <ShareModal isOpen={isModalOpen} onClose={closeModal} />
+                    }
 
 
-                </>
-                :
-                <>
 
-                    <div className='h-[500px] grid place-items-center'>
-                        <div className='grid place-items-center space-y-[5px]'>
-                            <Image loading="lazy" alt='not-found' width={34} height={34} src={"/assests/dashboard/icon/NotFound-img.svg"} />
-                            <h1 className='inline' style={ImageNotFoundText}>No Profiles Found</h1>
-                        </div>
-                    </div>
+                </div>
 
-                </>
-            }
+            </div>
+
+            <ShareModal isOpen={isModalOpen} onClose={closeModal} />
+
+
+            <ProfileDataNotFound ProfileData={userData} />
+
 
 
             <ReportModal

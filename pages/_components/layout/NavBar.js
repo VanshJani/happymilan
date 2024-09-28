@@ -27,7 +27,7 @@ import DarkModeToggle from '../common/Buttons/Darkmode/DarkModeToggle'
 import ProductsListModal from "../Model/Models/ProductsListModal";
 import { io } from "socket.io-client";
 
-const RequestNotification = dynamic(() => import("../../../components/LongTerm/Notification/RequestNotification"), {
+const RequestNotification = dynamic(() => import("../../../components/long-term/Notification/RequestNotification"), {
     ssr: false
 });
 const ProfileImage = dynamic(() => import("../common/profile/ProfileImage"));
@@ -301,7 +301,7 @@ function NavBar({ handleSearch }) {
 
 
                         <div className="flex space-x-[20px]   pt-[20px] pb-[20px]">
-                            <div>
+                            <div className="">
                                 <ProfileImage size={40} />
                             </div>
                             <div>
@@ -437,7 +437,7 @@ function NavBar({ handleSearch }) {
             });
 
             socket?.on("onlineUser", (data) => {
-                console.log("Data from logout : ", data)
+
             })
             socket?.emit("userInActive")
 
@@ -460,7 +460,6 @@ function NavBar({ handleSearch }) {
 
         // Listen for incoming messages
         onMessage(messaging, (payload) => {
-            console.log('Message received:', payload);
 
             // Display the message as a toast notification
             setNotificationCount((prevCount) => prevCount + 1);
@@ -511,7 +510,7 @@ function NavBar({ handleSearch }) {
                 className="p-1 font-normal rounded-[10px] p-[7px] rounded-[10px]"
 
             >
-                <div style={{ cursor: "pointer" }} onClick={handleClick}>
+                <div className="grid place-items-center w-[45px] h-[45px]" style={{ cursor: "pointer" }} onClick={handleClick}>
                     <ProfileImage size={40} />
                 </div>
 

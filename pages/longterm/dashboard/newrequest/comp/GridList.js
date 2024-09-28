@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 function GridList() {
     const ProfileName = {
@@ -161,7 +162,9 @@ function GridList() {
             }
         },
     ]
- 
+
+    const { data, loading } = useSelector((state) => state.usersact.requestdata)
+
 
     return (
         <>

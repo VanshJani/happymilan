@@ -163,15 +163,6 @@ function NewLand() {
         lineHeight: "14px", /* 87.5% */
     }
 
-    const AccordingBody = {
-        color: "#000",
-        fontFamily: "Poppins",
-        fontSize: "14px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal",
-    };
-
     const AccordingBodyList = styled.ul`
     color: #000;
     font-family: 'Poppins', sans-serif;
@@ -227,7 +218,7 @@ function NewLand() {
                 setActiveProfile(profilesData[nextIndex]);
                 return nextIndex;
             });
-        }, 5000); // Change every 5 seconds
+        }, 4000); // Change every 5 seconds
 
         return () => clearInterval(interval); // Clear interval on component unmount
     }, []);
@@ -235,9 +226,12 @@ function NewLand() {
 
 
     const [token, setToken] = useState("");
+    const [ProfileType, SetProfileType] = useState("")
 
     useEffect(() => {
         setToken(getCookie("jwtToken"))
+        SetProfileType(getCookie("UserProfile"))
+
     }, [])
 
 
@@ -247,7 +241,11 @@ function NewLand() {
         if (!token) {
             router.push("/login")
         } else {
-            router.push("/longterm/dashboard")
+            if (ProfileType == "dating") {
+                router.push("/dating/dashboard")
+            } else {
+                router.push("/longterm/dashboard")
+            }
         }
     }
 
@@ -395,7 +393,7 @@ function NewLand() {
                                 </ul>
                             </div>
                             <div>
-                                <Image width={0} height={0} alt='chat-ui'  loading='lazy' src={"https://stage.happymilan.tech/heroSec/assests/chat-img-1.svg"} className='2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px]' />
+                                <Image width={0} height={0} alt='chat-ui' loading='lazy' src={"/heroSec/assests/chat-img-1.svg"} className='2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px]' />
                             </div>
                         </div>
                     </div>

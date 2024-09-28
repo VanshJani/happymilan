@@ -8,10 +8,11 @@ import BlockUserModal from '../../../../pages/_components/Model/Models/BlockModa
 import ReportModal from '../../../../pages/_components/Model/Models/ReportModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateSpamUserdata } from '../../../../store/reducers/SpamReportReducer';
+import CancelRequestModal from '../../../../pages/_components/Model/Models/CancelRequestModal';
 
-function ProfileMenu({ res, Section, HandleCancelRequest }) {
+function ProfileMenu({ Credentials, res, Section }) {
 
-    const { darkMode, toggleDarkMode } = useDarkMode();
+    const { darkMode } = useDarkMode();
 
 
     const Text3 = {
@@ -32,9 +33,6 @@ function ProfileMenu({ res, Section, HandleCancelRequest }) {
 
 
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [CurrentUserID, SetCurrentUserID] = useState("");
-    // const [Username,SetUsername] = useState("")
-
     const [UserData, SetUserData] = useState("");
     const [CurrURL, SetCurURL] = useState("")
 
@@ -52,54 +50,56 @@ function ProfileMenu({ res, Section, HandleCancelRequest }) {
     // Block Modal Section -- End
 
     // Report Modal Section - Start
+    // Manages the opening and closing of the report modal, and updates spam user data upon reporting
 
+    // State to manage the visibility of the report modal
     const [isReportModalOpen, setisReportModalOpen] = useState(false);
 
+    // Redux dispatch hook and spam user data from the store
     const dispatch = useDispatch();
     const spamUserData = useSelector(state => state.Spamuser.SpamUserdata);
 
+    // Function to open the report modal
     const OpenReportModal = () => {
         setisReportModalOpen(true);
-
     };
 
+    // Function to close the report modal
     const CloseReportModal = () => {
         setisReportModalOpen(false);
     };
 
-
+    // Function to handle report action
+    // This closes the current modal, opens the report modal, and updates spam user data in the Redux store
     const ReportModalHandle = () => {
-        handleClose();
-        OpenReportModal();
-        console.log(res)
-
+        handleClose(); // Close the current modal
+        OpenReportModal(); // Open the report modal
+        // Dispatch updated spam user data to the store
         dispatch(updateSpamUserdata({
             ...spamUserData,
             spamUserId: res?.id,
             UserName: res?.firstName + " " + res?.lastName
         }));
-
-    }
-
+    };
 
     // Report Modal Section - End
+
+
+
 
     const handleClick = (event, res) => {
         SetUserData(res)
         setAnchorEl(event.currentTarget);
-        SetCurrentUserID(res?.id || res?._id || "");
 
         const userId = res?.id || res?._id || "";
         const currentUrl = window.location.href;
 
         // Remove "/sent" from the URL if it exists
-        const newUrl = currentUrl.replace('/sent', '');
+        const newUrl = currentUrl.replace(/\/(sent|accepted|cancelled|deleted|newrequest)/g, '');
 
         // Append userId to the modified URL
         const urlWithUserId = `${newUrl}/${userId}`;
-
         SetCurURL(urlWithUserId);
-
     };
 
     const handleClose = () => {
@@ -118,9 +118,6 @@ function ProfileMenu({ res, Section, HandleCancelRequest }) {
         handleClose();
     }
 
-    const [UserID, SetUserID] = useState("");
-
-
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = (e) => {
@@ -133,22 +130,17 @@ function ProfileMenu({ res, Section, HandleCancelRequest }) {
     };
 
 
-    const handleClickOpen = () => {
+    const handleCopyURL = () => {
 
-        navigator.clipboard
-            .writeText(CurrURL)
-            .then(() => {
-                setOpenURLModal(true);
-                handleClose(); // Reset copied state after 2 seconds
-            })
-            .catch((error) => console.error("Failed to copy URL: ", error));
-
+        setOpenURLModal(true)
+        navigator.clipboard.writeText(CurrURL)
+        handleClose();
         setTimeout(() => {
-            setOpenURLModal(false);
-        }, 800);
-    };
+            setOpenURLModal(false)
+        }, 1000);
 
-    // All Sections 
+    }
+
 
     const SecntSection = () => {
         return (
@@ -158,23 +150,41 @@ function ProfileMenu({ res, Section, HandleCancelRequest }) {
     }
 
     const AcceptedSection = () => {
-        return (
 
-            <li
-                onClick={HandleCancelRequest}
-                style={Text3}
-                className="cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
-            >
-                <div className=" ml-[20px] flex space-x-[24px]">
-                    <Image loading="lazy"
-                        alt="copy"
-                        width={14}
-                        height={14}
-                        src="/assests/Black/UnfriendUser.svg"
-                    />{" "}
-                    <p>Unfriend {UserData?.name ? UserData?.name : ""}</p>
-                </div>
-            </li>
+        const [isCancelModalOpen, setisCancelModalOpen] = useState(false);
+
+        const closeCancelModal = () => {
+            setisCancelModalOpen(false)
+        }
+        const HandleUnfriend = () => {
+            setisCancelModalOpen(true)
+        }
+
+
+        return (
+            <>
+                <li
+                    onClick={HandleUnfriend}
+                    style={Text3}
+                    className="cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
+                >
+                    <div className=" ml-[20px] flex space-x-[24px]">
+                        <Image loading="lazy"
+                            alt="copy"
+                            width={14}
+                            height={14}
+                            src="/assests/Black/UnfriendUser.svg"
+                        />{" "}
+                        <p>Unfriend {UserData?.name ? UserData?.name : ""}</p>
+                    </div>
+                </li>
+
+                <CancelRequestModal
+                    data={Credentials}
+                    isOpen={isCancelModalOpen}
+                    onClose={closeCancelModal}
+                />
+            </>
         )
     }
 
@@ -309,6 +319,22 @@ function ProfileMenu({ res, Section, HandleCancelRequest }) {
                                     <p> Report this profile</p>
                                 </div>
                             </li>
+                            <li
+                                onClick={handleCopyURL}
+                                style={Text3}
+                                className="cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
+                            >
+                                <div className=" ml-[20px] flex space-x-[24px]">
+                                    <Image
+                                        loading="lazy"
+                                        alt="icon"
+                                        width={12}
+                                        height={14}
+                                        src="/assests/dashboard/icon/copy-icon.svg"
+                                    />{" "}
+                                    <p>Copy URL</p>
+                                </div>
+                            </li>
                             {renderSection()}
                         </ul>
 
@@ -318,7 +344,7 @@ function ProfileMenu({ res, Section, HandleCancelRequest }) {
 
 
             {/* All Models */}
-            <ShareModal UserID={UserID} isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
+            <ShareModal isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
             <BlockUserModal
                 isOpen={isBlockModalOpen}
                 onClose={closeBlockModal}

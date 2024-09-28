@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from "react-redux";
 import { updateAddressData, updateEducationData, updateGeneralInfo, updatePartnerPrefData, updateProffessionalData, updatehobbiesData } from "../../store/actions/registerUser";
@@ -25,6 +25,23 @@ const PartnerPrefSec = dynamic(() => import('./Registersection/PartnerPrefSec'),
 
 
 function Home() {
+
+
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            // Modern browsers require returnValue to be set
+            event.preventDefault();
+            event.returnValue = ''; // Some browsers require this line for compatibility
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Cleanup the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
 
     const [activeTab, setActiveTab] = useState(0);
     const dispatch = useDispatch();

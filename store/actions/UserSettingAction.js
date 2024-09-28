@@ -15,7 +15,7 @@ export const Hidemyprofile = (credetials) => {
         let config = {
             method: 'delete',
             maxBodyLength: Infinity,
-            url: `https://happymilan.tech/api/v1/user/user`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user`,
             headers: {
                 'Authorization': `Bearer ${token}`
             }

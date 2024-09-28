@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dialog, Skeleton } from '@mui/material';
 import { useDarkMode } from '../../../ContextProvider/DarkModeContext';
-import { fetchAllUsers } from '../../../store/actions/GetingAlluser';
-import { fetchAllUsersdata, loadMoreUsers } from '../../../utils/API/MoreSuggestion';
+import { FetchMoreSuggestiondata } from '../../../store/actions/GetingAlluser';
 import { sendRequest } from '../../../store/actions/UsersAction';
 import Link from 'next/link';
 import Avatar from 'react-avatar';
@@ -12,25 +11,23 @@ import Avatar from 'react-avatar';
 function MoreSuggestion() {
     const dispatch = useDispatch();
     const { darkMode } = useDarkMode();
-    const { users, loading } = useSelector((state) => state.alluser);
-
-    const [usersdata, setUsers] = useState([]);
-    const [visibleUsers, setVisibleUsers] = useState([]);
-    const [startIndex, setStartIndex] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
+    const { data, loading } = useSelector((state) => state.alluser?.MoreSuggestion);
     const [sentrequest, setsentRequest] = useState({});
 
-    useEffect(() => {
-        dispatch(fetchAllUsers());
-    }, [dispatch]);
-
-    useEffect(() => {
-        fetchAllUsersdata(users?.users, setUsers, setVisibleUsers);
-    }, [users]);
+    const [page, setPage] = useState(1)
 
     const handleLoadMoreUsers = () => {
-        loadMoreUsers(startIndex, usersdata, setStartIndex, setVisibleUsers, setIsLoading);
+
+        if (data?.data?.[0]?.currentPage === data?.data?.[0]?.totalPages) {
+            setPage(1)
+        } else {
+            setPage((prev) => prev + 1)
+        }
     };
+
+    useEffect(() => {
+        dispatch(FetchMoreSuggestiondata({ page: page }));
+    }, [setPage, page]);
 
     const Urlmodaltext = {
         color: "#000",
@@ -166,7 +163,7 @@ function MoreSuggestion() {
                                 </li>
                             ))
                         ) : (
-                            visibleUsers?.map((res, index) => (
+                            data?.data?.[0]?.paginatedResults?.map((res, index) => (
                                 <li key={res._id}>
                                     <div className='flex justify-between items-center'>
                                         <div className='flex space-x-[20px]'>
@@ -216,10 +213,10 @@ function MoreSuggestion() {
                     <button
                         id={darkMode ? 'Gradient-btn-2' : ''}
                         onClick={handleLoadMoreUsers}
-                        disabled={isLoading}
+                        disabled={loading}
                         className={`${darkMode ? "" : "border-[1px] border-[#8225AF]"} hover:bg-[#F3F8FF] mt-[20px] w-[100%] h-[40px] rounded-[22px] text-[#000] dark:text-[#FFF]`}
                     >
-                        {isLoading ? 'Loading...' : 'Load More'}
+                        {loading ? 'Loading...' : 'Load More'}
                     </button>
                 </div>
             </div>

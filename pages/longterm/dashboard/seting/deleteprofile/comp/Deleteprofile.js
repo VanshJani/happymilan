@@ -4,11 +4,11 @@ const DynamicSelect = dynamic(() => import("react-select"), { ssr: false });
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { Hidemyprofile, Hidemyprofileclosemodel } from "../../../../../../store/actions/UserSettingAction";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { Box } from "@mui/material";
 
 function DeleteProfile() {
   const [open, setOpen] = React.useState(false);

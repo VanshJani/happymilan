@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination'
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import ProfileSkeletonLoader from '../../../../../components/common/animation/GridSkeleton'
-import Avatar from 'react-avatar'
 import Link from 'next/link'
+import Avatar from 'react-avatar'
 
 function GridList() {
 

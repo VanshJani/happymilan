@@ -1,10 +1,11 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginAsync } from '../../../../../store/reducers/loginReducer';
+import { loginAsync, resetError } from '../../../../../store/reducers/loginReducer';
 import { STATUSES } from '../../../../../store/reducers/MyProfile';
 import ResetPassword from './ResetPassword';
 import QRLogin from '../../../../../utils/API/QRCode';
+import toast, { Toaster } from 'react-hot-toast';
 // import QRLogin from '../../../../test';
 
 function LoginUser() {
@@ -14,6 +15,15 @@ function LoginUser() {
     const dispatch = useDispatch();
 
     const { status, error, handleError } = useSelector(state => state.login);
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error); // Show error toast
+
+            // Reset error state after showing toast
+            dispatch(resetError());
+        }
+    }, [error, dispatch]);
 
     const LoginButton = async (e) => {
         e.preventDefault();
@@ -69,6 +79,10 @@ function LoginUser() {
     const [ActiveTab, SetActiveTab] = useState(true)
 
     const [ShowPass, SetshowPass] = useState(false)
+
+
+
+
 
     return (
         <>
@@ -151,6 +165,11 @@ function LoginUser() {
                         </div>
                     </>
             }
+
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
         </>
     )
 }

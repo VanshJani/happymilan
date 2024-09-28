@@ -8,7 +8,6 @@ body {
   @apply leading-[normal] m-0;
 }
 
-/* input */
 *,
 ::before,
 ::after {
@@ -27,7 +26,6 @@ body {
   border-radius: 14px 14px 0 0;
   background: linear-gradient(90deg, rgba(15, 82, 186, 0.10) 0%, rgba(130, 37, 175, 0.10) 100%);
 }
-
 
 #seting-plans-gradient-text {
   font-family: Poppins;
@@ -112,19 +110,6 @@ body {
   opacity: 0.9;
 }
 
-
-/* 
-#profile-background-grad {
-  background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
-
-} */
-
-/* 
-#grad-bg {
-  background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
-
-} */
-
 #grad-text {
   color: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
 }
@@ -164,8 +149,6 @@ body {
   color: white;
 }
 
-
-
 #DarkPagination:hover {
   background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
   border: none;
@@ -176,7 +159,6 @@ body {
   background-color: #F3F8FF;
   color: black;
 }
-
 
 #Gradient-logout-btn-2 {
   border: none;
@@ -209,7 +191,6 @@ body {
   fill: none;
 }
 
-
 #nav-links a {
   color: #FFF;
   font-family: Poppins;
@@ -219,7 +200,6 @@ body {
   line-height: normal;
   text-decoration: none;
 }
-
 
 #footer-links {
   padding-top: 10px;
@@ -277,7 +257,6 @@ body {
   line-height: normal;
 }
 
-
 #faq-title-1 {
   color: #000;
   text-align: center;
@@ -296,7 +275,6 @@ body {
   font-weight: 400;
   line-height: normal;
 }
-
 
 #photo-grid-container {
   grid-template-columns: repeat(5, 200px);
@@ -340,7 +318,6 @@ body::-webkit-scrollbar {
 
 }
 
-
 #chat-scroll-bar::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
@@ -352,7 +329,6 @@ body::-webkit-scrollbar {
   position: relative;
   left: 20px;
 }
-
 
 #number-input::-webkit-inner-spin-button,
 #number-input::-webkit-outer-spin-button {
@@ -388,13 +364,7 @@ body::-webkit-scrollbar {
   transform: translateX(0);
 }
 
-
-
 /* Heart Animation  */
-
-
-
-
 
 .verification {
   display: flex;
@@ -448,43 +418,24 @@ body::-webkit-scrollbar {
   }
 }
 
-
-/* Customize the height and width of pagination bullets */
 .swiper-pagination-clickable .swiper-pagination-bullet {
   width: 12px;
-  /* Set the desired width */
   height: 12px;
-  /* Set the desired height */
   background-color: #D6D6D6;
   opacity: 0.50;
   position: relative;
   top: -5px;
 }
 
-/* Customize the active pagination bullet */
 .swiper-pagination-clickable .swiper-pagination-bullet-active {
   width: 12px;
-  /* Set the desired width for the active bullet */
   height: 12px;
-  /* Set the desired height for the active bullet */
   background-color: #007aff;
-  /* Customize background color for active bullet */
 }
 
-/* .image-selection-container {
-  display: flex;
-} */
-
-/* styles.module.css */
-
-/* Define the breakpoint for medium screens */
 @media (max-width: 768px) {
-
-
   .collapsed-sidebar {
-    /* Style for collapsed sidebar on medium screens */
     width: 64px;
-    /* You can adjust this as needed */
   }
 }
 
@@ -494,18 +445,6 @@ body::-webkit-scrollbar {
   box-shadow: none;
   outline: none;
 }
-
-/* login-box */
-@media (orientation: portrait) {
-  #main-login-box {
-    display: grid;
-    height: 100%;
-    margin-top: 50%;
-    width: 100%;
-    place-items: center;
-  }
-}
-
 
 #PriceBox2 {
   display: none;
@@ -575,7 +514,6 @@ body::-webkit-scrollbar {
   }
 }
 
-
 @media screen and (max-width: 929px) and (min-width: 720px) {
   #pricebox-2-main {
     position: relative;
@@ -583,13 +521,11 @@ body::-webkit-scrollbar {
   }
 }
 
-
 @media screen and (min-width: 1429px) and (max-width: 1500px) {
   #id-search-centerlized {
     position: absolute;
     left: 20.70%;
   }
-
 }
 
 @media screen and (min-width: 1501px) and (max-width: 1525px) {
@@ -606,20 +542,12 @@ body::-webkit-scrollbar {
   }
 }
 
-
 @media (min-width: 1430px) and (max-width: 1530px) {
-
-  /* Your CSS styles for this range go here */
   #doItText {
     position: absolute;
     right: -27%;
   }
-
-  /* Add more styles as needed */
 }
-
-
-
 
 @media screen and (width: 1280px) and (height: 720px) {
   #pricing-box {
@@ -631,10 +559,6 @@ body::-webkit-scrollbar {
     position: absolute;
     right: -27%;
   }
-
-  #upgrade-bg-img {
-    margin-top: 50px;
-  }
 }
 
 
@@ -645,18 +569,12 @@ body::-webkit-scrollbar {
   }
 }
 
-
-
 @media only screen and (min-width: 960px) and (max-width: 1139px) {
 
   #story-section-center {
     left: -5px;
   }
-
 }
-
-
-
 
 #gradient-text-login {
   background: linear-gradient(103deg, #0F52BA 23.51%, #8225AF 72.05%);
@@ -672,18 +590,15 @@ body::-webkit-scrollbar {
   -webkit-text-fill-color: transparent;
 }
 
-
 #Gradient-btn-2 {
   border: none;
   outline: none;
   position: relative;
   z-index: 1;
   border-radius: 22px;
-  /* background: linear-gradient(to right, #00FFA3, #DC1FFF); */
   background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
   cursor: pointer;
 }
-
 
 #Gradient-btn-2::before {
   content: "";
@@ -697,8 +612,6 @@ body::-webkit-scrollbar {
   z-index: -1;
   transition: 200ms
 }
-
-
 
 .switch {
   font-size: 17px;
@@ -735,7 +648,6 @@ body::-webkit-scrollbar {
   left: 4px;
   bottom: 2px;
   z-index: 2;
-  /* background-color: #e8e8e8; */
   background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
   transition: .4s;
 }
@@ -759,7 +671,6 @@ body::-webkit-scrollbar {
   height: 15px;
 }
 
-/* .switch:hover */
 .toggle-sun svg {
   animation: rotate 15s linear infinite;
 }
@@ -775,13 +686,11 @@ body::-webkit-scrollbar {
   }
 }
 
-/* .switch:hover */
 .toggle-moon svg {
   animation: tilt 5s linear infinite;
 }
 
 @keyframes tilt {
-
   0% {
     transform: rotate(0deg);
   }
@@ -811,8 +720,6 @@ body::-webkit-scrollbar {
   transform: translateX(25px);
 }
 
-/* Gradient-btn */
-
 .active-users {
   margin-bottom: 20px;
 }
@@ -829,34 +736,18 @@ body::-webkit-scrollbar {
   border-radius: 50%;
 }
 
-/* Adjust width to fit 5 users per row */
 .active-user-item {
   width: calc(20% - 10px);
-  /* 10px margin between items */
 }
 
-/* Add scrollbar for overflow */
 .active-users-list {
   overflow-y: auto;
   max-height: 150px;
-  /* Adjust height as needed */
 }
-
-/* For Image Not Select  */
-
 
 .Prevbtn {
-  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; */
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-
-
-
-
-
-/* For audio message Save-Search-Box */
-
-
 
 .player-card {
   width: 261px;
@@ -864,7 +755,6 @@ body::-webkit-scrollbar {
   border-radius: 10px;
   display: flex;
   align-items: center;
-  /* Changed 'place-items' to 'align-items' */
   justify-content: space-between;
   padding: 5px;
 }
@@ -896,16 +786,11 @@ body::-webkit-scrollbar {
   margin-right: 10px;
 }
 
-
-
-/* Modify Search  */
-
 #Save-Search-Box {
   border-radius: 10px;
   box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.07);
   flex-shrink: 0;
 }
-
 
 #Search-Member-Box {
   border-radius: 10px;
@@ -918,13 +803,10 @@ body::-webkit-scrollbar {
 #chat-image:-moz-full-screen,
 #chat-image:-ms-fullscreen {
   object-fit: cover;
-  /* Ensures the image covers the entire screen */
   width: 100vw;
   height: 100vh;
   display: block;
-  /* Ensures the image is displayed as a block element */
   margin: 0;
-  /* Removes any default margin */
 }
 
 #gradient-Text-style {
@@ -939,34 +821,17 @@ body::-webkit-scrollbar {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
 }
 
-#GradientBG {
-  background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
-}
-
-
-/* Hide the scrollbar while still allowing scrolling */
 #hide-Story-scrollbar {
   scrollbar-width: none;
-  /* Firefox */
   -ms-overflow-style: none;
-  /* IE and Edge */
 }
 
 #hide-Story-scrollbar::-webkit-scrollbar {
   display: none;
-  /* Safari and Chrome */
 }
 
-.heart {
-  transition: all 0.3s ease-in-out;
-}
-
-.heart.animated {
-  transform: scale(1.2);
-}
 
 #DisableBTN {
   opacity: 0.4;
@@ -974,15 +839,9 @@ body::-webkit-scrollbar {
   color: black;
 }
 
-
-
-/* Scroll Top Button  */
-
-/* From Uiverse.io by vinodjangid07 */
 .Scroll-Top-Btn {
   width: 45px;
   height: 45px;
-  /* background: linear-gradient(#44ea76, #39fad7); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1042,11 +901,8 @@ body::-webkit-scrollbar {
 
 }
 
-
-
 .the-input-container {
   position: relative;
-  /* width: 231px; */
 }
 
 .the-input-container input[type="text"] {
@@ -1083,17 +939,13 @@ body::-webkit-scrollbar {
   width: 100%;
   background-color: #ccc;
   transform: scaleX(1);
-  /* Remove scaling effect */
   transition: background-color 0.3s ease;
-  /* Change only the color */
 }
 
 .the-input-container input[type="text"]:focus~.underline,
 .the-input-container input[type="text"]:valid~.underline {
   background-color: #333;
 }
-
-
 
 .select-container {
   position: relative;
@@ -1136,40 +988,65 @@ body::-webkit-scrollbar {
   color: black;
 }
 
-
 #num-input::-webkit-outer-spin-button,
 #num-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
 #num-input[type=number] {
   -moz-appearance: textfield;
 }
 
-
-/* Custom scrollbar styles */
 #Partner-Pref-Scroll::-webkit-scrollbar {
-  width: 1px; /* Width of the scrollbar */
+  width: 1px;
 }
 
 #Partner-Pref-Scroll::-webkit-scrollbar-thumb {
   width: 1px;
-  background-color: #B7B7B7; /* Background color of the scrollbar thumb #B7B7B7*/
+  background-color: #B7B7B7;
 }
 
 #Partner-Pref-Scroll::-webkit-scrollbar-track {
-  background-color: #EBEBEB; /* Background of the scrollbar track */
+  background-color: #EBEBEB;
 }
 
-/* Firefox */
 #Partner-Pref-Scroll {
-  scrollbar-width: thin; /* Make the scrollbar thin */
-  scrollbar-color: #B7B7B7 #EBEBEB; /* Thumb and track color */
+  scrollbar-width: thin;
+  scrollbar-color: #B7B7B7 #EBEBEB;
 }
 
-/* Set height of the div */
 #Partner-Pref-Scroll {
-  height: 300px; /* Set the height of the scrollable area */
+  height: 300px;
+}
+
+/* For Success Stories Partner ID Search  */
+
+#theresults-list {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 8px #ddd;
+  border-radius: 10px;
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#thesearch-result {
+  padding: 10px 20px;
+}
+
+#thesearch-result:hover {
+  background-color: #efefef;
+}
+
+#Swipe-Check {
+  height: 2px;
+  width: 66px;
+  border-radius: 10px;
+  top: 0;
+  position: relative;
+  top: -350px;
 }

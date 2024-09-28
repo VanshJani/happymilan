@@ -1,5 +1,4 @@
 import React from 'react'
-import { motherTongueOption } from '../../../utils/options/Register/GenralSectionOptions'
 import dynamic from 'next/dynamic';
 import { LabelStyle } from '../../../utils/options/styles/SelectBoxStyle';
 import { connect } from 'react-redux';

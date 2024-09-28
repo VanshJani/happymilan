@@ -29,7 +29,7 @@ function Safetytips({ UserDetails }) {
     const [Tab, SetTab] = useState(0)
 
     const SafetyCheck = useSelector((state) => state.chatSafetyConsent.safetyConsent)
-    
+
     const { userData, updateUser } = useContext(UserContext);
 
     const dispatch = useDispatch()
@@ -44,7 +44,6 @@ function Safetytips({ UserDetails }) {
                 primaryConsent: true
             }
 
-            console.log("Dispatch callleddddd..")
             dispatch(UpdateMessageConsentStatus(data))
         } else {
             SetTab(Tab + 1)

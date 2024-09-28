@@ -27,3 +27,29 @@ export const countryoflivingOptions = [
     { value: "mexico", label: "Mexico" },
     // Add more countries as needed
 ];
+
+export const occupationOptions = [
+    { value: "software_engineer", label: "Software Engineer" },
+    { value: "doctor", label: "Doctor" },
+    { value: "teacher", label: "Teacher" },
+    { value: "business_analyst", label: "Business Analyst" },
+    { value: "mechanical_engineer", label: "Mechanical Engineer" },
+    { value: "civil_engineer", label: "Civil Engineer" },
+    { value: "lawyer", label: "Lawyer" },
+    { value: "nurse", label: "Nurse" },
+    { value: "accountant", label: "Accountant" },
+    { value: "architect", label: "Architect" },
+    { value: "graphic_designer", label: "Graphic Designer" },
+    { value: "marketing_manager", label: "Marketing Manager" },
+    { value: "data_scientist", label: "Data Scientist" },
+    { value: "financial_analyst", label: "Financial Analyst" },
+    { value: "pilot", label: "Pilot" },
+    { value: "journalist", label: "Journalist" },
+    { value: "pharmacist", label: "Pharmacist" },
+    { value: "sales_executive", label: "Sales Executive" },
+    { value: "chef", label: "Chef" },
+    { value: "entrepreneur", label: "Entrepreneur" },
+    { value: "digital_marketer", label: "Digital Marketer" },
+    { value: "public_relations_officer", label: "Public Relations Officer" },
+    // Add more occupations as needed
+];

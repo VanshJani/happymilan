@@ -44,7 +44,7 @@ const QRLogin = () => {
         const generateQRCode = async () => {
             const axios = require('axios')
             try {
-                const response = await axios.post('https://happymilan.tech/api/v1/user/auth/generate-qr'); // Call backend to generate QR data
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/generate-qr`); // Call backend to generate QR data
 
                 const { channel, token } = response.data.data;
                 setQrValue(JSON.stringify({ channel, token })); // Set the QR code value

@@ -269,7 +269,7 @@ function CommonNavbar({ background }) {
                 as="li"
                 variant="small"
                 color="blue-gray"
-                className="hover:bg-[#F2F7FF] p-1 lg:grid place-items-center font-normal poppins lg:h-[30px] rounded-[17px] "
+                className={` ${isSuccessActive ? "bg-[#F2F7FF]" : "hover:bg-[#F2F7FF]"}  p-1 lg:grid place-items-center font-normal poppins lg:h-[30px] rounded-[17px]`}
 
             >
                 <Link style={isSuccessActive ? aftText : befText} href="/successstories" className="flex items-center pl-[5px] pr-[5px]">

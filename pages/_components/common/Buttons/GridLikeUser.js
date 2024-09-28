@@ -8,7 +8,6 @@ import { FetchGriduserdata, Getlikeduserdata, GetrecentuserprofileData } from '.
 import { Dialog } from '@mui/material';
 
 function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleRequestModal, RequestedStatus, userLikeDetails }) {
-    console.log("🚀 ~ GridLikeUser ~ userLikeDetails:", userLikeDetails)
 
     const { data, loading } = useSelector((state) => state.usersact.LikedUsersData);
     const [isUserLiked, setIsUserLiked] = useState(false);
@@ -46,7 +45,7 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
             setIsDisliked(false)
             socket?.emit('createUserLike', {
                 "userId": userLikeDetails?.user,
-                "likedUserId": userLikeDetails?.likedUserId ,
+                "likedUserId": userLikeDetails?.likedUserId,
             })
 
             setshortlistText(`You Liked ${theUserName}'s profile.`);

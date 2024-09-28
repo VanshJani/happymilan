@@ -6,6 +6,7 @@ import SocialLogin from '../_components/Container/View/UserLogin/SocialLogin'
 import { getCookie } from 'cookies-next'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 function LoginBox() {
 
@@ -50,7 +51,9 @@ function LoginBox() {
     return (
         <>
             <div className='absolute m-[20px]'>
-              <Image quality={45} loading="lazy" alt="img" width={148} height={36} src={"/heroSec/Happy-milan2.svg"} />
+                <Link href={"/"}>
+                    <Image quality={45} loading="lazy" alt="img" width={148} height={36} src={"/heroSec/Happy-milan2.svg"} />
+                </Link>
             </div>
             <div className='flex justify-evenly items-center h-[100vh]  w-full'>
                 <div className='lg:block hidden pl-[10px] space-y-[134px] w-[593px]'>

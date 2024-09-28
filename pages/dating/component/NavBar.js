@@ -830,7 +830,7 @@ function DatingNavBar() {
 
             >
                 {isUpgradeActive ? "" : <>
-                    <button id="grad-btn" style={Text2} onClick={() => router.push("/longterm/dashboard/upgrade")} className="text-[#FFF] text-center flex items-center justify-center w-[123px] h-[40px] bg-[#0F52BA] rounded-[8px]">Upgrade<Image width={23} height={23} className="pl-[5px]" src="/assests/dashboard/icon/crown-icon.svg" /></button>
+                    <button id="grad-btn" style={Text2} onClick={() => router.push("/longterm/dashboard/upgrade")} className="text-[#FFF] text-center flex items-center justify-center w-[123px] h-[40px] bg-[#0F52BA] rounded-[22px]">Upgrade<Image width={23} height={23} className="pl-[5px]" src="/assests/dashboard/icon/crown-icon.svg" /></button>
                 </>}
 
             </Typography>
@@ -840,10 +840,7 @@ function DatingNavBar() {
                 variant="small"
                 color="blue-gray"
                 className="p-1 font-normal poppins rounded-[10px]"
-
             >
-
-
                 <Badge className="cursor-pointer mt-[9px] w-[9px] h-[9px] bg-[#0F52BA]" color="#0F52BA">
                     <Image width={26} height={20} className="cursor-pointer" onClick={toggleDrawer('right', true)} src="/assests/dashboard/icon/notification.svg" />
                 </Badge>
@@ -853,12 +850,8 @@ function DatingNavBar() {
                 id="nav-links"
                 as="li"
                 variant="small"
-
                 className="p-1 font-normal poppins rounded-[10px]"
             >
-
-
-
                 <Image width={17} height={20} className="cursor-pointer" onClick={toggleNotification('right', true)} src="/assests/dashboard/icon/notification-icon.svg" />
 
             </Typography>
@@ -997,19 +990,7 @@ function DatingNavBar() {
                     >
                         <Link href="/">  <Image width={148} height={36} src="/heroSec/Happy-milan2.svg" /></Link>
                     </Typography>
-                    <Typography
-                        as="li"
-                        id="id-search-centerlized"
-                        className=" hidden absolute 2xl:left-[335px] xl:left-[310px] 2xl:flex xl:flex cursor-pointer py-1.5 lg:ml-[0px] font-medium"
-                    >
-                        {
-                            isUpgradeActive ? "" : <>
-                                <input type='text' className='text-[#000] outline-none   pl-[10px] w-[200px] h-[40px] rounded-[8px] bg-[#F7F7F7] border-none ouline-none focus:border-[1px] focus:border-[black] pr-[40px]' placeholder='Profile ID Search' /> <Image width={15} height={14} src="/assests/Black/Search.svg" className="relative right-[30px]" />
-
-                            </>
-                        }
-
-                    </Typography>
+                   
                     <div className="flex items-center gap-4">
                         <div className="w-[600px] hidden lg:block ">{navList}</div>
                         <IconButton

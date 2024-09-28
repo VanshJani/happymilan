@@ -131,6 +131,7 @@ function Searchprofile() {
 
 
     const HandleShortlist = (id) => {
+        console.log("🚀 ~ HandleShortlist ~ id:", id)
         dispatch(addToShortlist(id)); // Dispatch the action with the shortlist ID
 
         setshortlistText("Profile has been shortlisted");
@@ -326,7 +327,7 @@ function Searchprofile() {
                                                         </li>
                                                         <li
                                                             className="cursor-pointer"
-                                                            onClick={() => HandleShortlist(res.id)}
+                                                            onClick={() => HandleShortlist(res.id || res?._id)}
                                                         >
                                                             <div className="cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]">
                                                                 <Image

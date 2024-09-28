@@ -86,7 +86,6 @@ function MatchScoreModal({ user }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true)
-        console.log(user)
         dispatch(GetMatchScore(user?._id))
 
     };

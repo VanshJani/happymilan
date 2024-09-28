@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 import { LabelStyle2 } from '../../utils/options/styles/SelectBoxStyle';
 import dynamic from 'next/dynamic';
-import { updateFormData } from '../../store/actions/registerUser';
-import { connect } from 'react-redux';
 
 const MultiSelect = ({ formData, updateFormData }) => {
 
@@ -24,11 +22,9 @@ const MultiSelect = ({ formData, updateFormData }) => {
     const [datastore, setdatastore] = useState([])
 
     useEffect(() => {
-        console.log(selectedOptions)
         const selectedValues = selectedOptions.map(option => option.value);
         setdatastore(selectedValues)
-        // hobby: {
-        //     hobbyval: []
+
         updateFormData({
             hobby: {
                 ...formData.hobby,
@@ -88,5 +84,5 @@ const MultiValueContainer = ({ children, ...props }) => {
 };
 
 // export default MultiSelect;
-export default connect((state) => ({ formData: state.form.formData }), { updateFormData })(MultiSelect);
+export default MultiSelect;
 

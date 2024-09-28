@@ -127,47 +127,36 @@ function SkeletonProfile() {
 
     return (
         <>
-            <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
 
-            <div className="2xl:pl-0 2xl:pr-0 xl:pl-0 xl:pr-0 lg:pl-[0px] lg:pr-[30px] pl-[0px] pr-[20px] relative 2xl:left-[40px] xl:left-[45px] lg:left-0 left-[0px]">
-                <div className={`flex m-[10px] 2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] lg:w-full w-full bg-[#FFF]`}>
-                    <div id='grad-btn' className='w-full h-[100px] 2xl:h-[138px] xl:h-[138px] md:h-[138px] lg:h-[138px] bg-[#0F52BA] rounded-[10px]'>
+            <div className=" dark:bg-[#18191a] 2xl:pl-0 2xl:pr-0 xl:pl-0 xl:pr-0 lg:pl-[0px] lg:pr-[30px] pl-[0px] pr-[20px] relative 2xl:left-[40px] xl:left-[45px] lg:left-0 left-[0px]">
+                <div className={` flex m-[10px] 2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] lg:w-full w-full dark:bg-[#18191a] bg-[#FFF]`}>
+                    <div
+                        className='bg-custom-gradient w-full h-[100px] 2xl:h-[138px] xl:h-[138px] md:h-[138px] lg:h-[138px] bg-[#0F52BA] rounded-[10px]'>
 
-                        <div className='flex justify-between'>
-
-
+                        <div className='flex justify-between pb-[50px]'>
                             <div className='block lg:hidden cursor-pointer pr-[20px] pt-[20px]'>
-                                <span className=" h-12 w-12 text-lg text-white "><i class={`bx bx-cog `}></i></span>
+                                <span className=" h-12 w-12 text-lg text-white "><i className={`bx bx-cog `}></i></span>
                             </div>
 
                         </div>
                         <div>
                         </div>
-                        <div className='grid place-items-center'>
+                        <div className=' grid place-items-center'>
                             <Skeleton variant="circular" width={184} height={184} className='mt-[5px] lg:mt-0 w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[184px] lg:h-[184px] 2xl:w-[184px] 2xl:h-[184px] xl:w-[160px] xl:h-[160px]' />
                             <Skeleton className='pb-[10px] pt-[15px]'>
                                 <h1 style={Username} className='text-[18px] md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[24px]' >Riya Shah </h1></Skeleton>
                         </div>
                         <div className='space-y-[5px]'>
                             <div className='pb-[10px]'>
-                                <ul className='flex justify-center items-center space-x-[20px] md:space-x-[40px] lg:space-x-[40px] xl:space-x-[40px] 2xl:space-x-[40px]'>
+                                <ul className='mt-[10px] flex justify-center items-center space-x-[20px] md:space-x-[40px] lg:space-x-[40px] xl:space-x-[40px] 2xl:space-x-[40px]'>
                                     <li>
-                                        <Skeleton className='flex items-center space-x-[10px]'>
-                                            <Image alt='heart-icon' width={16} height={14} src='/assests/dashboard/icon/heart-icon.svg' />
-                                            <h1 style={Text3} className='text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>1200 <span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'> Likes </span></h1>
-                                        </Skeleton>
+                                        <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-4"></div>
                                     </li>
                                     <li>
-                                        <Skeleton className='flex items-center space-x-[10px]'>
-                                            <Image alt='up-icon' width={14} height={14} src='/assests/dashboard/icon/up-arrow.svg' />
-                                            <h1 style={Text3} className='text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>50<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>Sent</span></h1>
-                                        </Skeleton>
+                                        <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-4"></div>
                                     </li>
                                     <li>
-                                        <Skeleton className='flex items-center space-x-[10px]'>
-                                            <Image alt='down-icon' width={14} height={14} src='/assests/dashboard/icon/down-arrow.svg' />
-                                            <h1 style={Text3} className='text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>180<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>Received</span></h1>
-                                        </Skeleton>
+                                        <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-4"></div>
                                     </li>
                                 </ul>
                             </div>
@@ -176,22 +165,15 @@ function SkeletonProfile() {
                             <div className='pt-[10px]'>
                                 <ul className='flex justify-center items-center space-x-[8px] md:space-x-[40px]'>
                                     <li>
-                                        <Skeleton className='flex items-center space-x-[10px]'>
+                                        <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-28 "></div>
 
-                                            <h1 style={Text2} className='lg:text-[12px] md:text-[12px] text-[11px]'>{"Female"}, 36, 4’ 5”</h1>
-                                        </Skeleton>
                                     </li>
                                     <li>
-                                        <Skeleton className='flex items-center space-x-[10px]'>
-                                            <Image alt='icon-2' width={14} height={12} src='/assests/dashboard/icon/bag-icon.svg' />
-                                            <h1 style={Text2} className='lg:text-[12px] md:text-[12px] text-[11px]'>{"Software Engineer"}</h1>
-                                        </Skeleton>
+                                        <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-28 "></div>
+
                                     </li>
                                     <li>
-                                        <Skeleton className='flex items-center space-x-[10px]'>
-                                            <Image alt='icon-3' width={10} height={12} src='/assests/dashboard/icon/location-icon.svg' />
-                                            <h1 style={Text2} className='lg:text-[12px] md:text-[12px] text-[11px]'>NY, United States</h1>
-                                        </Skeleton>
+                                        <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-28 "></div>
                                     </li>
                                 </ul>
 

@@ -40,9 +40,16 @@ function SideBar() {
         {
             id: 5,
             path: "/longterm/dashboard/seting/plans",
-            name: "Plans",
+            name: "Plan Details",
             icon: <Image loading='lazy' alt='email' width={14} height={14} src='/assests/dashboard/seting/before-plans-details.svg' />,
             icon2: <Image loading='lazy' alt='email' width={14} height={14} src='/assests/dashboard/seting/after-plans-details.svg' />,
+        },
+        {
+            id: 6,
+            path: "/longterm/dashboard/seting/kyc",
+            name: "KYC Details",
+            icon: <Image loading='lazy' alt='email' width={14} height={14} src='/assests/dashboard/seting/before-kyc-icon.svg' />,
+            icon2: <Image loading='lazy' alt='email' width={14} height={14} src='/assests/dashboard/seting/after-kyc-icon.svg' />,
         }
     ]
 

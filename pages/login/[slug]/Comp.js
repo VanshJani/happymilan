@@ -5,8 +5,9 @@ import { useRouter } from 'next/router';
 import AuthNavbar from "../../_components/layout/AuthNavbar";
 import Image from "next/image";
 import { updateFormData } from "../../../store/actions/registerUser";
-import { connect } from "react-redux";
-import { getCookie } from "cookies-next";
+import { connect, useDispatch } from "react-redux";
+import { getCookie, setCookie } from "cookies-next";
+import { addAppUsesType, PostAppUsesType, updateDatingFormData } from "../../../store/dating-services/Redux-actions/register/registerAction";
 
 const profileOptions = [
     {
@@ -43,11 +44,13 @@ function Comp({ formData, updateFormData }) {
 
     const Token = getCookie("authtoken")
 
-    useEffect(() => {
-        if (!Token) {
-            router.push('/login')
-        }
-    }, [router])
+    // useEffect(() => {
+    //     if (!Token) {
+    //         router.push('/login')
+    //     }
+    // }, [router])
+
+    const dispatch = useDispatch();
 
     const handleSubmit = () => {
         if (activebtn === 0) return;
@@ -55,22 +58,30 @@ function Comp({ formData, updateFormData }) {
         const selectedOption = profileOptions.find(option => option.id === activebtn);
         const { type } = selectedOption;
 
-        updateFormData({
-            ...formData,
-            userType: {
-                ...formData.userType,
-                appUsesType: type,
-            },
-        });
+        if (type === "marriage") {
+            // updateFormData({
+            //     ...formData,
+            //     general: {
+            //         ...formData.general,
+            //         appUsesType: type,
+            //     },
+            // });
+            dispatch(PostAppUsesType(type));
+        } else {
+            dispatch(PostAppUsesType(type));
+        }
+
+
 
         localStorage.setItem("UserProfile", type);
+        setCookie("UserProfile", type);
         localStorage.setItem("UserRegister", true);
         localStorage.setItem("platform-choose", false);
 
         if (type === "marriage") {
             router.push("/longterm/dashboard");
         } else {
-            router.push("/dating");
+            router.push("/dating/register/profileselect");
         }
     };
 

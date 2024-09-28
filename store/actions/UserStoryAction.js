@@ -17,7 +17,7 @@ export const ViewstoryPost = (Viewrdata) => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://happymilan.tech/api/v1/user/story-view/create-view',
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/story-view/create-view`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -51,8 +51,8 @@ export const Getstoryviewsdata = (storyID) => {
 
         let config = {
             method: 'get',
-            maxBodyLength: Infinity,
-            url: `https://happymilan.tech/api/v1/user/story-view/paginated/${storyID}`,
+            maxBodyLength: Infinity, 
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/story-view/paginated/${storyID}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

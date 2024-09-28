@@ -102,26 +102,6 @@ function GenralSec({ formData, updateFormData, SetActiveTab }) {
                                             <label for="weight" className="label">Weight</label>
                                             <div className="underline"></div>
                                         </div>
-                                        {/* <div className="relative">
-                                            <input
-                                                id="weight"
-                                                name="weight"
-                                                type="text"
-                                                className="w-[300px] border-b border-[#C0C0C0] py-1 focus:border-b-2 focus:border-[#000] transition-colors focus:outline-none peer bg-inherit"
-                                                placeholder=" "
-                                                onChange={handleInputChange}
-
-                                            />
-                                            <span className='absolute right-[10px] text-[#AFAFAF]'>
-                                                KG
-                                            </span>
-                                            <label
-                                                for="weight"
-                                                className="text-[#C0C0C0] absolute left-0 top-1 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:text-xs peer-focus:-top-4 peer-focus:text-[#000] text-xs -top-4"
-                                            >
-                                                Weight
-                                            </label>
-                                        </div> */}
                                     </div>
                                 </div>
                             </li>

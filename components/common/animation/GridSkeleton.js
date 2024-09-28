@@ -1,7 +1,6 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
-import { Box } from '@mui/material';
-import { styled } from '@mui/system';
+import { Box, styled } from '@mui/material';
 
 const ProfileCardSkeleton = styled(Box)(({ theme }) => ({
   width: '180px',

@@ -213,7 +213,7 @@ function HobbiesTab() {
                                         <>
                                             <div>
                                                 <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>{res?.category}</p>
-                                                {res?.values.map((val) => {
+                                                {res?.values?.map((val) => {
                                                     return (
                                                         <>
                                                             <span style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{val} , </span>

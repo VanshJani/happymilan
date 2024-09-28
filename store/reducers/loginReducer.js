@@ -17,6 +17,7 @@ export const loginAsync = createAsyncThunk('/dashboard/myprofile', async (creden
   }
 
   const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/login`, UserCredentials);
+  console.log("🚀 ~ loginAsync ~ response:", response)
   return response.data;
   //  return console.log(response.data)
 });
@@ -123,6 +124,7 @@ function setCookiesAndLocalStorage(data) {
   localStorage.setItem("authdata", JSON.stringify(objectData));
 
   setCookie('userid', data.user.id, { secure: true });
+  setCookie('UserProfile', data.user?.appUsesType)
   localStorage.setItem("token", data.tokens.access.token);
   localStorage.setItem("refoken", data.tokens.refresh.token);
   localStorage.setItem('user', data.user.email, { secure: true });

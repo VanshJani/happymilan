@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AuthNavbar from "../../_components/layout/AuthNavbar";
 import Footer from "../../_components/layout/Footer";
 import { useRouter } from "next/router";
 import UploadImage from "./UploadImage";
 import GlobalFooter from "../../_components/layout/GlobalFooter";
+import SearchResults from "./comp/SearchResults";
+import SearchBar from "./comp/SearchBar";
 
 function index() {
     const router = useRouter();
@@ -30,6 +32,20 @@ function index() {
         fontWeight: "400",
         lineHeight: "normal",
     }
+
+    const SubmitStories = () => {
+
+    }
+
+    const [results, setResults] = useState([]);
+    const [SelectedValue, SetSelectedValue] = useState("")
+
+    useEffect(() => {
+        setResults([])
+        console.log("Selected : ", SelectedValue)
+    }, [SetSelectedValue, SelectedValue])
+
+
     return (
         <>
             <AuthNavbar />
@@ -76,7 +92,9 @@ function index() {
                                             </h1>
                                         </div>
                                         <div>
-                                            <input type="text" placeholder="Enter Here" className="outline-none pl-[20px] border-[1px] border-[#B5B5B5] hover:border-[#000] w-[90%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%] h-[50px] rounded-[10px]" />
+                                            {/* <input type="text" placeholder="Enter Here" className="outline-none pl-[20px] border-[1px] border-[#B5B5B5] hover:border-[#000] w-[90%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%] h-[50px] rounded-[10px]" /> */}
+                                            <SearchBar  setResults={setResults} SelectedValue={SelectedValue} />
+                                            {results && results?.length > 0 && <SearchResults SetSelectedValue={SetSelectedValue} results={results} />}
                                         </div>
                                     </li>
                                     <li className="space-y-[20px]">
@@ -116,7 +134,7 @@ function index() {
                         <UploadImage />
                         <div className=" lg:hidden  w-full lg:w-auto  flex justify-center items-center space-x-[20px]  lg:mt-[0px] mt-[10px]">
                             <button
-                                onClick={() => router.push("/successstories")}
+                                onClick={SubmitStories}
                                 className="w-[104px] h-[50px] rounded-[10px] border-[1px] bg-[#0F52BA]"
                                 style={TitleText}
                             >

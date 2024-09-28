@@ -1,6 +1,5 @@
 import { getCookie } from 'cookies-next';
 import { DELETE_SAVESEARCH_DATA, DELETE_SAVESEARCH_DATA_SUCCESS, FETCH_SAVESEARCH_DATA, FETCH_SAVESEARCH_DATA_SUCCESS, GET_SEARCHUSERS_DATA, GET_SEARCHUSERS_DATA_FAILURE, GET_SEARCHUSERS_DATA_SUCCESS, POST_SAVESEARCH_DATA, POST_SAVESEARCH_DATA_SUCCESS } from '../type';
-// import { data } from 'autoprefixer';
 
 export const updateSearchData = (data) => ({
     type: 'UPDATE_SEARCH_DATA',
@@ -223,7 +222,7 @@ export const DeleteSaveSearchData = (SearchID) => {
         let config = {
             method: 'delete',
             maxBodyLength: Infinity,
-            url: `https://happymilan.tech/api/v1/user/search-history/${SearchID}`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/search-history/${SearchID}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authtoken}`

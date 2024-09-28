@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import ProtectedRoutes from '../../../routes/ProtectedRoutes';
 import dynamic from 'next/dynamic';
 import { getCookie } from 'cookies-next';
 import { capitalizeFirstLetter } from '../../../../utils/form/Captitelize';
 import { useDispatch } from 'react-redux';
-import { getPlansByID } from '../../../../store/actions/UpgradeAction';
+import { getPlansByID, GetPlansByName } from '../../../../store/actions/UpgradeAction';
 import BodySection from './comp/BodySection';
 import NavBar from '../../../_components/layout/NavBar';
 
@@ -25,7 +24,9 @@ const PricingPage = () => {
 
 
     const [currentTab, setCurrentTab] = useState(1);
+    const [CurrentPlan, SetCurrentPlan] = useState("silver")
     const [userName, setUserName] = useState('User');
+
     const router = useRouter();
 
     useEffect(() => {
@@ -47,17 +48,17 @@ const PricingPage = () => {
     const data = [
         {
             label: 'Silver',
-            value: 'dashboard',
+            value: 'silver',
             desc: <PricingBox handleCheckout={handleCheckout} />,
         },
         {
             label: 'Gold',
-            value: 'profile',
+            value: 'gold',
             desc: <PricingBox />,
         },
         {
             label: 'Platinum',
-            value: 'settings',
+            value: 'Platinum',
             desc: <PricingBox />,
         },
     ];
@@ -66,17 +67,21 @@ const PricingPage = () => {
     };
 
 
-    const HandleTabChange = (data1,data2) => {
-        
-        return {
-    }
-        setCurrentTab(index + 1)
-
+    const HandleTabChange = (data1, data2) => {
+        setCurrentTab(data2 + 1)
+        SetCurrentPlan(data1?.value)
     }
 
+
+
+    useEffect(() => {
+        console.log(CurrentPlan)
+
+        dispatch(GetPlansByName(CurrentPlan))
+
+    }, [HandleTabChange])
     return (
         <>
-            <ProtectedRoutes />
             <NavBar handleSearch={handleSearch} />
             <div id="PriceBox">
                 <button
@@ -101,7 +106,7 @@ const PricingPage = () => {
                                                 <div
                                                     key={index}
                                                     id={currentTab === index + 1 ? "grad-button" : ""}
-                                                    onClick={()=>HandleTabChange(tab,index)}
+                                                    onClick={() => HandleTabChange(tab, index)}
                                                     className={`cursor-pointer flex items-center justify-center rounded-[25px] w-[131px] 2xl:h-[50px] xl:h-[40px] lg:h-[35px] text-black`}
                                                 >
                                                     {tab.label}

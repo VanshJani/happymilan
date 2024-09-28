@@ -28,8 +28,6 @@ function ShareModal({ isOpen, onClose, data, }) {
   const [Copied, IsCopied] = useState(false);
 
   const handleCopy = () => {
-    console.log(data);
-    // Copy the value of the input field to the clipboard
     navigator.clipboard
       .writeText(data)
       .then(() => {
@@ -42,9 +40,6 @@ function ShareModal({ isOpen, onClose, data, }) {
   };
 
   const NewTabOpen = () => {
-    // // const baseUrl = window.location.origin; // This will automatically take care of local and hosted environments
-    // const baseUrl = window.location.origin; // This will automatically take care of local and hosted environments
-    // // const url = `${baseUrl}/longterm/dashboard/${UserID}`;
     const url = data;
     window.open(url, '_blank', 'noopener,noreferrer');
   }

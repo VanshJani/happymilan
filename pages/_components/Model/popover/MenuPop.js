@@ -6,6 +6,7 @@ import { Dialog, Popover } from "@mui/material";
 import { updateSpamUserdata } from "../../../../store/reducers/SpamReportReducer";
 import { useDispatch, useSelector } from "react-redux";
 
+
 const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal, OpenReportModal, openBlockModal, Sections }) => {
 
     const { darkMode, toggleDarkMode } = useDarkMode();
@@ -87,7 +88,6 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
     const ReportModalHandle = () => {
         handleClose();
         OpenReportModal();
-        console.log(res)
 
         dispatch(updateSpamUserdata({
             ...spamUserData,
@@ -135,7 +135,7 @@ const ProfileMenu = ({ HandleCancelRequest, MenuTitle, res, SetCurURL, openModal
                         marginLeft: "-10px",
                     }, // Add this to remove the shadow
                 }}
-              
+
 
             >
                 <div className={` flex flex- col items-center bg-[#FFF] rounded-[10px] w-[220px] ${MenuTitle ? "h-[180px]" : "h-[150px]"}`}>

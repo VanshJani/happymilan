@@ -11,35 +11,6 @@ const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 function AddressSec({ formData, updateFormData, SetActiveTab }) {
 
-    const Title = {
-        color: "#000",
-        fontFamily: "Poppins",
-        fontSize: "34px",
-        fontStyle: "normal",
-        fontWeight: "600",
-        lineHeight: "normal",
-    }
-
-    const Content = {
-        color: "#000",
-        fontFamily: "Poppins",
-        fontSize: "16px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal",
-    }
-
-    const HelpText = {
-        fontFamily: "Poppins",
-        fontSize: "18px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal",
-    }
-    // currentResidenceAddress: "",
-    // currentCity: "",
-    // currentCountry: "",
-
     const HandleChange = (e) => {
         const { name, value } = e.target;
 

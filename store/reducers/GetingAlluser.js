@@ -12,6 +12,7 @@ import {
   FETCH_ALL_USERS_PAGINATED_SUCCESS,
   FETCH_ALL_USERS_PAGINATED_FAILURE,
 } from '../actions/GetingAlluser';
+import { GET_INFINIT_SCROLL_USER_FAILURE, GET_INFINIT_SCROLL_USER_REQUEST, GET_INFINIT_SCROLL_USER_SUCCESS, GET_MORESUGGESTION_USERS_FAILURE, GET_MORESUGGESTION_USERS_REQUEST, GET_MORESUGGESTION_USERS_SUCCESS } from '../type';
 
 const initialState = {
   users: [],
@@ -24,6 +25,18 @@ const initialState = {
     totalPages: 0,
     currentPage: 0,
     limit: 0,
+  },
+  Ifinit: {
+    data: [],
+    page: 1,
+    loading: false,
+    error: ""
+  },
+  MoreSuggestion: {
+    data: [],
+    page: 1,
+    loading: false,
+    error: ""
   }
 };
 
@@ -41,6 +54,7 @@ const allUsersReducer = (state = initialState, action) => {
         loading: false,
         users: action.payload,
       };
+
     case FETCH_ALL_USERS_FAILURE:
       return {
         ...state,
@@ -76,10 +90,59 @@ const allUsersReducer = (state = initialState, action) => {
 
         }
       }
-    // userData: data?.users,
-    // totalPages: data?.totalPages,
-    // currentPage: data?.page,
-    // limit: data?.limit,
+    case GET_INFINIT_SCROLL_USER_REQUEST: {
+      return {
+        ...state,
+        Ifinit: {
+          loading: true,
+        }
+      }
+    }
+    case GET_INFINIT_SCROLL_USER_SUCCESS: {
+      return {
+        ...state,
+        Ifinit: {
+          data: action.payload,
+          loading: false
+        }
+      }
+    }
+    case GET_INFINIT_SCROLL_USER_FAILURE: {
+      return {
+        ...state,
+        Ifinit: {
+          loading: false,
+          error: "Something Went Wrong.."
+        }
+      }
+    }
+    case GET_MORESUGGESTION_USERS_REQUEST: {
+      return {
+        ...state,
+        MoreSuggestion: {
+          loading: true,
+        }
+      }
+    }
+    case GET_MORESUGGESTION_USERS_SUCCESS: {
+      return {
+        ...state,
+        MoreSuggestion: {
+          loading: false,
+          data: action.payload
+        }
+      }
+    }
+    case GET_MORESUGGESTION_USERS_FAILURE: {
+      return {
+        ...state,
+        MoreSuggestion: {
+          loading: false,
+          error: "Something Went Wrong"
+        }
+      }
+    }
+
     case ADD_TO_SHORTLIST:
       // Logic to add user to shortlist
       return {

@@ -41,12 +41,7 @@ function UnlockProfile() {
                     </div>
                     <div className='flex flex-col justify-center items-center space-y-[10px]'>
                         <div className='w-[47px] h-[47px] rounded-[50px] bg-[gray]'>
-                            {/* <Image width={47} height={47} className='w-[47px] h-[47px]' src="/assests/dashboard/user/3.svg" />
-                            <div id='active-reg-tab' className='absolute opacity-70 top-[74px] w-[47px] rounded-[50px]  h-[47px]'>
-                            </div>
-                            <div className='relative bottom-[25px] grid place-items-center'>
-                                <Image width={9} height={12} src="/assests/dashboard/icon/lock-icon.svg" />
-                            </div> */}
+                            
                             <Image width={47} height={47} src="/assests/dating/img-3.svg" />
                         </div>
                         <div>
@@ -63,7 +58,7 @@ function UnlockProfile() {
                 </div>
 
                 <div className='text-center'>
-                    <button id='grad-btn' style={Text1} className='text-[14px] rounded-[10px] w-[149px] h-[44px] text-[white]'>Unlock Profiles</button>
+                    <button  style={Text1} className='text-[14px] rounded-[23px] w-[149px] h-[44px]  border-[1px] border-[#8225AF]'>Unlock Profiles</button>
                 </div>
             </div>
         </>

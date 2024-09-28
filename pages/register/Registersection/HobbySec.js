@@ -3,10 +3,12 @@ import { motherTongueOption } from '../../../utils/options/Register/GenralSectio
 import dynamic from 'next/dynamic';
 import { LabelStyle, LabelStyle2 } from '../../../utils/options/styles/SelectBoxStyle';
 import MultiSelect from '../../alert';
+import { updateFormData } from '../../../store/actions/registerUser';
+import { connect } from 'react-redux';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 
-function HobbySec({ SetActiveTab }) {
+function HobbySec({ formData, updateFormData, SetActiveTab }) {
 
 
     return (
@@ -23,7 +25,7 @@ function HobbySec({ SetActiveTab }) {
                                     styles={LabelStyle2}
                                     options={motherTongueOption} 
                                     isMulti/> */}
-                                <MultiSelect />
+                                <MultiSelect formData={formData} updateFormData={updateFormData} />
                             </li>
                         </ul>
                     </div>
@@ -33,4 +35,5 @@ function HobbySec({ SetActiveTab }) {
     )
 }
 
-export default HobbySec
+// export default HobbySec
+export default connect((state) => ({ formData: state.form.formData }), { updateFormData })(HobbySec);

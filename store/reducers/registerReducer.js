@@ -26,6 +26,7 @@ const initialState = {
     },
     status: STATUSES.IDLE,
     general: {
+      // appUsesType: "",
       creatingProfileFor: "",
       firstName: "",
       lastName: "",

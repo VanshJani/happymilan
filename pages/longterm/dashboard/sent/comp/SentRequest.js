@@ -19,6 +19,7 @@ import dynamic from 'next/dynamic';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination';
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
+import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'));
 
 function SentRequest() {
@@ -256,7 +257,7 @@ function SentRequest() {
                                                                 </div>
                                                             </li>
                                                             <li>
-                                                                <ProfileMenu res={res?.friend} Section={'sent'}/>
+                                                                <ProfileMenu res={res?.friend} Section={'sent'} />
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -315,20 +316,8 @@ function SentRequest() {
                     </DialogContent>
                 </Dialog>
             </React.Fragment>
-
-            {
-
-                userData.length === 0 && (
-                    <div className='h-[500px] grid place-items-center'>
-                        <div className='grid place-items-center space-y-[5px]'>
-                            {/* <Image loading='lazy' alt='not-found' width={34} height={34} src={"/assets/dashboard/icon/NotFound-img.svg"} /> */}
-                            <Image loading='lazy' alt='not-found' width={34} height={34} src={"/assests/dashboard/icon/NotFound-img.svg"} />
-                            <h1 className='inline' style={profileStyles?.ImageNotFoundText}>No Profiles Found</h1>
-                        </div>
-                    </div>
-                )
-            }
-
+            
+            <ProfileDataNotFound ProfileData={userData} />
         </>
     )
 }

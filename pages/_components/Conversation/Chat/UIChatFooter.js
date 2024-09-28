@@ -10,6 +10,7 @@ import EmojiPicker from './EmojiPicker';
 import UploadContent from './UploadContent';
 import axios from 'axios';
 import { useSocket } from '../../../../ContextProvider/SocketContext';
+import { io } from 'socket.io-client';
 
 
 const ChatInput = ({ HandleStopVoice, HanldeVoiceChat, setOpenPicker, StartVoice, socket, message, handleSendMessage, setMessage, updateFormData, formData }) => {
@@ -170,6 +171,20 @@ const ChatFooter = ({ formData, updateFormData }) => {
     }, [userData, updateUser]);
 
     const handleSendMessage = () => {
+
+
+
+        const token = getCookie("authtoken")
+        const newSocket = io.connect(`${process.env.NEXT_PUBLIC_SOCKET_AUTH_URL}`, {
+            path: '/api/socket.io',
+            query: { token: token }
+        });
+
+        newSocket.on('connect', () => {
+            console.log('Connected to socket');
+        });
+
+
         if (!currentUserID) {
             console.error("User not logged in");
             return;
@@ -194,7 +209,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 fileName: imagesdata.key,
                 type: imagesdata?.contentType.startsWith("video") ? "video" : "image"
             };
-            
+            console.log("🚀 ~ handleSendMessage ~ chatContent:", chatContent)
 
             const chatContentObj = {
                 from: currentUserID,
@@ -202,9 +217,11 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 fileName: imagesdata.key,
                 type: imagesdata?.contentType.startsWith("video") ? "video" : "image"
             };
-           
+            console.log("🚀 ~ handleSendMessage ~ chatContentObj:", chatContentObj)
 
-            socket.emit("uploadContent", message ? chatContent : chatContentObj);
+
+
+            newSocket.emit("uploadContent", message ? chatContent : chatContentObj);
 
             const handleSocketMessage = (data) => {
                 console.log("Socket message received");
@@ -223,7 +240,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                                 },
                                 data: blob
                             };
-                          
+                            console.log("🚀 ~ handleSocketMessage ~ config:", config)
 
                             axios.request(config)
                                 .then(() => {
@@ -235,7 +252,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                                         type: imagesdata?.contentType.startsWith("video") ? "video" : "image"
                                     };
 
-                                    socket.emit("sendMessage", chatContent2);
+                                    newSocket.emit("sendMessage", chatContent2);
                                     resetFormData();
                                     setMessage('');
                                 })
@@ -253,8 +270,8 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 }
             };
 
-            socket.off('message', handleSocketMessage);
-            socket.on('message', handleSocketMessage);
+            newSocket.off('message', handleSocketMessage);
+            newSocket.on('message', handleSocketMessage);
 
 
         } else if (message.trim() !== '') {
@@ -300,12 +317,12 @@ const ChatFooter = ({ formData, updateFormData }) => {
             }
         }
     };
-    
+
     const uploadAndEmitAudioBlob = () => {
         if (audioChunks.current.length === 0) return;
-    
+
         console.log("Audio-chunk", audioChunks.current);
-    
+
         const blob = new Blob(audioChunks.current, { type: 'audio/webm' });
         const chatContent = {
             "from": currentUserID,
@@ -313,17 +330,17 @@ const ChatFooter = ({ formData, updateFormData }) => {
             "fileName": "audio.webm",
             "type": "audio",
         };
-    
+
         socket.emit("uploadContent", chatContent);
-    
+
         socket.on('message', (data) => {
             if (!data.data?.result?.url) {
                 console.error("Missing upload URL in response!");
                 return;
             }
-    
+
             const uploadUrl = data.data.result.url;
-    
+
             const config = {
                 method: 'put',
                 maxBodyLength: Infinity,
@@ -334,7 +351,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 },
                 data: blob
             };
-    
+
             axios.request(config)
                 .then(() => {
                     const chatContent2 = {
@@ -344,7 +361,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                         "fileName": "audio",
                         "type": blob.type
                     };
-    
+
                     socket.emit("sendMessage", chatContent2);
                     setMessage('');
                     audioChunks.current = [];
@@ -354,7 +371,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 });
         });
     };
-    
+
     const handleStopVoice = () => {
         if (recorderRef.current && recorderRef.current.state === "recording") {
             recorderRef.current.stop();
@@ -367,7 +384,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
             };
         }
     };
-    
+
     useEffect(() => {
         return () => {
             if (recorderRef.current) {
@@ -393,11 +410,11 @@ const ChatFooter = ({ formData, updateFormData }) => {
                     borderRadius: 1.5
                 }}>
                     <Stack sx={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                        
-                            <IconButton onClick={startVoice ? handleStopVoice : handleSendMessage}>
-                                <Image loading='lazy' alt="send-message" width={29} height={24} src="/assests/chat/Send-Icon.svg" />
-                            </IconButton>
-                       
+
+                        <IconButton onClick={startVoice ? handleStopVoice : handleSendMessage}>
+                            <Image loading='lazy' alt="send-message" width={29} height={24} src="/assests/chat/Send-Icon.svg" />
+                        </IconButton>
+
                     </Stack>
 
                 </Box>

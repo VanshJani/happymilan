@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import { signIn } from "next-auth/react"
 
 function SocialLogin() {
 
@@ -21,7 +22,7 @@ function SocialLogin() {
                         <Image src={"/assests/login/google-icon.svg"} className='cursor-pointer' width={34} height={34} alt='google' />
                     </li>
                     <li>
-                        <Image src={"/assests/login/facebook-icon.svg"} className='cursor-pointer' width={34} height={34} alt='google' />
+                        <Image onClick={() => signIn('google')} src={"/assests/login/facebook-icon.svg"} className='cursor-pointer' width={34} height={34} alt='google' />
                     </li>
                 </ul>
             </div>

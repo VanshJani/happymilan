@@ -1,8 +1,7 @@
 import { Dialog, DialogContent } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Cancelfriendrequest, getAcceptedRequestData, Sentblockrequest } from "../../../../store/actions/UsersAction";
-import { getCookie } from "cookies-next";
+import { Cancelfriendrequest, getAcceptedRequestData } from "../../../../store/actions/UsersAction";
 
 function CancelRequestModal({ isOpen, onClose, data, title }) {
     if (!isOpen) return null;
@@ -18,7 +17,7 @@ function CancelRequestModal({ isOpen, onClose, data, title }) {
 
     const dispatch = useDispatch();
 
-    const CurrentUser = getCookie("userid")
+    // parag-side -- pending for check flow of unfriend 
 
     const HandleBlockUser = (e) => {
         if (e.target.name == 1) {
@@ -43,7 +42,6 @@ function CancelRequestModal({ isOpen, onClose, data, title }) {
                 aria-describedby="alert-dialog-description"
                 className=""
             >
-
                 <DialogContent className="text-center w-[500px]  mt-[20px]">
                     <div id="alert-dialog-description">
                         <p style={LogoutModalText}>Are you sure you want to Unfriend This User?</p>
@@ -58,8 +56,6 @@ function CancelRequestModal({ isOpen, onClose, data, title }) {
                     </div>
                 </div>
             </Dialog>
-
-
         </>
     );
 }

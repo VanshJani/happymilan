@@ -333,8 +333,6 @@ function NewUser({ SetOtpBoxActive }) {
                 dispatch(ResetSteps())
             }, 400)
         }
-
-        console.log("The Message : ", message)
     }, [step]);
 
 

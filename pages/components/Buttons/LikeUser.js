@@ -32,14 +32,13 @@ const LikeUser = ({ ActiveLike, setActiveLike, userId }) => {
       socket?.emit('createUserLike', {
         "userId": currentUserId,
         "likedUserId": userId
-    })
+      })
       dispatch(CreateLikeUser({ userId: userId, status: true }));
 
       setIsUserLiked(true);
       setIsUserDisliked(false);
       setTimeout(() => {
         dispatch(Getlikeduserdata());
-        console.log("Called Dispatch....")
       }, 3000);
     }
     else {
@@ -52,12 +51,12 @@ const LikeUser = ({ ActiveLike, setActiveLike, userId }) => {
     if (!isUserDisliked) {
 
       const res = data.results.find((item) => item.likedUserId === userId)
-      
+
       socket?.emit('updateUserLike', {
         "userId": currentUserId,
         "likedUserId": res?.likedUserId,
         "isLike": false
-    })
+      })
 
       dispatch(UnlikeTheUser(res))
       // dispatch(CreateLikeUser(userId, false));
@@ -69,17 +68,17 @@ const LikeUser = ({ ActiveLike, setActiveLike, userId }) => {
   };
 
   const [HoverAnimation, SetHoverAnimation] = useState(false)
-  const [DislikeHover , SetDislikeHover] = useState(false)
+  const [DislikeHover, SetDislikeHover] = useState(false)
 
   return (
     <div className="flex pb-[20px] space-x-[20px] justify-center pt-[10px]">
       {isUserDisliked ?
-        <Image onMouseEnter={()=>SetDislikeHover(true)} onMouseLeave={()=>SetDislikeHover(false)} loading="lazy" width={50} height={50} alt="dislike" onClick={handleDislikeUser} src="/assests/animation/filled-dislike.svg" />
+        <Image onMouseEnter={() => SetDislikeHover(true)} onMouseLeave={() => SetDislikeHover(false)} loading="lazy" width={50} height={50} alt="dislike" onClick={handleDislikeUser} src="/assests/animation/filled-dislike.svg" />
         : DislikeHover ?
-          <Image onMouseEnter={()=>SetDislikeHover(true)} onMouseLeave={()=>SetDislikeHover(false)} loading="lazy" width={50} height={50} alt="dislike" onClick={handleDislikeUser} src="/assests/animation/filled-dislike.svg" />
+          <Image onMouseEnter={() => SetDislikeHover(true)} onMouseLeave={() => SetDislikeHover(false)} loading="lazy" width={50} height={50} alt="dislike" onClick={handleDislikeUser} src="/assests/animation/filled-dislike.svg" />
           :
           <svg
-           onMouseEnter={()=>SetDislikeHover(true)} onMouseLeave={()=>SetDislikeHover(false)}
+            onMouseEnter={() => SetDislikeHover(true)} onMouseLeave={() => SetDislikeHover(false)}
             width="50"
             height="50"
             viewBox="0 0 40 40"

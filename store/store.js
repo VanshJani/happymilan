@@ -19,6 +19,7 @@ import UpgradePlansReducer from './reducers/UpgradeReducer';
 import SignupReducer from './reducers/SignUpReducer';
 import UserSentRequestGetSlice from './matrimoney-services/slices/UserSentRequestPagination'
 import getShortlistUsersSlice from './matrimoney-services/slices/getShortlistUsersSlice';
+import { DatingformReducer } from './dating-services/Redux-reducer/register/datingRegisterReducer';
 
 const store = configureStore({
   reducer: {
@@ -40,7 +41,8 @@ const store = configureStore({
     chatSafetyConsent: SafetyConsentReducer,
     signUp: SignupReducer,
     getsentrequestdata: UserSentRequestGetSlice,
-    shortlistusers: getShortlistUsersSlice
+    shortlistusers: getShortlistUsersSlice,
+    datingregister: DatingformReducer,
   },
 });
 

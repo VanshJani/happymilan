@@ -244,7 +244,7 @@ export const ResetEmailPasswordFirstStep = (UserEmail) => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://happymilan.tech/api/v1/user/auth/forgot-password',
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/forgot-password`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -284,7 +284,7 @@ export const ResetEmailPasswordSecondStep = (Credentials) => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://happymilan.tech/api/v1/user/auth/verify-reset-otp',
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/verify-reset-otp`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -325,7 +325,7 @@ export const ResetEmailPasswordThirdStep = (Credentials) => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://happymilan.tech/api/v1/user/auth/reset-password',
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/reset-password`,
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -6,6 +6,7 @@ import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import { Dialog, DialogContent, Skeleton } from '@mui/material';
 import Image from 'next/image';
 import { MaritalStatus, cityOptions, communityOptions, countryoflivingOptions, motherTongueOption, religionOptions, statesOptions } from '../../../../../utils/options/UserSearch/SearchMemberOptions';
+import { LabelStyle } from '../../../../../utils/options/styles/SelectBoxStyle';
 // import { SearchMemberSelectBoxStyle } from '../../../../../utils/options/styles/SelectBoxStyle';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
@@ -22,7 +23,7 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
             backgroundColor: darkMode ? "#141516" : "#FFF",
             height: "50px",
             borderRadius: "8px", // Add padding on the right side
-            border: "1px solid #e6e6e6",
+            // border: "1px solid #e6e6e6",
             borderColor: state.isFocused ? 'black' : provided.borderColor,
             '&:hover': {
                 borderColor: 'black',
@@ -412,167 +413,155 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
     }
 
 
+    const titleText = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontSize: "14px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "normal",
+    }
+
     return (
         <>
             <div className='dark:bg-[#18191a] flex w-full justify-evenly ml-[40px] items-center' >
-                <div className="2xl:ml-[210px] xl:ml-[210px] lg:ml-[150px] flex flex-col space-y-[40px] w-full  md:w-[600px] 2xl:mr-[110px] mt-[120px] pb-[50px]">
+                <div className="2xl:ml-[210px] xl:ml-[210px] lg:ml-[150px] flex flex-col space-y-[35px] w-full  md:w-[600px] 2xl:mr-[110px] mt-[120px] pb-[50px]">
                     <div>
                         <h1 className='text-[#000] dark:text-[#FFF]' style={Text1}>Search Your Match</h1>
                     </div>
 
-                    <div className='flex flex-col space-y-[20px]'>
-                        <div className='flex items-center'>
-                            <h1 className='text-[#000] dark:text-[#FFF]'>Age</h1>
-                            <div className='flex justify-between items-center relative left-[48px] md:left-[118px] rounded-[8px] hover:border-[black] border-[1px] border-[#D8D8D8] w-[140px] h-[50px]'>
-
-                                <input onChange={HanldeInputChange} value={Userage.minAge} name='minAge' type='number' placeholder='Min' className='dark:bg-[#141516] dark:text-[#FFF] rounded-[8px] pl-[10px] h-[40px] w-[60px] border-none outline-none bg-none focus:outline-none' />
-                                <div className='w-[1px] h-[20px] bg-[#D8D8D8]'></div>
-                                <input onChange={HanldeInputChange} value={Userage.maxAge} name='maxAge' type='number' placeholder='Max' className='dark:bg-[#141516] dark:text-[#FFF] rounded-[8px] pl-[10px] h-[40px] w-[60px] border-none outline-none bg-none focus:outline-none' />
+                    <div className='2xl:w-[700px] xl:w-[600px] lg:w-[500px] border-[1px] border-[#E3E3E3] rounded-[18px] pt-[40px] pb-[40px] flex flex-col space-y-[35px] justify-center items-center'>
+                        <div className='w-full flex justify-evenly space-x-[10px]'>
+                            <div className='space-y-[10px]'>
+                                <p style={titleText}>Select Age Range</p>
+                                <ul className='space-x-[31px] flex justify-between'>
+                                    <li>
+                                        <input  type='number' onChange={HanldeInputChange} value={Userage.minAge} name='minAge' placeholder='min' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                    </li>
+                                    <li>
+                                        <div className='text-[#000]'>-</div>
+                                    </li>
+                                    <li>
+                                        <input  type='number' onChange={HanldeInputChange} value={Userage.maxAge} name='maxAge' placeholder='max' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className='space-y-[10px]'>
+                                <p style={titleText}>Select Prefer Heights</p>
+                                <ul className='space-x-[31px] flex justify-between'>
+                                    <li>
+                                        <input  type='number' name='minHeight' value={Userage.minHeight} onChange={HanldeInputChange} placeholder='min' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                    </li>
+                                    <li>
+                                        <div className='text-[#000]'>-</div>
+                                    </li>
+                                    <li>
+                                        <input  type='number' name='maxHeight' value={Userage.maxHeight} onChange={HanldeInputChange} placeholder='max' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div className='flex space-y-[20px] md:space-y-0 flex-col md:flex-row justify-between'>
-                            <div className='flex items-center'>
-                                <h1 className='text-[#000] dark:text-[#FFF]'>Height</h1>
-                                <div className='hover:border-[black] flex justify-between items-center relative left-[48px] md:left-[100px] rounded-[8px] border-[1px] border-[#D8D8D8] w-[140px] h-[50px]'>
 
-                                    <input name='minHeight' value={Userage.minHeight} onChange={HanldeInputChange} type='number' placeholder='Min' className='dark:bg-[#141516] dark:text-[#FFF] rounded-[8px] pl-[10px] h-[40px] w-[60px] border-none outline-none bg-none focus:outline-none' />
-                                    <div className='w-[1px] h-[20px] bg-[#D8D8D8]'></div>
-                                    <input name='maxHeight' value={Userage.maxHeight} onChange={HanldeInputChange} type='number' placeholder='Max' className='dark:bg-[#141516] dark:text-[#FFF] rounded-[8px] pl-[10px] h-[40px] w-[60px] border-none outline-none bg-none focus:outline-none' />
+                        <div className='w-full'>
+                            <ul className='w-full flex justify-evenly space-x-[10px]'>
+                                <li>
+                                    <p style={titleText}>Marital Status</p>
+                                    <DynamicSelect
+                                        className='2xl:w-[290px] xl:w-[255px]'
+                                        options={MaritalStatus}
+                                        placeholder="Select.."
+                                        styles={LabelStyle}
+                                        value={selectedmaritalstatus}
+                                        onChange={handleMaritalstatus}
+                                        isSearchable={true}
+                                        isMulti
+                                    />
+                                </li>
+                                <li>
+                                    <p style={titleText}>Religion</p>
+                                    <DynamicSelect
+                                        className='2xl:w-[290px] xl:w-[255px]'
+                                        options={religionOptions}
+                                        placeholder="Select.."
+                                        styles={LabelStyle}
+                                        value={selectedReligion}
+                                        onChange={handleReligion}
+                                        isSearchable={true}
+                                        isMulti
+                                    />
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div className=''>
+                                <p style={titleText}>Mother Tongue</p>
+                                <div className='2xl:w-[630px] xl:w-[550px] w-full'>
+                                    <DynamicSelect
+                                        options={motherTongueOption}
+                                        placeholder="Select.."
+                                        styles={LabelStyle}
+                                        value={selectMotherTongue}
+                                        onChange={handleMotherTongue}
+                                        isSearchable={true}
+                                        isMulti />
                                 </div>
                             </div>
-                            <div className='flex items-center space-x-[30px] '>
-                                <h1 className='text-[#000] dark:text-[#FFF]'>Weight</h1>
-                                <div className='hover:border-[black] flex justify-between items-center rounded-[8px] border-[1px] border-[#D8D8D8] w-[140px] h-[50px]'>
-                                    <input name='minWeight' value={Userage.minWeight} onChange={HanldeInputChange} type='number' placeholder='Min' className='dark:bg-[#141516] dark:text-[#FFF] rounded-[8px] pl-[10px] h-[40px] w-[60px] border-none outline-none bg-none focus:outline-none' />
-                                    <div className='w-[1px] h-[20px] bg-[#D8D8D8]'></div>
-                                    <input name='maxWeight' value={Userage.maxWeight} onChange={HanldeInputChange} type='number' placeholder='Max' className='dark:bg-[#141516] dark:text-[#FFF] rounded-[8px] pl-[10px] h-[40px] w-[60px] border-none outline-none bg-none focus:outline-none' />
+                        </div>
+                        <div>
+                            <div className=''>
+                                <p style={titleText}>Country Living</p>
+                                <div className='2xl:w-[630px] xl:w-[550px] w-full'>
+                                    <DynamicSelect
+                                        options={countryoflivingOptions}
+                                        placeholder="Select.."
+                                        styles={LabelStyle}
+                                        value={selectedOptions}
+                                        onChange={handleSelect}
+                                        isSearchable={true}
+                                        isMulti />
                                 </div>
                             </div>
                         </div>
-                        <div className='flex items-center'>
-                            <h1 className='text-[#000] dark:text-[#FFF] w-[150px]'>Marital Status</h1>
-                            <div className='w-full md:w-[479px]'>
-                                <DynamicSelect
-
-                                    options={MaritalStatus}
-                                    placeholder="Select.."
-                                    styles={SearchMemberSelectBoxStyle}
-                                    value={selectedmaritalstatus}
-                                    onChange={handleMaritalstatus}
-                                    isSearchable={true}
-                                    isMulti />
-                            </div>
-                        </div>
-                        <div className='flex items-center'>
-                            <h1 className='text-[#000] dark:text-[#FFF] w-[150px]'>Religion</h1>
-                            <div className='w-full md:w-[479px]'>
-                                <DynamicSelect
-
-                                    options={religionOptions}
-                                    placeholder="Select.."
-
-                                    styles={SearchMemberSelectBoxStyle}
-                                    value={selectedReligion}
-                                    onChange={handleReligion}
-                                    isSearchable={true}
-                                    isMulti />
-                            </div>
-                        </div>
-                        <div className='flex items-center'>
-                            <h1 className='text-[#000] dark:text-[#FFF] w-[150px]'>Community</h1>
-                            <div className='w-full md:w-[479px]'>
-                                <DynamicSelect
-
-                                    options={communityOptions}
-                                    placeholder="Select.."
-                                    styles={SearchMemberSelectBoxStyle}
-                                    value={selectCommunity}
-                                    onChange={handleCommunity}
-                                    isSearchable={true}
-                                    isMulti />
-                            </div>
-                        </div>
-                        <div className='flex items-center'>
-                            <h1 className='text-[#000] dark:text-[#FFF] w-[150px]'>Mother Tongue</h1>
-                            <div className='w-full md:w-[479px]'>
-                                <DynamicSelect
-
-                                    options={motherTongueOption}
-                                    placeholder="Select.."
-                                    styles={SearchMemberSelectBoxStyle}
-                                    value={selectMotherTongue}
-                                    onChange={handleMotherTongue}
-                                    isSearchable={true}
-                                    isMulti />
+                        <div>
+                            <div className=''>
+                                <p style={titleText}>City Living</p>
+                                <div className='2xl:w-[630px] xl:w-[550px] w-full'>
+                                    <DynamicSelect
+                                        options={cityOptions}
+                                        placeholder="Select.."
+                                        styles={LabelStyle}
+                                        value={selectCityeofLiving}
+                                        onChange={handleCityeofLiving}
+                                        isSearchable={true}
+                                        isMulti />
+                                </div>
                             </div>
                         </div>
 
-                        <div className='flex'>
-                            <h1 className='text-[#000] dark:text-[#FFF] relative top-[10px] w-[150px]'>Country Living</h1>
-                            <div className='w-full md:w-[479px] flex flex-col space-y-[10px]'>
-                                <DynamicSelect
-
-                                    options={countryoflivingOptions}
-                                    placeholder="Select.."
-                                    styles={SearchMemberSelectBoxStyle}
-                                    value={selectedOptions}
-                                    onChange={handleSelect}
-                                    isSearchable={true}
-                                    isMulti />
-                            </div>
-                        </div>
-                        <div className='flex items-center'>
-                            <h1 className='text-[#000] dark:text-[#FFF] w-[150px]'>State Living</h1>
-                            <div className='w-full md:w-[479px]'>
-                                <DynamicSelect
-
-                                    options={statesOptions}
-                                    placeholder="Select.."
-                                    styles={SearchMemberSelectBoxStyle}
-                                    value={selectStateofLiving}
-                                    onChange={handleStateofLiving}
-                                    isSearchable={true}
-                                    isMulti />
-                            </div>
-                        </div>
-                        <div className='flex items-center'>
-                            <h1 className='text-[#000] dark:text-[#FFF] w-[150px]'>City Living</h1>
-                            <div className='w-full md:w-[479px]'>
-                                <DynamicSelect
-
-                                    options={cityOptions}
-                                    placeholder="Select.."
-                                    styles={SearchMemberSelectBoxStyle}
-                                    value={selectCityeofLiving}
-                                    onChange={handleCityeofLiving}
-                                    isSearchable={true}
-                                    isMulti />
-                            </div>
-                        </div>
-                        <div className='pt-[10px]'>
-                            <div className='w-full bg-[#EFEFEF] h-[1px]'></div>
-                        </div>
-                        <div className='flex items-center'>
-                            <h1 className='text-[#000] dark:text-[#FFF] w-[150px]'>Save Search</h1>
-                            <div className='w-full md:w-[479px]'>
-                                <input name='saveSearch' value={SearchSave} onChange={HanldeInputChange} type='text' placeholder='My Matches' className='dark:bg-[#141516] dark:text-[#FFF] pl-[20px] oultine-none w-full rounded-[8px] h-[50px] border-[1px] hover:border-[#000] border-[#D8D8D8]' />
-                            </div>
-                        </div>
-                        <div className='pt-[10px]'>
-                            <div className='w-full bg-[#EFEFEF] h-[1px]'></div>
-                        </div>
-
-
-                        <div className='w-full flex justify-end space-x-[20px]'>
-                            <button onClick={CLearAllData} className={` border-[1px] border-[#8225AF] hover:bg-[#F2F7FF] dark:hover:bg-[#141516] w-[104px] h-[50px] dark:text-[#FFF] text-[black] rounded-[25px]`}>Clear All</button>
-                            <button id='grad-btn' className={` border-[1px] border-[#0F52BA] bg-[#0F52BA] text-[white] w-[104px] h-[50px] rounded-[25px]`} onClick={SearchDataHandle} >Search</button>
-                        </div>
                     </div>
 
 
+                    <div className='2xl:w-[700px] xl:w-[600px] lg:w-[500px]  border-[1px] border-[#E3E3E3 rounded-[18px] p-[30px]'>
+                        <div className='space-y-[30px] pl-[5px]'>
+                            <h1 style={titleText}>Save Search?</h1>
+                            <div className='w-full md:w-[479px]'>
+                                {/* <input name='saveSearch' value={SearchSave} onChange={HanldeInputChange} type='text' placeholder='My Matches' className='dark:bg-[#141516] dark:text-[#FFF] pl-[20px] oultine-none w-full rounded-[8px] h-[50px] border-[1px] hover:border-[#000] border-[#D8D8D8]' /> */}
+                                <input  name='saveSearch' value={SearchSave} onChange={HanldeInputChange} type='text' placeholder='My Matches' id='num-input' className='pb-[10px] 2xl:w-[630px] xl:w-[540px] lg:w-full outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div className='w-full'>
+                        <div className='w-[700px] flex justify-between space-x-[20px]'>
+                            <button onClick={CLearAllData} className={` border-[1px] border-[#8225AF] hover:bg-[#F2F7FF] dark:hover:bg-[#141516] w-[130px] h-[50px] dark:text-[#FFF] text-[black] rounded-[25px]`}>Clear All</button>
+                            <button id='grad-btn' className={` border-[1px] border-[#0F52BA] bg-[#0F52BA] text-[white] w-[130px] h-[50px] rounded-[25px]`} onClick={SearchDataHandle} >Search</button>
+                        </div>
+                    </div>
                 </div>
-                <div className='relative top-[-230px]'>
-                    <div id='Save-Search-Box' style={{ width: "280px", height: "260px" }} className='bg-[#FFF] dark:bg-[#242526]'>
+
+
+                <div className='relative top-[-200px]'>
+                    <div style={{ width: "280px", height: "260px" }} className='border-[1px] border-[#E3E3E3] rounded-[18px] dark:bg-[#242526]'>
                         <div className='pb-[13px] relative pt-[14px] left-[16px]'>
                             <span className='text-[#000] dark:text-[#FFF]' style={saveSearchText}>My Saved Search</span>
                         </div>

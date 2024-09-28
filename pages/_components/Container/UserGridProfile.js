@@ -12,7 +12,7 @@ import ShortlistUser from '../common/Buttons/ShortlistUser'
 import Avatar from 'react-avatar'
 import Pagination from '../../../components/common/Features/Pagination'
 import ProfileSkeletonLoader from '../../../components/common/animation/GridSkeleton'
-import { fetchallusersPagination } from '../../../store/actions/GetingAlluser'
+import { userDatas } from '../../../store/actions/GetingAlluser'
 import MatchScoreModal from '../Model/Models/MatchScoreModal'
 
 // Dynamically imported components
@@ -43,13 +43,6 @@ function UserGridProfile() {
         lineHeight: "24px" /* 171.429% */
     }
 
-    const Text4 = {
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "12px"
-    }
-
 
     const ProfileCard = {
         borderRadius: "10px",
@@ -65,22 +58,22 @@ function UserGridProfile() {
         lineHeight: "normal",
     };
 
-
-
+    const { data, loading } = useSelector(state => state?.alluser?.Ifinit);
     const dispatch = useDispatch();
-    const { totalPages, userData, loading } = useSelector((state) => state.alluser.Paginated)
-    const [CurrentPageofUserdata, SetCurrentPageofUserdata] = useState(1);
-    const [currentPage, setCurrentPage] = useState(1);
+
+    const [page, setpage] = useState(1);
+
+    const NextPage = (page) => {
+        setpage(page)
+    }
+
     useEffect(() => {
-        dispatch(fetchallusersPagination(currentPage))
-    }, [currentPage, setCurrentPage, CurrentPageofUserdata, SetCurrentPageofUserdata])
+        dispatch(userDatas({ page })); // Load the first page on mount
+    }, [page, dispatch]);
+
 
 
     const router = useRouter()
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
 
 
 
@@ -172,7 +165,7 @@ function UserGridProfile() {
                             <>
                                 {
                                     // UserGridProfile
-                                    userData?.map((user, index) => {
+                                    data?.data?.[0]?.paginatedResults?.map((user, index) => {
                                         return (
 
                                             <div key={user.id} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
@@ -215,7 +208,7 @@ function UserGridProfile() {
                                                     userLikeDetails={user?.userLikeDetails}
                                                     RequestedStatus={user?.friendsDetails}
                                                     RequestId={sentrequest[user?.id ? user?.id : user?._id]}
-                                                    HandleRequestModal={() => HandleRequestModal(user)} from={"GridProfile"} currentPage={currentPage} user={user} key={index} />
+                                                    HandleRequestModal={() => HandleRequestModal(user)} from={"GridProfile"} currentPage={page} user={user} key={index} />
                                             </div>
                                         )
                                     })
@@ -223,7 +216,7 @@ function UserGridProfile() {
                             </>
                     }
                 </div>
-                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} darkMode={false} URL={'/longterm/dashboard/'} />
+                <Pagination currentPage={data?.data?.[0]?.currentPage} totalPages={data?.data?.[0]?.totalPages} onPageChange={NextPage} darkMode={false} URL={'/longterm/dashboard/'} />
             </div>
 
             <ShareModal isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />

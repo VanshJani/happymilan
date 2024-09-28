@@ -264,7 +264,6 @@ const MediaMsg = ({ menu, userMessage, Outgoing, sendAt, Top, setTop, onDeleteMe
                                     <Typography style={messageText} variant='body2' color={"#000"}>
                                         {userMessage.message.length > 65 ? (
                                             <>
-                                                {console.log("Message New Line")}
                                                 {userMessage.message.slice(0, 65)} {<br />} {userMessage.message.slice(65)}
                                             </>
                                         ) : (
@@ -397,7 +396,6 @@ const VideoMsg = ({ menu, userMessage, Outgoing, sendAt, Top, setTop, onDeleteMe
                                     <Typography style={messageText} variant='body2' color={"#000"}>
                                         {userMessage.message.length > 65 ? (
                                             <>
-                                                {console.log("Message New Line")}
                                                 {userMessage.message.slice(0, 65)} {<br />} {userMessage.message.slice(65)}
                                             </>
                                         ) : (
@@ -838,7 +836,6 @@ const AudioMessage = ({ el, Outgoing, userMessage, sendAt, onDeleteMessage }) =>
         const audioElement = audioRef.current;
 
         const handleLoadedMetadata = () => {
-            console.log("Metadata Loaded: ", audioElement.duration);
             if (audioElement) {
                 setDuration(isFinite(audioElement.duration) ? audioElement.duration : 0);
             }

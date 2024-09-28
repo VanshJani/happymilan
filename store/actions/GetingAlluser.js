@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getCookie } from "cookies-next";
 import { Getlikeduserdata } from './UsersAction';
+import { GET_INFINIT_SCROLL_USER_FAILURE, GET_INFINIT_SCROLL_USER_REQUEST, GET_INFINIT_SCROLL_USER_SUCCESS, GET_MORESUGGESTION_USERS_FAILURE, GET_MORESUGGESTION_USERS_REQUEST, GET_MORESUGGESTION_USERS_SUCCESS } from '../type';
 
 export const FETCH_ALL_USERS_REQUEST = 'FETCH_ALL_USERS_REQUEST';
 export const FETCH_ALL_USERS_SUCCESS = 'FETCH_ALL_USERS_SUCCESS';
@@ -124,13 +125,6 @@ export const removeRequest = (userId) => ({
   payload: userId,
 });
 
-// function shuffleArray(array) {
-//   for (let i = array.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [array[i], array[j]] = [array[j], array[i]];
-//   }
-//   return array;
-// }
 
 
 export const fetchallusersPagination = (CurrentPage) => async (dispatch) => {
@@ -168,32 +162,6 @@ export const fetchallusersPagination = (CurrentPage) => async (dispatch) => {
   }
 };
 
-
-export const fetchAllUsers = () => async (dispatch) => {
-  dispatch({ type: FETCH_ALL_USERS_REQUEST });
-
-  try {
-    const token = getCookie("authtoken")
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/getUserByGender`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    dispatch({
-      type: FETCH_ALL_USERS_SUCCESS,
-      payload: response?.data?.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: FETCH_ALL_USERS_FAILURE,
-      payload: error.message,
-    });
-  }
-};
 
 
 //Add Shortlist 
@@ -269,3 +237,73 @@ export const RemoveShortlist = createAsyncThunk(
 
   }
 );
+
+
+
+
+
+//for infinit Scroll 
+export const userDatas = (page) => {
+  console.log("🚀 ~ userDatas ~ page:", page)
+  return async (dispatch) => {
+    dispatch({
+      type: GET_INFINIT_SCROLL_USER_REQUEST
+    })
+
+    try {
+      const token = getCookie("authtoken")
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/getUserByGender?page=${page?.page}&limit=6`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("🚀 ~ fetchAllUsers ~ response:", response?.data)
+
+      dispatch({
+        type: GET_INFINIT_SCROLL_USER_SUCCESS,
+        payload: response?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_INFINIT_SCROLL_USER_FAILURE,
+        payload: error.message,
+      });
+    }
+  }
+}
+
+
+export const FetchMoreSuggestiondata = (page) => {
+  console.log("🚀 ~ userDatas ~ page:", page)
+  return async (dispatch) => {
+    dispatch({
+      type: GET_MORESUGGESTION_USERS_REQUEST
+    })
+
+    try {
+      const token = getCookie("authtoken")
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/getUserByGender?page=${page?.page}&limit=3`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("🚀 ~ fetchAllUsers ~ response:", response?.data)
+
+      dispatch({
+        type: GET_MORESUGGESTION_USERS_SUCCESS,
+        payload: response?.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_MORESUGGESTION_USERS_FAILURE,
+        payload: error.message,
+      });
+    }
+  }
+}

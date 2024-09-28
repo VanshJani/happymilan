@@ -1,6 +1,10 @@
 import { getCookie } from "cookies-next";
 import { GET_PLANS_BY_NAME_FAILURE, GET_PLANS_BY_NAME_REQUEST, GET_PLANS_BY_NAME_SUCCESS, GET_UPGRADE_PLANS, GET_UPGRADE_PLANS_BY_ID, GET_UPGRADE_PLANS_BY_ID_FAILURE, GET_UPGRADE_PLANS_BY_ID_SUCCESS, GET_UPGRADE_PLANS_FAILURE, GET_UPGRADE_PLANS_SUCCESS } from "../type"
 
+
+
+//For All plans 
+
 export const GetupgradePlans = (currentPage) => {
     return async (dispatch) => {
         dispatch({ type: GET_UPGRADE_PLANS })
@@ -27,8 +31,6 @@ export const GetupgradePlans = (currentPage) => {
                         type: GET_UPGRADE_PLANS_SUCCESS,
                         payload: response.data.data, // You can dispatch any relevant data received from the response
                     });
-
-                    // console.log(JSON.stringify(response.data));
                 })
                 .catch((error) => {
                     dispatch({
@@ -70,7 +72,7 @@ export const GetPlansByName = (PlanName) => {
         axios.request(config)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                dispatch({ type: GET_PLANS_BY_NAME_SUCCESS, payload: response.data })
+                dispatch({ type: GET_PLANS_BY_NAME_SUCCESS, payload: response.data?.data })
 
             })
             .catch((error) => {

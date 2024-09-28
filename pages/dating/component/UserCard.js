@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import SwiperCardNext from './SwiperCard'
 
 
 function UserCard() {
@@ -16,38 +17,78 @@ function UserCard() {
         fontWeight: "400",
         lineHeight: "14px"
     }
+
+    const SectionTitle = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontSize: "16px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "22px", /* 137.5% */
+    }
+
     return (
         <>
-            <div className='space-y-[20px] flex flex-col items-center'>
-                <div className='mt-[20px] relative left-[100px] flex items-center space-x-[20px] justify-center'>
 
-                    <div>
-                        <Image className='cursor-pointer' width={91} height={104} src="/assests/dating/user-1.png" />
-                    </div>
-                    <div>
-                        <Image width={329} height={378} className='cursor-pointer 2xl:h-[378px] 2xl:w-[329px] xl:w-[300px] xl:h-[350px]' src="/assests/dating/user-image-dating.png" />
-                        <div className='absolute bottom-[30px] space-y-[5px] text-[white] ml-[20px] 2xl:ml-[30px] xl:ml-[30px]'>
-                            <div>
-                                <div className='rounded-[10px] text-center bg-[#30b70a] text-[black] w-[36px] h-[14px]'>
-                                    <p style={Text2} className='text-[10px]'>online</p>
-                                </div>
-                            </div>
-                            <h1 className='text-[20px]' style={Text1}>Rohan Patel </h1>
-                            <p className="text-[10px]" style={Text2}>Male 36, 4’ 5”  |  Ahmedabad (2.1 km)</p>
-                        </div>
-                    </div>
-                    <div>
-                        <Image className='cursor-pointer' width={91} height={104} src="/assests/dating/user-2.png" />
-                    </div>
 
-                </div>
-                <div className='relative left-[95px] space-x-[20px] flex items-center  justify-between w-[329px] 2xl:w-[230px] xl:w-[300px]'>
-                    <div className=''><Image width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/ignore-icon-2.svg' /></div>
-                    <div className=''><Image width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/heart-icon-2.svg' /></div>
-                    <div className=''><Image width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/star-icon.svg' /></div>
-                    <div className=''><Image width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/send-icon-2.svg' /></div>
+            <div className='w-full grid place-items-center'>
+
+                <div className="space-y-[30px] flex flex-col items-center">
+                    <div className='w-full flex justify-start'>
+                        <ul className='w-full flex justify-between'>
+                            <li>
+                                <p className='' style={SectionTitle}>New Suggestions</p>
+                            </li>
+                            <li className='h-[24px] w-[25px]'>
+
+                            </li>
+                        </ul>
+
+                    </div>
+                    <SwiperCardNext />
                 </div>
             </div>
+
+            {/* <div className='w-full grid place-items-center'>
+
+                <div className="space-y-[20px] flex flex-col items-center">
+                    <div className='w-full'>
+                        <ul className='w-full flex justify-between'>
+                            <li>
+                                <p style={SectionTitle}>New Suggestions</p>
+                            </li>
+                            <li className='h-[24px] w-[25px]'>
+
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div className="mt-[20px] relative flex items-center space-x-[20px] justify-center">
+
+                        <SwiperCardNext />
+                    </div> */}
+            {/* <div className="flex justify-center space-x-[20px] w-[329px]">
+                        <Image
+                            width={40}
+                            height={40}
+                            className="w-[40px] h-[40px] cursor-pointer"
+                            src="/assests/dashboard/icon/ignore-icon-2.svg"
+                        />
+                        <Image
+                            width={40}
+                            height={40}
+                            className="w-[40px] h-[40px] cursor-pointer"
+                            src="/assests/dashboard/icon/heart-icon-2.svg"
+                        />
+                        <Image
+                            width={40}
+                            height={40}
+                            className="w-[40px] h-[40px] cursor-pointer"
+                            src="/assests/dashboard/icon/send-icon-2.svg"
+                        />
+                    </div> */}
+            {/* </div >
+            </div > */}
         </>
     )
 }

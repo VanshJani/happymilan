@@ -8,10 +8,11 @@ export const fetchshortlistUsers = ( Pages) => async (dispatch, getState) => {
 
     try {
         const token = getCookie("authtoken");
+        const LoginUserID = getCookie("userid")
 
         const config = {
             method: 'get',
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/shortlist/get-short-list-paginat/669e4c96ecc5ee0a32564469?limit=6`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/shortlist/get-short-list-paginat/${LoginUserID}?limit=6`,
             headers: {
                 'Authorization': `Bearer ${token}`
             }

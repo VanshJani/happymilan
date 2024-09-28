@@ -44,13 +44,6 @@ function BodySection() {
         lineHeight: "normal",
     }
 
-    //     color: #000;
-    // text-align: center;
-    // font-family: Poppins;
-    // font-size: 14px;
-    // font-style: normal;
-    // font-weight: 600;
-    // line-height: normal;
     return (
         <>
             <div className='space-y-[108px] w-full h-full grid place-items-center'>

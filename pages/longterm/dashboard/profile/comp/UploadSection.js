@@ -18,9 +18,9 @@ function UploadSection() {
     const [showImage, SetshowImage] = useState("")
 
     const handleClickOpen = (res, index) => {
-        
+
         SetcurrentSelectedImage(index)
-        
+
         SetshowImage(res.url)
         setOpen(true);
     };
@@ -108,7 +108,7 @@ function UploadSection() {
 
                             <DialogContent className='w-[600px] h-[650px] 2xl:w-[600px] 2xl:h-[650px] xl:w-[600px] xl:h-[650px] bg-[black] '>
                                 <div className='mt-[20px]'>
-                                    <div className='ml-[30px] flex justify-between w-[380px] mb-[20px]'>
+                                    <div className='ml-[30px] flex justify-between w-[380px] mb-[10px]'>
                                         <div>
                                             <h1 className='relative 2xl:left-0 xl:left-[20px]' style={Text1}>{toggleTab > 0 ? "Video Gallery" : `Photo Gallery (${selector?.data?.userProfilePic ? selector?.data?.userProfilePic.length : "0"})`} </h1>
                                         </div>
@@ -139,7 +139,6 @@ function UploadSection() {
                                                             selector && selector.data && selector.data.userProfileVideo ? (
                                                                 selector.data.userProfileVideo.slice(0, 1).map((res, index) => (
                                                                     <li>
-                                                                        {/* <Image width={74} height={74} style={{ objectFit: "cover" }} className={`cursor-pointer w-[74px] h-[74px] 2xl:w-[74px] 2xl:h-[74px] xl:w-[60px] xl:h-[60px] rounded-[10px] ${currentSelectedImage === index ? "" : "opacity-20"}`} src={res.url} /> */}
                                                                         <video className={`cursor-pointer w-[74px] h-[74px] 2xl:w-[74px] 2xl:h-[74px] xl:w-[60px] xl:h-[60px] rounded-[10px] ${currentSelectedImage === index ? "" : "opacity-20"}`} style={{ objectFit: "cover" }}>
                                                                             <source src={res.url} type="video/mp4" />
                                                                             <track
@@ -162,14 +161,9 @@ function UploadSection() {
                                                     </ul>
                                                 </div>
                                                 <div>
-                                                    {/* <div>
-                                                        <Image alt='zoomIcon' width={20} height={20} src='/assests/dashboard/icon/zoom-icon.svg' className='absolute right-[80px] 2xl:right-[80px] xl:right-[90px] mt-[35px] 2xl:mt-[25px] xl:mt-[30px]' />
-                                                    </div> */}
-
-                                                    {/* <Image alt='image' style={{ objectFit: "cover", borderRadius: "10px" }} width={350} height={470} className='w-[350px] h-[480px] 2xl:w-[350px] 2xl:h-[470px] xl:w-[300px] xl:h-[420px]' src={} /> */}
                                                     <div>
                                                         <video className='w-[350px] h-[480px] 2xl:w-[350px] 2xl:h-[470px] xl:w-[300px] xl:h-[420px]' style={{ objectFit: "cover", borderRadius: "10px" }} autoPlay>
-                                                            <source src={selector.data.userProfileVideo[0].url} type="video/mp4" />
+                                                            <source src={selector?.data?.userProfileVideo[0]?.url} type="video/mp4" />
                                                             <track
                                                                 src="/path/to/captions.vtt"
                                                                 kind="subtitles"
@@ -204,9 +198,6 @@ function UploadSection() {
                                                     </ul>
                                                 </div>
                                                 <div>
-                                                    {/* <div>
-                                                        <Image alt='zoomIcon' width={20} height={20} src='/assests/dashboard/icon/zoom-icon.svg' className='absolute right-[80px] 2xl:right-[80px] xl:right-[90px] mt-[35px] 2xl:mt-[25px] xl:mt-[30px]' />
-                                                    </div> */}
 
                                                     <Image alt='image' style={{ objectFit: "cover", borderRadius: "10px" }} width={350} height={470} className='w-[350px] h-[480px] 2xl:w-[350px] 2xl:h-[470px] xl:w-[300px] xl:h-[420px]' src={showImage} />
 
@@ -242,7 +233,7 @@ function UploadSection() {
                         </div>
                         <div className='flex items-center pt-[10px]'>
                             {/* <h1>Upload</h1> */}
-                            <Image onMouseEnter={() => SetImageHover({UploadImageHover: true})} onMouseLeave={() => SetImageHover({ UploadImageHover: false })} alt='drag-drop' width={34.818} height={24} onClick={handleClickOpenUpload} className='cursor-pointer w-[34.818px] h-[24px]' src={ImageHover.UploadImageHover ? '/assests/profile/after-imageupload-icon.svg' : '/assests/profile/before-imageupload-icon.svg'} />
+                            <Image onMouseEnter={() => SetImageHover({ UploadImageHover: true })} onMouseLeave={() => SetImageHover({ UploadImageHover: false })} alt='drag-drop' width={34.818} height={24} onClick={handleClickOpenUpload} className='cursor-pointer w-[34.818px] h-[24px]' src={ImageHover.UploadImageHover ? '/assests/profile/after-imageupload-icon.svg' : '/assests/profile/before-imageupload-icon.svg'} />
                             <UploadImage openUpload={openUpload}
                                 handleCloseUpload={handleCloseUpload} />
                         </div>

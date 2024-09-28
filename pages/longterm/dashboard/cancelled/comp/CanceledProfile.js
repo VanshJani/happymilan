@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Popover from '@mui/material/Popover';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -10,47 +9,32 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'))
 import { Dialog } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import ShowMore from '../../../../_components/common/profile/UserBio';
+import UserprofileSkeleton from '../../../../../components/common/shader/UserprofileSkeleton';
+import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
 
 function CanceledProfile({ thedata, isauthuserID }) {
 
     const { darkMode } = useDarkMode();
+
+    const { loading, data } = useSelector((state) => state.usersact.cancelusersdata)
+
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const [CurrentUserID, SetCurrentUserID] = useState("");
     const [CurrURL, SetCurURL] = useState("")
 
-    const handleClick = (event, res) => {
-        setAnchorEl(event.currentTarget);
-        SetCurrentUserID(res.id)
-
-        const userId = res.id;
-        const currentUrl = window.location.href;
-        const urlWithUserId = `${currentUrl}/${userId}`;
-
-        SetCurURL(urlWithUserId)
-    };
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-
-    const [blockprofile, setblockprofile] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => {
-        setIsModalOpen(true);
-        handleClose();
-    };
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -77,12 +61,6 @@ function CanceledProfile({ thedata, isauthuserID }) {
         fontStyle: "normal",
         fontWeight: "400",
         lineHeight: "12px"
-    }
-    const Text3 = {
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal"
     }
 
     const ListText = {
@@ -115,38 +93,16 @@ function CanceledProfile({ thedata, isauthuserID }) {
         lineHeight: "normal"
     }
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        console.log("helo")
-    }, [])
 
 
     const [openURLModal, setOpenURLModal] = React.useState(false);
 
-    const handleClickOpen = () => {
-
-
-        const userId = CurrentUserID;
-        const currentUrl = window.location.href;
-        const urlWithUserId = `${currentUrl}/${userId}`;
 
 
 
-        navigator.clipboard.writeText(urlWithUserId)
-            .then(() => {
-                setOpenURLModal(true);
-                handleClose() // Reset copied state after 2 seconds
-            })
-            .catch(error => console.error('Failed to copy URL: ', error));
-
-
-        setTimeout(() => {
-            setOpenURLModal(false);
-
-        }, 800);
-    };
-
+    if (loading) {
+        return <UserprofileSkeleton />
+    }
 
     return (
         <>
@@ -156,7 +112,7 @@ function CanceledProfile({ thedata, isauthuserID }) {
 
                     {
 
-                        thedata?.data.map((res, index) => {
+                        data?.data.map((res, index) => {
                             // const { images } = res
 
                             return (
@@ -204,15 +160,6 @@ function CanceledProfile({ thedata, isauthuserID }) {
                                                 </div>
                                                 <div className='mt-[10px] 2xl:mt-[10px] xl:mt-[5px] pl-[2px]'>
                                                     <div id="user-card">
-                                                        {/* <ul id="user-card-grid">
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image loading='lazy' alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{""}</li>
-                                                        </ul> */}
-
                                                         <ul id="user-card-grid">
                                                             <li
                                                                 className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -299,10 +246,6 @@ function CanceledProfile({ thedata, isauthuserID }) {
                                                                     src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                     className="inline pr-[5px]"
                                                                 />
-                                                                {/* {res?.user?.id === isauthuserID ? (
-                                                                    `${res?.friend?.motherTongue ? capitalizeFirstLetter(res.friend.motherTongue) : "NA"}, ${res?.user?.motherTongue ? capitalizeFirstLetter(res.user.motherTongue) : "NA"}`
-                                                                ) : "NA"} */}
-
                                                                 {res?.user?.id === isauthuserID ? (
                                                                     `${capitalizeFirstLetter(res?.friend?.motherTongue ?? 'NA')}`
                                                                 ) :
@@ -311,7 +254,6 @@ function CanceledProfile({ thedata, isauthuserID }) {
 
 
                                                             </li>
-
                                                             <li
                                                                 className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
                                                                 style={ListText}
@@ -331,8 +273,6 @@ function CanceledProfile({ thedata, isauthuserID }) {
                                                                 }
                                                             </li>
                                                         </ul>
-
-
                                                     </div>
                                                     <div className='mt-[20px] 2xl:mt-[20px] xl:mt-[15px]'>
                                                         <ShowMore userid={res?.user?.id === isauthuserID ? res?.friend?.id : res?.user?.id} text={res?.user?.id === isauthuserID ? res?.friend?.writeBoutYourSelf : res?.user?.writeBoutYourSelf} maxLength={100} />
@@ -344,29 +284,21 @@ function CanceledProfile({ thedata, isauthuserID }) {
                                                             <li><h1 className='text-[16px] 2xl:text-[16px] xl:text-[14px]' style={BoldText}>Ignored</h1></li>
                                                             <li>
                                                                 <Image loading='lazy' alt='dislike-icon' width={24} height={23} src='/assests/Black/dislike-2.svg' />
-
                                                             </li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </div>
-
                                 </>
                             )
                         })
-
                     }
-
-
-
                 </div>
-
             </div>
 
+            <ProfileDataNotFound ProfileData={data?.data} />
 
             <ShareModal isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
             <React.Fragment>

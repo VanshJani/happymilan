@@ -344,7 +344,6 @@ function AcceptedRequest() {
                 </React.Fragment>
 
                 <CancelRequestModal
-                    // data={Data}
                     data={Cancelusersdata}
                     isOpen={isCancelModalOpen}
                     onClose={closeCancelModal}

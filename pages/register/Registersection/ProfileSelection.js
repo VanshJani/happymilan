@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
-import { motherTongueOption, profileOptions } from '../../../utils/options/Register/GenralSectionOptions';
+import { profileOptions } from '../../../utils/options/Register/GenralSectionOptions';
 import dynamic from 'next/dynamic';
 import { updateFormData } from '../../../store/actions/registerUser';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { getCookie } from 'cookies-next';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
@@ -18,90 +18,6 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
         fontWeight: "600",
         lineHeight: "normal",
     }
-
-
-    // function splitName(fullName) {
-    //     const nameParts = fullName?.trim()?.split(" ") || [];
-    //     const firstName = nameParts[0] || "";
-    //     const lastName = nameParts.slice(1).join(" ") || ""; // Handles cases with middle or multiple last names
-    //     return { firstName, lastName };
-    // }
-
-    // const [Credentials, setCredentials] = useState({
-    //     firstName: '',
-    //     lastName: ''
-    // })
-
-    // useEffect(() => {
-    //     const { firstName, lastName } = splitName(getCookie("uname"));
-    //     // You can now use firstName and lastName as needed
-    //     setCredentials({
-    //         firstName: firstName,
-    //         lastName: lastName
-    //     });
-
-    //     updateFormData(prevFormData => ({
-    //         ...prevFormData,
-    //         general: {
-    //             ...prevFormData.general,
-    //             "firstName": "Firstname",
-    //             "lastName": "lastname"
-    //         }
-    //     }));
-
-
-    // }, []);
-
-    // const [Validate, SetValidate] = useState({
-    //     creatingProfileFor: "",
-    //     firstName: "",
-    //     lastName: ""
-    // })
-
-
-
-    // const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-
-
-
-    //     setCredentials((prev) => {
-    //         return { ...prev, [name]: value }
-    //     })
-
-    //     updateFormData({
-    //         ...formData,
-    //         general: {
-    //             ...formData.general,
-    //             firstName: Credentials?.firstName,
-    //             lastName: Credentials?.lastName,
-    //             [name]: value,
-
-    //         }
-    //     });
-
-
-
-    //     SetValidate((prev) => ({
-    //         ...prev,
-    //         [name]: value
-    //     }))
-    // }
-    // const validateFields = () => {
-    //     // Check if all fields in the Validate object are filled
-    //     return Object.values(Validate).every(value => value.trim() !== '');
-    // };
-
-    // const HandleSubmit = () => {
-
-    //     if (validateFields()) {
-    //         SetActiveTab(1)
-    //     } else {
-    //         alert("Please fill out all required fields.");
-    //     }
-    // }
-
-    const dispatch = useDispatch();
 
 
     function splitName(fullName) {
@@ -141,8 +57,6 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
 
     const [Validate, SetValidate] = useState({
         creatingProfileFor: "",
-        // firstName: formData?.general?.firstName,
-        // lastName: formData?.general?.lastName
     });
 
     // Handling input changes and updating both local state and Redux state
@@ -189,7 +103,6 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
                     <div>
                         <h1 style={Title}>I’m creating profile for?</h1>
                     </div>
-
                     <div className='flex flex-col items-center space-y-[98px]'>
                         <div className=''>
                             <DynamicSelect
@@ -233,11 +146,8 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
                                 }}
                                 options={profileOptions}
                                 onChange={(selectedOption) => handleInputChange({ target: { name: "creatingProfileFor", value: selectedOption?.value } })}
-
                             />
-
                         </div>
-
                         <ul className='h-[30px] flex space-x-[37px]'>
                             <li>
                                 <div style={{ width: "232px" }} className="the-input-container">
@@ -252,8 +162,6 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
                                     <label for="lastName" className="label">Last Name</label>
                                     <div className="underline"></div>
                                 </div>
-
-
                             </li>
                         </ul>
                         <div>
@@ -262,13 +170,10 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </>
     )
 }
-
-// export default ProfileSelection
 
 export default connect((state) => ({ formData: state.form?.formData }), { updateFormData })(ProfileSelection);

@@ -83,7 +83,7 @@ function ViewStory({ CloseBtn, Storyimagesrc }) {
     const GotoProfile = (res) => {
         switch (res?.storyViewType) {
             case "users-story":
-                return router.push(`/longterm/dashboard/${res?.Data?.userId?.id}`)
+                return router.push(`/longterm/dashboard/${res?.Data?.userId?.id || res?.Data?.userId?._id}`)
                 break;
             case "currentUser":
                 return router.push(`/longterm/dashboard/profile`)

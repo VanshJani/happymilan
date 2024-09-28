@@ -18,7 +18,7 @@ const Message = () => {
   }, [userData]);
 
   const onDeleteMessage = (msgId) => {
-    
+
     setMessages(prevMessages => prevMessages.filter(message => message.id !== msgId));
   };
 
@@ -33,9 +33,9 @@ const Message = () => {
     getLastConversation();
 
     socket.on('message', (data) => {
-     
-      if(data?.data?.message === 'file upload url generated'){
-        setMessages((prev) =>{
+
+      if (data?.data?.message === 'file upload url generated') {
+        setMessages((prev) => {
           return [...prev, data.data?.chatMessage]
         })
       }
@@ -86,7 +86,6 @@ const Message = () => {
 
   const handleScroll = () => {
     if (chatContainerRef.current.scrollTop === 0) {
-      console.log('Scrolled to the top');
       // Fetch previous messages or implement infinite scrolling
     }
   };
@@ -113,7 +112,6 @@ const Message = () => {
       case 'text':
         return <TextMsg key={message.id} el={message} Outgoing={isOutgoing} sendAt={message.sendAt} userMessage={message} onDeleteMessage={onDeleteMessage} />;
       case 'audio':
-        console.log("audio==> ",message)
         return <AudioMessage key={message.id} el={message} Outgoing={isOutgoing} sendAt={message.sendAt} userMessage={message} onDeleteMessage={onDeleteMessage} />;
       case 'video':
         return <VideoMsg key={message.id} el={message} Outgoing={isOutgoing} sendAt={message.sendAt} userMessage={message} onDeleteMessage={onDeleteMessage} />;
@@ -126,7 +124,7 @@ const Message = () => {
     const groupedMessages = groupMessagesByTime(messages);
     return groupedMessages.map(({ label, messages }) => (
       <Box key={label}>
-        <Box sx={{ textAlign: 'center', color: 'gray', position: "relative" , marginTop:"10px" , marginBottom:"10px"}}>
+        <Box sx={{ textAlign: 'center', color: 'gray', position: "relative", marginTop: "10px", marginBottom: "10px" }}>
           {label}
         </Box>
         <Stack spacing={3}>

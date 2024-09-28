@@ -10,6 +10,7 @@ import { Dialog } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
     addToShortlist,
+    userDatas,
 } from "../../../store/actions/GetingAlluser";
 import {
     Getlikeduserdata,
@@ -35,10 +36,64 @@ const ShowMore = dynamic(() => import("../common/profile/UserBio"), { ssr: false
 
 
 
-function SampleUserProfile({ users }) {
+function SampleUserProfile() {
 
-    const { darkMode, toggleDarkMode } = useDarkMode();
-    const { loading } = useSelector((state) => state.alluser);
+    const { data, loading } = useSelector(state => state?.alluser.Ifinit);
+    const dispatch = useDispatch();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [users, setUsers] = useState([]); // Store combined users here
+    const [loadingMore, setLoadingMore] = useState(false); // Track if loading more data
+    const swiperRef = useRef(null); // Reference to Swiper instance
+
+    const totalPages = data?.data?.[0]?.totalPages || 1;
+
+    // Load initial data (first page) when the component mounts
+    useEffect(() => {
+        dispatch(userDatas({ page: 1 })); // Load the first page on mount
+    }, [dispatch]);
+
+    // Update the users list when userData changes
+    useEffect(() => {
+        if (data?.data?.[0]?.paginatedResults) {
+            if (currentPage === 1) {
+                // On the first page, replace users
+                setUsers(data?.data[0].paginatedResults);
+            } else {
+                // On subsequent pages, append users
+                setUsers(prevUsers => [
+                    ...prevUsers,
+                    ...data.data[0].paginatedResults,
+                ]);
+            }
+            setLoadingMore(false); // Stop loading after data is appended
+        }
+    }, [data, currentPage]);
+
+    // Function to load more data when the user reaches the 9th card
+    const loadMoreData = () => {
+        if (currentPage < totalPages && !loadingMore) {
+            setLoadingMore(true); // Start loading more
+            const nextPage = currentPage + 1;
+            setCurrentPage(nextPage); // Increment the current page
+            dispatch(userDatas({ page: nextPage })); // Fetch the next page
+        }
+    };
+
+    // Handle slide change event to check if we need to load more data
+    const handleSlideChange = () => {
+        const swiperInstance = swiperRef.current.swiper;
+        const activeIndex = swiperInstance.realIndex;
+
+        // If the user is on the 9th slide (0-based index), load more data
+        if (activeIndex === users.length - 2) {
+            loadMoreData();
+        }
+    };
+
+
+
+    const { darkMode } = useDarkMode();
     const [ActiveLike, setActiveLike] = useState(false);
 
     const ProfileName = {
@@ -52,12 +107,6 @@ function SampleUserProfile({ users }) {
         fontStyle: "normal",
         fontWeight: "400",
         lineHeight: "12px",
-    };
-    const Text3 = {
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal",
     };
 
     const ListText = {
@@ -126,7 +175,6 @@ function SampleUserProfile({ users }) {
         (state) => state.usersact.LikedUsersData.likeloading
     );
 
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(Getlikeduserdata())
@@ -157,7 +205,7 @@ function SampleUserProfile({ users }) {
 
     const [shortlistText, setshortlistText] = useState();
 
-    const swiperRef = useRef(null);
+    // const swiperRef = useRef(null);
 
     const HandleShortlist = (id) => {
         dispatch(addToShortlist(id)); // Dispatch the action with the shortlist ID
@@ -171,10 +219,11 @@ function SampleUserProfile({ users }) {
         swiperRef.current.swiper.slideNext();
     };
 
-    const data = useSelector((state) => state.myprofile);
+    const thedata = useSelector((state) => state.myprofile);
+    // console.log("🚀 ~ SampleUserProfile ~ thedata:", thedata?.data)
 
     const HandleRequestModal = (res) => {
-        if (data?.data?.userProfileCompleted) {
+        if (thedata?.data?.userProfileCompleted) {
             dispatch(sendRequest(res._id));
 
             setsentRequest((prevState) => ({
@@ -216,11 +265,10 @@ function SampleUserProfile({ users }) {
     };
 
 
-
-
-    if (loading) {
-        return <UserprofileSkeleton />;
+    if (currentPage === 1 && loading && users.length === 0) {
+        return <UserprofileSkeleton />
     }
+
 
     return (
         <>
@@ -240,6 +288,7 @@ function SampleUserProfile({ users }) {
                             prevEl: "#custom-prev-button",
                             nextEl: "#custom-next-button",
                         }}
+                        onSlideChange={handleSlideChange}
                     >
                         {users?.map((res, index) => {
                             return (

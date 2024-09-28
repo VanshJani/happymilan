@@ -3,8 +3,8 @@ import { Input } from "@material-tailwind/react";
 import React, { useEffect, useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Box } from "@mui/system";
 import Image from "next/image";
+import { Box } from "@mui/material";
 
 function Credentials() {
   const [open, setOpen] = React.useState(false);

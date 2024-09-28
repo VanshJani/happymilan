@@ -205,8 +205,6 @@ function UserStory({ formData, updateFormData }) {
     const HandleNext = () => {
 
         if (ActiveTab === 2) {
-
-            console.log("Done")
             dispatch(Uploadmystory(thedata, imagesrc, blobData, StoryCaption))
         } else { SetActiveTab(ActiveTab + 1) }
     }
@@ -224,7 +222,10 @@ function UserStory({ formData, updateFormData }) {
 
     return (
         <>
-            <div id='story-section-center' className='lg:top-0 top-20 pb-[20px] w-full lg:w-auto lg:pb-[0px] z-10 lg:z-0 bg-[white] mt-[-20px] lg:mt-0 lg:bg-none dark:bg-[#18191a] p-[5px] fixed  lg:relative left-[0px] 2xl:left-[50px] lg:left-[50px] xl:left-[60px] flex space-x-[15px]'>
+            <div id='story-section-center'
+                // className='h-[60px] flex space-x-[15px] border-[1px] border-[black]'
+                className='lg:top-0 top-20 pb-[20px] w-full lg:w-auto lg:pb-[0px] z-10 lg:z-0 bg-[white] mt-[-20px] lg:mt-0 lg:bg-none dark:bg-[#18191a] p-[5px] fixed  lg:relative left-[0px] 2xl:left-[50px] lg:left-[50px] xl:left-[60px] flex space-x-[15px]'
+            >
                 <>
                     {loading ? (
                         <Skeleton variant="circular" width={47} height={47} />
@@ -262,14 +263,14 @@ function UserStory({ formData, updateFormData }) {
                 <Dialog
                     open={open}
                     onClose={handleClose}
-                   
+
                     className='flex justify-center rounded-[20px]'
 
                 >
 
 
 
-                    <DialogContent   className='dark:bg-[#18191a] rounded-[20px]'>
+                    <DialogContent className='dark:bg-[#18191a] rounded-[20px]'>
 
                         <div className='space-y-[20px] rounded-[20px]'>
                             <div className='lg:pb-0 pb-[20px] flex items-center justify-between space-x-[20px]'>
