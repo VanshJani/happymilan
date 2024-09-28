@@ -517,6 +517,7 @@ export const logoutuser = () => {
             deleteCookie('data', { path: '/' });
             deleteCookie('userid', { path: '/' });
             deleteCookie('fcmToken', { path: '/' });
+            deleteCookie('UserProfile', { path: '/' });
             localStorage.clear(); // Clear local storage
 
         } catch (error) {
