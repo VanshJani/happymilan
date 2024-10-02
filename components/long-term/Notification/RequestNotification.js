@@ -4,6 +4,7 @@ import {
   acceptRequest,
   getAcceptedRequestData,
   getFriendsList,
+  GetNotifications,
   rejectRequest,
 } from "../../../store/actions/UsersAction";
 import { getCookie } from "cookies-next";
@@ -33,6 +34,7 @@ function RequestNotification() {
   const [shortlistText, setshortlistText] = useState();
 
   const HanldeAccept = (res) => {
+    console.log("🚀 ~ HanldeAccept ~ res:", res)
     dispatch(acceptRequest(res));
     setshortlistText("Shortlisted has been removed");
     setopenShortlistModal(true);
@@ -40,11 +42,12 @@ function RequestNotification() {
       setopenShortlistModal(false);
       dispatch(getFriendsList());
       dispatch(getAcceptedRequestData());
+      dispatch(GetNotifications());
     }, 800);
   };
 
   const HanldeReject = (res) => {
-   
+
     dispatch(rejectRequest(res));
 
     setshortlistText("Shortlisted has been removed");
@@ -60,6 +63,7 @@ function RequestNotification() {
   useEffect(() => {
     dispatch(getFriendsList());
     dispatch(getAcceptedRequestData());
+    dispatch(GetNotifications());
     setisCurrentUSer(getCookie("userid"));
   }, [dispatch]);
 

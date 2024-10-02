@@ -202,3 +202,47 @@ export const LabelStyle2 = {
   }),
 }
 
+export const LabelStyle3 = {
+
+  control: (provided, state) => ({
+    ...provided,
+    paddingRight: '0px',
+    paddingLeft: "0px",
+    borderRadius: "0px",
+    borderColor: "black",
+    width: "500px",
+    height: "50px",
+    borderTop: "none",
+    borderLeft: "none",
+    borderRight: "none",
+    borderBottom: `1px solid ${state.isFocused ? "black" : "#C0C0C0"}`,
+    backgroundColor: "transparent",
+    boxShadow: 'none',
+    transition: "border-color 0.3s ease-in-out",
+    '&:hover': {
+      borderBottomColor: state.isFocused ? "black" : "#C0C0C0",
+    },
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    paddingLeft: "0px",
+    position: "relative",
+    top: "0px"
+
+  }),
+  input: (provided) => ({
+    ...provided,
+    paddingLeft: "0px",
+  }),
+  placeholder: (provided, state) => ({
+    ...provided,
+    paddingLeft: "0px",
+    position: "relative",
+    top: "0px"
+
+  }),
+  indicatorSeparator: () => ({
+    display: 'none',
+  }),
+}
+

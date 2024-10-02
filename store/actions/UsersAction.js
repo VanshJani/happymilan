@@ -22,7 +22,10 @@ import {
     DELETE_STATUS_MODAL,
     GET_MATCH_SCORE,
     GET_MATCH_SCORE_SUCCESS,
-    GET_MATCH_SCORE_FAILURE
+    GET_MATCH_SCORE_FAILURE,
+    GET_REQUEST_DATA,
+    GET_REQUEST_DATA_SUCCESS,
+    GET_REQUEST_DATA_FAILURE
 } from '../type';
 import { GET_REQUEST, GET_REQUEST_SUCCESS, GET_REQUEST_FAILURE } from '../type';
 import { fetchMyProfileData } from '../reducers/MyProfile';
@@ -129,7 +132,7 @@ export const acceptRequest = (requestData) => {
         const token = getCookie("authtoken")
         let data = JSON.stringify({
             "user": currentuserId,
-            "request": requestData.id,
+            "request": requestData.id || requestData._id,
             "status": "accepted"
         });
 
@@ -392,38 +395,78 @@ export const getAcceptedRequestData = () => {
 
             const config = {
                 method: 'get',
-                url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frds`,
+                // url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frds`,
+                url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frd-mobile`,
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                    // 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQxODlmMDIxN2RkZTNlMTRmYzg5YmIiLCJpYXQiOjE3Mjc3NjI4NzMsImV4cCI6MTcyNzk0Mjg3M30.f7PtuE-a5osGXKuVn5dScLnemB3ZF4IY9IaBuF3r4gg`
+                }
+            };
+
+            const response = await axios(config);
+            console.log("🚀 ~ return ~ response:", response.data.data)
+
+            // const currentUser = getCookie("userid");
+
+            // if (!currentUser) {
+            //     throw new Error('User ID is missing.');
+            // }
+
+            // const friendRequests = response.data.data
+            //     .map((res) => {
+            //         if (res?.user?.id && res?.friend?.id) {
+            //             return currentUser === res.friend.id ? res.user : res.friend;
+            //         }
+            //         return null;
+            //     })
+            //     .filter((user) => user !== null); // Filter out any null values
+
+            dispatch({
+                type: GET_ACCEPTED_REQUEST_DATA_SUCCESS,
+                payload: {
+                    data: response.data?.data,
+                    acceptedUsers: response.data?.data?.results
+                }
+            });
+        } catch (error) {
+            console.error('Error fetching accepted request data:', error);
+            dispatch({ type: GET_ACCEPTED_REQUEST_DATA_FAILURE, payload: error.message });
+        }
+    };
+};
+
+export const GetNotifications = () => {
+    return async (dispatch) => {
+        dispatch({ type: GET_REQUEST_DATA });
+
+        try {
+            const axios = require('axios');
+            const token = getCookie("authtoken");
+
+            if (!token) {
+                throw new Error('Authentication token is missing.');
+            }
+
+            const config = {
+                method: 'get',
+                url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frd-mobile`,
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             };
 
             const response = await axios(config);
-            const currentUser = getCookie("userid");
-
-            if (!currentUser) {
-                throw new Error('User ID is missing.');
-            }
-
-            const friendRequests = response.data.data
-                .map((res) => {
-                    if (res?.user?.id && res?.friend?.id) {
-                        return currentUser === res.friend.id ? res.user : res.friend;
-                    }
-                    return null;
-                })
-                .filter((user) => user !== null); // Filter out any null values
+            console.log("🚀 ~ return ~ response:", response.data.data)
 
             dispatch({
-                type: GET_ACCEPTED_REQUEST_DATA_SUCCESS,
+                type: GET_REQUEST_DATA_SUCCESS,
                 payload: {
-                    data: response.data,
-                    acceptedUsers: friendRequests
+                    data: response.data?.data,
                 }
             });
         } catch (error) {
             console.error('Error fetching accepted request data:', error);
-            dispatch({ type: GET_ACCEPTED_REQUEST_DATA_FAILURE, payload: error.message });
+            dispatch({ type: GET_REQUEST_DATA_FAILURE, payload: error.message });
         }
     };
 };
@@ -468,7 +511,8 @@ export const getSentrequestData = () => {
                 dispatch({
                     type: GET_SENTREQUEST_DATA_SUCCESS, payload: {
                         data: response.data,
-                       
+                        total
+
                         // sentUsersdata: userDataArray  //Pending--v2
                     }
                 });
@@ -723,7 +767,7 @@ export const Cancelfriendrequestfailure = (error) => (
 
 
 export const Updateprofileimage = (requestdata, seconddata) => {
-   
+
     return async (dispatch) => {
         dispatch({ type: UPDATE_PROFILE_IMAGE })
 
@@ -757,7 +801,7 @@ export const Updateprofileimage = (requestdata, seconddata) => {
                 })
                 .then(data => {
                     // Handle the response data here (e.g., update UI, etc.)
-                                    
+
                     fetch(seconddata.blob)
                         .then(response => response.blob())
                         .then(blobData => {
@@ -785,11 +829,11 @@ export const Updateprofileimage = (requestdata, seconddata) => {
                                 });
                         })
                 })
-           
+
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);
                 });
-           
+
 
 
         } catch (error) {
@@ -859,7 +903,7 @@ export const Getcancelrequestdatafailure = (error) => (
 )
 
 export const Deleteimage = (imagedata) => {
-   
+
     return async (dispatch) => {
         dispatch({ type: DELETE_IMAGE })
 
@@ -1099,6 +1143,7 @@ export const Getlikeduserdata = () => {
 
         axios.request(config)
             .then((response) => {
+                console.log("🚀 ~ .then ~ response:", response)
 
                 dispatch({ type: LIKED_USERS_PROFILE_DATA_SUCCESS, payload: response.data.data })
             })
@@ -1294,7 +1339,7 @@ export const DeleteMystatus = (StatusID) => {
 //Get match score 
 
 export const GetMatchScore = (MatchID) => {
-    console.log("🚀 ~ GetMatchScore ~ MatchID:", MatchID)
+
     return async (dispatch) => {
 
         dispatch({

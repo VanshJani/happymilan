@@ -209,7 +209,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 fileName: imagesdata.key,
                 type: imagesdata?.contentType.startsWith("video") ? "video" : "image"
             };
-            console.log("🚀 ~ handleSendMessage ~ chatContent:", chatContent)
+          
 
             const chatContentObj = {
                 from: currentUserID,
@@ -217,8 +217,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 fileName: imagesdata.key,
                 type: imagesdata?.contentType.startsWith("video") ? "video" : "image"
             };
-            console.log("🚀 ~ handleSendMessage ~ chatContentObj:", chatContentObj)
-
+         
 
 
             newSocket.emit("uploadContent", message ? chatContent : chatContentObj);
@@ -240,7 +239,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                                 },
                                 data: blob
                             };
-                            console.log("🚀 ~ handleSocketMessage ~ config:", config)
+                           
 
                             axios.request(config)
                                 .then(() => {

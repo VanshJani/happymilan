@@ -131,7 +131,7 @@ function Searchprofile() {
 
 
     const HandleShortlist = (id) => {
-        console.log("🚀 ~ HandleShortlist ~ id:", id)
+    
         dispatch(addToShortlist(id)); // Dispatch the action with the shortlist ID
 
         setshortlistText("Profile has been shortlisted");

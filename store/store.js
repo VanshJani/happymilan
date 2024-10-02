@@ -20,6 +20,7 @@ import SignupReducer from './reducers/SignUpReducer';
 import UserSentRequestGetSlice from './matrimoney-services/slices/UserSentRequestPagination'
 import getShortlistUsersSlice from './matrimoney-services/slices/getShortlistUsersSlice';
 import { DatingformReducer } from './dating-services/Redux-reducer/register/datingRegisterReducer';
+import GetDatingUsersReducer from './dating-services/Redux-reducer/home/DatingUsersReducer';
 
 const store = configureStore({
   reducer: {
@@ -43,6 +44,7 @@ const store = configureStore({
     getsentrequestdata: UserSentRequestGetSlice,
     shortlistusers: getShortlistUsersSlice,
     datingregister: DatingformReducer,
+    datingusers: GetDatingUsersReducer
   },
 });
 

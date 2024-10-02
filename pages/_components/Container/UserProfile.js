@@ -220,7 +220,7 @@ function SampleUserProfile() {
     };
 
     const thedata = useSelector((state) => state.myprofile);
-    // console.log("🚀 ~ SampleUserProfile ~ thedata:", thedata?.data)
+
 
     const HandleRequestModal = (res) => {
         if (thedata?.data?.userProfileCompleted) {
@@ -542,18 +542,41 @@ function SampleUserProfile() {
                                                     </div>
                                                 </div>
 
-                                                <div className="absolute right-0 bottom-[18px]">
-                                                    <SendRequestBtn
-                                                        userdata={res?.name}
-                                                        Requeststatus={res?.friendsDetails}
-                                                        RequestId={sentrequest[res._id]}
-                                                        HandleRequestModal={() => HandleRequestModal(res)}
-                                                    />
+                                                <div className="absolute right-6 bottom-[18px]">
+                                                    <div className="flex items-center justify-center">
+                                                        <div>
+                                                            <SendRequestBtn
+                                                                userdata={res?.name}
+                                                                Requeststatus={res?.friendsDetails}
+                                                                RequestId={sentrequest[res._id]}
+                                                                HandleRequestModal={() => HandleRequestModal(res)}
+                                                            />
+                                                        </div>
+                                                        <div className="relative top-[10px]">
+                                                            {likeloading ?
+                                                                <>
+                                                                    <div className="animate-pulse w-[63px] h-[40px] bg-gray-200 rounded-[22px]"></div>
+                                                                </>
+                                                                :
+                                                                <>
+
+                                                                    <LikeUser
+                                                                        ActiveLike={ActiveLike}
+                                                                        setActiveLike={setActiveLike}
+                                                                        userId={res._id}
+                                                                        TheUsername={res?.name}
+                                                                        userdata={res}
+
+
+                                                                    />
+                                                                </>}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {likeloading ? <></> : <>
+                                        {/* {likeloading ? <></> : <>
 
                                             <LikeUser
                                                 ActiveLike={ActiveLike}
@@ -564,7 +587,7 @@ function SampleUserProfile() {
 
 
                                             />
-                                        </>}
+                                        </>} */}
                                     </div>
                                 </SwiperSlide>
 

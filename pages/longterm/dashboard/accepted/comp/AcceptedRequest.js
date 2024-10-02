@@ -123,7 +123,8 @@ function AcceptedRequest() {
 
     const dispatch = useDispatch();
 
-    const data = useSelector((state) => state.usersact)
+    const data = useSelector((state) => state.usersact?.acceptedrequestdata)
+    
 
     const [isCurrentUser, setisCurrentUSer] = useState("")
 
@@ -163,7 +164,7 @@ function AcceptedRequest() {
         openCancelModal();
     }
 
-    if (data?.loading == true) {
+    if (data?.data?.loading == true) {
         return (
             <>
                 <UserprofileSkeleton />
@@ -175,7 +176,7 @@ function AcceptedRequest() {
 
     return (
         <>
-            {data?.acceptedrequestdata?.data?.data && data?.acceptedrequestdata?.data?.data?.length > 0 ? <>
+            {data?.data?.results && data?.data?.results?.length > 0 ? <>
                 <div>
 
                     <div className='flex flex-col'>
@@ -183,13 +184,13 @@ function AcceptedRequest() {
                         {
 
 
-                            data?.acceptedrequestdata?.data.data.map((res) => {
+                            data?.data?.results?.map((res) => {
 
-                                const IsUser = res?.friend?.id === isCurrentUser;
+                                // const IsUser = res?.friend?.id === isCurrentUser;
 
-                                if (res?.friend?.id == null) {
-                                    return null
-                                }
+                                // if (res?.friendList == null) {
+                                //     return null
+                                // }
 
 
                                 return (
@@ -204,7 +205,7 @@ function AcceptedRequest() {
                                                             className="mySwiper relative 2xl:w-[197px] xl:w-[187px] w-[185px] h-[260px]"
                                                         >
                                                             <SwiperSlide>
-                                                                <Image alt={`profile`} width={197} height={258} style={{ width: "197px", height: "258px", borderRadius: "10px", objectFit: "cover" }} className='w-[197px] h-[258px]' src={res?.friend?.id === isCurrentUser ? res?.user?.profilePic : res?.friend?.profilePic} loading="lazy" />
+                                                                <Image alt={`profile`} width={197} height={258} style={{ width: "197px", height: "258px", borderRadius: "10px", objectFit: "cover" }} className='w-[197px] h-[258px]' src={res?.friendList?.profilePic ? res?.friendList?.profilePic : ""} loading="lazy" />
                                                             </SwiperSlide>
 
                                                         </Swiper>
@@ -214,16 +215,16 @@ function AcceptedRequest() {
                                                 <div className='w-full pt-[15px] 2xl:pt-[15px] xl:pt-[20px]'>
                                                     <div className='flex justify-between  h-[50px]'>
                                                         <div>
-                                                            <Link href={`/longterm/dashboard/${res.id}`} ><h1 className={`${styles.ProfileName} text-[#000] dark:text-[#FFF] 2xl:text-[20px] xl:text-[15px] text-[15px]`}>{IsUser ? res?.user?.name : res?.friend?.name}</h1></Link>
+                                                            <Link href={`/longterm/dashboard/${res.id}`} ><h1 className={`${styles.ProfileName} text-[#000] dark:text-[#FFF] 2xl:text-[20px] xl:text-[15px] text-[15px]`}>{res?.friendList?.name}</h1></Link>
                                                             <h1 style={statusText} className={`text-[#7A7A7A]`}>Online now</h1>
                                                         </div>
                                                         <div className='pr-[8px]'>
                                                             <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
                                                                 <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]`}>
-                                                                    <MatchScoreModal user={IsUser ? res?.user : res?.friend} />
+                                                                    <MatchScoreModal user={res?.friendList} />
                                                                 </li>
                                                                 <li>
-                                                                    <div onClick={() => HandleShortlist(IsUser ? res?.user?.id : res?.friend?.id)} className="cursor-pointer dark:hover:bg-[#383838] hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]">
+                                                                    <div onClick={() => HandleShortlist(res?.friendList?.id || res?.friendList?._id)} className="cursor-pointer dark:hover:bg-[#383838] hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]">
                                                                         <Image
                                                                             loading="lazy"
                                                                             width={15}
@@ -234,7 +235,7 @@ function AcceptedRequest() {
                                                                     </div>
                                                                 </li>
                                                                 <li>
-                                                                    <ProfileMenu HandleCancelRequest={() => HandleCancelRequest(res, IsUser ? res?.user?.id : res?.friend?.id)} MenuTitle={"accepted"} SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
+                                                                    <ProfileMenu HandleCancelRequest={() => HandleCancelRequest(res, res?.friendList?.id || res?.friendList?._id)} MenuTitle={"accepted"} SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -248,28 +249,28 @@ function AcceptedRequest() {
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {IsUser ? (res?.user?.religion ? res.user.religion : 'NA') : (res?.friend?.religion ? res.friend.religion : 'NA')}, {IsUser ? (res?.user?.cast ? res.user.cast : 'NA') : (res?.friend?.cast ? res.friend.cast : 'NA')}
+                                                                    {res?.friendList?.religion ? res?.friendList?.religion : 'NA'}, {res?.friendList?.cast ? res?.friendList?.cast : 'NA'}
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {IsUser ? (res?.user?.motherTongue ? res.user.motherTongue : "NA, NA") : (res?.friend?.motherTongue ? res.friend.motherTongue : "NA, NA")}
+                                                                    {res?.friendList?.motherTongue ? res.friendList.motherTongue : "NA, NA"}
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {IsUser ? (res?.user?.maritalStatus ? res.user.maritalStatus : "NA, NA") : (res?.friend?.maritalStatus ? res.friend.maritalStatus : "NA, NA")}
+                                                                    {res?.friendList?.maritalStatus ? res.friendList.maritalStatus : "NA, NA"}
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {res?.address ? res?.address?.currentCity : "NA"}, {res?.address ? res.address.currentCountry : "NA"}
+                                                                    {res?.friendList?.address ? res?.friendList?.address?.currentCity : "NA"}, {res?.friendList?.address ? res.friendList.address.currentCountry : "NA"}
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {res?.userProfessional ? res?.userProfessional?.currentDesignation : "NA, NA"}
+                                                                    {res?.friendList?.userProfessional ? res?.friendList?.userProfessional?.jobTitle : "NA, NA"}
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                         <div className='mt-[20px] 2xl:mt-[20px] xl:mt-[15px]'>
-                                                            <ShowMore userid={IsUser ? res?.user?.id : res?.friend?.id} text={IsUser ? (res?.user?.writeBoutYourSelf ? res?.user?.writeBoutYourSelf : "NA") : (res?.friend?.writeBoutYourSelf ? res?.friend?.writeBoutYourSelf : "NA")} maxLength={100} />
+                                                            <ShowMore userid={res?.friendList?.id || res?.friendList?._id} text={(res?.friendList?.writeBoutYourSelf ? res?.friendList?.writeBoutYourSelf : "NA")} maxLength={100} />
                                                         </div>
                                                     </div>
                                                     <div className='flex justify-end items-center mt-[20px] 2xl:mt-[20px] xl:mt-[20px] mr-[20px] space-x-[10px]'>

@@ -94,7 +94,7 @@ const planPrice2 = {
 
 
 
-function DatingNav({ handleSearch }) {
+function DatingNav() {
 
 
     const [token, settoken] = useState()
@@ -113,10 +113,6 @@ function DatingNav({ handleSearch }) {
 
     }, [])
 
-
-
-    const [searchTerm, setSearchTerm] = useState('');
-
     const { darkMode, toggleDarkMode } = useDarkMode();
 
     const BoxSdow2 = {
@@ -126,11 +122,6 @@ function DatingNav({ handleSearch }) {
     }
 
 
-    const handleChange = (event) => {
-        const { value } = event?.target;
-        setSearchTerm(value);
-        handleSearch(value);
-    };
 
 
 
@@ -660,23 +651,6 @@ function DatingNav({ handleSearch }) {
                     >
                         <Link href="/">  <Image quality={45} loading="lazy" alt="img" width={148} height={36} src={darkMode ? "/heroSec/new-logo-white.svg" : "/heroSec/Happy-milan2.svg"} /></Link>
                     </div>
-                    <div
-                        id="id-search-centerlized"
-                        className=" hidden absolute 2xl:left-[335px] xl:left-[310px] 2xl:flex xl:flex cursor-pointer py-1.5 lg:ml-[0px] font-medium"
-                    >
-                        {
-                            isUpgradeActive ? "" : <>
-                                <div className="hover:bg-[#F3F8FF] h-[30px] w-[30px] rounded-[100%] absolute mt-[5px] ml-[5px] grid place-items-center">
-                                    <Image width={15} height={15} alt="search" src="/assests/dashboard/icon/Search-grad.svg" loading="lazy" />
-                                </div>
-                                <input type='search'
-                                    value={searchTerm}
-                                    onChange={handleChange} className='hover:border-[black] text-[#000] dark:text-[#FFF] outline-none   pl-[40px] w-[200px] h-[40px] rounded-[23px] bg-none border-[1px] border-[#E3E3E3]  dark:bg-[#242526]  ouline-none focus:border-[1px] focus:border-[black] pr-[10px]' placeholder='Profile ID Search' />
-
-                            </>
-                        }
-
-                    </div>
                     <div className="flex items-center gap-4">
                         <div className="w-[600px] hidden lg:block ">{navList}</div>
                         <IconButton
@@ -761,10 +735,6 @@ function DatingNav({ handleSearch }) {
         </>
     )
 }
-
-DatingNav.propTypes = {
-    handleSearch: propTypes.func.isRequired,
-};
 
 
 export default DatingNav

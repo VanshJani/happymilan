@@ -70,8 +70,7 @@ function PreferencesSection({ datingForm, updateDatingFormData }) {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        console.log("🚀 ~ handleInputChange ~ value:", value)
-
+      
         if (name == "agemin") {
             updateDatingFormData({
                 partnerpref: {

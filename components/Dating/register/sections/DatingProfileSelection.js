@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 import { connect } from "react-redux";
 import { getCookie } from "cookies-next";
 import { updateDatingFormData } from "../../../../store/dating-services/Redux-actions/register/registerAction";
+import { LabelStyle2 } from "../../../../utils/options/styles/SelectBoxStyle";
+import DatingMultiSelect from "./MultiSelect";
 const DynamicSelect = dynamic(() => import("react-select"), { ssr: false });
 
 function DatingProfileSelection({
@@ -21,40 +23,26 @@ function DatingProfileSelection({
         lineHeight: "normal",
     };
 
-    const EnumAppUsesTypeOfUsers = {
-        MARRIAGE: "marriage",
-        DATING: "dating",
-        CASUAL_DATING: "casualDating",
-        LONG_TERM_RELATIONSHIP: "long-Term-Relationship",
-        FRIENDSHIP: "friendship",
-        OPEN_TO_EXPLORING: "OpenToExploring",
-        JUST_CHATTING: "just-chatting",
+    const EnumOfInterest = {
+        MEET_NEW_FRIENDS: 'meet-new-friends',
+        LOOKING_FOR_LOVE: 'looking-for-love',
+        MOVIE_DATE: 'movie-date',
+        FOODIES: 'foodies',
+        TRAVEL_BUDDIES: 'travel-buddies',
+        GAME_LOVER: 'game-lover',
+        CHITCHAT: 'chit-chat',
+        ADVENTUROUS: 'adventurous',
     };
 
     const profileOptions = [
-        { id: 1, label: "Marriage", value: EnumAppUsesTypeOfUsers.MARRIAGE },
-        { id: 2, label: "Dating", value: EnumAppUsesTypeOfUsers.DATING },
-        {
-            id: 3,
-            label: "Casual Dating",
-            value: EnumAppUsesTypeOfUsers.CASUAL_DATING,
-        },
-        {
-            id: 4,
-            label: "Long Term Relationship",
-            value: EnumAppUsesTypeOfUsers.LONG_TERM_RELATIONSHIP,
-        },
-        { id: 5, label: "Friendship", value: EnumAppUsesTypeOfUsers.FRIENDSHIP },
-        {
-            id: 6,
-            label: "Open to Exploring",
-            value: EnumAppUsesTypeOfUsers.OPEN_TO_EXPLORING,
-        },
-        {
-            id: 7,
-            label: "Just Chatting",
-            value: EnumAppUsesTypeOfUsers.JUST_CHATTING,
-        },
+        { id: 1, label: "Meet New Friends", value: EnumOfInterest.MEET_NEW_FRIENDS },
+        { id: 2, label: "Looking for Love", value: EnumOfInterest.LOOKING_FOR_LOVE },
+        { id: 3, label: "Movie Date", value: EnumOfInterest.MOVIE_DATE },
+        { id: 4, label: "Foodies", value: EnumOfInterest.FOODIES },
+        { id: 5, label: "Travel Buddies", value: EnumOfInterest.TRAVEL_BUDDIES },
+        { id: 6, label: "Game Lover", value: EnumOfInterest.GAME_LOVER },
+        { id: 7, label: "Chit Chat", value: EnumOfInterest.CHITCHAT },
+        { id: 8, label: "Adventurous", value: EnumOfInterest.ADVENTUROUS },
     ];
 
     function splitName(fullName) {
@@ -109,7 +97,7 @@ function DatingProfileSelection({
                 [name]: value,
             },
         });
-        console.log("🚀 ~ handleInputChange ~ datingForm:", datingForm);
+
 
         SetValidate((prev) => ({
             ...prev,
@@ -131,19 +119,21 @@ function DatingProfileSelection({
         }
     };
 
+
     return (
         <>
             <div>
                 <div className="flex flex-col items-center justify-evenly w-full h-[100vh]">
                     <div>
-                        <h1 style={Title}>I’m creating profile for?</h1>
+                        <h1 style={Title}>I’m looking for?</h1>
                     </div>
 
-                    <div className="flex flex-col items-center space-y-[98px]">
-                        <div className="">
+                    <div className="flex flex-col items-center space-y-[79px]">
+                        <div className="hidden">
                             <DynamicSelect
                                 className={`h-[50px] w-[500px]`}
                                 placeholder="Profile Creating for"
+                                isMulti
                                 styles={{
                                     control: (provided, state) => ({
                                         ...provided,
@@ -191,6 +181,10 @@ function DatingProfileSelection({
                                 }
                             />
                         </div>
+                        <div>
+                            <DatingMultiSelect datingForm={datingForm} updateDatingFormData={updateDatingFormData} />
+                        </div>
+
 
                         <ul className="h-[30px] flex space-x-[37px]">
                             <li>
@@ -228,6 +222,9 @@ function DatingProfileSelection({
                                 </div>
                             </li>
                         </ul>
+                        <div>
+                            <input name="dateOfBirth" onChange={handleInputChange} type="date" className="2xl:w-[500px] w-[450px] pb-4 pr-4 pl-1 outline-none border-b-[1px] border-b-[black]" />
+                        </div>
                         <div>
                             <button
                                 onClick={goToNextStep}

@@ -27,7 +27,7 @@ export const updateHobbies = (category, values) => ({
 export const DatingGenerealInfo = createAsyncThunk(
     '/dating/register/datingGeneralinfo',
     async (generalData, thunkAPI) => {
-        console.log("🚀 ~ generalData:", generalData)
+       
         try {
             const authToken = getCookie("authtoken");
 
@@ -73,7 +73,7 @@ export const DatingGenerealInfo = createAsyncThunk(
 export const PostAppUsesType = createAsyncThunk(
     '/platform/usertype',
     async (generalData, thunkAPI) => {
-        console.log("🚀 ~ generalData:", generalData)
+       
         try {
             const authToken = getCookie("authtoken");
 
@@ -118,7 +118,7 @@ export const PostAppUsesType = createAsyncThunk(
 export const DatingAdditionalInfo = createAsyncThunk(
     '/dating/register/datingAdditionalinfo',
     async (addressdata, thunkAPI) => {
-        console.log("🚀 ~ addressdata:", addressdata)
+       
         try {
             const authToken = getCookie("authtoken");
 
@@ -161,7 +161,7 @@ export const DatingAdditionalInfo = createAsyncThunk(
 export const DatingHobbyInfo = createAsyncThunk(
     '/dating/register/datingHobbyinfo',
     async (Hobbyinfo, thunkAPI) => {
-        console.log("🚀 ~ Hobbyinfo:", Hobbyinfo)
+   
         try {
             const authToken = getCookie("authtoken");
 

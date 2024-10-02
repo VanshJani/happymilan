@@ -4,6 +4,8 @@ import Avatar from 'react-avatar'
 import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import { useSelector } from 'react-redux';
 import { getCookie } from 'cookies-next';
+import ProfileModal from '../../../../longterm/dashboard/commonCompo/HandleProfileUpload/Modal';
+// import Modal from '../../../../longterm/dashboard/commonCompo/storyUploadcomp/components/Modal';
 
 function GeneralSection() {
 
@@ -63,13 +65,17 @@ function GeneralSection() {
 
     const [showForm, setshowForm] = useState(false)
 
+    const [openProfileModal, setOpenProfileModal] = React.useState(false);
+    const handleOpen = () => setOpenProfileModal(true);
+    const handleClose = () => setOpenProfileModal(false);
+
     return (
         <>
             <div className='w-full h-full grid place-items-center'>
                 <div className='xl:w-[631px] w-full'>
                     <div className='bg-custom-gradient xl:w-[631px] w-full h-[138px] rounded-[10px]'>
                         <div className='w-full h-full flex justify-center'>
-                            <div className='translate-y-10'>
+                            <div onClick={handleOpen} className='translate-y-10'>
                                 {
                                     token ? (
                                         <>
@@ -242,6 +248,14 @@ function GeneralSection() {
                     </div>
                 </div>
             </div>
+
+            
+            <ProfileModal
+                handleClose={handleClose}
+                handleOpen={handleOpen}
+                setOpenProfileModal={setOpenProfileModal}
+                openProfileModal={openProfileModal}
+            />
         </>
     )
 }

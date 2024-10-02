@@ -25,7 +25,7 @@ function SideBar() {
     return (
       <>
 
-        <div className='w-[190px]'>
+        <div className='w-[220px]'>
           <ul className='flex justify-between'>
             <li><h1 style={Text3} className='text-[14px]'>Age</h1></li>
             <li><h1 style={Text3} className='text-[14px] text-[#0F52BA]'>{value?.[0]}-{value?.[1]}</h1></li>
@@ -78,7 +78,7 @@ function SideBar() {
     return (
       <>
 
-        <div className='w-[190px]'>
+        <div className='w-[220px]'>
           <ul className='flex justify-between'>
             <li><h1 style={Text3} className='text-[14px]'>Distance</h1></li>
             <li><h1 style={Text3} className='text-[14px] text-[#0F52BA]'>{value} km</h1></li>
@@ -124,14 +124,6 @@ function SideBar() {
     fontWeight: "600",
     lineHeight: "22px"
   }
-  const NotificationText = {
-    color: "#FFF",
-    fontFamily: "Poppins",
-    fontSize: "12px",
-    fontStyle: "normal",
-    fontWeight: "500",
-    lineHeight: "22px"
-  }
   const Text3 = {
     fontFamily: "Poppins",
     fontStyle: "normal",
@@ -163,7 +155,7 @@ function SideBar() {
                   <h1 className="group-hover:opacity-75 text-[#000] dark:text-[#FFF]" style={Text2}>{myProfile?.name}</h1>
                 </Link>
               </div>
-              <div className="pt-[10px]">
+              <div className="space-x-[5px] pt-[10px]">
                 <Link href={"/dating/dashboard/profile"}>
                   <span style={Text3} className="text-[14px] text-[#50545A] dark:text-[#616161]">
                     ID: {myProfile?.userUniqueId?.toUpperCase()}
@@ -177,11 +169,11 @@ function SideBar() {
             </div>
           </div>
 
-          <ul className="space-y-[8px] pb-[20px] font-medium border-t  border-gray-200 dark:border-gray-700 p-[10px]">
+          <ul className="flex flex-col items-center space-y-[8px] pb-[20px] font-medium border-t  border-gray-200 dark:border-gray-700 p-[10px]">
 
             <li className='pt-[8px] pb-[10px]'>
               <div className='flex'>
-                <input type='text' placeholder='search by location' className='border-[1px] border-[#E3E3E3] rounded-[20px] h-[40px] w-[200px] outline-none pl-[15px] pr-[30px]' />
+                <input type='text' placeholder='search by location' className='border-[1px] border-[#E3E3E3] rounded-[20px] h-[40px] w-[230px] outline-none pl-[15px] pr-[30px]' />
                 <Image width={15} height={14} src="/assests/Black/Search.svg" className="relative right-[30px]" />
               </div>
             </li>

@@ -13,7 +13,7 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn({ account, profile }) {
-      console.log("🚀 ~ signIn ~ account:", account)
+     
       // if (account.provider === "google") {
       //   // After Google sign-in, send the Google account token to your backend to get your JWT
       //   const response = await fetch(`${process.env.BACKEND_API_URL}/login/google`, {
@@ -53,5 +53,5 @@ export default NextAuth({
       return session;
     },
   },
-  secret: "LCd5kTpXrA++7YHP5o1zd/G2rXYu5ppUhfZnLdj/klw=",
+  secret: process.env.NEXTAUTH_SECRET,
 });

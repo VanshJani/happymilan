@@ -63,7 +63,9 @@ import {
     DELETE_MY_STATUS_SUCCESS,
     GET_MATCH_SCORE,
     GET_MATCH_SCORE_SUCCESS,
-    GET_MATCH_SCORE_FAILURE
+    GET_MATCH_SCORE_FAILURE,
+    GET_REQUEST_DATA,
+    GET_REQUEST_DATA_SUCCESS
 } from '../type';
 import { STATUSES } from './MyProfile';
 import { LIKE_USER } from '../actions/GetingAlluser';
@@ -93,6 +95,11 @@ const initialState = {
         loading: false,
         data: null,
         acceptedUsers: null
+    },
+    notifications: {
+        loading: false,
+        data: null,
+        error: ""
     },
     sentrequestdata: {
         data: null,
@@ -442,6 +449,35 @@ const userReducer = (state = initialState, action) => {
                 },
                 partnerprefferencedata: null,
                 error: action.payload
+            }
+        }
+        case GET_REQUEST_DATA: {
+            return {
+                ...state,
+                notifications: {
+                    ...state.notifications,
+                    loading: true,
+                },
+            }
+        }
+        case GET_REQUEST_DATA_SUCCESS: {
+            return {
+                ...state,
+                notifications: {
+                    ...state.notifications,
+                    data: action.payload,
+                    loading: false,
+                },
+            }
+        }
+        case GET_REQUEST_DATA: {
+            return {
+                ...state,
+                notifications: {
+                    ...state.notifications,
+                    loading: false,
+                    error: "Something Went Wrong"
+                },
             }
         }
         case GET_SENTREQUEST_DATA: {

@@ -17,7 +17,7 @@ export const loginAsync = createAsyncThunk('/dashboard/myprofile', async (creden
   }
 
   const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/login`, UserCredentials);
-  console.log("🚀 ~ loginAsync ~ response:", response)
+
   return response.data;
   //  return console.log(response.data)
 });

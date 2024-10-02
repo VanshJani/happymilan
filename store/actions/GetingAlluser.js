@@ -75,6 +75,7 @@ export const CreateLikeUser = (user) => {
 }
 
 export const UnlikeTheUser = (Postdata) => {
+  console.log("🚀 ~ UnlikeTheUser ~ Postdata:", Postdata)
   return async (dispatch) => {
 
 
@@ -142,7 +143,7 @@ export const fetchallusersPagination = (CurrentPage) => async (dispatch) => {
     );
 
     const data = response?.data?.data
-    console.log("🚀 ~ fetchallusersPagination ~ data:", data)
+   
 
     dispatch({
       type: FETCH_ALL_USERS_PAGINATED_SUCCESS,
@@ -244,7 +245,7 @@ export const RemoveShortlist = createAsyncThunk(
 
 //for infinit Scroll 
 export const userDatas = (page) => {
-  console.log("🚀 ~ userDatas ~ page:", page)
+  
   return async (dispatch) => {
     dispatch({
       type: GET_INFINIT_SCROLL_USER_REQUEST
@@ -260,7 +261,7 @@ export const userDatas = (page) => {
           },
         }
       );
-      console.log("🚀 ~ fetchAllUsers ~ response:", response?.data)
+     
 
       dispatch({
         type: GET_INFINIT_SCROLL_USER_SUCCESS,
@@ -277,7 +278,7 @@ export const userDatas = (page) => {
 
 
 export const FetchMoreSuggestiondata = (page) => {
-  console.log("🚀 ~ userDatas ~ page:", page)
+  
   return async (dispatch) => {
     dispatch({
       type: GET_MORESUGGESTION_USERS_REQUEST
@@ -293,8 +294,7 @@ export const FetchMoreSuggestiondata = (page) => {
           },
         }
       );
-      console.log("🚀 ~ fetchAllUsers ~ response:", response?.data)
-
+    
       dispatch({
         type: GET_MORESUGGESTION_USERS_SUCCESS,
         payload: response?.data,

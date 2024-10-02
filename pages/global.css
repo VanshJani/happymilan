@@ -1050,3 +1050,114 @@ body::-webkit-scrollbar {
   position: relative;
   top: -350px;
 }
+
+/* Request Button  */
+
+#Req-btn {
+  border: 1px solid #7045EB;
+  border-radius: 32px;
+  height: 40px;
+  width: 170px;
+
+}
+
+#Req-btn:hover {
+  background-color: #7045EB;
+  color: white;
+}
+
+
+/* Default SVG path color */
+.theicon path {
+  fill: #7045EB;
+  /* Default color */
+  transition: fill 0.3s ease;
+  /* Smooth transition */
+}
+
+/* Change SVG path color when hovering over the parent element */
+#Req-btn:hover .theicon path {
+  fill: #FFF;
+  /* Desired hover color */
+  transition: fill 0.3s ease;
+}
+
+.Like-button:hover {
+  background-color: #9E28D7;
+}
+
+/* Default SVG path color */
+.the-like-icon path {
+  fill: #9E28D7;
+  /* Default color */
+  transition: fill 0.3s ease;
+  /* Smooth transition */
+}
+
+.after-like-icon path {
+  fill: #FFF;
+}
+
+/* Change SVG path color when hovering over the parent element */
+.Like-button:hover .the-like-icon path {
+  fill: #FFF;
+  /* Desired hover color */
+  transition: fill 0.3s ease;
+}
+
+#Reject-dating {
+  border: 1px solid #4280DE;
+  border-radius: 22px;
+}
+
+#Reject-dating:hover {
+  background-color: #4280DE;
+}
+
+#Reject-dating .reject-icon-dt {
+  fill: #4280DE;
+  transition: fill 0.3s ease;
+
+}
+
+#Reject-dating:hover .reject-icon-dt {
+  fill: #ffffff;
+}
+
+#cancel-dating {
+  border: 1px solid #FF994F;
+  border-radius: 22px;
+}
+
+#cancel-dating:hover {
+  background-color: #FF994F;
+}
+
+#cancel-dating .cancel-icon-dt {
+  fill: #FF994F;
+  transition: fill 0.3s ease;
+
+}
+
+#cancel-dating:hover .cancel-icon-dt {
+  fill: #ffffff;
+}
+
+.right-swipe-icon {
+  border: 1px solid #7045EB;
+  border-radius: 22px;
+}
+
+.right-swipe-icon:hover {
+  background-color: #7045EB;
+}
+
+.right-swipe-icon .right-swipe {
+  fill: #7045EB;
+  transition: fill 0.3s ease;
+
+}
+
+.right-swipe-icon:hover .right-swipe {
+  fill: #ffffff;
+}
