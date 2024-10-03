@@ -77,7 +77,7 @@ function CategorySection() {
                                 <p style={SectionTitle}>Browse By Categories</p>
                             </li>
                             <li>
-                                <Image width={24} height={24} alt='search' src={"/dating/icons/search-icon.svg"} />
+                                {/* <Image width={24} height={24} alt='search' src={"/dating/icons/search-icon.svg"} /> */}
                             </li>
                         </ul>
 

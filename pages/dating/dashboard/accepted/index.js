@@ -62,7 +62,7 @@ function AcceptedData() {
                                 <Image
                                     width={329}
                                     height={378}
-                                    className="cursor-pointer 2xl:h-[348px] 2xl:w-[299px] xl:w-[270px] xl:h-[320px]"
+                                    className="cursor-pointer 2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px] w-full h-full"
                                     src="/assests/dating/user-image-dating.png"
                                 />
                                 <div className="absolute bottom-[30px] space-y-[5px] text-[white] ml-[20px] 2xl:ml-[30px] xl:ml-[30px]">

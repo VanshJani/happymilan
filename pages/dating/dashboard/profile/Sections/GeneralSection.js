@@ -5,6 +5,7 @@ import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import { useSelector } from 'react-redux';
 import { getCookie } from 'cookies-next';
 import ProfileModal from '../../../../longterm/dashboard/commonCompo/HandleProfileUpload/Modal';
+import BasicInfo from './BasicInfo';
 // import Modal from '../../../../longterm/dashboard/commonCompo/storyUploadcomp/components/Modal';
 
 function GeneralSection() {
@@ -135,46 +136,8 @@ function GeneralSection() {
                         </div>
                     </div>
                     <div className='space-y-[20px] mt-[27px]'>
-                        <div className='space-y-[20px] w-full h-[240px] rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px] '>
-                            <div>
-                                <ul className='flex justify-between items-center'>
-                                    <li><p>Basic Info</p></li>
-                                    <li>
-                                        <div className='cursor-pointer w-[37px] h-[37px] dark:hover:bg-[#252525] hover:bg-[#F0F9FF] rounded-[50%] flex items-center justify-center'>
-                                            {!showForm ?
-                                                <Image alt='editIcon' width={20} height={20} onClick={() => setshowForm(!showForm)} src={darkMode ? '/assests/dashboard/icon/edit-details-icon-white.svg' : '/assests/dashboard/icon/edit-details-icon.svg'} />
-                                                :
-                                                <Image loading='lazy' alt='modifyIcon' width={15} height={15} onClick={() => setshowForm(!showForm)} src={darkMode ? '/assests/profile/cross-edit-icon-white.svg' : '/assests/profile/cross-edit-icon.svg'} />
-
-                                            }
-                                        </div>
-
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className='w-full h-[1px] bg-[#F1F1F1]'></div>
-                            <div>
-                                <ul className='space-y-[5px]'>
-                                    <li>
-                                        <p style={FildsTitle}>Purpose</p>
-                                    </li>
-                                    <li>
-                                        <h1 style={FiledsValue}>Meet New Friends, Movie Date</h1>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className=''>
-                                <ul className='flex justify-between'>
-                                    <li className='space-y-[5px]'>
-                                        <p style={FildsTitle}>Date of Birth</p>
-                                        <h1 style={FiledsValue}>16 August</h1>
-                                    </li>
-                                    <li className='space-y-[5px]'>
-                                        <p style={FildsTitle}>Currently Living</p>
-                                        <h1 style={FiledsValue}>Ahmedabad, India</h1>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div>
+                            <BasicInfo />
                         </div>
                         <div className='space-y-[20px] w-full h-[240px] rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px] '>
                             <div>
@@ -249,7 +212,7 @@ function GeneralSection() {
                 </div>
             </div>
 
-            
+
             <ProfileModal
                 handleClose={handleClose}
                 handleOpen={handleOpen}
