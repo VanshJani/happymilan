@@ -1161,3 +1161,22 @@ body::-webkit-scrollbar {
 .right-swipe-icon:hover .right-swipe {
   fill: #ffffff;
 }
+
+#accept-request {
+  border: 1px solid #17C270;
+  border-radius: 22px;
+}
+
+#accept-request:hover {
+  background-color: #17C270;
+}
+
+#accept-request .accept-icon-dt {
+  fill: #17C270;
+  transition: fill 0.3s ease;
+
+}
+
+#accept-request:hover .accept-icon-dt {
+  fill: #ffffff;
+}
