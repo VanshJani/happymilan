@@ -112,8 +112,8 @@ function RequestNotification() {
               return (
                 <>
                   <FriendRequestCard
-                    key={response?.id}
-                    res={response}
+                    key={response?.friendList?.id || response?.friendList?._id}
+                    res={response?.friendList}
                     loading={FriendeLists.loading}
                   />
                 </>

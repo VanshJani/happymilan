@@ -50,7 +50,7 @@ function LoginBox() {
 
     return (
         <>
-            <div className='absolute m-[20px]'>
+            <div className='absolute left-[62px] top-[5px] m-[20px]'>
                 <Link href={"/"}>
                     <Image quality={45} loading="lazy" alt="img" width={148} height={36} src={"/heroSec/Happy-milan2.svg"} />
                 </Link>

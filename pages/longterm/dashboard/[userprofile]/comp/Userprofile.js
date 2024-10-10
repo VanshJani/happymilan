@@ -6,8 +6,6 @@ import { fetchUserById } from "../../../../../store/actions/GetingUserById";
 import SkeletonProfileSec from "./SkeletonProfileSec";
 import { Dialog, Popover } from "@mui/material";
 import moment from "moment";
-import { addToShortlist } from "../../../../../store/actions/GetingAlluser";
-import { sendRequest } from "../../../../../store/actions/UsersAction";
 import RegisterAlertModal from "../../../../_components/Model/Models/RegisterAlertModal";
 import GridLikeUser from "../../../../_components/common/Buttons/GridLikeUser";
 import calculateAge from "../../../../../utils/helpers/CalculateAge";
@@ -16,7 +14,7 @@ import ContactTab from "./tabs/ContactTab";
 import LocationTab from "./tabs/LocationTab";
 import Notfound from "../../../../../components/common/Error/Notfound";
 import Avatar from "react-avatar";
-import StyledBadge from "../../../../../components/common/animation/StyleBadge";
+import ViewProfile from "../../../../../components/common/Models/ViewProfile";
 
 function Userprofile({ params, toggleDrawer }) {
   const Username = {
@@ -797,19 +795,13 @@ function Userprofile({ params, toggleDrawer }) {
     setAnchorEl(event.currentTarget);
   };
 
-  const [sentrequest, setsentRequest] = useState({});
   const [isRegisterModalOpen, setisRegisterModalOpen] = useState(false);
 
-  const OpenRegisterModal = (res) => {
-    setData(res);
-    setisRegisterModalOpen(true);
-  };
 
   const CloseRegisterModal = () => {
     setisRegisterModalOpen(false);
   };
 
-  const thedata = useSelector((state) => state.myprofile);
 
 
 
@@ -818,15 +810,13 @@ function Userprofile({ params, toggleDrawer }) {
   const [shortlistText, setshortlistText] = useState();
 
 
-  const HandleShortlistUser = (res) => {
-    dispatch(addToShortlist(res)); // Dispatch the action with the shortlist ID
 
-    setshortlistText("Profile has been shortlisted");
-    setopenShortlistModal(true);
-    setTimeout(() => {
-      setopenShortlistModal(false);
-    }, 800);
-  }
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+
 
   if (loading === true) {
     return <SkeletonProfileSec />;
@@ -1004,6 +994,7 @@ function Userprofile({ params, toggleDrawer }) {
               {user?.profilePic ? (
 
                 <Image loading="lazy"
+                  onClick={openModal}
                   alt="img"
                   style={{ objectFit: "cover" }}
                   width={184}
@@ -1204,6 +1195,18 @@ function Userprofile({ params, toggleDrawer }) {
         isOpen={isRegisterModalOpen}
         onClose={CloseRegisterModal}
       />
+
+      <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
+        <div style={{ width: '347px', height: '450px', position: 'relative', borderRadius: "10px" }}>
+          <Image
+            style={{ borderRadius: "10px" }}
+            layout="fill"  // Ensure the image fills the container
+            objectFit='cover'  // Crop to fit without distortion
+            alt='profile'
+            src={user?.profilePic}
+          />
+        </div>
+      </ViewProfile>
     </>
   );
 }

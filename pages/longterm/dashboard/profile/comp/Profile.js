@@ -14,7 +14,7 @@ const ProfessionalTab = dynamic(() => import('./sections/ProfessionalTab'));
 const PartnerPreferenceTab = dynamic(() => import('./sections/PartnerPreferenceTab'));
 import Modal from '../../commonCompo/HandleProfileUpload/Modal';
 import { getSentrequestData } from '../../../../../store/actions/UsersAction';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import HobbiesTab from './sections/HobbiesTab';
 import { useSocket } from '../../../../../ContextProvider/SocketContext';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
@@ -22,6 +22,9 @@ import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import calculateAge from '../../../../../utils/helpers/CalculateAge';
 import { heightoption, MaritalOptions, profileOptions, Religionoptions, subcastOption, weightoption } from '../../../../../utils/options/ProfileOptions/GeneralSection';
 import SaveButton from '../../../../../components/common/Buttons/SaveButton';
+import { getFormattedTime } from '../../../../../utils/helpers/getFormattedTime';
+import { getFormattedDate } from '../../../../../utils/helpers/GetFormatedDate';
+import ViewProfile from '../../../../../components/common/Models/ViewProfile';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 function Profile() {
@@ -114,19 +117,27 @@ function Profile() {
 
             }
             else if (name == "birthTime") {
-                const currentDate = new Date();
+                // Get the current date
+                const currentDate = moment();
+
                 // Extract the date parts
-                const year = currentDate.getFullYear();
-                const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JavaScript
-                const day = String(currentDate.getDate()).padStart(2, '0');
+                const year = currentDate.year();
+                const month = String(currentDate.month() + 1).padStart(2, '0'); // Months are 0-based in moment.js
+                const day = String(currentDate.date()).padStart(2, '0');
 
-                // Combine the date with the input time
-                const isoDateString = `${year}-${month}-${day}T${value}:00`;
+                // Combine the date with the input time (value) to form an ISO string in UTC
+                const isoDateString = moment(`${year}-${month}-${day}T${value}:00`).tz('Asia/Kolkata').format();
 
-                // Corrected: Pass 'field' and 'value' correctly
-                setuserdata(prevValue => ({ ...prevValue, [name]: isoDateString }))
-                SetBirthTime(value)
+                // Update state with the ISO date string
+                setuserdata((prevValue) => ({
+                    ...prevValue,
+                    [name]: isoDateString, // Use the field 'name' and ISO string
+                }));
+
+                // Also update birth time state (if needed)
+                SetBirthTime(value);
             }
+
             else if (name === 'writeBoutYourSelf') {
                 const maxChars = 150
                 if (value.length <= maxChars) {
@@ -200,27 +211,6 @@ function Profile() {
                 ? subcastOption.find((option) => option.value === data.cast)
                 : null
         );
-
-        let formattedDateOfBirth;
-
-        if (data && data.dateOfBirth) {
-            formattedDateOfBirth = moment(data?.dateOfBirth).format('YYYY-MM-DD');
-        } else {
-            formattedDateOfBirth = 'NA';
-        }
-
-        let formattedDateOfBirthTime;
-
-        // Assemble the date and time in a readable format
-        if (data && data.birthTime) {
-
-            formattedDateOfBirthTime = moment(data?.birthTime).format('HH:mm:ss');
-
-        } else {
-            formattedDateOfBirthTime = 'NA'
-        }
-
-
 
         return (
             <>
@@ -375,11 +365,11 @@ function Profile() {
                                 <div className="w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]">
                                     <div>
                                         <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Date of Birth</p>
-                                        <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px] xl:text-[14px] text-[14px]'>{formattedDateOfBirth}</h1>
+                                        <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px] xl:text-[14px] text-[14px]'>{data?.birthTime ? getFormattedDate(data?.dateOfBirth) : "NA"}</h1>
                                     </div>
                                     <div>
                                         <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Birth of Time</p>
-                                        <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px] xl:text-[14px] text-[14px]'>{formattedDateOfBirthTime}</h1>
+                                        <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px] xl:text-[14px] text-[14px]'>{data?.birthTime ? getFormattedTime(data?.birthTime) : "NA"}</h1>
                                     </div>
                                     <div>
                                         <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Religion</p>
@@ -460,13 +450,19 @@ function Profile() {
 
     const router = useRouter();
 
-    const [isHovered, setIsHovered] = useState(false)
-
     const [openProfileModal, setOpenProfileModal] = React.useState(false);
-    const handleOpen = () => setOpenProfileModal(true);
+    const handleOpen = () => {
+        setIsModalOpen(false)
+        setOpenProfileModal(true)
+    }
     const handleClose = () => setOpenProfileModal(false);
 
-    const theloading = true;
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
 
     if (status === STATUSES.LOADING) {
 
@@ -495,8 +491,11 @@ function Profile() {
                         <div>
                         </div>
                         <div className=' grid place-items-center'>
-                            <div onClick={handleOpen} onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}>
+                            <div
+                                // onClick={handleOpen}
+                                onClick={openModal}
+                                className='cursor-pointer'
+                            >
                                 {
                                     token ? (
                                         <>
@@ -510,15 +509,6 @@ function Profile() {
                                                         src={data.profilePic}
                                                         style={{ objectFit: "cover" }}
                                                     />
-                                                    {isHovered && (
-                                                        <div className="cursor-pointer absolute mt-[-185px]" style={{ opacity: "0.60" }}>
-                                                            <div className='w-[184px] h-[184px] bg-[black] rounded-[50%]'>
-                                                                <div className='grid place-items-center relative top-[40%]'>
-                                                                    <Image loading='lazy' width={35.556} height={32} alt='edit' src="/assests/animation/camera-icon.svg" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
                                                 </>
                                             ) : (
                                                 <>
@@ -527,15 +517,7 @@ function Profile() {
                                                         size="184"
                                                         round={true}
                                                     />
-                                                    {isHovered && (
-                                                        <div className="cursor-pointer absolute mt-[-185px]" style={{ opacity: "0.60" }}>
-                                                            <div className='w-[184px] h-[184px] bg-[black] rounded-[50%]'>
-                                                                <div className='grid place-items-center relative top-[40%]'>
-                                                                    <Image loading='lazy' width={35.556} height={32} alt='edit' src="/assests/animation/camera-icon.svg" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )}
+
                                                 </>
                                             )}
                                         </>
@@ -569,7 +551,7 @@ function Profile() {
                                         <div className='flex items-center space-x-[10px]'>
                                             <Image loading='lazy' alt='upIcon' width={14} height={14} src='/assests/dashboard/icon/up-arrow.svg' />
                                             {/* Pending--v2  */}
-                                            <h1 style={Text3} className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{TotalSentRequest?.data?.data?.totalResults}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>Sent</span></h1>
+                                            <h1 style={Text3} className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{TotalSentRequest?.data?.data?.totalResults || 0}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>Sent</span></h1>
                                         </div>
                                     </li>
                                     <li>
@@ -593,13 +575,13 @@ function Profile() {
                                     <li>
                                         <div className='flex items-center space-x-[10px]'>
                                             <Image loading='lazy' alt='bagIcon' width={14} height={12} src='/assests/dashboard/icon/bag-icon.svg' />
-                                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{data && data?.userProfessional ? capitalizeFirstLetter(data?.userProfessional?.jobTitle) : "NA"}</h1>
+                                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{capitalizeFirstLetter(data?.userProfessional?.jobTitle) || "NA"}</h1>
                                         </div>
                                     </li>
                                     <li>
                                         <div className='flex items-center space-x-[10px]'>
                                             <Image loading='lazy' alt='loactionIcon' width={10} height={12} src='/assests/dashboard/icon/location-icon.svg' />
-                                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{data && data?.address ? capitalizeFirstLetter(data?.address?.currentCity) : "NA"}</h1>
+                                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{capitalizeFirstLetter(data?.address?.currentCity) || "NA"}</h1>
                                         </div>
                                     </li>
                                 </ul>
@@ -608,7 +590,7 @@ function Profile() {
 
                             </div>
                             <div className='text-center pt-[10px]'>
-                                <p className='dark:text-[#FFF] text-[12px] lg:text-[14px] md:text-[14px] 2xl:text-[14px] xl:text-[12px]' style={Text2}>{data && data.writeBoutYourSelf ? (data?.writeBoutYourSelf && data.writeBoutYourSelf) : "About yourSelf"}</p>
+                                <p className='dark:text-[#FFF] text-[12px] lg:text-[14px] md:text-[14px] 2xl:text-[14px] xl:text-[12px]' style={Text2}>{capitalizeFirstLetter(data?.writeBoutYourSelf) || "About yourSelf"}</p>
                             </div>
 
                             <div className='dark:bg-[#18191a] hidden lg:flex space-x-[25px] 2xl:space-x-[18px] xl:space-x-[13px] lg:space-x-[35px] pt-[20px]'>
@@ -670,6 +652,34 @@ function Profile() {
                 setOpenProfileModal={setOpenProfileModal}
                 openProfileModal={openProfileModal}
             />
+
+            <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
+                <div style={{ width: '347px', height: '450px', position: 'relative', borderRadius: "10px" }}>
+                    <Image
+                        // width={347}
+                        // height={450}
+                        style={{ borderRadius: "10px" }}
+                        layout="fill"  // Ensure the image fills the container
+                        objectFit='cover'  // Crop to fit without distortion
+                        alt='profile'
+                        src={data?.profilePic}
+                    // Ensure this points to a valid source
+                    />
+                    <div className='z-10 absolute bottom-6 grid place-items-center w-full'>
+                        <ul className=' flex space-x-[19px]'>
+                            <li onClick={handleOpen} className='w-[38px] h-[38px] grid place-items-center bg-[#ffffff] rounded-full'>
+                                <Image alt='editIcon' width={18} height={18} src={darkMode ? '/assests/dashboard/icon/edit-details-icon-white.svg' : '/assests/dashboard/icon/edit-details-icon.svg'} />
+                            </li>
+                            <li onClick={() => console.log("")} className='w-[38px] h-[38px] bg-[white] rounded-full grid place-items-center'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.21326 13.7097C2.82684 13.7097 2.49772 13.5738 2.22589 13.302C1.95407 13.0302 1.81817 12.701 1.81817 12.3146V1.61881H0.954529V0.755173H4.40907V0.0908203H9.59089V0.755173H13.0454V1.61881H12.1818V12.3146C12.1818 12.7121 12.0487 13.044 11.7824 13.3103C11.5161 13.5766 11.1842 13.7097 10.7867 13.7097H3.21326ZM11.3182 1.61881H2.6818V12.3146C2.6818 12.4696 2.73163 12.597 2.83128 12.6966C2.93092 12.7963 3.05825 12.8461 3.21326 12.8461H10.7867C10.9196 12.8461 11.0414 12.7907 11.1521 12.68C11.2628 12.5693 11.3182 12.4475 11.3182 12.3146V1.61881ZM5.10661 11.1188H5.97027V3.34608H5.10661V11.1188ZM8.0297 11.1188H8.89335V3.34608H8.0297V11.1188Z" fill="black" />
+                                </svg>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ViewProfile>
+
 
 
         </>

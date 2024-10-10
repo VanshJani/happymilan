@@ -77,7 +77,6 @@ function CategorySection() {
                                 <p style={SectionTitle}>Browse By Categories</p>
                             </li>
                             <li>
-                                {/* <Image width={24} height={24} alt='search' src={"/dating/icons/search-icon.svg"} /> */}
                             </li>
                         </ul>
 
@@ -89,7 +88,6 @@ function CategorySection() {
                             Categories.map((category) => {
                                 return (
                                     <li key={category?.id} className='cursor-pointer relative w-[272px] h-[160px] rounded-[10px] overflow-hidden'>
-                                        {/* Image */}
                                         <Image
                                             width={272}
                                             height={160}
@@ -98,11 +96,8 @@ function CategorySection() {
                                             alt='Friends'
                                             src={category?.imageURL}
                                         />
-
-                                        {/* Black opacity layer */}
                                         <div className="absolute inset-0 bg-black opacity-50"></div>
 
-                                        {/* Text on top of the image */}
                                         <div className="absolute bottom-0 left-0 w-full text-white text-center p-2">
                                             <p style={CategoryTitle} className='font-bold'>{category?.title}</p>
                                         </div>
@@ -110,9 +105,6 @@ function CategorySection() {
                                 )
                             })
                         }
-
-
-
                     </ul>
                 </div>
             </div>

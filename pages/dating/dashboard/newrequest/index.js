@@ -1,7 +1,7 @@
 // NewrequestData
 import React from 'react'
 import Image from 'next/image'
-import Layout from '../../Layout'
+import DatingLayout from '../../../../components/Dating/layout/DatingLayout'
 
 
 function NewrequestData() {
@@ -29,7 +29,7 @@ function NewrequestData() {
     }
     return (
         <>
-            <Layout>
+            <DatingLayout>
                 <div className='w-full grid place-items-center'>
 
                     <div className="space-y-[20px] flex flex-col items-center">
@@ -44,9 +44,9 @@ function NewrequestData() {
                             </ul>
 
                         </div>
-                        <div className="mt-[20px] relative flex items-center space-x-[20px] justify-center">
+                        <div className="mt-[20px]  top-[2px] relative flex items-center space-x-[20px] justify-center">
 
-                            <div>
+                            <div className='relative top-[10px]'>
                                 <Image
                                     className="cursor-pointer"
                                     width={91}
@@ -80,7 +80,7 @@ function NewrequestData() {
                                     </p>
                                 </div>
                             </div>
-                            <div>
+                            <div className='relative top-[10px]'>
                                 <Image
                                     className="cursor-pointer"
                                     width={91}
@@ -104,7 +104,7 @@ function NewrequestData() {
                         </div>
                     </div>
                 </div>
-            </Layout>
+            </DatingLayout>
         </>
     )
 }

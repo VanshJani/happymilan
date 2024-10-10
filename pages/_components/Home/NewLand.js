@@ -534,7 +534,8 @@ function NewLand() {
                         <div className='text-center pt-[80px]'>
                             <h1 className='2xl:text-[50px] xl:text-[40px] text-[60px] text-black font-poppins  font-bold leading-[70px]'>Discover more apps</h1>
                         </div>
-                        <ul className='flex   justify-evenly   '>
+                        <ul className='flex justify-evenly '>
+                        {/* <ul className='grid lg:grid-cols-3 grid-cols-1 lg:gap-0 gap-5 place-items-center '> */}
                             <li className='cursor-pointer 2xl:w-[335px] 2xl:h-[335px] xl:w-[290px] xl:h-[290px] w-[323px] h-[323px] border-[1px]  border-[#E1E1E1] hover:border-[#8225AF] rounded-[24px] pl-[40px]'>
                                 <div className='flex flex-col justify-evenly w-full h-full'>
                                     <div>
@@ -596,7 +597,8 @@ function NewLand() {
                                     </ul>
                                 </div>
                                 <div className='relative top-[30px]'>
-                                    <Image width={0} height={0} alt='app' loading='lazy' src={"/heroSec/assests/app-frame.svg"} className='w-[160.043px] h-[auto]' />
+                                    {/* <Image width={0} height={0} alt='app' loading='lazy' src={"/heroSec/assests/.svg"} className='w-[160.043px] h-[auto]' /> */}
+                                    <Image width={0} height={0} alt='app' loading='lazy' src={"https://happymilan.vercel.app/heroSec/assests/app-frame.svg"} className='w-[160.043px] h-[auto]' />
                                 </div>
                             </div>
                         </div>

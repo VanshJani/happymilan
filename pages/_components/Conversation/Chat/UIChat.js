@@ -143,7 +143,7 @@ const Chats = ({ toggleInnerDrawer, HandleWide }) => {
                                 {FriendeLists?.acceptedUsers?.map((el, index) => {
                                     return <ChatElement
                                         key={index}
-                                        toggleInnerDrawer={toggleInnerDrawer} {...el} />
+                                        toggleInnerDrawer={toggleInnerDrawer} {...el.friendList} />
                                 })}
 
 

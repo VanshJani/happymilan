@@ -20,28 +20,39 @@ const initialState = {
     },
     status: STATUSES.IDLE,
     general: {
-      interestedIn: "",
       firstName: "",
       lastName: "",
       motherTongue: "",
       gender: "",
-      Ethnicity: "",
+      // Ethnicity: "",
       dateOfBirth: "",
       // birthTime: "",
       religion: "",
       height: "",
+      datingData: [{
+        Ethnicity: "",
+        interestedIn: [],
+      }],
       // currentcity: "",
       // countryofliving: "",
       writeBoutYourSelf: "",
 
     },
     address: {
+      datingData: [{
+        educationLevel: "",
+        CurrentlyLiving: "",
+        Occupation: ""
+      }],
       mobileNumber: "",
-      educationLevel: "",
-      Occupation: "",
-      currentlyLiving: "",
+      // educationLevel: "",
+      // Occupation: "",
+      // currentlyLiving: "",
 
     },
+
+    // 144 * 91 = 13,104
+
     contact: {
       mobileCode: "",
       mobileNumber: "",
@@ -124,11 +135,12 @@ const initialState = {
         min: 0,
         max: 0
       },
-      distanceRange: {
-        min: 0,
-        max: 0
-      },
-      interestedIn: []
+      // distanceRange: {
+      //   min: 0,
+      //   max: 0
+      // },
+      interestedIn: [],
+      preferredLocation: []
     },
     userProfile: {
       images: [],

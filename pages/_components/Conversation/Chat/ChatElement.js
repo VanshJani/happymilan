@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../../ContextProvider/UsersConversationContext';
 import StyledBadge from '../../../../components/common/animation/StyleBadge';
 //single chat element
-const ChatElement = ({ toggleInnerDrawer, isUserActive, id, name, profilePic }) => {
+const ChatElement = ({ toggleInnerDrawer, isUserActive, id, _id, name, profilePic }) => {
 
     const Username2 = {
         fontFamily: "Poppins",
@@ -35,7 +35,7 @@ const ChatElement = ({ toggleInnerDrawer, isUserActive, id, name, profilePic }) 
 
     useEffect(() => {
 
-        const CurrentChatUser = id
+        const CurrentChatUser = id || _id
         SetSelectedUser(CurrentChatUser)
 
     }, [userData, updateUser, selectedUser, SetSelectedUser])
@@ -49,7 +49,7 @@ const ChatElement = ({ toggleInnerDrawer, isUserActive, id, name, profilePic }) 
                 userName: name,
                 profilePic: profilePic,
                 ActiveUser: isUserActive,
-                id: id
+                id: id || _id
             }
 
             SetSelectedUser(thedata.id)
@@ -62,7 +62,7 @@ const ChatElement = ({ toggleInnerDrawer, isUserActive, id, name, profilePic }) 
                 userName: name,
                 profilePic: profilePic,
                 ActiveUser: isUserActive,
-                id: id
+                id: id || _id
             }
             SetSelectedUser(thedata.id)
             updateUser(thedata)

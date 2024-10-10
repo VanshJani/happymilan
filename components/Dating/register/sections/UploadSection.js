@@ -49,10 +49,23 @@ function UploadSection({ datingForm, updateDatingFormData }) {
         } else {
 
             if (SelectedGridImage === index) {
+                console.log("🚀 ~ HandleGridImageClick ~ SelectedGridImage: 1", SelectedGridImage)
+
                 SetSelectedGridImage(null); // Unselect if already selected
             } else {
                 SetSelectedGridImage(index); // Select the clicked image
+                console.log("🚀 ~ HandleGridImageClick ~ SelectedGridImage:", SelectedGridImage)
 
+                updateDatingFormData({
+                    ...datingForm,
+                    upload: {
+                        ...datingForm.upload,
+                        images: TheImages.map((image, theindex) => ({
+                            ...image,
+                            isProfile: theindex === index, // Set isProfile to true for the selected image
+                        }))
+                    }
+                });
 
             }
         }

@@ -1,16 +1,13 @@
 import React from 'react'
-import DatingNavBar from '../component/NavBar'
-import SideBar from '../component/SideBar'
 import UserCard from '../component/UserCard'
-import UnlockProfile from '../component/UnlockProfile'
-import Layout from '../Layout'
+import DatingLayout from '../../../components/Dating/layout/DatingLayout'
 
 function index() {
   return (
     <>
-      <Layout>
+      <DatingLayout>
         <UserCard />
-      </Layout>
+      </DatingLayout>
     </>
   )
 }

@@ -21,12 +21,55 @@ function AdditionalDetailsSection({ datingForm, updateDatingFormData }) {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
-        updateDatingFormData({
-            address: {
-                ...datingForm.address,
-                [name]: value,
-            },
-        });
+        // datingData: [{
+        //     educationLevel: "",
+        //     CurrentlyLiving: "",
+        //     Occupation: ""
+        //   }],
+
+        if (name === "educationLevel") {
+            updateDatingFormData({
+                address: {
+                    ...datingForm.address,
+                    datingData: [{
+                        ...datingForm.address.datingData[0],
+                        educationLevel: value,
+                    }],
+                },
+            });
+
+        } else if (name === "CurrentlyLiving") {
+            updateDatingFormData({
+                address: {
+                    ...datingForm.address,
+                    datingData: [{
+                        ...datingForm.address.datingData[0],
+                        CurrentlyLiving: value,
+                    }],
+                },
+            });
+
+        } else if (name === "Occupation") {
+            updateDatingFormData({
+                address: {
+                    ...datingForm.address,
+                    datingData: [{
+                        ...datingForm.address.datingData[0],
+                        Occupation: value,
+                    }],
+                },
+            });
+
+        } else {
+            updateDatingFormData({
+                address: {
+                    ...datingForm.address,
+                    [name]: value,
+                },
+            });
+        }
+
+
     };
     return (
         <>
@@ -82,7 +125,7 @@ function AdditionalDetailsSection({ datingForm, updateDatingFormData }) {
                                     onChange={(selectedOption) =>
                                         handleInputChange({
                                             target: {
-                                                name: "currentlyLiving",
+                                                name: "CurrentlyLiving",
                                                 value: selectedOption?.value,
                                             },
                                         })

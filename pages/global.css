@@ -21,7 +21,6 @@ body {
   --gradient-color-2: #BA0FA9;
 }
 
-
 #PlansDiv {
   border-radius: 14px 14px 0 0;
   background: linear-gradient(90deg, rgba(15, 82, 186, 0.10) 0%, rgba(130, 37, 175, 0.10) 100%);
@@ -88,16 +87,10 @@ body {
 #Arrow-bottom {
   transform: rotate(45deg);
   background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
-
 }
 
 #bg-grad-color-faq {
   background: linear-gradient(103deg, rgba(15, 82, 186, 0.1) -25.03%, rgba(186, 15, 169, 0.1) 137.92%);
-
-}
-
-#active-reg-tab {
-  background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
 }
 
 #grad-button {
@@ -114,10 +107,6 @@ body {
   color: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
 }
 
-#landing-navigation-bg {
-  background: linear-gradient(92deg, #0F52BA 17.13%, #8225AF 117.79%);
-}
-
 #grad-btn {
   background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
 }
@@ -125,8 +114,6 @@ body {
 #grad-btn:hover {
   opacity: 0.9;
 }
-
-/* Check Pending  */
 
 #active-no {
   background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
@@ -220,43 +207,6 @@ body {
   margin-left: 40px;
 }
 
-#login-box {
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: #FFF;
-  border: 1px solid #E2E2E2;
-
-  ;
-}
-
-@media screen and (min-width: 960px) and (max-width: 1345px) {
-  #login-flex-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #login-image {
-    display: none;
-  }
-
-  #login-box {
-    position: relative;
-    top: -60;
-    right: 0;
-  }
-}
-
-#login-wraper h1 {
-  color: #000;
-  text-align: center;
-  font-family: Poppins;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
 #faq-title-1 {
   color: #000;
   text-align: center;
@@ -274,11 +224,6 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-}
-
-#photo-grid-container {
-  grid-template-columns: repeat(5, 200px);
-
 }
 
 body::-webkit-scrollbar {
@@ -315,7 +260,6 @@ body::-webkit-scrollbar {
 
 #chat-scroll-bar::-webkit-scrollbar {
   width: 2px;
-
 }
 
 #chat-scroll-bar::-webkit-scrollbar-track {
@@ -352,8 +296,7 @@ body::-webkit-scrollbar {
 .profile-page-scroll {
   scroll-behavior: smooth;
   scroll-padding-top: 70px;
-  /* Adjust as needed to accommodate your tab/header height */
-}
+ }
 
 .sliding-panel {
   transition: transform 0.5s;
@@ -363,8 +306,6 @@ body::-webkit-scrollbar {
 .sliding-panel.open {
   transform: translateX(0);
 }
-
-/* Heart Animation  */
 
 .verification {
   display: flex;
@@ -506,7 +447,6 @@ body::-webkit-scrollbar {
 
   #main-centerlized-content #first-child {
     padding-left: 0;
-
   }
 
   #id-search-centerlized {
@@ -570,7 +510,6 @@ body::-webkit-scrollbar {
 }
 
 @media only screen and (min-width: 960px) and (max-width: 1139px) {
-
   #story-section-center {
     left: -5px;
   }
@@ -786,18 +725,6 @@ body::-webkit-scrollbar {
   margin-right: 10px;
 }
 
-#Save-Search-Box {
-  border-radius: 10px;
-  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.07);
-  flex-shrink: 0;
-}
-
-#Search-Member-Box {
-  border-radius: 10px;
-  background: #FFF;
-  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.07);
-}
-
 #chat-image:fullscreen,
 #chat-image:-webkit-full-screen,
 #chat-image:-moz-full-screen,
@@ -831,7 +758,6 @@ body::-webkit-scrollbar {
 #hide-Story-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
 
 #DisableBTN {
   opacity: 0.4;
@@ -890,7 +816,6 @@ body::-webkit-scrollbar {
 }
 
 .progress-bar-container {
-
   background-color: #007aff;
   display: block;
   height: 20px;
@@ -1020,8 +945,6 @@ body::-webkit-scrollbar {
   height: 300px;
 }
 
-/* For Success Stories Partner ID Search  */
-
 #theresults-list {
   width: 100%;
   background-color: white;
@@ -1051,14 +974,11 @@ body::-webkit-scrollbar {
   top: -350px;
 }
 
-/* Request Button  */
-
 #Req-btn {
   border: 1px solid #7045EB;
   border-radius: 32px;
   height: 40px;
   width: 170px;
-
 }
 
 #Req-btn:hover {
@@ -1066,19 +986,13 @@ body::-webkit-scrollbar {
   color: white;
 }
 
-
-/* Default SVG path color */
 .theicon path {
   fill: #7045EB;
-  /* Default color */
   transition: fill 0.3s ease;
-  /* Smooth transition */
 }
 
-/* Change SVG path color when hovering over the parent element */
 #Req-btn:hover .theicon path {
   fill: #FFF;
-  /* Desired hover color */
   transition: fill 0.3s ease;
 }
 
@@ -1086,22 +1000,17 @@ body::-webkit-scrollbar {
   background-color: #9E28D7;
 }
 
-/* Default SVG path color */
 .the-like-icon path {
   fill: #9E28D7;
-  /* Default color */
   transition: fill 0.3s ease;
-  /* Smooth transition */
-}
+ }
 
 .after-like-icon path {
   fill: #FFF;
 }
 
-/* Change SVG path color when hovering over the parent element */
 .Like-button:hover .the-like-icon path {
   fill: #FFF;
-  /* Desired hover color */
   transition: fill 0.3s ease;
 }
 
@@ -1174,9 +1083,16 @@ body::-webkit-scrollbar {
 #accept-request .accept-icon-dt {
   fill: #17C270;
   transition: fill 0.3s ease;
-
 }
 
 #accept-request:hover .accept-icon-dt {
   fill: #ffffff;
+}
+
+#dt-sec-1 .dt-sec-1-icon {
+  fill: #000;
+}
+
+#dt-sec-1:hover .dt-sec-1-icon {
+  fill: #0F52BA;
 }

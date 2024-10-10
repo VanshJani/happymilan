@@ -23,6 +23,15 @@ function DatingProfileSelection({
         lineHeight: "normal",
     };
 
+    const TitleText = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontSize: "14px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "normal",
+    }
+
     const EnumOfInterest = {
         MEET_NEW_FRIENDS: 'meet-new-friends',
         LOOKING_FOR_LOVE: 'looking-for-love',
@@ -84,25 +93,60 @@ function DatingProfileSelection({
 
     // Handling input changes and updating both local state and Redux state
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
 
-        setCredentials((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        if (name === "interestedIn") {
+            updateDatingFormData({
+                general: {
+                    ...datingForm.general,
+                    datingData: [{
+                        interestedIn: value,
+                    }],
+                }
+            });
+        } else {
+            if (name === 'dateOfBirth') {
+                const selectedDate = new Date(value);
+                const currentDate = new Date();
+                const eighteenYearsAgo = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
 
-        updateDatingFormData({
-            general: {
-                ...datingForm.general,
+                // Check if selected date is in the future
+                if (selectedDate > currentDate) {
+                    alert('Please select a date that is not in the future.');
+                    // Optionally, you can reset the date input here
+                    value = null;
+
+                } // Check if user is at least 18 years old
+                if (eighteenYearsAgo < selectedDate) {
+                    alert('You must be at least 18 years old.');
+                    // Optionally, you can reset the date input here
+                    value = null
+
+                }
+            }
+
+
+            setCredentials((prev) => ({
+                ...prev,
                 [name]: value,
-            },
-        });
+            }));
+
+            updateDatingFormData({
+                general: {
+                    ...datingForm.general,
+                    [name]: value,
+                },
+            });
 
 
-        SetValidate((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+
+
+            SetValidate((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+
+        }
     };
 
     // Validating fields before submission
@@ -129,59 +173,7 @@ function DatingProfileSelection({
                     </div>
 
                     <div className="flex flex-col items-center space-y-[79px]">
-                        <div className="hidden">
-                            <DynamicSelect
-                                className={`h-[50px] w-[500px]`}
-                                placeholder="Profile Creating for"
-                                isMulti
-                                styles={{
-                                    control: (provided, state) => ({
-                                        ...provided,
-                                        paddingRight: "0px",
-                                        paddingLeft: "0px", // Ensure no padding on the left
-                                        width: "500px",
-                                        height: "50px",
-                                        borderRadius: "0px", // Removes the border-radius
-                                        borderColor: "black",
-                                        borderTop: "none", // No top border
-                                        borderLeft: "none", // No left border
-                                        borderRight: "none", // No right border
-                                        backgroundColor: "transparent", // No background
-                                        boxShadow: "none", // No box-shadow
-                                        borderBottom: `1px solid ${state.isFocused ? "black" : "#C0C0C0"}`,
-                                        transition: "border-color 0.3s ease-in-out", // Animation for border color
-                                        "&:hover": {
-                                            borderBottomColor: state.isFocused ? "black" : "#C0C0C0",
-                                        },
-                                    }),
-                                    valueContainer: (provided) => ({
-                                        ...provided,
-                                        paddingLeft: "0px", // Ensure no padding in the value container
-                                    }),
-                                    input: (provided) => ({
-                                        ...provided,
-                                        paddingLeft: "0px",
-                                    }),
-                                    placeholder: (provided) => ({
-                                        ...provided,
-                                        paddingLeft: "0px",
-                                    }),
-                                    indicatorSeparator: () => ({
-                                        display: "none",
-                                    }),
-                                }}
-                                options={profileOptions}
-                                onChange={(selectedOption) =>
-                                    handleInputChange({
-                                        target: {
-                                            name: "creatingProfileFor",
-                                            value: selectedOption?.value,
-                                        },
-                                    })
-                                }
-                            />
-                        </div>
-                        <div>
+                        <div className="w-[500px]">
                             <DatingMultiSelect datingForm={datingForm} updateDatingFormData={updateDatingFormData} />
                         </div>
 
@@ -223,7 +215,10 @@ function DatingProfileSelection({
                             </li>
                         </ul>
                         <div>
-                            <input name="dateOfBirth" onChange={handleInputChange} type="date" className="2xl:w-[500px] w-[450px] pb-4 pr-4 pl-1 outline-none border-b-[1px] border-b-[black]" />
+                            <div style={{ width: "500px" }}>
+                                <p style={TitleText}>Date of Birth</p>
+                                <input style={{ width: "500px" }} type="date" name="dateOfBirth" onChange={handleInputChange} className="pb-[5px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000]" required />
+                            </div>
                         </div>
                         <div>
                             <button

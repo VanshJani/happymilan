@@ -1,13 +1,13 @@
 import React from 'react'
 import GeneralSection from './Sections/GeneralSection'
-import Layout from '../../Layout'
+import DatingLayout from '../../../../components/Dating/layout/DatingLayout'
 
 function index() {
     return (
         <>
-            <Layout HideSection={true}>
+            <DatingLayout HideSection={true}>
                 <GeneralSection />
-            </Layout>
+            </DatingLayout>
         </>
     )
 }

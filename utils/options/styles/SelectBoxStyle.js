@@ -210,7 +210,7 @@ export const LabelStyle3 = {
     paddingLeft: "0px",
     borderRadius: "0px",
     borderColor: "black",
-    width: "500px",
+    width: "100%",
     height: "50px",
     borderTop: "none",
     borderLeft: "none",

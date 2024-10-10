@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconButton } from "@material-tailwind/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -12,24 +12,13 @@ import { getCookie } from 'cookies-next';
 // Import only the specific Material-UI components and icons you need
 import Drawer from '@mui/material/Drawer';
 import { useDispatch, useSelector } from "react-redux";
-import propTypes from 'prop-types'
-// import { logoutuser } from "../../../store/actions/UsersAction";
-// import firebaseApp from '../../../utils/firebase/firebase';
-// import { useDarkMode } from "../../../ContextProvider/DarkModeContext";
-
 import { logoutuser } from "../../../store/actions/UsersAction";
 import firebaseApp from "../../../utils/firebase/firebase";
 import { useDarkMode } from "../../../ContextProvider/DarkModeContext";
 
 import { getMessaging, onMessage } from 'firebase/messaging';
-import toast, { Toaster } from 'react-hot-toast';
-// import Chats from "../Conversation/Chat/UIChat";
-// import UIConversation from "../Conversation/Chat/UIConversation";
-// import { UserContext } from "../../../ContextProvider/UsersConversationContext";
+import toast, { Toaster } from 'react-hot-toast'
 import icons from "../../../utils/icons/icons";
-// import { useChatSettings } from "../../../ContextProvider/ChatSetingContext";
-// import DarkModeToggle from '../common/Buttons/Darkmode/DarkModeToggle'
-// import ProductsListModal from "../Model/Models/ProductsListModal";
 import { io } from "socket.io-client";
 import DarkModeToggle from "../../../pages/_components/common/Buttons/Darkmode/DarkModeToggle";
 import ProductsListModal from "../../../pages/_components/Model/Models/ProductsListModal";
@@ -96,23 +85,6 @@ const planPrice2 = {
 
 function DatingNav() {
 
-
-    const [token, settoken] = useState()
-    const [Uname, SetUname] = useState();
-
-    useEffect(() => {
-
-        if (getCookie("userName")) {
-            SetUname(getCookie("userName"));
-        }
-        else {
-            SetUname("NA")
-
-        }
-        settoken(getCookie("authtoken"))
-
-    }, [])
-
     const { darkMode, toggleDarkMode } = useDarkMode();
 
     const BoxSdow2 = {
@@ -146,56 +118,6 @@ function DatingNav() {
         fontWeight: "400",
         lineHeight: "30px"
     }
-
-
-    // const [Wide, SetWide] = useState(false);
-
-
-    // Don't forget to handle disconnection and other events
-
-    // const { settings, setSettings } = useChatSettings();
-
-
-    // const HandleWide = () => {
-    //     SetWide(!Wide)
-
-    //     setSettings({
-    //         ...settings,
-    //         isMinimized: !settings.isMinimized,
-    //     });
-    // }
-
-    // const [ChatUser, SetChatUser] = useState({
-    //     userName: "",
-    //     id: ""
-    // })
-
-    // const list = () => (
-    //     <Box>
-    //         <div className={`scroll-req-content  h-full  bg-[#FFF] 2xl:w-[340px] w-[350px] xl:w-[300px] `}>
-    //             <Chats HandleWide={HandleWide} toggleInnerDrawer={toggleInnerDrawer} SetChatUser={SetChatUser} />
-    //         </div>
-    //         <Drawer anchor="right" BackdropProps={{ style: { opacity: 0 } }} open={innerDrawerOpen} onClose={toggleInnerDrawer}>
-    //             <Stack direction='row' sx={{ width: '100%' }}>
-    //                 {/* Chats */}
-    //                 {/* <ChatSidebar HanldeSetUser={HanldeSetUser} /> */}
-    //                 <Chats HandleWide={HandleWide} />
-    //                 <Box sx={{
-    //                     height: '100%', width: Wide ? 'calc(100vw - 320px)' : 'calc(750px - 300px)',
-    //                     backgroundColor: '#F0F4FA'
-    //                 }}>
-    //                     {/* <ChatRoomPage UserRoom={UserRoom} /> */}
-    //                     <UIConversation UserDetails={ChatUser} />
-    //                 </Box>
-
-
-    //             </Stack>
-    //         </Drawer>
-    //     </Box >
-    // );
-    //For Message Notification input profile id
-
-
 
 
     const [notification, setNotification] = React.useState({
@@ -241,23 +163,6 @@ function DatingNav() {
             () => window.innerWidth >= 960 && setOpenNav(false),
         );
     }, []);
-
-
-    //inner Drawer For Chat
-
-    // const { userData, updateUser } = useContext(UserContext);
-
-    // const [innerDrawerOpen, setInnerDrawerOpen] = useState(false);
-    // const toggleInnerDrawer = (res) => {
-    //     SetChatUser(res)
-    //     updateUser(res)
-
-
-    //     setInnerDrawerOpen(!innerDrawerOpen);
-    //     if (innerDrawerOpen) {
-    //         setState(state.right = false)
-    //     }
-    // };
 
     const isUpgradeActive = router.pathname.startsWith('/longterm/dashboard/upgrade');
 

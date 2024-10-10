@@ -1,13 +1,13 @@
 import React from 'react'
-import Layout from '../../Layout'
 import CategorySection from '../../component/CategorySection'
+import DatingLayout from '../../../../components/Dating/layout/DatingLayout'
 
 function index() {
     return (
         <>
-            <Layout>
+            <DatingLayout>
                 <CategorySection />
-            </Layout>
+            </DatingLayout>
         </>
     )
 }

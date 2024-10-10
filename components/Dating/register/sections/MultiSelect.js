@@ -38,18 +38,23 @@ const DatingMultiSelect = ({ datingForm, updateDatingFormData }) => {
         updateDatingFormData({
             general: {
                 ...datingForm.general,
-                interestedIn: selectedValues,
+                datingData: [
+                    {
+                        ...datingForm?.general?.datingData[0],
+                        interestedIn: selectedValues,
+                    }
+                ],
             },
         });
 
     }, [selectedOptions, setSelectedOptions])
 
-    // Handle selection
+    // Handle selection fennizatauboi-6918@yopmail.com
     const handleSelectChange = (selected) => {
         setSelectedOptions(selected || []);
     };
 
-    // Handle removal of selected option
+    // Handle removal of selected option 
     const handleRemoveOption = (optionToRemove) => {
         setSelectedOptions(selectedOptions.filter(option => option.value !== optionToRemove.value));
     };
@@ -71,7 +76,7 @@ const DatingMultiSelect = ({ datingForm, updateDatingFormData }) => {
                     components={{ MultiValueContainer }}
                     styles={LabelStyle3}
                     closeMenuOnSelect={false}
-                    
+
                 />
                 <div className="selected-options mt-2 flex flex-wrap">
                     {selectedOptions.map(option => (

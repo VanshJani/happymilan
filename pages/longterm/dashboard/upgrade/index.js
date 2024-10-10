@@ -63,9 +63,6 @@ const PricingPage = () => {
         },
     ];
 
-    const handleSearch = (searchTerm) => {
-    };
-
 
     const HandleTabChange = (data1, data2) => {
         setCurrentTab(data2 + 1)
@@ -82,7 +79,7 @@ const PricingPage = () => {
     }, [HandleTabChange])
     return (
         <>
-            <NavBar handleSearch={handleSearch} />
+            <NavBar />
             <div id="PriceBox">
                 <button
                     onClick={() => router.back()}

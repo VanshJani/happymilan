@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import Layout from '../../../Layout';
 import SwiperCardNext from '../../../component/SwiperCard';
+import DatingLayout from '../../../../../components/Dating/layout/DatingLayout';
 
 function index() {
 
@@ -17,7 +18,7 @@ function index() {
         lineHeight: "22px", /* 137.5% */
     }
     return (
-        <Layout>
+        <DatingLayout>
 
             <div className='w-full grid place-items-center'>
 
@@ -36,7 +37,7 @@ function index() {
                     <SwiperCardNext />
                 </div>
             </div>
-        </Layout>
+        </DatingLayout>
     )
 }
 

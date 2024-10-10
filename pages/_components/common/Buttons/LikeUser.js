@@ -109,14 +109,11 @@ const LikeUser = ({ setActiveLike, userId, TheUsername }) => {
   return (
     <>
       <div className="">
-        {/* <div className="flex pb-[20px] space-x-[20px] justify-center pt-[10px]"> */}
         <div className="hidden">
           {isUserDisliked ?
 
 
-            //  <Image onMouseEnter={() => SetDislikeHover(true)} onMouseLeave={() => SetDislikeHover(false)} loading="lazy" width={50} height={50} alt="dislike" onClick={handleDislikeUser} src="/assests/animation/filled-dislike.svg" />
             <div className="Like-button w-[63px] h-[40px] grid place-items-center border-[1px] border-[#9E28D7] rounded-[22px]">
-              {/* <Image width={19} height={17} alt="like" src={"/assests/dashboard/icon/Like-button.svg"} /> */}
               <svg class="the-like-icon" width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.1914 17.8002L8.80064 16.5341C3.86113 12.055 0.600098 9.1009 0.600098 5.4754C0.600098 2.52129 2.92119 0.200195 5.8753 0.200195C7.54418 0.200195 9.14593 0.977089 10.1914 2.20477C11.2368 0.977089 12.8386 0.200195 14.5075 0.200195C17.4616 0.200195 19.7827 2.52129 19.7827 5.4754C19.7827 9.1009 16.5216 12.055 11.5821 16.5437L10.1914 17.8002Z" />
               </svg>
@@ -203,7 +200,7 @@ const LikeUser = ({ setActiveLike, userId, TheUsername }) => {
                 :
                 "Like-button w-[63px] h-[40px] grid place-items-center border-[1px] border-[#9E28D7] rounded-[22px]"}>
             {/* <Image width={19} height={17} alt="like" src={"/assests/dashboard/icon/Like-button.svg"} /> */}
-            <svg class={isUserLiked ? "after-like-icon" :  "the-like-icon"} width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class={isUserLiked ? "after-like-icon" : "the-like-icon"} width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10.1914 17.8002L8.80064 16.5341C3.86113 12.055 0.600098 9.1009 0.600098 5.4754C0.600098 2.52129 2.92119 0.200195 5.8753 0.200195C7.54418 0.200195 9.14593 0.977089 10.1914 2.20477C11.2368 0.977089 12.8386 0.200195 14.5075 0.200195C17.4616 0.200195 19.7827 2.52129 19.7827 5.4754C19.7827 9.1009 16.5216 12.055 11.5821 16.5437L10.1914 17.8002Z" />
             </svg>
           </div>

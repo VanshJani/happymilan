@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import Layout from '../../Layout'
+import DatingLayout from '../../../../components/Dating/layout/DatingLayout'
 
 
 function AcceptedData() {
@@ -28,7 +28,7 @@ function AcceptedData() {
     }
     return (
         <>
-            <Layout>
+            <DatingLayout>
                 <div className='w-full grid place-items-center'>
 
                     <div className="space-y-[20px] flex flex-col items-center">
@@ -38,14 +38,13 @@ function AcceptedData() {
                                     <p style={SectionTitle}>Accepted</p>
                                 </li>
                                 <li>
-                                    {/* <Image width={24} height={24} alt='search' src={"/dating/icons/search-icon.svg"} /> */}
                                 </li>
                             </ul>
 
                         </div>
-                        <div className="mt-[20px] relative flex items-center space-x-[20px] justify-center">
+                        <div className="mt-[25px] top-[2px] h-full relative flex items-center space-x-[20px] justify-center">
 
-                            <div>
+                            <div className='relative top-[10px]'>
                                 <Image
                                     className="cursor-pointer"
                                     width={91}
@@ -79,7 +78,7 @@ function AcceptedData() {
                                     </p>
                                 </div>
                             </div>
-                            <div>
+                            <div className='relative top-[10px]'>
                                 <Image
                                     className="cursor-pointer"
                                     width={91}
@@ -99,7 +98,7 @@ function AcceptedData() {
                         {/* </div> */}
                     </div>
                 </div>
-            </Layout>
+            </DatingLayout>
         </>
     )
 }

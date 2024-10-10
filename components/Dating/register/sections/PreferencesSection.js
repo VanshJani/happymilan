@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { updateDatingFormData } from '../../../../store/dating-services/Redux-actions/register/registerAction';
 import { connect } from 'react-redux';
 import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle';
 import dynamic from 'next/dynamic';
+import DatingMultiSelect from './MultiSelect';
+import MultiSelectDating from './MusltiSelectDating';
+import ReusableMultiSelect from './MusltiSelectDating';
+import { CityOptions } from '../../../../utils/options/Register/EducationSectionOptions';
 const DynamicSelect = dynamic(() => import("react-select"), { ssr: false });
 
 
@@ -63,14 +67,9 @@ function PreferencesSection({ datingForm, updateDatingFormData }) {
         setSelectedOptions(selected || []);
     };
 
-    // Handle removal of selected option
-    // const handleRemoveOption = (optionToRemove) => {
-    //     setSelectedOptions(selectedOptions.filter(option => option.value !== optionToRemove.value));
-    // };
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-      
+
         if (name == "agemin") {
             updateDatingFormData({
                 partnerpref: {
@@ -93,28 +92,6 @@ function PreferencesSection({ datingForm, updateDatingFormData }) {
                 }
             })
         }
-        else if (name == "distancemin") {
-            updateDatingFormData({
-                partnerpref: {
-                    ...datingForm.partnerpref,
-                    distanceRange: {
-                        ...datingForm.partnerpref.distanceRange,
-                        min: parseInt(value)
-                    }
-                }
-            })
-        }
-        else if (name == "distancemax") {
-            updateDatingFormData({
-                partnerpref: {
-                    ...datingForm.partnerpref,
-                    distanceRange: {
-                        ...datingForm.partnerpref.distanceRange,
-                        max: parseInt(value)
-                    }
-                }
-            })
-        }
         else if (name == "interestedIn") {
             updateDatingFormData({
                 partnerpref: {
@@ -128,6 +105,35 @@ function PreferencesSection({ datingForm, updateDatingFormData }) {
         }
     }
 
+    const [selectedInterests, setSelectedInterests] = useState([]);
+    // let initialSelected = ["meet-new-friends"]
+
+    const handleInterestsChange = (selected) => {
+        setSelectedInterests(selected);
+    };
+
+    // Use an effect to log selectedInterests once they update
+    useEffect(() => {
+
+        // updateDatingFormData({
+        //     partnerpref: {
+        //         ...datingForm.partnerpref,
+        //         distanceRange: {
+        //             ...datingForm.partnerpref,
+        //             preferredLocation: selectedInterests
+        //         }
+        //     }
+        // })
+
+        updateDatingFormData({
+            partnerpref: {
+                ...datingForm.partnerpref,
+                preferredLocation: selectedInterests
+            }
+        })
+        console.log("Selected Interests after update: ", selectedInterests);
+    }, [selectedInterests]); // This will log the state after it has changed
+
     return (
         <>
             <div className='pb-[100px]'>
@@ -137,36 +143,19 @@ function PreferencesSection({ datingForm, updateDatingFormData }) {
                         <ul className='w-full space-y-[50px]'>
                             <li className='flex justify-between w-full'>
                                 <div className="">
-                                    {/* <div style={{ width: "300px" }} className="the-input-container">
-                                        <input type="text" id="mobileNumber" name='mobileNumber' required />
-                                        <label for="mobileNumber" className="label">Interested In</label>
-                                        <div className="underline"></div>
-                                    </div> */}
+
                                     <DynamicSelect
                                         className="w-[647px]"
                                         placeholder="interested In" //religion
                                         styles={LabelStyle}
                                         options={InterestedOptions}
                                         isMulti
-                                        // onChange={(selectedOption) =>
-                                        //     handleInputChange({
-                                        //         target: {
-                                        //             name: "interestedIn",
-                                        //             value: selectedOption?.value,
-                                        //         },
-                                        //     })
-                                        // }
                                         onChange={handleSelectChange}
                                     />
                                 </div>
                             </li>
                             <li>
                                 <div className="mt-[-20px]">
-                                    {/* <div style={{ width: "300px" }} className="the-input-container">
-                                        <input type="text" id="email" name='email' required />
-                                        <label for="email" className="label">Age Range</label>
-                                        <div className="underline"></div>
-                                    </div> */}
                                     <div className='w-[647px] space-y-[12px]'>
                                         <p style={TitleText}>Select Age Range</p>
                                         <ul className='flex justify-between'>
@@ -185,24 +174,12 @@ function PreferencesSection({ datingForm, updateDatingFormData }) {
                             </li>
                             <li className=''>
                                 <div className="">
-                                    {/* <div style={{ width: "300px" }} className="the-input-container">
-                                        <input type="text" id="email" name='email' required />
-                                        <label for="email" className="label">Distance Range</label>
-                                        <div className="underline"></div>
-                                    </div> */}
                                     <div className='w-[647px] space-y-[12px]'>
-                                        <p style={TitleText}>Distance Range</p>
-                                        <ul className='flex justify-between'>
-                                            <li>
-                                                <input type='number' name='distancemin' onChange={handleInputChange} placeholder='min' id='num-input' className='pl-[2px] pb-[10px] w-[300px]  outline-none border-b-[2px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
-                                            </li>
-                                            <li>
-                                                <div className='text-[#000]'>-</div>
-                                            </li>
-                                            <li>
-                                                <input type='number' name='distancemax' onChange={handleInputChange} placeholder='max' id='num-input' className='pl-[2px] pb-[10px] w-[300px]  outline-none border-b-[2px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
-                                            </li>
-                                        </ul>
+                                        <ReusableMultiSelect
+                                            options={CityOptions}
+                                            setSelectedValues={setSelectedInterests}
+                                        // initialSelected={initialSelected}
+                                        />
                                     </div>
                                 </div>
                             </li>

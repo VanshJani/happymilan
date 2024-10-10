@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetDatingUsers } from '../../../store/dating-services/Redux-actions/home/DatingUsersActions';
+import ProfileMoreSection from '../../../components/Dating/common/Models/ProfileMoreSection';
 
 const SwipeCard = ({ card, onSwipe }) => {
     const handleDragEnd = (event, info) => {
@@ -13,8 +12,11 @@ const SwipeCard = ({ card, onSwipe }) => {
         // Decrease the threshold for triggering a swipe
         if (offset > 100 || velocity > 500) {
             onSwipe('right');
+            console.log("Right", card)
         } else if (offset < -100 || velocity < -500) {
             onSwipe('left');
+            console.log("Left", card)
+
         }
     };
 
@@ -45,10 +47,8 @@ const SwipeCard = ({ card, onSwipe }) => {
 
     return (
         <>
-            <div onClick={() => console.log(card)} className='absolute flex justify-end top-0 right-20'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
-                    <path d="M11.1364 18C10.8168 18 10.5475 17.8887 10.3285 17.666C10.1095 17.4434 10 17.1758 10 16.8631C10 16.5545 10.1097 16.2856 10.329 16.0563C10.5484 15.827 10.8148 15.7124 11.1283 15.7124C11.448 15.7124 11.7173 15.8275 11.9363 16.0577C12.1553 16.2879 12.2648 16.5577 12.2648 16.8673C12.2648 17.1768 12.1553 17.443 11.9363 17.6658C11.7173 17.8886 11.4507 18 11.1364 18ZM11.1364 12.1381C10.8168 12.1381 10.5475 12.0284 10.3285 11.809C10.1095 11.5897 10 11.3232 10 11.0098C10 10.6901 10.1097 10.4208 10.329 10.2018C10.5484 9.98281 10.8148 9.87332 11.1283 9.87332C11.448 9.87332 11.7173 9.98281 11.9363 10.2018C12.1553 10.4208 12.2648 10.6874 12.2648 11.0016C12.2648 11.3213 12.1553 11.5906 11.9363 11.8096C11.7173 12.0286 11.4507 12.1381 11.1364 12.1381ZM11.1364 6.29899C10.8168 6.29899 10.5475 6.18595 10.3285 5.95988C10.1095 5.73381 10 5.46204 10 5.14458C10 4.82712 10.1097 4.55699 10.329 4.33419C10.5484 4.1114 10.8148 4 11.1283 4C11.448 4 11.7173 4.11234 11.9363 4.33701C12.1553 4.56168 12.2648 4.83196 12.2648 5.14785C12.2648 5.46687 12.1553 5.73848 11.9363 5.96268C11.7173 6.18689 11.4507 6.29899 11.1364 6.29899Z" fill="black" />
-                </svg>
+            <div>
+                <ProfileMoreSection data={card} />
             </div>
             <motion.div
                 className="2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px] rounded-xl shadow-lg"
@@ -72,7 +72,7 @@ const SwipeCard = ({ card, onSwipe }) => {
                             ))}
                         </ul>
                     </div>
-                    <img src={card?.imageUrl || "https://studiomarcofischer.com/images/portrait-men/portrait-men-004-studiomarcofischer.jpg"} alt="Profile" className="2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px] object-cover rounded-xl" />
+                    <img src={card?.profilePic || "https://studiomarcofischer.com/images/portrait-men/portrait-men-004-studiomarcofischer.jpg"} alt="Profile" className="2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px] object-cover rounded-xl" />
                     <div className="absolute bottom-[30px] space-y-[5px] text-[white] ml-[20px] 2xl:ml-[30px] xl:ml-[30px]">
                         <div>
                             <div className="rounded-[10px] text-center bg-[#30b70a] text-[black] w-[36px] h-[14px]">
@@ -81,7 +81,7 @@ const SwipeCard = ({ card, onSwipe }) => {
                         </div>
                         {/* <Link href={"#"}> */}
                         <h1 className="text-[20px]" style={Text1}>
-                           {card?.name}
+                            {card?.name}
                         </h1>
                         {/* </Link> */}
                         <p className="text-[10px]" style={Text2}>
@@ -100,7 +100,6 @@ const SwiperCardNext = () => {
     const dispatch = useDispatch();
 
     const datingUsers = useSelector((state) => state.datingusers?.Paginated?.userData[0]?.paginatedResults || []);
-
     useEffect(() => {
         dispatch(GetDatingUsers())
     }, [])
@@ -224,37 +223,37 @@ const SwiperCardNext = () => {
 
     const handleSwipe = (direction) => {
         if (direction === 'right' || direction === 'left') {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % datingUsers?.length);
         }
     };
 
     const handleButtonClick = (action) => {
         if (action === 'like') {
-            console.log('Liked:', cards[currentIndex].name);
+            console.log('Liked:', datingUsers?.[currentIndex]?.name);
             handleSwipe('right');
         } else if (action === 'dislike') {
-            console.log('Disliked:', cards[currentIndex].name);
+            console.log('Disliked:', datingUsers?.[currentIndex]?.name);
             handleSwipe('left');
         }
     };
 
-    const prevCardIndex = (currentIndex - 1 + cards.length) % cards.length;
-    const nextCardIndex = (currentIndex + 1) % cards.length;
+    const prevCardIndex = (currentIndex - 1 + datingUsers?.length) % datingUsers?.length;
+    const nextCardIndex = (currentIndex + 1) % datingUsers?.length;
 
     return (
         <div className="mt-[20px] top-3 relative flex items-center space-x-[20px] justify-center">
 
             <div className="space-x-[20px] flex items-center justify-center h-full">
-                {/* Side cards - Show left card only if current index is greater than 0 */}
-                <div className=' w-[91px] h-[104px]'>
+                {/* Side datingUsers? - Show left card only if current index is greater than 0 */}
+                <div className='w-[91px] h-[104px]'>
                     {currentIndex > 0 && (
                         <motion.div
-                            className="  w-[91px] h-[104px] opacity-50"
+                            className="w-[91px] h-[104px] opacity-50"
                             initial={{ scale: 0.8, opacity: 0.5 }}
                             animate={{ scale: 1, opacity: 1 }}
                         >
                             <img
-                                src={cards[prevCardIndex].imageUrl  || "https://i.pinimg.com/originals/c9/f9/02/c9f9021e233d8bdb785099b458f3cade.jpg"}
+                                src={datingUsers?.[prevCardIndex]?.profilePic || "https://i.pinimg.com/originals/c9/f9/02/c9f9021e233d8bdb785099b458f3cade.jpg"}
                                 alt="Previous Profile"
                                 className="w-full h-full object-cover rounded-xl opacity-30"
                             />
@@ -264,20 +263,20 @@ const SwiperCardNext = () => {
 
 
                 {/* Main Swipeable Card */}
-                {cards.length > 0 && (
+                {datingUsers?.length > 0 && (
                     <SwipeCard
-                        card={cards[currentIndex]}
+                        card={datingUsers?.[currentIndex]}
                         onSwipe={handleSwipe}
                     />
                 )}
 
                 <motion.div
-                    className=" w-[91px] h-[104px] opacity-50"
+                    className="w-[91px] h-[104px] opacity-50"
                     initial={{ scale: 0.8, opacity: 0.5 }}
                     animate={{ scale: 1, opacity: 1 }}
                 >
                     <img
-                        src={cards[nextCardIndex]?.imageUrl || "https://i.pinimg.com/originals/c9/f9/02/c9f9021e233d8bdb785099b458f3cade.jpg"}
+                        src={datingUsers?.[nextCardIndex]?.profilePic || "https://i.pinimg.com/originals/c9/f9/02/c9f9021e233d8bdb785099b458f3cade.jpg"}
                         alt="Next Profile"
                         className="w-full h-full object-cover rounded-xl opacity-50"
                     />
@@ -306,14 +305,11 @@ const SwiperCardNext = () => {
 
                     <div>
                         <div onClick={() => handleButtonClick('like')} className="Like-button w-[63px] h-[44px] grid place-items-center border-[1px] border-[#9E28D7] rounded-[22px]">
-                            {/* <Image width={19} height={17} alt="like" src={"/assests/dashboard/icon/Like-button.svg"} /> */}
                             <svg class="the-like-icon" width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10.1914 17.8002L8.80064 16.5341C3.86113 12.055 0.600098 9.1009 0.600098 5.4754C0.600098 2.52129 2.92119 0.200195 5.8753 0.200195C7.54418 0.200195 9.14593 0.977089 10.1914 2.20477C11.2368 0.977089 12.8386 0.200195 14.5075 0.200195C17.4616 0.200195 19.7827 2.52129 19.7827 5.4754C19.7827 9.1009 16.5216 12.055 11.5821 16.5437L10.1914 17.8002Z" />
                             </svg>
-
                         </div>
                     </div>
-
                     <div>
                         <div onClick={() => handleSwipe('right')} className="right-swipe-icon w-[63px] h-[44px] grid place-items-center border-[1px] border-[#7045EB] rounded-[22px]">
                             <svg class="right-swipe" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -321,15 +317,7 @@ const SwiperCardNext = () => {
                             </svg>
                         </div>
                     </div>
-                    {/* <Image
-                        width={40}
-                        height={40}
-                        className="w-[40px] h-[40px] cursor-pointer"
-                        src="/assests/dashboard/icon/send-icon-2.svg"
-                        onClick={() => handleSwipe('right')}
-                    /> */}
                 </div>
-                {/* </div> */}
             </div>
         </div>
     );

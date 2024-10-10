@@ -13,12 +13,25 @@ function GeneralSection({ datingForm, updateDatingFormData }) {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
-        updateDatingFormData({
-            general: {
-                ...datingForm.general,
-                [name]: value,
-            }
-        });
+        if (name === "Ethnicity") {
+            updateDatingFormData({
+                general: {
+                    ...datingForm.general,
+                    datingData: [{
+                        ...datingForm.general.datingData[0],
+                        Ethnicity: value,
+                    }],
+                }
+            });
+        } else {
+
+            updateDatingFormData({
+                general: {
+                    ...datingForm.general,
+                    [name]: value,
+                }
+            });
+        }
     }
 
     return (

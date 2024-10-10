@@ -10,14 +10,12 @@ const UserStory = dynamic(() => import('../../../_components/Container/UserStory
 
 function index() {
 
-  const handleSearch = (searchTerm) => { }
 
 
   return (
     <>
 
-
-      <Layout Section="profile" Show={false} handleSearch={handleSearch}>
+      <Layout Section="profile" Show={false}>
 
         {/* Main Section Start */}
 

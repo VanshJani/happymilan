@@ -18,7 +18,14 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
         fontWeight: "600",
         lineHeight: "normal",
     }
-
+    const TitleText = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontSize: "14px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "normal",
+    }
 
     function splitName(fullName) {
         const nameParts = fullName?.trim()?.split(" ") || [];
@@ -61,7 +68,7 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
 
     // Handling input changes and updating both local state and Redux state
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
 
         setCredentials((prev) => ({
             ...prev,
@@ -75,6 +82,52 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
                 [name]: value,
             }
         });
+
+        if (name === 'birthTime') {
+            // Assuming value is in 'hh:mm' format
+
+            // setselectBoxData(prevState => ({ ...prevState, selectedTime: value }))
+
+            // setselectBoxData(prevState => ({ ...prevState, timeData: value }));
+            const [time, period] = value.split(' ');
+            const [hours, minutes] = time.split(':');
+            const date = new Date();
+            // Set the hours and minutes of the date object
+            date.setHours(period === 'PM' ? parseInt(hours) + 12 : hours);
+            date.setMinutes(minutes);
+            // Format the time as desired (you can adjust the format as needed)
+
+
+            console.log("🚀 ~ handleInputChange ~ toISOString:", date.toISOString())
+
+            updateFormData({
+                ...formData,
+                general: {
+                    ...formData.general,
+                    birthTime: date.toISOString()
+                }
+            });
+        }
+        else if (name === 'dateOfBirth') {
+            const selectedDate = new Date(value);
+            const currentDate = new Date();
+            const eighteenYearsAgo = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
+
+            // Check if selected date is in the future
+            if (selectedDate > currentDate) {
+                alert('Please select a date that is not in the future.');
+                // Optionally, you can reset the date input here
+                value = null;
+
+            } // Check if user is at least 18 years old
+            if (eighteenYearsAgo < selectedDate) {
+                alert('You must be at least 18 years old.');
+                // Optionally, you can reset the date input here
+                value = null
+
+            }
+        }
+
 
         SetValidate((prev) => ({
             ...prev,
@@ -161,6 +214,22 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
                                     <input value={formData?.general?.lastName} type="text" id="lastName" name='lastName' onChange={handleInputChange} required />
                                     <label for="lastName" className="label">Last Name</label>
                                     <div className="underline"></div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul className='flex space-x-[36px]'>
+                            <li>
+
+                                <div style={{ width: "232px" }}>
+                                    <p style={TitleText}>Date of Birth</p>
+                                    <input style={{ width: "232px" }} type="date" name="dateOfBirth" onChange={handleInputChange} className="pb-[5px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000]" required />
+                                </div>
+                            </li>
+                            <li>
+
+                                <div style={{ width: "232px" }}>
+                                    <p style={TitleText}>Time of Birth</p>
+                                    <input style={{ width: "232px" }} type="time" name="birthTime" onChange={handleInputChange} className="pb-[5px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000]" required />
                                 </div>
                             </li>
                         </ul>

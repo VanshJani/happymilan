@@ -28,7 +28,7 @@ function index() {
         fontStyle: "normal",
         fontWeight: "600",
         lineHeight: "normal"
-    }   
+    }
     const Text3 = {
         fontFamily: "Poppins",
         fontStyle: "normal",
@@ -128,7 +128,8 @@ function index() {
                                     </ul>
                                 </div>
                                 <div className='relative top-[30px]'>
-                                    <Image width={0} height={0} alt='app' loading='lazy' src={"/heroSec/assests/app-frame.svg"} className='w-[160.043px] h-[auto]' />
+                                    <Image width={0} height={0} alt='app' loading='lazy' src={"https://happymilan.vercel.app/heroSec/assests/app-frame.svg"} className='w-[160.043px] h-[auto]' />
+                                    {/* <Image width={0} height={0} alt='app' loading='lazy' src={"/heroSec/assests/app-frame.svg"} className='w-[160.043px] h-[auto]' /> */}
                                 </div>
                             </div>
                         </div>

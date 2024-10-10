@@ -105,25 +105,7 @@ function SkeletonProfileSec() {
                 <div className={`flex m-[10px] 2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] lg:w-full w-full bg-[#FFF]`}>
                     <div id='grad-btn'
                         className="ml-[-5px] mt-[-3px] bg-custom-gradient w-full h-[100px] 2xl:h-[138px] xl:h-[138px] md:h-[138px] lg:h-[138px] bg-[#0F52BA] rounded-[10px]"
-                    // className='w-full h-[100px] 2xl:h-[138px] xl:h-[138px] md:h-[138px] lg:h-[138px] bg-[#0F52BA] rounded-[10px]'
                     >
-
-                        {/* <div>
-                            <div className='absolute right-[20px] pt-[10px]'>
-                                <ul className='flex space-x-[20px] items-center'>
-                                    <li><Image loading='lazy' alt="share" width={15} height={16} src='/assests/Black/Share-icon-2.svg' /></li>
-                                    <li><Image loading='lazy' alt="download" width={33} height={32} src='/assests/Black/Download-2.svg' /></li>
-                                </ul>
-                            </div>
-                        </div> */}
-
-
-                        {/* <div className='flex justify-between'>
-                            <div>
-                                <Image loading='lazy' alt="arrow" width={32} height={32} className='cursor-pointer m-[10px] w-[30px] h-[30px] md:w-[32px] md:h-[32px]' src='/assests/dashboard/story/arrow-left.svg' />
-                            </div>
-                        </div> */}
-
                         <div className='grid place-items-center mt-[50px]'>
                             <Skeleton variant="circular" width={184} height={184} className='mt-[5px] lg:mt-0 w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[184px] lg:h-[184px] 2xl:w-[184px] 2xl:h-[184px] xl:w-[160px] xl:h-[160px]' />
                             <Skeleton className='pb-[10px] pt-[15px]'>

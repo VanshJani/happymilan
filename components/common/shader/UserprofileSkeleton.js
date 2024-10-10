@@ -7,7 +7,7 @@ function UserprofileSkeleton() {
   const Box = {
     borderRadius: "10px",
     boxShadow: "0px 0px 14px 0px rgba(0, 0, 0, 0.07)",
-};
+  };
 
   return (
     <>
@@ -15,7 +15,7 @@ function UserprofileSkeleton() {
         <div className="">
           <div
             className={`ml-[50px] relative left-[-4px]  xl:left-[-3px] 2xl:left-[-3px]  flex m-[10px] lg:w-[590px]  2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] bg-[#FFF] dark:bg-[#242526]`}
-            style={Box}        
+            style={Box}
           >
             <div className="w-[350px]">
               <div className="p-[15px] w-full ">
@@ -194,27 +194,8 @@ function UserprofileSkeleton() {
             </div>
           </div>
           <div className="flex pb-[20px] space-x-[20px] justify-center pt-[10px]">
-            <Skeleton className="">
-              <Image
-                loading='lazy'
-                width={51}
-                height={50}
-                alt="like"
-                className="cursor-pointer"
-                src="/assests/animation/After-Like.svg"
-              />
-            </Skeleton>
-
-            <Skeleton className="">
-              <Image
-                loading='lazy'
-                width={51}
-                height={50}
-                alt="like"
-                className="cursor-pointer"
-                src="/assests/animation/After-Like.svg"
-              />
-            </Skeleton>
+            <Skeleton className="w-[51px] h-[50px]" />
+            <Skeleton className="w-[51px] h-[50px]" />
           </div>
         </div>
       </div>

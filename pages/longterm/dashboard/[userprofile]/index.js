@@ -12,20 +12,19 @@ function index({ params }) {
   if (params) {
     console.log("🚀 ~ index ~ params:", params)
   }
-  const handleSearch = (searchTerm) => { }
 
   return (
     <>
 
 
-      <Layout Section={"profile"} Show={false} handleSearch={handleSearch}>
+      <Layout Section={"profile"} Show={false} >
 
         {/* Main Section Start */}
 
 
         <div id='main-centerlized-content' className='flex justify-center flex-col'>
           <div id='first-child' className='pl-[0px] lg:pl-[240px] 2xl:pl-[280px] xl:pl-[240px] flex  mt-[100px]'>
-         
+
             <div className='h-full'>
               {/* Side Section 1 */}
 
