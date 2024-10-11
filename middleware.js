@@ -4,11 +4,13 @@ import { NextResponse } from 'next/server';
 export function middleware(request) {
     const token = getCookie('authtoken', { req: request });
     const profileType = getCookie('UserProfile', { req: request });
+    const em = getCookie('email', { req: request });
 
     // Log the current state of cookies and the requested path
     console.log('Request URL:', request.nextUrl.pathname);
     console.log('Token:', token);
     console.log('ProfileType:', profileType);
+    console.log('em:', em);
 
     // Define protected routes
     const protectedRoutes = ['/longterm/dashboard', '/dating/dashboard'];
