@@ -556,8 +556,8 @@ export const logoutuser = () => {
             localStorage.clear();
 
             // Optional: Redirect to the login page after logout
-            router.push('/login'); // or any safe route you prefer
-
+            // Redirect to login page after logout
+            window.location.href = "/login";
         } catch (error) {
             console.error('Error logging out:', error);
         }
