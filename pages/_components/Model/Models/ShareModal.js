@@ -119,12 +119,7 @@ function ShareModal({ isOpen, onClose, data, }) {
                     <FacebookShareButton url={data} title="Check out this profile!">
                       <FacebookIcon size={40} style={{ borderRadius: "50%" }}></FacebookIcon>
                     </FacebookShareButton>
-                    {/* <Image
-                      width={40}
-                      height={40}
-                      loading='lazy'
-                      src="/assests/social/icons8-facebook.svg"
-                    /> */}
+
                   </div>
                   <div>
                     <label
@@ -134,8 +129,6 @@ function ShareModal({ isOpen, onClose, data, }) {
                       Facebook
                     </label>
                   </div>
-                  {/* <Image width={55} height={55} src="/assests/social/facebook.svg" />
-                                    <span className=" pt-[10px] text-[10px] text-[black]" style={TitleText}>Facebook</span> */}
                 </div>
                 <div className="group grid place-items-center space-y-[5px]">
                   <div className="grid place-items-center w-[70px] h-[70px] rounded-[50%] cursor-pointer bg-[#e5f1ff] group-hover:bg-[#cce4fe]">

@@ -545,7 +545,7 @@ function DatingNav() {
         <>
             <AppBar
                 sx={{ boxShadow: "none" }}
-                className={` z-10 border-none fixed top-0 left-0 top-0 h-max shadow-none  max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 p-4 text-white `}
+                className={`z-10 border-none fixed top-0 left-0 top-0 h-max shadow-none  max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 p-4 text-white `}
                 style={{ backgroundColor: darkMode ? "#18191a" : "#FFF" }}
 
             >

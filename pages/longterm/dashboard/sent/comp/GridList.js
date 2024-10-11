@@ -30,10 +30,6 @@ function GridList() {
 
     const { userData,
         totalPages,
-        limit,
-        pagesdata,
-        loading,
-        error,
         status } = useSelector((state) => state.getsentrequestdata)
 
 
@@ -55,7 +51,7 @@ function GridList() {
     return (
         <>
             <div className='mt-[50px] lg:mt-0 h-full w-full 2xl:w-[730px] xl:w-[634px] '>
-                <div className=' w-[90%] xl:w-full space-x-[10px] inline-block  relative 2xl:left-0 xl:left-[10px] 2xl:pl-[25px] xl:pl-[30px] 2xl:mt-[-15px] xl:mt-[-16px] flex flex-wrap  2xl:space-x-[27px] xl:space-x-[15px] space-y-[25px]'>
+                <div className=' w-[90%] xl:w-full space-x-[10px] relative 2xl:left-0 xl:left-[10px] 2xl:pl-[25px] xl:pl-[30px] 2xl:mt-[-15px] xl:mt-[-16px] flex flex-wrap  2xl:space-x-[27px] xl:space-x-[15px] space-y-[25px]'>
                     <div className=''></div>
                     {
                         status === "loading" ? <ProfileSkeletonLoader /> :
@@ -98,12 +94,11 @@ function GridList() {
                                                     <Link href={`/longterm/dashboard/${res?.friend?._id}`} >
                                                         <h1 style={profileStyles?.ProfileName} className='text-[18px]'>{res?.friend?.name}</h1>
                                                     </Link>
-                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{`32, ${res?.friend?.height ? res?.friend?.height : "NA"}`}</p>
-                                                    {/* <p style={profileStyles?.ListText} className='text-[14px]'>{`${res?.friend?.religion ? capitalizeFirstLetter(res?.friend?.religion) : "NA"} , ${res?.friend?.cast ? capitalizeFirstLetter(res?.friend?.cast) : "NA"}`}</p> */}
+                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{`32, ${res?.friend?.height || "NA"}`}</p>
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>
-                                                        {`${res?.friend?.religion ? capitalizeFirstLetter(res?.friend?.religion) : "NA"} , ${res?.friend?.cast ? capitalizeFirstLetter(res?.friend?.cast) : "NA"}`}
+                                                        {`${capitalizeFirstLetter(res?.friend?.religion) || "NA"} , ${capitalizeFirstLetter(res?.friend?.cast) || "NA"}`}
                                                     </p>
-                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{res?.friend?.maritalStatus ? res?.friend?.maritalStatus : "NA"}</p>
+                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{res?.friend?.maritalStatus || "NA"}</p>
                                                 </div>
 
                                                 <div className='flex space-x-[15px] justify-center'>
@@ -126,9 +121,7 @@ function GridList() {
                 userData.length === 0 && (
                     <div className='h-[500px] grid place-items-center'>
                         <div className='grid place-items-center space-y-[5px]'>
-                            {/* <Image loading='lazy' alt='not-found' width={34} height={34} src={"/assets/dashboard/icon/NotFound-img.svg"} /> */}
                             <Image loading='lazy' alt='not-found' width={34} height={34} src={"/assests/dashboard/icon/NotFound-img.svg"} />
-
                             <h1 className='inline' style={profileStyles?.ImageNotFoundText}>No Profiles Found</h1>
                         </div>
                     </div>

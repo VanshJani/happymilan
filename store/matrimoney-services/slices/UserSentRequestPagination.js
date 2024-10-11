@@ -4,6 +4,7 @@ import axios from 'axios';
 
 // Thunk for fetching friends Pending--v2
 export const fetchFriends = (View, Pages) => async (dispatch, getState) => {
+    console.log("🚀 ~ fetchFriends ~ Pages:", Pages?.currentPage)
     dispatch(fetchFriendsRequest());
 
     try {
@@ -11,7 +12,8 @@ export const fetchFriends = (View, Pages) => async (dispatch, getState) => {
 
         const config = {
             method: 'get',
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sentv2?page=${Pages?.currentPage}&limit=${View === "Gridview" ? "6" : "10"}`,
+            // url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sentv2?page=${Pages?.currentPage || 1}&limit=${View === "Gridview" ? "6" : "10"}`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sentv2`,
             headers: {
                 'Authorization': `Bearer ${token}`
             }

@@ -27,7 +27,8 @@ const ViewProfile = ({ Wsize, Hsize, isOpen, onClose, children }) => {
     return (
         <div
             id="custom-modal"
-            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+            style={{ zIndex: 9999 }}
         >
             <div
                 style={{ borderRadius: "10px" }}

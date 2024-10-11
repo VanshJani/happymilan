@@ -186,13 +186,6 @@ function AcceptedRequest() {
 
                             data?.data?.results?.map((res) => {
 
-                                // const IsUser = res?.friend?.id === isCurrentUser;
-
-                                // if (res?.friendList == null) {
-                                //     return null
-                                // }
-
-
                                 return (
                                     <>
                                         <div key={index} className="relative 2xl:left-[40px] xl:left-[55px] lg:left-[10px] left-[40px]">
@@ -236,6 +229,7 @@ function AcceptedRequest() {
                                                                 </li>
                                                                 <li>
                                                                     <ProfileMenu HandleCancelRequest={() => HandleCancelRequest(res, res?.friendList?.id || res?.friendList?._id)} MenuTitle={"accepted"} SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
+                                                                
                                                                 </li>
                                                             </ul>
                                                         </div>

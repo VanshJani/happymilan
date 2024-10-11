@@ -1,4 +1,3 @@
-import { getCookie } from 'cookies-next'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
@@ -17,7 +16,7 @@ const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 function BasicInfo() {
 
-    const { darkMode, toggleDarkMode } = useDarkMode();
+    const { darkMode } = useDarkMode();
 
 
     const FildsTitle = {
@@ -45,14 +44,6 @@ function BasicInfo() {
         fontWeight: "600",
         lineHeight: "normal",
     }
-
-    const genralbtnText = {
-        fontFamily: "Poppins",
-        fontSize: "14px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal"
-    }
     const labelText = {
         fontFamily: "Poppins",
         fontSize: "14px",
@@ -61,15 +52,7 @@ function BasicInfo() {
         lineHeight: "normal"
     }
 
-    const [token, settoken] = useState("")
-
-
-    useEffect(() => {
-        settoken(getCookie("authtoken"))
-    }, [])
-
     const [showForm, setshowForm] = useState(false);
-    const { data, status, totalLikes } = useSelector((state) => state.myprofile);
 
     const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
 
@@ -250,7 +233,6 @@ function BasicInfo() {
                                                 <DynamicSelect
                                                     className="w-[260px]"
                                                     placeholder={UpdatedData?.datingData[0]?.Ethnicity || "Select your location"}
-                                                    //religion
                                                     styles={LabelStyle}
                                                     options={CityOptions}
                                                     onChange={(selectedOption) =>
@@ -312,11 +294,11 @@ function BasicInfo() {
                                     <ul className='flex justify-between'>
                                         <li className='space-y-[5px]'>
                                             <p style={FildsTitle}>Date of Birth</p>
-                                            <h1 style={FiledsValue}>{details?.dateOfBirth ? getFormattedDate(details?.dateOfBirth) : "NA"}</h1>
+                                            <h1 style={FiledsValue}>{getFormattedDate(details?.dateOfBirth) || "NA"}</h1>
                                         </li>
                                         <li className='space-y-[5px]'>
                                             <p style={FildsTitle}>Currently Living</p>
-                                            <h1 style={FiledsValue}>{details?.datingData?.[0].CurrentlyLiving}</h1>
+                                            <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.CurrentlyLiving) || "NA"}</h1>
                                         </li>
                                     </ul>
                                 </div>
@@ -328,9 +310,7 @@ function BasicInfo() {
                                         <li>
                                             <ul className='flex space-x-[15px]'>
 
-                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"English"}</li>
-                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Gujarati"}</li>
-                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Hindi"}</li>
+                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{capitalizeFirstLetter(details?.motherTongue) || "NA"}</li>
                                             </ul>
 
                                         </li>
@@ -340,11 +320,11 @@ function BasicInfo() {
                                     <ul className='flex justify-between'>
                                         <li className='space-y-[5px]'>
                                             <p style={FildsTitle}>Religion</p>
-                                            <h1 style={FiledsValue}>{details?.religion || "NA"}</h1>
+                                            <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.religion) || "NA"}</h1>
                                         </li>
                                         <li className='space-y-[5px] pr-1'>
                                             <p style={FildsTitle}>Ethnicity</p>
-                                            <h1 style={FiledsValue}>{details?.datingData?.[0].Ethnicity}</h1>
+                                            <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.Ethnicity) || "NA"}</h1>
                                         </li>
                                     </ul>
                                 </div>

@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import Layout from '../../../Layout';
 import SwiperCardNext from '../../../component/SwiperCard';
 import DatingLayout from '../../../../../components/Dating/layout/DatingLayout';
 

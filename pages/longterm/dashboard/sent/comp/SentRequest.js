@@ -1,66 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import Popover from '@mui/material/Popover';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-
 
 // import required modules
 import { Pagination } from 'swiper';
 import Image from 'next/image';
-import { Dialog, DialogContent } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import UserprofileSkeleton from '../../../../../components/common/shader/UserprofileSkeleton';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination';
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
-const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'));
 
 function SentRequest() {
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [CancelUser, SetCancelUser] = useState(null)
-
-    const handleClick = (event, res) => {
-        setAnchorEl(event.currentTarget);
-        SetCancelUser(res)
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-
-    const OnCancelRequest = () => {
-        const UserData = {
-            "user": CancelUser?.lastInitiatorUser,
-            "request": CancelUser?.id,
-            "status": "removed"
-        }
-    }
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-
-    const [blockprofile, setblockprofile] = useState(false);
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => {
-        setIsModalOpen(true);
-        handleClose();
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
     const profileStyles = useMemo(() => ({
         BoldText: {
             color: "#000",
@@ -135,31 +90,13 @@ function SentRequest() {
     }), []);
 
 
-
-
-
-    const [openURLModal, setOpenURLModal] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpenURLModal(true);
-
-
-        setTimeout(() => {
-            setOpenURLModal(false);
-            handleClose()
-        }, 2000);
-    };
-
     const dispatch = useDispatch();
-    const { userData, loading, error, currentPage, totalPages, status } = useSelector(state => state.getsentrequestdata);
+    const { userData, status } = useSelector(state => state.getsentrequestdata);
 
     useEffect(() => {
         // Initial fetch
         dispatch(fetchFriends('ListView', { currentPage: 1 }));
     }, [dispatch]);
-
-
-
 
     if (status == "loading") {
         return (
@@ -175,11 +112,7 @@ function SentRequest() {
             <div className=''>
 
                 <div className='flex flex-col'>
-
-
-
                     {
-
                         userData?.map((res, index) => {
                             return (
                                 <>
@@ -202,10 +135,7 @@ function SentRequest() {
                                                                 </SwiperSlide>
 
                                                             ))}
-
                                                         </Swiper>
-
-
                                                     ) : (
                                                         <div>
                                                             <div style={{ backgroundColor: "#F8FBFF", width: "197px", height: "258px", display: "flex", justifyContent: "center", alignItems: "center" }} >
@@ -222,7 +152,7 @@ function SentRequest() {
                                             <div className='w-full pt-[15px] 2xl:pt-[15px] xl:pt-[20px]'>
                                                 <div className='flex justify-between  h-[50px]'>
                                                     <div>
-                                                        <Link href={`/longterm/dashboard/${res.id}`} ><h1 className='2xl:text-[20px] xl:text-[15px] text-[15px]' style={profileStyles?.ProfileName}>{res?.friend?.name}</h1></Link>
+                                                        <Link href={`/longterm/dashboard/${res.id || res?._id}`} ><h1 className='2xl:text-[20px] xl:text-[15px] text-[15px]' style={profileStyles?.ProfileName}>{res?.friend?.name}</h1></Link>
                                                         <h1 style={profileStyles?.statusText} className={`text-[#7A7A7A]`}>{"Online now"}</h1>
                                                     </div>
                                                     <div className='pr-[8px]'>
@@ -266,22 +196,20 @@ function SentRequest() {
                                                     <div id="user-card">
                                                         <ul id="user-card-grid">
                                                             <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`'32,5'3`}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.friend?.religion ? res?.friend?.religion : 'NA'}, ${res?.friend?.cast ? res?.friend?.cast : 'NA'}`}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.friend?.motherTongue ? res?.friend?.motherTongue : "NA , NA"}  `}</li>
-                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{res?.friend?.maritalStatus ? res?.friend?.maritalStatus : "NA , NA"}</li>
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.friend?.religion || 'NA'}, ${res?.friend?.cast || 'NA'}`}</li>
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{res?.friend?.motherTongue || "NA , NA"}</li>
+                                                            <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{res?.friend?.maritalStatus || "NA , NA"}</li>
                                                             <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />
-                                                                {/* {`${res?.friend?.address ? res?.friend?.address.currentCity : "NA"} , ${res?.friend?.address ? res?.friend?.address.currentCountry : "NA"}`} */}
-                                                                {`${res?.friend?.address ? capitalizeFirstLetter(res?.friend?.address?.currentCity) : "NA"} , ${res?.friend?.address ? capitalizeFirstLetter(res?.friend?.address.currentCountry) : "NA"}`}
+                                                                {capitalizeFirstLetter(res?.friend?.address?.currentCity) || "NA"} , {capitalizeFirstLetter(res?.friend?.address?.currentCountry) || "NA"}
 
                                                             </li>
                                                             <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={profileStyles?.ListText}><Image alt='mark' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />
-                                                                {/* {res?.friend?.userProfessional ? res?.friend?.userProfessional.currentDesignation : "NA , NA" */}
-                                                                {res?.friend?.userProfessional ? capitalizeFirstLetter(res?.friend?.userProfessional.jobTitle) : "NA , NA"}
+                                                                {capitalizeFirstLetter(res?.friend?.userProfessional?.jobTitle) || "NA , NA"}
                                                             </li>
                                                         </ul>
                                                     </div>
                                                     <div className='mt-[20px] 2xl:mt-[20px] xl:mt-[15px]'>
-                                                        <p style={profileStyles?.Text3} className='text-[#979797] text-[14px] 2xl:text-[12px] xl:text-[12px] '>{res?.friend?.writeBoutYourSelf ? res?.friend?.writeBoutYourSelf : "NA"}<span className='text-[#0F52BA]'> more </span></p>
+                                                        <p style={profileStyles?.Text3} className='text-[#979797] text-[14px] 2xl:text-[12px] xl:text-[12px] '>{res?.friend?.writeBoutYourSelf || "NA"}<span className='text-[#0F52BA]'> more </span></p>
                                                     </div>
                                                 </div>
                                                 <div className='flex justify-end items-center mt-[20px] 2xl:mt-[20px] xl:mt-[20px] mr-[20px] space-x-[10px]'>
@@ -289,7 +217,6 @@ function SentRequest() {
                                                         <li><h1 className='text-[16px] 2xl:text-[16px] xl:text-[14px]' style={profileStyles?.BoldText}>Sent</h1></li>
                                                         <li><Image alt='img' width={23} height={23} src='/assests/dashboard/icon/accepted-right.svg' /></li>
                                                     </ul>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -299,24 +226,7 @@ function SentRequest() {
                         })
                     }
                 </div>
-
-            </div >
-            <ShareModal isOpen={isModalOpen} onClose={closeModal} />
-
-            <React.Fragment>
-                <Dialog
-                    open={openURLModal}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogContent className='w-[249px] h-[81px] text-center grid place-items-center'>
-                        <div className='text-[14px]' style={profileStyles?.Urlmodaltext}>
-                            URL has been copied
-                        </div>
-                    </DialogContent>
-                </Dialog>
-            </React.Fragment>
-            
+            </div>
             <ProfileDataNotFound ProfileData={userData} />
         </>
     )

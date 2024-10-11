@@ -124,7 +124,7 @@ function setCookiesAndLocalStorage(data) {
   localStorage.setItem("authdata", JSON.stringify(objectData));
 
   setCookie('userid', data.user.id, { secure: true });
-  setCookie('UserProfile', data.user?.appUsesType)
+  setCookie('UserProfile', data.user?.appUsesType || "marriage")
   localStorage.setItem("token", data.tokens.access.token);
   localStorage.setItem("refoken", data.tokens.refresh.token);
   localStorage.setItem('user', data.user.email, { secure: true });

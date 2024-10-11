@@ -24,10 +24,11 @@ import SendRequestBtn from "../common/Buttons/SendRequestBtn";
 import { useDarkMode } from "../../../ContextProvider/DarkModeContext";
 import dynamic from "next/dynamic";
 import { capitalizeFirstLetter } from "../../../utils/form/Captitelize";
+// import ProfileMenu from "../../../components/long-term/common/Model/ProfileMenu";
 
 // Dynamically imported components
-const ShareModal = dynamic(() => import("../Model/Models/ShareModal"));
-const RegisterAlertModal = dynamic(() => import("../Model/Models/RegisterAlertModal"));
+const ShareModal = dynamic(() => import("../Model/Models/ShareModal"), { ssr: false });
+const RegisterAlertModal = dynamic(() => import("../Model/Models/RegisterAlertModal"), { ssr: false });
 const ReportModal = dynamic(() => import("../Model/Models/ReportModal"), { ssr: false });
 const ProfileMenu = dynamic(() => import("../Model/popover/MenuPop"), { ssr: false });
 const BlockUserModal = dynamic(() => import("../Model/Models/BlockModal"), { ssr: false });
@@ -297,7 +298,7 @@ function SampleUserProfile() {
                                     <div className="">
                                         <div
                                             style={Box}
-                                            className={`bg-[#FFF] dark:bg-[#242526] relative left-[-4px]  xl:left-[-3px] 2xl:left-[-3px]  flex m-[10px] lg:w-[530px]  2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] lg:h-[270px] lg:w-[530px] md:w-[400px] bg-[#FFF]`}
+                                            className={`dark:bg-[#242526] relative left-[-4px]  xl:left-[-3px] 2xl:left-[-3px]  flex m-[10px] 2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] lg:h-[270px] lg:w-[530px] md:w-[400px] bg-[#FFF]`}
                                         >
                                             <div className="w-[350px] 2xl:w-[350px] xl:w-[350px] lg:w-[250px] md:w-[300px]">
                                                 <div className="p-[15px] w-full ">
@@ -319,8 +320,6 @@ function SampleUserProfile() {
                                                                             width={197}
                                                                             height={258}
                                                                             style={{
-                                                                                // width: "197px",
-                                                                                // height: "258px",
                                                                                 borderRadius: "10px",
                                                                                 objectFit: "cover",
                                                                             }}
@@ -389,7 +388,6 @@ function SampleUserProfile() {
                                                     </div>
 
                                                     <div className="pr-[8px]">
-                                                        {/* <ul className="flex justify-evenly space-x-[20px] pr-[10px] pt-[10px]"> */}
                                                         <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
 
                                                             <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] flex space-x-[10px] top-[-8px] p-[5px] relative left-[5px]`}>
@@ -415,6 +413,8 @@ function SampleUserProfile() {
                                                             </li>
                                                             <li>
                                                                 <ProfileMenu SetUserID={SetUserID} SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
+                                                                {/* <ProfileMenu res={res} /> */}
+
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -575,19 +575,6 @@ function SampleUserProfile() {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {/* {likeloading ? <></> : <>
-
-                                            <LikeUser
-                                                ActiveLike={ActiveLike}
-                                                setActiveLike={setActiveLike}
-                                                userId={res._id}
-                                                TheUsername={res?.name}
-                                                userdata={res}
-
-
-                                            />
-                                        </>} */}
                                     </div>
                                 </SwiperSlide>
 
