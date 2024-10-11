@@ -537,41 +537,32 @@ export const getSentrequestDataFailure = (error) => ({
 })
 
 export const logoutuser = () => {
-    console.log("Logout from Redux...")
+    const router = useRouter();  // Use router for redirection
 
-
-
-    // const socket = useSocket();
-
-
-    // const router = useRouter();
     return async (dispatch) => {
-
-        dispatch({
-            type: LOGOUT_USER
-        });
-        // Get the authentication token from cookies
+        dispatch({ type: LOGOUT_USER });  // Dispatch to Redux to update the state
 
         try {
-            // Clear cookies
+            // Clear all cookies
             deleteCookie('authtoken', { path: '/' });
             deleteCookie('email', { path: '/' });
             deleteCookie('jwtToken', { path: '/' });
             deleteCookie('userName', { path: '/' });
             deleteCookie('data', { path: '/' });
             deleteCookie('userid', { path: '/' });
-            deleteCookie('fcmToken', { path: '/' });
-            deleteCookie('UserProfile');
-            localStorage.clear(); // Clear local storage
+            deleteCookie('UserProfile', { path: '/' });
+
+            // Clear local storage
+            localStorage.clear();
+
+            // Optional: Redirect to the login page after logout
+            router.push('/login'); // or any safe route you prefer
 
         } catch (error) {
             console.error('Error logging out:', error);
         }
-
-        // router.push("/")
-    }
-
-}
+    };
+};
 
 
 export const getblockuserdata = () => {
