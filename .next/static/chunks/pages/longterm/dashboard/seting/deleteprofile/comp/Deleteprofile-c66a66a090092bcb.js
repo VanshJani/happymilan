@@ -1,0 +1,1 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[4090],{69973:function(e,n,_){(window.__NEXT_P=window.__NEXT_P||[]).push(["/longterm/dashboard/seting/deleteprofile/comp/Deleteprofile",function(){return _(47993)}])}},function(e){e.O(0,[5675,5260,2502,1908,5277,1230,7993,9774,2888,179],function(){return e(e.s=69973)}),_N_E=e.O()}]);

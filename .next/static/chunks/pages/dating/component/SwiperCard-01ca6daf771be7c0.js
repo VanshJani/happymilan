@@ -1,0 +1,1 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[83],{30551:function(n,_,u){(window.__NEXT_P=window.__NEXT_P||[]).push(["/dating/component/SwiperCard",function(){return u(39933)}])}},function(n){n.O(0,[5675,5260,2502,1908,5277,3501,5724,8152,1846,9933,9774,2888,179],function(){return n(n.s=30551)}),_N_E=n.O()}]);
