@@ -7,7 +7,7 @@ import { ImageUpload } from "../../../../store/actions/ImageUpload";
 import ProfileSelection from "../sections/ProfileSelection";
 
 
-function LongTermRegister({ slug, children }) {
+function Longtermregister({ slug, children }) {
     const [activeTab, setActiveTab] = useState(0);
 
     const Title = {
@@ -288,4 +288,4 @@ function LongTermRegister({ slug, children }) {
     );
 }
 
-export default LongTermRegister;
+export default Longtermregister;
