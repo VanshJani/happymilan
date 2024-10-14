@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React from 'react'
+import LongTermRegister from '../../../../components/long-term/register/layout/longTermRegisterLayout'
 import GenralSec from '../../../../components/long-term/register/sections/GenralSec'
 import AddressSec from '../../../../components/long-term/register/sections/AddressSec'
 import ContactSec from '../../../../components/long-term/register/sections/ContactSec'
@@ -8,7 +9,6 @@ import ProffSec from '../../../../components/long-term/register/sections/Profess
 import HobbySec from '../../../../components/long-term/register/sections/HobbySec'
 import UploadPicSec from '../../../../components/long-term/register/sections/UploadPicSec'
 import PartnerPrefSec from '../../../../components/long-term/register/sections/PartnerPrefSec'
-import LongtermRegisterLayout from '../../../../components/long-term/register/layout/longTermRegisterLayout'
 function index() {
 
     const router = useRouter()
@@ -38,9 +38,9 @@ function index() {
     }
     return (
         <>
-            <LongtermRegisterLayout slug={slug}>
+            <LongTermRegister slug={slug}>
                 {RenderSection()}
-            </LongtermRegisterLayout>
+            </LongTermRegister>
         </>
     )
 }
