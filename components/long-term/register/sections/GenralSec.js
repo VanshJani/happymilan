@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { CasteOptions, GenderOption, MaritalOptions, motherTongueOption, religionOptions } from '../../../utils/options/Register/GenralSectionOptions'
+import { CasteOptions, GenderOption, MaritalOptions, motherTongueOption, religionOptions } from '../../../../utils/options/Register/GenralSectionOptions'
 import dynamic from 'next/dynamic';
-import { LabelStyle } from '../../../utils/options/styles/SelectBoxStyle';
 import { connect } from 'react-redux';
-import { updateFormData } from '../../../store/actions/registerUser';
+import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle';
+import { updateFormData } from '../../../../store/actions/registerUser';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 

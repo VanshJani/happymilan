@@ -52,7 +52,7 @@ function GeneralSection({ datingForm, updateDatingFormData }) {
                                 <div>
                                     <div style={{ width: "300px" }} className="the-input-container">
                                         <span className='absolute right-[10px] text-[#AFAFAF]'>
-                                            CM
+                                            FT
                                         </span>
                                         <input type="text" id="height" onChange={handleInputChange} name='height' required />
                                         <label for="height" className="label">Heights</label>

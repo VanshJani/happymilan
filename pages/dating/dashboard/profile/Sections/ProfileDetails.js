@@ -2,8 +2,13 @@ import Image from 'next/image'
 import React from 'react'
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import calculateAge from '../../../../../utils/helpers/CalculateAge'
+import { useSelector } from 'react-redux';
 
 function ProfileDetails({ data }) {
+
+
+    const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
+
 
     const Text2 = {
         fontFamily: "Poppins",
@@ -47,24 +52,23 @@ function ProfileDetails({ data }) {
             </div>
 
             <div className='h-[1px] w-full bg-[#EDEDED]'></div>
-            <div className='pt-[10px]'>
-                <ul className='flex justify-center items-center space-x-[8px] md:space-x-[40px]'>
-                    <li>
+            <div className='w-full pt-[10px]'>
+                <ul className='translate-x-[10px] w-full flex justify-center items-center space-x-[8px] md:space-x-[50px]'>
+                    <li className=''>
                         <div className='flex items-center space-x-[10px]'>
-
-                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{data?.gender ? capitalizeFirstLetter(data?.gender) : "NA"}&nbsp;,&nbsp;{calculateAge(data?.dateOfBirth)}</h1>
+                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{data?.gender ? capitalizeFirstLetter(data?.gender) : "NA"}&nbsp;,&nbsp;{calculateAge(data?.dateOfBirth) || "NA"}</h1>
                         </div>
                     </li>
-                    <li>
+                    <li className=''>
                         <div className='flex items-center space-x-[10px]'>
                             <Image loading='lazy' alt='bagIcon' width={14} height={12} src='/assests/dashboard/icon/bag-icon.svg' />
-                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{capitalizeFirstLetter(data?.userProfessional?.jobTitle) || "NA"}</h1>
+                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{capitalizeFirstLetter(details?.datingData[0]?.Occupation) || "NA"}</h1>
                         </div>
                     </li>
-                    <li>
+                    <li className=''>
                         <div className='flex items-center space-x-[10px]'>
                             <Image loading='lazy' alt='loactionIcon' width={10} height={12} src='/assests/dashboard/icon/location-icon.svg' />
-                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{capitalizeFirstLetter(data?.address?.currentCity) || "NA"}</h1>
+                            <h1 style={Text2} className='dark:text-[#FFF] lg:text-[12px] md:text-[12px] text-[11px]'>{capitalizeFirstLetter(details?.datingData[0]?.Ethnicity) || "NA"} , {capitalizeFirstLetter(details?.datingData[0]?.CurrentlyLiving) || ""}</h1>
                         </div>
                     </li>
                 </ul>

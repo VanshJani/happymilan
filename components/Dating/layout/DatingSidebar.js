@@ -3,15 +3,24 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Image from 'next/image';
 import { Slider } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileImage from '../../../pages/_components/common/profile/ProfileImage';
+import { fetchUsers, setAgeRange } from '../../../store/dating-services/Redux-reducer/home/datinguserSlice';
 
 function DatingSideBar() {
     const RangeSlider2 = () => {
-        const [value, setValue] = React.useState([20, 37]);
 
-        const handleChange = (event, newValue) => {
-            setValue(newValue);
+        const dispatch = useDispatch();
+        const { minAge, maxAge } = useSelector((state) => state.rangeuser);
+
+        const handleAgeChange = (event) => {
+            console.log("🚀 ~ handleAgeChange ~ event:", event)
+            const newMinAge = event.target.value[0];
+
+            const newMaxAge = event.target.value[1];
+
+            dispatch(setAgeRange({ minAge: newMinAge, maxAge: newMaxAge }));
+            dispatch(fetchUsers(newMinAge, newMaxAge));
         };
 
 
@@ -21,7 +30,7 @@ function DatingSideBar() {
                 <div className='w-[220px]'>
                     <ul className='flex justify-between'>
                         <li><h1 style={Text3} className='text-[14px]'>Age</h1></li>
-                        <li><h1 style={Text3} className='text-[14px] text-[#0F52BA]'>{value?.[0]}-{value?.[1]}</h1></li>
+                        <li><h1 style={Text3} className='text-[14px] text-[#0F52BA]'>{minAge}-{maxAge}</h1></li>
                     </ul>
                 </div>
                 <div>
@@ -50,8 +59,8 @@ function DatingSideBar() {
                                 },
                             },
                         }}
-                        value={value}
-                        onChange={handleChange}
+                        value={[minAge, maxAge]} // Use values from Redux
+                        onChange={handleAgeChange}
 
                     />
                 </div>

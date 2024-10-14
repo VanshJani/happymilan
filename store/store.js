@@ -22,10 +22,15 @@ import getShortlistUsersSlice from './matrimoney-services/slices/getShortlistUse
 import { DatingformReducer } from './dating-services/Redux-reducer/register/datingRegisterReducer';
 import GetDatingUsersReducer from './dating-services/Redux-reducer/home/DatingUsersReducer';
 import datinguserReducer from './dating-services/Redux-reducer/home/MyprofileReducer'
+import datinguserSlice from './dating-services/Redux-reducer/home/datinguserSlice';
+// import { datinguserSlice } from './dating-services/Redux-reducer/home/datinguserSlice';
+// import { datinguserSlice } fro./dating-services/Redux-reducer/home/datinguserSlicecer';
+// import FetchDatingUsersReducer from './dating-services/Redux-reducer/home/FetchDatingUsersReducer';
 
 
 const datingReducers = {
-  user: datinguserReducer
+  user: datinguserReducer,
+  rangeuser: datinguserSlice
 };
 
 const store = configureStore({

@@ -7,16 +7,42 @@ import { LabelStyle } from '../../../../../utils/options/styles/SelectBoxStyle';
 import { GenderOption } from '../../../../../utils/options/Register/GenralSectionOptions';
 import dynamic from 'next/dynamic';
 import { CityOptions, CountryOptions } from '../../../../../utils/options/Register/EducationSectionOptions';
-import DatingMultiSelect from '../../../../../components/Dating/register/sections/MultiSelect';
-import { updateDatingFormData } from '../../../../../store/dating-services/Redux-actions/register/registerAction';
 import { updateUserDetails } from '../../../../../store/dating-services/Redux-reducer/home/MyprofileReducer';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
+import ReusableMultiSelect from '../../../../../components/Dating/register/sections/MusltiSelectDating';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 
 function BasicInfo() {
 
     const { darkMode } = useDarkMode();
+
+    const EnumOfInterest = {
+        MEET_NEW_FRIENDS: 'meet-new-friends',
+        LOOKING_FOR_LOVE: 'looking-for-love',
+        MOVIE_DATE: 'movie-date',
+        FOODIES: 'foodies',
+        TRAVEL_BUDDIES: 'travel-buddies',
+        GAME_LOVER: 'game-lover',
+        CHITCHAT: 'chit-chat',
+        ADVENTUROUS: 'adventurous',
+    };
+
+    const options = [
+        { id: 1, label: "Meet New Friends", value: EnumOfInterest.MEET_NEW_FRIENDS },
+        { id: 2, label: "Looking for Love", value: EnumOfInterest.LOOKING_FOR_LOVE },
+        { id: 3, label: "Movie Date", value: EnumOfInterest.MOVIE_DATE },
+        { id: 4, label: "Foodies", value: EnumOfInterest.FOODIES },
+        { id: 5, label: "Travel Buddies", value: EnumOfInterest.TRAVEL_BUDDIES },
+        { id: 6, label: "Game Lover", value: EnumOfInterest.GAME_LOVER },
+        { id: 7, label: "Chit Chat", value: EnumOfInterest.CHITCHAT },
+        { id: 8, label: "Adventurous", value: EnumOfInterest.ADVENTUROUS },
+    ];
+
+
+
+
+
 
 
     const FildsTitle = {
@@ -57,6 +83,8 @@ function BasicInfo() {
     const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
 
 
+
+    const [selectedInterests, setSelectedInterests] = useState([]);
     const [UpdatedData, setUpdatedData] = useState({
         name: "",
         writeBoutYourSelf: "",
@@ -81,6 +109,7 @@ function BasicInfo() {
                 gender: details?.gender || "",
                 datingData: [
                     {
+                        ...details?.datingData[0],
                         interestedIn: details?.datingData[0]?.interestedIn || [],
                         Ethnicity: details?.datingData[0]?.Ethnicity || "",
                         CurrentlyLiving: details?.datingData[0]?.CurrentlyLiving || ""
@@ -117,6 +146,16 @@ function BasicInfo() {
                     }]
 
             }));
+        } else if (name === "interestedIn") {
+            setUpdatedData((prev) => ({
+                ...prev,
+                datingData: [
+                    {
+                        ...prev.datingData[0],
+                        interestedIn: selectedInterests
+                    }]
+
+            }));
         }
         else {
             setUpdatedData((prev) => ({
@@ -130,6 +169,19 @@ function BasicInfo() {
         }
     };
 
+    useEffect(() => {
+        setUpdatedData((prev) => ({
+            ...prev,
+            datingData: [
+                {
+                    ...prev.datingData[0],
+                    interestedIn: selectedInterests
+                }]
+
+        }));
+    }, [selectedInterests]);
+
+
 
     const dispatch = useDispatch()
 
@@ -137,6 +189,8 @@ function BasicInfo() {
         dispatch(updateUserDetails(UpdatedData))
         setshowForm(false)
     }
+
+
 
     return (
         <>
@@ -161,10 +215,16 @@ function BasicInfo() {
                     showForm ?
                         <>
                             <div className='w-full h-[1px] bg-[#F1F1F1]'></div>
-                            <div className='pt-5 pb-10'>
+                            <div className='pt-0 pb-7'>
                                 <ul className='space-y-[40px]'>
                                     <li style={{ width: "100%" }}>
-                                        <DatingMultiSelect datingForm={""} updateDatingFormData={updateDatingFormData} />
+                                        <p style={FildsTitle}>Purpose</p>
+                                        <ReusableMultiSelect
+                                            options={options}
+                                            setSelectedValues={setSelectedInterests}
+                                        // initialSelected={initialSelected}
+
+                                        />
                                     </li>
                                     <li>
                                         <div className='flex justify-between items-center space-x-[20px]'>
@@ -183,7 +243,8 @@ function BasicInfo() {
                                                 </label>
                                             </div>
 
-                                            <div style={{ position: "relative", top: "-2px" }} className=' w-[260px] 2xl:w-[260px] xl:w-[260px] lg:w-[260px]'>
+                                            <div style={{ position: "relative" }} className=' w-[260px] 2xl:w-[260px] xl:w-[260px] lg:w-[260px]'>
+                                                <p className='absolute top-[-16px]' style={FildsTitle}>Gender</p>
                                                 <DynamicSelect
                                                     className='w-[260px]'
                                                     placeholder={UpdatedData?.gender} //gender
@@ -198,11 +259,12 @@ function BasicInfo() {
 
                                         <div className='flex items-center justify-between'>
                                             <div style={{ width: "260px" }}>
-                                                <p style={labelText}>Date of Birth</p>
+                                                <p className='relative top-[-10px]' style={labelText}>Date of Birth</p>
                                                 <input style={{ width: "260px" }} type="date" name="dateOfBirth" onChange={handleInputChange} className="pb-[5px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000]" required />
                                             </div>
 
                                             <div className='w-[260px]' style={{ position: "relative", top: "5px" }}>
+                                                <p className='absolute top-[-16px]' style={FildsTitle}>Currently Living</p>
                                                 <DynamicSelect
                                                     className="w-[260px]"
                                                     placeholder={UpdatedData?.datingData[0]?.CurrentlyLiving || "Select your location"}
@@ -225,11 +287,12 @@ function BasicInfo() {
 
                                         <div className='flex items-center justify-between'>
                                             <div style={{ width: "260px" }}>
-                                                <p style={labelText}>Religion</p>
-                                                <input style={{ width: "260px" }} type="text" name="religion" onChange={handleInputChange} className="pb-[5px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000]" required />
+                                                <p className='relative top-[-8px]' style={labelText}>Religion</p>
+                                                <input style={{ width: "260px" }} type="text" value={UpdatedData?.religion} name="religion" onChange={handleInputChange} className="pb-[5px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000]" required />
                                             </div>
 
                                             <div className='w-[260px]' style={{ position: "relative", top: "5px" }}>
+                                                <p className='absolute top-[-16px]' style={FildsTitle}>Ethnicity</p>
                                                 <DynamicSelect
                                                     className="w-[260px]"
                                                     placeholder={UpdatedData?.datingData[0]?.Ethnicity || "Select your location"}
@@ -266,8 +329,11 @@ function BasicInfo() {
                             </div>
                         </>
                         : <>
-                            <div className='w-full h-[1px] bg-[#F1F1F1]'></div>
-                            <div className='space-y-8 pr-5'>
+                            <div className='flex justify-center'>
+                                <div className='grid place-items-center w-full h-[1px] bg-[#F1F1F1]'></div>
+                            </div>
+
+                            <div className='space-y-8'>
                                 <div>
                                     <ul className='space-y-[5px]'>
                                         <li>
@@ -275,60 +341,66 @@ function BasicInfo() {
                                         </li>
                                         <li>
                                             <ul className='flex space-x-[15px]'>
-                                                {/* {
-                                                    details?.datingData[0]?.interestedIn.map((res, i) => {
+                                                {
+                                                    details?.datingData[0]?.interestedIn?.map((res, index) => {
                                                         return (
-                                                            <li key={i} style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{capitalizeFirstLetter(res)}</li>
+                                                            <li key={index} style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{res}</li>
+
                                                         )
                                                     })
-                                                } */}
-                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Casual Dating"}</li>
-                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Meet New Friends"}</li>
-
+                                                }
                                             </ul>
 
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className=''>
-                                    <ul className='flex justify-between'>
-                                        <li className='space-y-[5px]'>
-                                            <p style={FildsTitle}>Date of Birth</p>
-                                            <h1 style={FiledsValue}>{getFormattedDate(details?.dateOfBirth) || "NA"}</h1>
-                                        </li>
-                                        <li className='space-y-[5px]'>
-                                            <p style={FildsTitle}>Currently Living</p>
-                                            <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.CurrentlyLiving) || "NA"}</h1>
                                         </li>
                                     </ul>
                                 </div>
                                 <div>
-                                    <ul className='space-y-[5px]'>
-                                        <li>
-                                            <p style={FildsTitle}>Language Spoken</p>
-                                        </li>
-                                        <li>
-                                            <ul className='flex space-x-[15px]'>
-
-                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{capitalizeFirstLetter(details?.motherTongue) || "NA"}</li>
-                                            </ul>
-
-                                        </li>
-                                    </ul>
+                                    <div className=''>
+                                        <ul className='flex justify-between'>
+                                            <li className='space-y-[5px]'>
+                                                <p style={FildsTitle}>Date of Birth</p>
+                                                <h1 style={FiledsValue}>{getFormattedDate(details?.dateOfBirth) || "NA"}</h1>
+                                            </li>
+                                            <li className='space-y-[5px] w-[150px]'>
+                                                <p style={FildsTitle}>Currently Living</p>
+                                                <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.CurrentlyLiving) || "NA"}</h1>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div className=''>
-                                    <ul className='flex justify-between'>
-                                        <li className='space-y-[5px]'>
-                                            <p style={FildsTitle}>Religion</p>
-                                            <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.religion) || "NA"}</h1>
-                                        </li>
-                                        <li className='space-y-[5px] pr-1'>
-                                            <p style={FildsTitle}>Ethnicity</p>
-                                            <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.Ethnicity) || "NA"}</h1>
-                                        </li>
-                                    </ul>
+                                <div>
+                                    <div className=''>
+                                        <ul className='space-y-[5px]'>
+                                            <li>
+                                                <p style={FildsTitle}>Language Spoken</p>
+                                            </li>
+                                            <li>
+                                                <ul className='flex space-x-[15px]'>
+                                                    <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Casual Dating"}</li>
+                                                    <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Meet New Friends"}</li>
+
+                                                </ul>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className=''>
+                                        <ul className='flex justify-between'>
+                                            <li className='space-y-[5px]'>
+                                                <p style={FildsTitle}>Religion</p>
+                                                <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.religion) || "NA"}</h1>
+                                            </li>
+                                            <li className='space-y-[5px] w-[150px]'>
+                                                <p style={FildsTitle}>Ethnicity</p>
+                                                <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.Ethnicity) || "NA"}</h1>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
+
                         </>
                 }
             </div>

@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
-import { profileOptions } from '../../../utils/options/Register/GenralSectionOptions';
+import { profileOptions } from '../../../../utils/options/Register/GenralSectionOptions';
 import dynamic from 'next/dynamic';
-import { updateFormData } from '../../../store/actions/registerUser';
+import { updateFormData } from '../../../../store/actions/registerUser';
 import { connect } from 'react-redux';
 import { getCookie } from 'cookies-next';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
-function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
+function ProfileSelection({ goToNextStep, formData, updateFormData, SetActiveTab }) {
 
     const Title = {
         color: "#000",
@@ -234,7 +234,7 @@ function ProfileSelection({ formData, updateFormData, SetActiveTab }) {
                             </li>
                         </ul>
                         <div>
-                            <button onClick={HandleSubmit} className='w-[153px] h-[44px] bg-[#000] rounded-[22px] text-[#FFF] text-center'>Start Now
+                            <button onClick={goToNextStep} className='w-[153px] h-[44px] bg-[#000] rounded-[22px] text-[#FFF] text-center'>Start Now
                                 <Image width={24} height={24} alt='next' src={"/assests/login/Arrow-reg.svg"} className='relative left-[8px] inline' />
                             </button>
                         </div>

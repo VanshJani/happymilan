@@ -137,11 +137,12 @@ function setCookiesAndLocalStorage(data) {
   localStorage.setItem('email', data.user.email);
   localStorage.setItem('mobilenumber', data.user.mobileNumber)
   localStorage.setItem('flName', `${data.user.firstName} ${data.user.lastName}`);
-  setCookie('jwtToken', data.tokens.access.token, { path: '/', secure: true });
-  setCookie('authtoken', data.tokens.refresh.token, { path: '/', secure: true });
-  setCookie('email', data.user.email, { path: '/', secure: true });
-  setCookie('userName', data.user.name, { path: '/', secure: true });
-  setCookie('data', JSON.stringify(data.tokens), { path: '/', secure: true });
+  setCookie('jwtToken', data.tokens.access.token, { secure: true });
+  setCookie('authtoken', data.tokens.refresh.token, { secure: true });
+  setCookie('email', data.user.email, { secure: true });
+  setCookie('userName', data.user.name, { secure: true });
+  setCookie('data', JSON.stringify(data.tokens), { secure: true });
+
 }
 
 export default loginAuth.reducer;

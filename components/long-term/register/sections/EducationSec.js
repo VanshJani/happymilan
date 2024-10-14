@@ -1,9 +1,9 @@
 import React from 'react'
 import dynamic from 'next/dynamic';
-import { LabelStyle } from '../../../utils/options/styles/SelectBoxStyle';
 import { connect } from 'react-redux';
-import { updateFormData } from '../../../store/actions/registerUser';
-import { CityOptions, CollageOptions, CountryOptions, DegreeOption, StateOptions } from '../../../utils/options/Register/EducationSectionOptions';
+import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle';
+import { updateFormData } from '../../../../store/actions/registerUser';
+import { CityOptions, CollageOptions, CountryOptions, DegreeOption, StateOptions } from '../../../../utils/options/Register/EducationSectionOptions';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 function EducationSec({ formData, updateFormData, }) {

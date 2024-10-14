@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone';
 import { connect, useDispatch } from 'react-redux';
-import { updateFormData } from '../../../store/actions/registerUser';
+import { updateFormData } from '../../../../store/actions/registerUser';
 
 function UploadContainer({ formData, updateFormData }) {
 

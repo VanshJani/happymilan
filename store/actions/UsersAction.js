@@ -537,7 +537,7 @@ export const getSentrequestDataFailure = (error) => ({
 })
 
 export const logoutuser = () => {
-      // Use router for redirection
+    // Use router for redirection
 
     return async (dispatch) => {
         dispatch({ type: LOGOUT_USER });  // Dispatch to Redux to update the state

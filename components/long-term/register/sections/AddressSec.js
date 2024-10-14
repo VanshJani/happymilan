@@ -1,11 +1,10 @@
 import React from 'react'
-import { motherTongueOption } from '../../../utils/options/Register/GenralSectionOptions'
 import dynamic from 'next/dynamic';
-import { LabelStyle } from '../../../utils/options/styles/SelectBoxStyle';
-import { updateFormData } from '../../../store/actions/registerUser';
 import { connect } from 'react-redux';
-import { countryoflivingOptions, currentcityOption } from '../../../utils/options/Register/AddressSectionOptions';
-import { StateOptions } from '../../../utils/options/Register/EducationSectionOptions';
+import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle';
+import { updateFormData } from '../../../../store/actions/registerUser';
+import { countryoflivingOptions, currentcityOption } from '../../../../utils/options/Register/AddressSectionOptions';
+import { StateOptions } from '../../../../utils/options/Register/EducationSectionOptions';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 
@@ -64,7 +63,6 @@ function AddressSec({ formData, updateFormData, SetActiveTab }) {
                                     styles={LabelStyle}
                                     options={currentcityOption}
                                     onChange={(selectedOption) => HandleChange({ target: { name: "currentCity", value: selectedOption?.value } })}
-
                                 />
                             </li>
                         </ul>

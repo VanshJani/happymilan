@@ -1,6 +1,6 @@
 import { Box, Modal } from '@mui/material'
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { EffectFade, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -12,12 +12,10 @@ import 'swiper/css/pagination';
 
 import { useSelector } from 'react-redux';
 import UploadImage from '../../../pages/longterm/dashboard/commonCompo/HandeImageUpload/UploadImage';
-// import 'swiper/css/pagination';
+import ViewProfile from './ViewProfile';
 
 function ProfileImagesViewer() {
-
     const { data } = useSelector((state) => state.myprofile);
-
 
     const style = {
         position: 'absolute',
@@ -32,73 +30,40 @@ function ProfileImagesViewer() {
         p: 4,
     };
 
-
     const ImageNotFoundText = {
         color: "#B3CBF1",
         textAlign: "center",
         fontFamily: "Poppins",
         fontSize: "12px",
-        fontStyle: "normal",
-        fontWeight: "500",
-        lineHeight: "normal"
-    }
-
-    const [CurrImage, setCurrImage] = useState()
-
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-        setOpen(false)
-        setCurrImage(0)
+        fontWeight: 500,
     };
 
+    const [CurrImage, setCurrImage] = useState(0);
+    const [open, setOpen] = useState(false);
+    const [openUpload, setOpenUpload] = useState(false);
 
+    const handleOpen = () => setOpen(true);
 
-    const ImagesSlider = [
-        {
-            id: 1,
-            URL: "https://images.unsplash.com/photo-1723764881665-5b40cea01c9b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        },
-        {
-            id: 2,
-            URL: "https://plus.unsplash.com/premium_photo-1669740214190-1e7b7a05c44c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        },
-        {
-            id: 3,
-            URL: "https://plus.unsplash.com/premium_photo-1669740216517-94f3860b1d6a?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        },
-        {
-            id: 4,
-            URL: "https://plus.unsplash.com/premium_photo-1669740217737-611345f9d246?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        },
-    ]
+    const handleClose = () => {
+        setOpen(false);
+        setCurrImage(0);
+    };
 
-
-
-    useEffect(() => {
-        console.log("CurrentImage", CurrImage)
-        console.log("Length", data?.userProfilePic?.length)
-    }, [CurrImage, setCurrImage])
-
-
-    const [openUpload, setOpenUpload] = React.useState(false);
-
-
-
-    const handleClickOpenUpload = (res) => {
-        // console.log("<== Image Response ==>", res)
-        if (data.userProfilePic.length > 5) {
+    const handleClickOpenUpload = () => {
+        if (data?.userProfilePic?.length >= 5) {
             alert("You have reached the maximum limit of 5 images. If you want to upload a new image, please delete one of your current images.");
         } else {
-            // alert("Image Not More");
             setOpenUpload(true);
         }
-
     };
 
-    const handleCloseUpload = () => {
-        setOpenUpload(false);
-    };
+    const handleCloseUpload = () => setOpenUpload(false);
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
 
     return (
@@ -110,17 +75,10 @@ function ProfileImagesViewer() {
                         modules={[Pagination]}
                         className="mySwiper 2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px] rounded-[10px]"
                     >
-
                         {
-
                             data?.userProfilePic?.map((res, index) => (
                                 <SwiperSlide key={index}>
-                                    {/* <div className='right-[10px] mt-[10px] z-[10] absolute'>
-                                        <Image loading='lazy' onClick={() => handleClickDeleteImageModal(res)} alt='delete' width={24} height={24} src="/assests/dashboard/icon/Trash-icon.svg" />
-                                    </div>
-                                    <img style={imageStyle} onClick={() => handleClickOpen(res, index)} alt='user-images' className='space-x-[10px] rounded-[10px] h-[381px] w-[300px] cursor-pointer' src={res?.url} /> */}
                                     <Image loading="lazy" onClick={handleOpen} width={300} height={381} className='2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px]' alt='image' src={res?.url} />
-
                                 </SwiperSlide>
                             ))
                         }
@@ -142,13 +100,13 @@ function ProfileImagesViewer() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <div className='w-[767px] h-[520px] space-y-[26px]'>
-
+                    <div className='w-[780px] h-[520px] space-y-[26px]'>
                         <ul className='flex justify-evenly items-center'>
                             <li className='w-[42px] h-[42px] rounded-full'>
                                 <Image id='custom-prev-button' className={CurrImage === 0 ? 'transform scale-x-[-1] opacity-50' : 'transform scale-x-[-1] hover:opacity-50 duration-150 cursor-pointer'} width={42} height={42} src={"/assests/icons/arrow-btn.svg"} />
                             </li>
                             <li className=''>
+
                                 <Swiper
                                     spaceBetween={30}
                                     effect={'fade'}
@@ -158,13 +116,22 @@ function ProfileImagesViewer() {
                                     }}
                                     onSlideChange={(swiper) => setCurrImage(swiper.activeIndex)}
                                     modules={[EffectFade, Navigation, Pagination]}
-                                    className="mySwiper w-[332px] h-[449px]"
+                                    className="mySwiper w-[345px] h-[449px]"
                                 >
                                     {
                                         data?.userProfilePic?.map((res, index) => {
                                             return (
                                                 <SwiperSlide key={index}>
-                                                    <Image loading="lazy" quality={50} width={300} height={381} className='w-[332px] h-[449px]' style={{ width: "332px", height: "449px", objectFit: "cover", borderRadius: "10px" }} alt='image' src={res?.url} />
+                                                    <div onClick={openModal} className='absolute right-0'>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16" fill="none">
+                                                            <path d="M2 15.2695C1.5875 15.2695 1.23442 15.1225 0.94075 14.8287C0.646917 14.535 0.5 14.182 0.5 13.7695C0.5 13.357 0.646917 13.0038 0.94075 12.71C1.23442 12.4163 1.5875 12.2695 2 12.2695C2.4125 12.2695 2.76558 12.4163 3.05925 12.71C3.35308 13.0038 3.5 13.357 3.5 13.7695C3.5 14.182 3.35308 14.535 3.05925 14.8287C2.76558 15.1225 2.4125 15.2695 2 15.2695ZM2 9.50021C1.5875 9.50021 1.23442 9.35329 0.94075 9.05946C0.646917 8.76579 0.5 8.41271 0.5 8.00021C0.5 7.58771 0.646917 7.23462 0.94075 6.94096C1.23442 6.64712 1.5875 6.50021 2 6.50021C2.4125 6.50021 2.76558 6.64712 3.05925 6.94096C3.35308 7.23462 3.5 7.58771 3.5 8.00021C3.5 8.41271 3.35308 8.76579 3.05925 9.05946C2.76558 9.35329 2.4125 9.50021 2 9.50021ZM2 3.73096C1.5875 3.73096 1.23442 3.58412 0.94075 3.29046C0.646917 2.99662 0.5 2.64346 0.5 2.23096C0.5 1.81846 0.646917 1.46537 0.94075 1.17171C1.23442 0.877874 1.5875 0.730957 2 0.730957C2.4125 0.730957 2.76558 0.877874 3.05925 1.17171C3.35308 1.46537 3.5 1.81846 3.5 2.23096C3.5 2.64346 3.35308 2.99662 3.05925 3.29046C2.76558 3.58412 2.4125 3.73096 2 3.73096Z" fill="#5F6368" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <div>
+                                                            <Image loading="lazy" quality={50} width={300} height={381} className='w-[332px] h-[449px]' style={{ width: "332px", height: "449px", objectFit: "cover", borderRadius: "10px" }} alt='image' src={res?.url} />
+                                                        </div>
+                                                    </div>
                                                 </SwiperSlide>
                                             )
                                         })
@@ -192,18 +159,24 @@ function ProfileImagesViewer() {
                                         <Image width={20} height={18} alt='camera' src={"/assests/profile/before-imageupload-icon.svg"} />
                                     </li>
                                 )
-
                             }
-
-
                         </ul>
 
                     </div>
                 </Box>
             </Modal>
-
             <UploadImage openUpload={openUpload}
                 handleCloseUpload={handleCloseUpload} />
+
+
+
+            <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
+                <div style={{ width: '250px', height: '250px', position: 'relative', borderRadius: "10px" }}>
+
+                 
+
+                </div>
+            </ViewProfile>
         </>
     )
 }

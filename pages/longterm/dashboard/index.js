@@ -41,7 +41,7 @@ function index() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    router.push("/register")
+    router.push("/longterm/register/profileselect")
 
   };
 

@@ -1,7 +1,7 @@
 import { getCookie } from 'cookies-next';
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import { updateFormData } from '../../../store/actions/registerUser';
+import { updateFormData } from '../../../../store/actions/registerUser';
 
 function ContactSec({ formData, updateFormData, }) {
 

@@ -1,10 +1,9 @@
 import dynamic from 'next/dynamic';
 import React from 'react'
-import { GenderOption, MaritalOptions } from '../../../utils/options/Register/GenralSectionOptions';
-import { cityOptions, CountryOptions, dietOptions, incomeOptions, statesOptions } from '../../../utils/options/Register/PartnerPreferenceOptions';
-import { LabelStyle } from '../../../utils/options/styles/SelectBoxStyle';
-import { updateFormData, updatePartnerPref } from '../../../store/actions/registerUser';
+import { cityOptions, CountryOptions, dietOptions, incomeOptions, statesOptions } from '../../../../utils/options/Register/PartnerPreferenceOptions';
+import { updateFormData, updatePartnerPref } from '../../../../store/actions/registerUser';
 import { connect, useDispatch } from 'react-redux';
+import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 

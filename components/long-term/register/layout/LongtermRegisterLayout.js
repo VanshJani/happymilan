@@ -1,190 +1,14 @@
-
-import React, { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from "react-redux";
-import { updateAddressData, updateEducationData, updateGeneralInfo, updatePartnerPrefData, updateProffessionalData, updatehobbiesData } from "../../store/actions/registerUser";
-import { setFormValidation } from "../../store/reducers/registerReducer";
-import { ImageUpload } from "../../store/actions/ImageUpload";
 import Image from "next/image";
-import dynamic from 'next/dynamic';
-
-// Lazy loading components with dynamic import
-const GenralSec = dynamic(() => import('./Registersection/GenralSec'), {
-    ssr: false, // Only if you want to disable server-side rendering for this component
-    loading: () => <p>Loading General Section...</p>, // Optional fallback component while loading 
-});
-
-const AddressSec = dynamic(() => import('./Registersection/AddressSec'), { ssr: false, loading: () => <p>Loading Address Section...</p>, });
-const ContactSec = dynamic(() => import('./Registersection/ContactSec'), { ssr: false, loading: () => <p>Loading Contact Section...</p>, });
-const EducationSec = dynamic(() => import('./Registersection/EducationSec'), { ssr: false, loading: () => <p>Loading Education Section...</p>, });
-const ProffSec = dynamic(() => import('./Registersection/ProffSec'), { ssr: false, loading: () => <p>Loading Professional Section...</p>, });
-const HobbySec = dynamic(() => import('./Registersection/HobbySec'), { ssr: false, loading: () => <p>Loading Hobby Section...</p>, });
-const UploadPicSec = dynamic(() => import('./Registersection/UploadPicSec'), { ssr: false, loading: () => <p>Loading Upload Picture Section...</p>, });
-const ProfileSelection = dynamic(() => import('./Registersection/ProfileSelection'), { ssr: false, loading: () => <p>Loading Profile Selection...</p>, });
-const PartnerPrefSec = dynamic(() => import('./Registersection/PartnerPrefSec'), { ssr: false, loading: () => <p>Loading Partner Preference Section...</p>, });
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAddressData, updateEducationData, updateGeneralInfo, updatePartnerPrefData, updateProffessionalData, updatehobbiesData } from "../../../../store/actions/registerUser";
+import { ImageUpload } from "../../../../store/actions/ImageUpload";
+import ProfileSelection from "../sections/ProfileSelection";
 
 
-function Home() {
-
-
-    useEffect(() => {
-        const handleBeforeUnload = (event) => {
-            // Modern browsers require returnValue to be set
-            event.preventDefault();
-            event.returnValue = ''; // Some browsers require this line for compatibility
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        // Cleanup the event listener when the component unmounts
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
-
-
+function LongtermRegisterLayout({ slug, children }) {
     const [activeTab, setActiveTab] = useState(0);
-    const dispatch = useDispatch();
-    const { status, upload, general, address, contact, education, professional, partnerpref, allhobbies } = useSelector((state) => state.form?.formData)
-    const ContentOfForm = [
-        { id: 1, name: "General Details" },
-        { id: 2, name: "Address Details" },
-        { id: 3, name: "Contact Details" },
-        { id: 4, name: "Education Details" },
-        { id: 5, name: "Job Details" },
-        { id: 6, name: "Hobbies & Interests" },
-        { id: 7, name: "Upload Photos" },
-        { id: 8, name: "Prefer Partner" },
-    ]
-
-    const HandleTabclick = (id) => {
-
-        if (activeTab === 1) {
-            const isFormValid = Object.values(general).every(value => value.trim() !== '');
-            if (isFormValid) {
-                // Proceed to the next page or perform other actions
-                dispatch(updateGeneralInfo(general))
-                localStorage.setItem("UserRegister", false)
-                if (status == "idle") {
-                    setActiveTab(2)
-                }
-            } else {
-                // Display error message or prevent navigation to the next page
-                dispatch(setFormValidation(false))
-                alert("Please Complete General Details");
-            }
-
-        } else if (activeTab === 2) {
-            // Check if at least one field is filled
-            const isAnyFieldFilled = Object.values(address).some(value => value.trim() !== '');
-
-            if (isAnyFieldFilled) {
-                console.log("At least one field is filled. Dispatching data...");
-                dispatch(updateAddressData(address));
-                setActiveTab(3);
-            } else {
-                setActiveTab(3);
-            }
-        } else if (activeTab === 3) {
-
-            const isAnyFieldFilled = Object.values(contact).some(value => value.trim() !== '');
-
-            if (isAnyFieldFilled) {
-                dispatch(updateGeneralInfo({
-
-                    mobileNumber: contact.mobileNumber,
-                    homeMobileNumber: contact.homeMobileNumber
-                }))
-                localStorage.setItem('mobilenumber', contact.mobileNumber)
-                setActiveTab(4)
-            }
-            setActiveTab(id);
-
-        } else if (activeTab === 4) {
-            const isAnyFieldFilled = Object.values(education).some(value => value.trim() !== '');
-
-            if (isAnyFieldFilled) {
-                dispatch(updateEducationData(education))
-                setActiveTab(5)
-            } else {
-                setActiveTab(id);
-            }
-        } else if (activeTab === 5) {
-            const isAnyFieldFilled = Object.values(professional).some(value => value.trim() !== '');
-
-            if (isAnyFieldFilled) {
-                dispatch(updateProffessionalData(professional))
-                setActiveTab(6)
-
-            } setActiveTab(id)
-        } else if (activeTab === 6) {
-
-            if (!allhobbies.hobbies.length == 0) {
-                console.log(allhobbies)
-                dispatch(updatehobbiesData(allhobbies))
-            }
-            else {
-                console.log("not null")
-
-            }
-            setActiveTab(id)
-        }
-        else if (activeTab === 7) {
-            console.log(upload)
-
-            if (!upload.images.length == 0) {
-                dispatch(ImageUpload(upload))
-            } else {
-                console.log("Null")
-            }
-            setActiveTab(id)
-        }
-        else if (activeTab === 8) {
-
-            const isFormValid = Object.values(partnerpref).every(value => {
-                // Check if the value is a string before applying trim()
-                if (typeof value === 'string') {
-                    // Apply trim() only if the value is a string
-                    return value.trim() !== '';
-                }
-                // Return true for non-string values
-                return true;
-            });
-            if (isFormValid) {
-                dispatch(updatePartnerPrefData(partnerpref))
-                router.push("/longterm/dashboard")
-            } else {
-                router.push("/longterm/dashboard")
-            }
-        }
-        setActiveTab(id);
-    };
-
-
-    const renderTabContent = () => {
-        switch (activeTab) {
-            case 0:
-                return <ProfileSelection />
-            case 1:
-                return <GenralSec />
-            case 2:
-                return <AddressSec />
-            case 3:
-                return <ContactSec />
-            case 4:
-                return <EducationSec />
-            case 5:
-                return <ProffSec />
-            case 6:
-                return <HobbySec />
-            case 7:
-                return <UploadPicSec />
-            case 8:
-                return <PartnerPrefSec />
-            default:
-                "";
-        }
-    };
 
     const Title = {
         color: "#000",
@@ -193,7 +17,7 @@ function Home() {
         fontStyle: "normal",
         fontWeight: "600",
         lineHeight: "normal",
-    }
+    };
 
     const Content = {
         color: "#000",
@@ -202,7 +26,7 @@ function Home() {
         fontStyle: "normal",
         fontWeight: "400",
         lineHeight: "normal",
-    }
+    };
 
     const HelpText = {
         fontFamily: "Poppins",
@@ -210,38 +34,166 @@ function Home() {
         fontStyle: "normal",
         fontWeight: "400",
         lineHeight: "normal",
-    }
+    };
 
     const router = useRouter();
+    const dispatch = useDispatch();
+
+    const { status, upload, general, address, contact, education, professional, partnerpref, allhobbies } = useSelector((state) => state.form?.formData)
 
 
-    if (activeTab == 0) {
-        return <ProfileSelection SetActiveTab={setActiveTab} />
+    const steps = [
+        { name: "ProfileSelect", slug: "profileselect" },
+        { name: "General Details", slug: "general" },
+        { name: "Address Details", slug: "address" },
+        { name: "Contact Details", slug: "contact" },
+        { name: "Education Details", slug: "education" },
+        { name: "Proffessional Details", slug: "professional" },
+        { name: "Hobby Details", slug: "hobby" },
+        { name: "Upload Details", slug: "upload" },
+        { name: "Preferences", slug: "preferences" },
+    ];
+
+
+    // Sync activeTab with URL slug
+    const [isNext, setIsNext] = useState(true); // Track whether user clicked "Next" or "Prev"
+
+    // Track the active tab based on the current slug
+    useEffect(() => {
+        const stepIndex = steps.findIndex((step) => step.slug === slug);
+        if (stepIndex >= 0) {
+            setActiveTab(stepIndex);
+        }
+    }, [slug]);
+
+
+
+    const apiCalls = {
+        2: async () => {
+            try {
+                dispatch(updateGeneralInfo(general))
+                // Make the API call for general details
+
+
+            } catch (error) {
+                console.error("Error in General Details API:", error);
+            }
+        },
+        3: async () => {
+            try {
+                dispatch(updateAddressData(address));
+            } catch (error) {
+                console.error("Error in Additional Details API:", error);
+            }
+        },
+        4: async () => {
+            try {
+                dispatch(updateGeneralInfo({
+                    mobileNumber: contact.mobileNumber,
+                    homeMobileNumber: contact.homeMobileNumber
+                }))
+            } catch (error) {
+                console.error("Error in Hobbies API:", error);
+            }
+        },
+        5: async () => {
+            try {
+                dispatch(updateEducationData(education))
+            } catch (error) {
+                console.error("Error in Hobbies API:", error);
+            }
+        },
+        6: async () => {
+            try {
+                dispatch(updateProffessionalData(professional))
+            } catch (error) {
+                console.error("Error in Hobbies API:", error);
+            }
+        },
+        7: async () => {
+            try {
+                dispatch(updatehobbiesData(allhobbies));
+            } catch (error) {
+                console.error("Error in Hobbies API:", error);
+            }
+        },
+        8: async () => {
+            try {
+                dispatch(ImageUpload(upload))
+            } catch (error) {
+                console.error("Error in Hobbies API:", error);
+            }
+        },
+
+        // Add more API calls as needed for other steps
+    };
+
+    // API calls based on the current step, but only if moving forward (isNext === true)
+    useEffect(() => {
+        if (activeTab >= 1 && isNext) {
+            apiCalls[activeTab]?.(); // Trigger the respective API call based on the active tab
+        }
+    }, [activeTab, isNext]);
+
+    const goToNextStep = () => {
+        setIsNext(true); // Set flag to true when moving forward
+        if (activeTab < steps.length - 1) {
+            router.push(`/longterm/register/${steps[activeTab + 1].slug}`);
+        }
+        // console.log(activeTab)
+        if (activeTab === 8) {
+            try {
+                dispatch(updatePartnerPrefData(partnerpref));
+                setTimeout(() => {
+                    router.push("/longterm/dashboard");
+                }, 1000);
+            } catch (error) {
+                console.error("Error in Hobbies API:", error);
+            }
+            console.log("true")
+        }
+    };
+
+    const goToPrevStep = () => {
+        setIsNext(false); // Set flag to false when moving backward
+        if (activeTab > 0) {
+            router.push(`/longterm/register/${steps[activeTab - 1].slug}`);
+        }
+    };
+
+    if (activeTab === 0) {
+        return <ProfileSelection goToNextStep={goToNextStep} />;
     }
 
     return (
         <>
-            <div className='w-full h-full grid place-items-center pt-[100px]'>
-                <div className='flex justify-evenly items-center w-full'>
+            <div className="w-full h-full grid place-items-center pt-[100px]">
+                <div className="flex justify-evenly items-center w-full">
                     <div className="xl:block hidden w-[332px]">
-                        <ul className='fixed left-[120px] top-[200px] space-y-[40px]'>
-                            <li className='space-y-[11px] w-[335px]'>
-                                <h1 style={Title}>{ContentOfForm[activeTab - 1]?.name}</h1>
-                                <p style={Content} className="w-[332px]">Welcome to Matrimoney, the premier online platform for finding your perfect life partner! </p>
+                        <ul className="fixed left-[120px] top-[200px] space-y-[40px]">
+                            <li className="space-y-[11px] w-[335px]">
+                                <h1 style={Title}>{steps?.[activeTab]?.name}</h1>
+                                <p style={Content} className="w-[332px]">
+                                    Welcome to Matrimoney, the premier online platform for finding
+                                    your perfect life partner!{" "}
+                                </p>
                             </li>
                             <li>
-                                <div className='h-[1px] w-full bg-[#EBEBEB]'></div>
+                                <div className="h-[1px] w-full bg-[#EBEBEB]"></div>
                             </li>
                             <li>
-                                <p style={HelpText} className='text-[#000]'>Need any help? <span className='text-[#0F52BA]'>Contact Us</span></p>
+                                <p style={HelpText} className="text-[#000]">
+                                    Need any help?{" "}
+                                    <span className="text-[#0F52BA]">Contact Us</span>
+                                </p>
                             </li>
                         </ul>
                     </div>
 
-                    <div className='h-[511px] w-[707px] border-l-[1px] border-l-[#EBEBEB]'>
-                        <div className='ml-[66px] w-[647px]'>
+                    <div className="h-[511px] w-[707px] border-l-[1px] border-l-[#EBEBEB]">
+                        <div className="ml-[66px] w-[647px]">
+                            <div className="w-full">
 
-                            <div className='w-full'>
                                 {activeTab > 6 ?
                                     <ul className="flex space-x-[100px]">
                                         <li>
@@ -288,32 +240,44 @@ function Home() {
                                         </li>
                                     </ul>
                                 }
+
                             </div>
-
-                            <div className=''>
-                                {renderTabContent()}
-                            </div>
-
-                            <div className='w-full h-full grid place-items-center'>
-                                <div className='fixed  z-10 bottom-0 flex justify-center bg-[#FFF]  w-full 2xl:h-[100px] xl:h-[100px] lg:h-[80px] h-[80px]'>
-                                    {activeTab > 0 ? <>
-                                        <div className='w-[647px] mt-[20px]'>
-                                            <ul className='flex justify-between w-[647px]'>
-                                                <li className=''>
-                                                    <button onClick={() => setActiveTab(activeTab - 1)} className='w-[97px] h-[44px] border-[1px] border-[#000] rounded-[22px]'>
-                                                        Back
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button onClick={() => HandleTabclick(activeTab + 1)} className='w-[153px] h-[44px] border-[1px] border-[#000] rounded-[22px] bg-[#000] text-[#FFF]'>
-                                                        Continue
-                                                        <Image width={24} height={24} alt='next' src={"/assests/login/Arrow-reg.svg"} className='relative left-[8px] inline' />
-
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </> : ""}
+                            <div className="">{children}</div>
+                            <div className="w-full h-full grid place-items-center">
+                                <div className="fixed  z-10 bottom-0 flex justify-center bg-[#FFF]  w-full 2xl:h-[100px] xl:h-[100px] lg:h-[80px] h-[80px]">
+                                    {activeTab > 0 ? (
+                                        <>
+                                            <div className="w-[647px] mt-[20px]">
+                                                <ul className="flex justify-between w-[647px]">
+                                                    <li className="">
+                                                        <button
+                                                            onClick={goToPrevStep}
+                                                            className="w-[97px] h-[44px] border-[1px] border-[#000] rounded-[22px]"
+                                                        >
+                                                            Back
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            onClick={goToNextStep}
+                                                            className="w-[153px] h-[44px] border-[1px] border-[#000] rounded-[22px] bg-[#000] text-[#FFF]"
+                                                        >
+                                                            {"Continue"}
+                                                            <Image
+                                                                width={24}
+                                                                height={24}
+                                                                alt="next"
+                                                                src={"/assests/login/Arrow-reg.svg"}
+                                                                className="relative left-[8px] inline"
+                                                            />
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        ""
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -323,4 +287,5 @@ function Home() {
         </>
     );
 }
-export default Home;
+
+export default LongtermRegisterLayout;

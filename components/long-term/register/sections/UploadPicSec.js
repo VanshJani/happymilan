@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { connect } from 'react-redux'
-import { updateFormData } from '../../../store/actions/registerUser'
+import { updateFormData } from '../../../../store/actions/registerUser'
 import Image from "next/image";
 import UploadContainer from "./UploadContainer";
 

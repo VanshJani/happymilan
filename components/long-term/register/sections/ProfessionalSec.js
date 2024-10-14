@@ -1,13 +1,13 @@
 import React from 'react'
 import dynamic from 'next/dynamic';
-import { LabelStyle } from '../../../utils/options/styles/SelectBoxStyle';
-import { countryoflivingOptions, currentcityOption } from '../../../utils/options/Register/ProfessionalSectionOptions';
-import { updateFormData } from '../../../store/actions/registerUser';
+import { countryoflivingOptions, currentcityOption } from '../../../../utils/options/Register/ProfessionalSectionOptions';
 import { connect } from 'react-redux';
+import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle';
+import { updateFormData } from '../../../../store/actions/registerUser';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 
-function ProffSec({ formData, updateFormData, SetActiveTab }) {
+function ProfessionalSec({ formData, updateFormData, SetActiveTab }) {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -79,6 +79,6 @@ function ProffSec({ formData, updateFormData, SetActiveTab }) {
     )
 }
 
-// export default ProffSec
+// export default ProfessionalSec
 
-export default connect((state) => ({ formData: state.form.formData }), { updateFormData })(ProffSec);
+export default connect((state) => ({ formData: state.form.formData }), { updateFormData })(ProfessionalSec);

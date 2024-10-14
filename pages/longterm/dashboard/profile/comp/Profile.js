@@ -385,11 +385,11 @@ function Profile() {
                                 <div className="w-[90%] relative top-[-15px] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]">
                                     <div>
                                         <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>{`Height & Weight`}</p>
-                                        <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px] xl:text-[14px] text-[14px]'>{data && data?.height ? data?.height + " " + "ft" : "NA"}, &nbsp;{data && data?.weight ? data?.weight + " " + "kg" : "NA"} </h1>
+                                        <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px] xl:text-[14px] text-[14px]'>{data?.height + " " + "ft" || "NA"}, &nbsp;{data?.weight + " " + "kg" || "NA"} </h1>
                                     </div>
                                     <div>
                                         <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>{`Marital Status`}</p>
-                                        <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px] xl:text-[14px] text-[14px]'>{data && data.maritalStatus ? capitalizeFirstLetter(data.maritalStatus) : ("NA")}</h1>
+                                        <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px] xl:text-[14px] text-[14px]'>{capitalizeFirstLetter(data?.maritalStatus) || ("NA")}</h1>
                                     </div>
                                 </div>
                             </div>

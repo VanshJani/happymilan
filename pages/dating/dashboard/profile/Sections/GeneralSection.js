@@ -12,6 +12,7 @@ import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import { fetchUserDetails } from '../../../../../store/dating-services/Redux-reducer/home/MyprofileReducer';
 import ViewProfile from '../../../../../components/common/Models/ViewProfile';
 import ProfileDetails from './ProfileDetails';
+import HobbySectionInfo from './HobbySectionInfo';
 
 function GeneralSection() {
 
@@ -134,32 +135,8 @@ function GeneralSection() {
                         <div>
                             <Additionalinfo />
                         </div>
-                        <div className='space-y-[20px] w-full h-[168px] rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px] '>
-                            <div>
-                                <ul className='flex justify-between items-center'>
-                                    <li><p>Hobbies & Interests</p></li>
-                                    <li>
-                                        <div className='cursor-pointer w-[37px] h-[37px] dark:hover:bg-[#252525] hover:bg-[#F0F9FF] rounded-[50%] flex items-center justify-center'>
-                                            {!showForm ?
-                                                <Image alt='editIcon' width={20} height={20} onClick={() => setshowForm(!showForm)} src={darkMode ? '/assests/dashboard/icon/edit-details-icon-white.svg' : '/assests/dashboard/icon/edit-details-icon.svg'} />
-                                                :
-                                                <Image loading='lazy' alt='modifyIcon' width={15} height={15} onClick={() => setshowForm(!showForm)} src={darkMode ? '/assests/profile/cross-edit-icon-white.svg' : '/assests/profile/cross-edit-icon.svg'} />
-
-                                            }
-                                        </div>
-
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className='w-full h-[1px] bg-[#F1F1F1]'></div>
-                            <div>
-                                <ul className='flex space-x-[15px]'>
-                                    <li className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]' style={HobbyValue}>Writing</li>
-                                    <li className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]' style={HobbyValue}>Yoga</li>
-                                    <li className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]' style={HobbyValue}>Travel</li>
-                                    <li className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]' style={HobbyValue}>Movies</li>
-                                </ul>
-                            </div>
+                        <div>
+                            <HobbySectionInfo />
                         </div>
                     </div>
                 </div>
