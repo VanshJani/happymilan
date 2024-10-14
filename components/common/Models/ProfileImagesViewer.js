@@ -171,10 +171,8 @@ function ProfileImagesViewer() {
 
 
             <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
-                <div style={{ width: '250px', height: '250px', position: 'relative', borderRadius: "10px" }}>
-
+                <div style={{ width: '', height: '250px', position: 'relative', borderRadius: "10px" }}>
                  
-
                 </div>
             </ViewProfile>
         </>

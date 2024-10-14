@@ -9,7 +9,6 @@ import HobbySec from '../../../../components/long-term/register/sections/HobbySe
 import UploadPicSec from '../../../../components/long-term/register/sections/UploadPicSec'
 import PartnerPrefSec from '../../../../components/long-term/register/sections/PartnerPrefSec'
 import LongtermRegisterLayout from '../../../../components/long-term/register/layout/longTermRegisterLayout'
-// import LongtermRegisterLayout from '../../../../components/long-term/register/layout/longTermRegisterLayout'
 function index() {
 
     const router = useRouter()

@@ -95,58 +95,46 @@ function DatingProfileSelection({
     const handleInputChange = (e) => {
         let { name, value } = e.target;
 
-        if (name === "interestedIn") {
-            updateDatingFormData({
-                general: {
-                    ...datingForm.general,
-                    datingData: [{
-                        interestedIn: value,
-                    }],
-                }
-            });
-        } else {
-            if (name === 'dateOfBirth') {
-                const selectedDate = new Date(value);
-                const currentDate = new Date();
-                const eighteenYearsAgo = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
 
-                // Check if selected date is in the future
-                if (selectedDate > currentDate) {
-                    alert('Please select a date that is not in the future.');
-                    // Optionally, you can reset the date input here
-                    value = null;
+        if (name === 'dateOfBirth') {
+            const selectedDate = new Date(value);
+            const currentDate = new Date();
+            const eighteenYearsAgo = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
 
-                } // Check if user is at least 18 years old
-                if (eighteenYearsAgo < selectedDate) {
-                    alert('You must be at least 18 years old.');
-                    // Optionally, you can reset the date input here
-                    value = null
+            // Check if selected date is in the future
+            if (selectedDate > currentDate) {
+                alert('Please select a date that is not in the future.');
+                // Optionally, you can reset the date input here
+                value = null;
 
-                }
+            } // Check if user is at least 18 years old
+            if (eighteenYearsAgo < selectedDate) {
+                alert('You must be at least 18 years old.');
+                // Optionally, you can reset the date input here
+                value = null
+
             }
-
-
-            setCredentials((prev) => ({
-                ...prev,
-                [name]: value,
-            }));
-
-            updateDatingFormData({
-                general: {
-                    ...datingForm.general,
-                    [name]: value,
-                },
-            });
-
-
-
-
-            SetValidate((prev) => ({
-                ...prev,
-                [name]: value,
-            }));
-
         }
+
+
+        setCredentials((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+
+        updateDatingFormData({
+            general: {
+                ...datingForm.general,
+                [name]: value,
+            },
+        });
+
+        SetValidate((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+
+
     };
 
     // Validating fields before submission
@@ -181,7 +169,6 @@ function DatingProfileSelection({
                         <ul className="h-[30px] flex space-x-[37px]">
                             <li>
                                 <div style={{ width: "232px" }} className="the-input-container">
-                                    {/* <input type="text" id="firstName" name='firstName' required /> */}
                                     <input
                                         value={datingForm?.general?.firstName}
                                         type="text"
