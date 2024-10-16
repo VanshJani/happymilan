@@ -26,7 +26,7 @@ import ProductsListModal from "../../../pages/_components/Model/Models/ProductsL
 const RequestNotification = dynamic(() => import("../../long-term/Notification/RequestNotification"), {
     ssr: false
 });
-const ProfileImage = dynamic(() => import("../../../pages/_components/common/profile/ProfileImage"));
+const DatingProfileImage = dynamic(() => import("../../../pages/_components/common/profile/DatingProfileImage"));
 const UpgradeButton = dynamic(() => import("../../../pages/_components/common/Buttons/UpgradeButton"));
 
 const userId = {
@@ -203,7 +203,7 @@ function DatingNav() {
 
                         <div className="flex space-x-[20px]   pt-[20px] pb-[20px]">
                             <div className="">
-                                <ProfileImage size={40} />
+                                <DatingProfileImage size={40} />
                             </div>
                             <div>
                                 <h1 style={Username2}>{"myProfile?.name"}</h1>
@@ -412,7 +412,7 @@ function DatingNav() {
 
             >
                 <div className="grid place-items-center w-[45px] h-[45px]" style={{ cursor: "pointer" }} onClick={handleClick}>
-                    <ProfileImage size={40} />
+                    <DatingProfileImage size={40} />
                 </div>
 
                 <Modal
@@ -434,7 +434,7 @@ function DatingNav() {
 
                                 <div className="flex space-x-[39px] pl-[24px] items-center">
 
-                                    <ProfileImage size={47} />
+                                    <DatingProfileImage size={47} />
                                     <div>
                                         {isUpgradeActive ?
                                             (<>

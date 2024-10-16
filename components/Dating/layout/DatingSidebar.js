@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import { Slider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import ProfileImage from '../../../pages/_components/common/profile/ProfileImage';
+import ProfileImage from '../../../pages/_components/common/profile/DatingProfileImage';
 import { fetchUsers, setAgeRange } from '../../../store/dating-services/Redux-reducer/home/datinguserSlice';
 
 function DatingSideBar() {
