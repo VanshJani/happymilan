@@ -8,7 +8,7 @@ import ProffSec from '../../../../components/long-term/register/sections/Profess
 import HobbySec from '../../../../components/long-term/register/sections/HobbySec'
 import UploadPicSec from '../../../../components/long-term/register/sections/UploadPicSec'
 import PartnerPrefSec from '../../../../components/long-term/register/sections/PartnerPrefSec'
-import Longtermregister from '../../../../components/long-term/register/layout/LongtermRegister'
+import RegisterLayout from '../../../../components/long-term/register/layout/Longtermregister'
 function index() {
 
     const router = useRouter()
@@ -38,9 +38,9 @@ function index() {
     }
     return (
         <>
-            <Longtermregister slug={slug}>
+            <RegisterLayout slug={slug}>
                 {RenderSection()}
-            </Longtermregister>
+            </RegisterLayout>
         </>
     )
 }
