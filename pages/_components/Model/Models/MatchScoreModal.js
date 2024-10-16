@@ -131,7 +131,7 @@ function MatchScoreModal({ user }) {
                         <div className='w-full space-y-[20px] 2xl:space-y-[20px] xl:space-y-[15px] lg:space-y-[20px]'>
                             <div>
 
-                                <span style={ScoreMatchText} className={`text-[#000]`}>Your Match : <span className={`${loading ? "hidden" : ""} text-[#0F52BA]`}>{`${matchScore?.matchPercentage}%`}</span></span>
+                                <span style={ScoreMatchText} className={`text-[#000]`}>Your Match : <span className={`${loading ? "hidden" : ""} text-[#0F52BA]`}>{`${matchScore?.matchPercentage || 0} %`}</span></span>
                             </div>
                             <div className='flex flex-col items-center space-y-[15px]'>
 

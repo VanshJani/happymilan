@@ -12,7 +12,8 @@ import 'swiper/css/pagination';
 
 import { useSelector } from 'react-redux';
 import UploadImage from '../../../pages/longterm/dashboard/commonCompo/HandeImageUpload/UploadImage';
-import ViewProfile from './ViewProfile';
+import MenuPop from '../../Dating/common/Models/MenuPop';
+// import ViewProfile from './ViewProfile';
 
 function ProfileImagesViewer() {
     const { data } = useSelector((state) => state.myprofile);
@@ -60,10 +61,10 @@ function ProfileImagesViewer() {
     const handleCloseUpload = () => setOpenUpload(false);
 
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    // const openModal = () => setIsModalOpen(true);
+    // const closeModal = () => setIsModalOpen(false);
 
 
     return (
@@ -122,11 +123,7 @@ function ProfileImagesViewer() {
                                         data?.userProfilePic?.map((res, index) => {
                                             return (
                                                 <SwiperSlide key={index}>
-                                                    <div onClick={openModal} className='absolute right-0'>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16" fill="none">
-                                                            <path d="M2 15.2695C1.5875 15.2695 1.23442 15.1225 0.94075 14.8287C0.646917 14.535 0.5 14.182 0.5 13.7695C0.5 13.357 0.646917 13.0038 0.94075 12.71C1.23442 12.4163 1.5875 12.2695 2 12.2695C2.4125 12.2695 2.76558 12.4163 3.05925 12.71C3.35308 13.0038 3.5 13.357 3.5 13.7695C3.5 14.182 3.35308 14.535 3.05925 14.8287C2.76558 15.1225 2.4125 15.2695 2 15.2695ZM2 9.50021C1.5875 9.50021 1.23442 9.35329 0.94075 9.05946C0.646917 8.76579 0.5 8.41271 0.5 8.00021C0.5 7.58771 0.646917 7.23462 0.94075 6.94096C1.23442 6.64712 1.5875 6.50021 2 6.50021C2.4125 6.50021 2.76558 6.64712 3.05925 6.94096C3.35308 7.23462 3.5 7.58771 3.5 8.00021C3.5 8.41271 3.35308 8.76579 3.05925 9.05946C2.76558 9.35329 2.4125 9.50021 2 9.50021ZM2 3.73096C1.5875 3.73096 1.23442 3.58412 0.94075 3.29046C0.646917 2.99662 0.5 2.64346 0.5 2.23096C0.5 1.81846 0.646917 1.46537 0.94075 1.17171C1.23442 0.877874 1.5875 0.730957 2 0.730957C2.4125 0.730957 2.76558 0.877874 3.05925 1.17171C3.35308 1.46537 3.5 1.81846 3.5 2.23096C3.5 2.64346 3.35308 2.99662 3.05925 3.29046C2.76558 3.58412 2.4125 3.73096 2 3.73096Z" fill="#5F6368" />
-                                                        </svg>
-                                                    </div>
+                                                    <MenuPop data={res} />
                                                     <div>
                                                         <div>
                                                             <Image loading="lazy" quality={50} width={300} height={381} className='w-[332px] h-[449px]' style={{ width: "332px", height: "449px", objectFit: "cover", borderRadius: "10px" }} alt='image' src={res?.url} />
@@ -170,11 +167,11 @@ function ProfileImagesViewer() {
 
 
 
-            <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
-                <div style={{ width: '', height: '250px', position: 'relative', borderRadius: "10px" }}>
+            {/* <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
+                <div style={{ width: '200px', height: '250px', position: 'relative', borderRadius: "10px" }}>
                  
                 </div>
-            </ViewProfile>
+            </ViewProfile> */}
         </>
     )
 }

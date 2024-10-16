@@ -29,6 +29,7 @@ import {
 } from '../type';
 import { GET_REQUEST, GET_REQUEST_SUCCESS, GET_REQUEST_FAILURE } from '../type';
 import { fetchMyProfileData } from '../reducers/MyProfile';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const sendRequest = (requestData) => {
     return async (dispatch) => {
@@ -380,7 +381,8 @@ export const getPartnerpreferenceFailure = (error) => ({
 })
 
 
-export const getAcceptedRequestData = () => {
+export const getAcceptedRequestData = (viewType, pages) => {
+    console.log("🚀 ~ getAcceptedRequestData ~ pages:", pages)
     return async (dispatch) => {
         dispatch({ type: GET_ACCEPTED_REQUEST_DATA });
 
@@ -388,6 +390,7 @@ export const getAcceptedRequestData = () => {
             const axios = require('axios');
             const token = getCookie("authtoken");
 
+            const limit = viewType === 'grid' ? 6 : 10;
 
             if (!token) {
                 throw new Error('Authentication token is missing.');
@@ -396,7 +399,7 @@ export const getAcceptedRequestData = () => {
             const config = {
                 method: 'get',
                 // url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frds`,
-                url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frd-mobile`,
+                url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frd-mobile?page=${pages}&limit=${limit}`,
                 headers: {
                     'Authorization': `Bearer ${token}`
                     // 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQxODlmMDIxN2RkZTNlMTRmYzg5YmIiLCJpYXQiOjE3Mjc3NjI4NzMsImV4cCI6MTcyNzk0Mjg3M30.f7PtuE-a5osGXKuVn5dScLnemB3ZF4IY9IaBuF3r4gg`
@@ -425,6 +428,10 @@ export const getAcceptedRequestData = () => {
                 type: GET_ACCEPTED_REQUEST_DATA_SUCCESS,
                 payload: {
                     data: response.data?.data,
+                    totalPages: response?.data.data.totalPages,
+                    currentPage: response?.data.data.page,
+                    limit: response?.data.data.limit,
+                    pagesdata: response?.data.data,
                     acceptedUsers: response.data?.data?.results
                 }
             });
@@ -703,19 +710,16 @@ export const Sentblockrequestfailure = (error) => (
 )
 
 
-export const Cancelfriendrequest = (requestData, curUser) => {
+export const Cancelfriendrequest = (requestData, curUser, status) => {
     return async (dispatch) => {
         dispatch({ type: CANCEL_FRIEND_REQUEST })
 
         const axios = require('axios');
-        const currentuserId = getCookie("userid")
         const token = getCookie("authtoken")
         let data = JSON.stringify({
             "user": curUser,
             "request": requestData,
-            "status": "removed"
-
-
+            "status": status
         });
 
         let config = {
@@ -1275,6 +1279,7 @@ export const Getallstatus = () => {
 
         axios.request(config)
             .then((response) => {
+            console.log("🚀 ~ .then ~ response:", response)
 
                 const mystory = response.data.data.filter((item) => item.userId.id == currentUser)
                 const allstatus = response.data.data.filter((item) => item.userId.id != currentUser)
@@ -1366,3 +1371,51 @@ export const GetMatchScore = (MatchID) => {
 
     }
 }
+
+export const SetAsProfileImage = createAsyncThunk(
+    '/dating/profile/profileupdate',
+    async (data, thunkAPI) => {
+        console.log("🚀 ~ data:", data)
+
+        try {
+            const authToken = getCookie("authtoken");
+
+            if (!authToken) {
+                throw new Error('Token not found');
+            }
+            const updatedGeneralData = {
+                profilePic: data?.ImageURL
+                // appUsesType: generalData?.userType?.appUsesType
+            };
+            const requestOptions = {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedGeneralData)
+            };
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/update-user`, requestOptions);
+
+            if (!response.ok) {
+                if (response.status === 401) {
+                    throw new Error('Unauthorized');
+                } else {
+                    const errorMessage = await response.text();
+                    throw new Error(`API request failed: ${errorMessage}`);
+                }
+            }
+
+            const result = await response.json();
+            // localStorage.setItem("flName", result.userData.firstName + " " + result.userData.lastName)
+            return result.data;
+
+        } catch (error) {
+            console.error('Error updating data:', error);
+            throw error;
+        }
+    }
+);
+
+

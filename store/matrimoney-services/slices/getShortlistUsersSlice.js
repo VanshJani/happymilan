@@ -3,16 +3,23 @@ import { getCookie } from 'cookies-next';
 import axios from 'axios';
 
 // Thunk for fetching friends
-export const fetchshortlistUsers = ( Pages) => async (dispatch, getState) => {
+export const fetchshortlistUsers = (Pages) => async (dispatch, getState) => {
     dispatch(fetchshortlistrequest());
 
     try {
         const token = getCookie("authtoken");
         const LoginUserID = getCookie("userid")
 
+        const limit = Pages?.viewType === 'grid' ? 6 : 10;
+
+        // const Pages = {
+        //     currentPage: currentPage,
+        //     viewType : "Gridview"
+        // }
+
         const config = {
             method: 'get',
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/shortlist/get-short-list-paginat/${LoginUserID}?limit=6`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/shortlist/get-short-list-paginat/${LoginUserID}?page=${Pages?.currentPage}&limit=${limit}`,
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -22,7 +29,7 @@ export const fetchshortlistUsers = ( Pages) => async (dispatch, getState) => {
         const data = response.data;
 
         dispatch(fetchshortlistsuccess({
-            userData: data.data.results,
+            userData: data.data,
             totalPages: data.data.totalPages,
             currentPage: data.data.page,
             limit: data.data.limit,

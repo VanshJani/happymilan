@@ -186,6 +186,7 @@ function UserProfile() {
 
     const Pages = {
         currentPage: currentPage,
+        viewType: "ListView"
     }
 
     useEffect(() => {
@@ -324,7 +325,7 @@ function UserProfile() {
 
                     {
 
-                        userData.map((res, index) => {
+                        userData?.results?.map((res, index) => {
 
                             return (
                                 <>

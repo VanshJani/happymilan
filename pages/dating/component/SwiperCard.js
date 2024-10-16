@@ -130,7 +130,6 @@ const SwiperCardNext = () => {
         <div className="mt-[20px] top-3 relative flex items-center space-x-[20px] justify-center">
 
             <div className="space-x-[20px] flex items-center justify-center h-full">
-                {/* Side datingUsers? - Show left card only if current index is greater than 0 */}
                 <div className='w-[91px] h-[104px]'>
                     {currentIndex > 0 && (
                         <motion.div
@@ -169,7 +168,7 @@ const SwiperCardNext = () => {
                 </motion.div>
 
                 {/* Action Buttons */}
-                <div className="left-[-20px] absolute bottom-[-60px] w-full flex justify-center space-x-[12px]">
+                <div className="left-[-10px] absolute bottom-[-60px] w-full flex justify-center space-x-[12px]">
 
                     <div>
                         <div onClick={() => handleButtonClick('dislike')} className='w-[63px] h-[44px] grid place-items-center' id='Reject-dating'>

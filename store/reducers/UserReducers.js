@@ -94,6 +94,10 @@ const initialState = {
     acceptedrequestdata: {
         loading: false,
         data: null,
+        totalPages: null,
+        currentPage: null,
+        limit: null,
+        pagesdata: null,
         acceptedUsers: null
     },
     notifications: {
@@ -432,6 +436,10 @@ const userReducer = (state = initialState, action) => {
                 loading: false,
                 acceptedrequestdata: {
                     data: action.payload.data,
+                    totalPages: action.payload.totalPages,
+                    currentPage: action.payload.page,
+                    limit: action.payload.limit,
+                    pagesdata: action.payload.pagesdata,
                     acceptedUsers: action.payload.acceptedUsers,
                     loading: false
                 },

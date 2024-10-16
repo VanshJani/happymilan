@@ -23,10 +23,12 @@ function ProfileImage({ size }) {
       setIsDataFetched(true);
     }
 
-    
+
   }, []);
 
   const { data, status } = useSelector((state) => state.myprofile);
+  // const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
+
 
   if (!isDataFetched) {
     return (

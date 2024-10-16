@@ -162,18 +162,16 @@ function GridUserProfile() {
 
     const Pages = {
         currentPage: currentPage,
+        viewType: "Gridview"
     }
 
     useEffect(() => {
         dispatch(fetchshortlistUsers(Pages))
-    }, [currentPage])
+    }, [currentPage, dispatch])
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
-
-
-
 
 
     return (
@@ -186,7 +184,7 @@ function GridUserProfile() {
                         status === "loading" ? <ProfileSkeletonLoader /> :
                             <>
                                 {
-                                    userData?.map((res, index) => {
+                                    userData?.results?.map((res, index) => {
                                         return (
 
                                             <div key={index} style={profileStyles?.ProfileCard} className='inline-block lg:flex flex-col space-y-[15px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
@@ -247,7 +245,7 @@ function GridUserProfile() {
 
 
                 </div >
-                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} darkMode={false} />
+                {userData.length > 0 ? <>  <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} darkMode={false} /> </> : ""}
             </div>
         </>
     )

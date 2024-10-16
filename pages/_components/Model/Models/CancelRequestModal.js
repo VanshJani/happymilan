@@ -22,7 +22,7 @@ function CancelRequestModal({ isOpen, onClose, data, title }) {
     const HandleBlockUser = (e) => {
         if (e.target.name == 1) {
 
-            dispatch(Cancelfriendrequest(data?.currUser, data?.OtherUser))
+            dispatch(Cancelfriendrequest(data?.currUser, data?.OtherUser, data?.status))
             onClose();
             setTimeout(() => {
                 dispatch(getAcceptedRequestData())

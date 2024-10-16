@@ -108,7 +108,6 @@ function Profile() {
                 setuserdata((prevValue) => ({ ...prevValue, [name]: value }));
             }
             else if (name === 'cast') {
-                console.log("casttttt")
                 console.log(userdata)
 
                 const selectedcast = subcastOption.find((option) => option.value === value);

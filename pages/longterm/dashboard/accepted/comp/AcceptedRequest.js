@@ -20,10 +20,12 @@ const ShareModal = dynamic(() => import('../../../../_components/Model/Models/Sh
 import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import { addToShortlist } from '../../../../../store/actions/GetingAlluser';
 import CancelRequestModal from '../../../../_components/Model/Models/CancelRequestModal';
+import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
+import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser';
 
 const ShowMore = dynamic(() => import('../../../../_components/common/profile/UserBio'), { ssr: false });
 const MatchScoreModal = dynamic(() => import('../../../../_components/Model/Models/MatchScoreModal'), { ssr: false });
-const ProfileMenu = dynamic(() => import('../../../../_components/Model/popover/MenuPop'), { ssr: false });
+// const ProfileMenu = dynamic(() => import('../../../../_components/Model/popover/MenuPop'), { ssr: false });
 const RegisterAlertModal = dynamic(() => import('../../../../_components/Model/Models/RegisterAlertModal'), { ssr: false });
 const ReportModal = dynamic(() => import('../../../../_components/Model/Models/ReportModal'), { ssr: false });
 const BlockUserModal = dynamic(() => import('../../../../_components/Model/Models/BlockModal'), { ssr: false });
@@ -44,10 +46,6 @@ function AcceptedRequest() {
         setisRegisterModalOpen(false);
     };
 
-    const openBlockModal = (res) => {
-        setData(res)
-        setisBlockModalOpen(true);
-    }
     const closeBlockModal = () => { setisBlockModalOpen(false) }
 
     const openCancelModal = () => {
@@ -56,10 +54,6 @@ function AcceptedRequest() {
     }
     const closeCancelModal = () => { setisCancelModalOpen(false) }
 
-    const OpenReportModal = () => {
-        setisReportModalOpen(true);
-
-    };
 
     const CloseReportModal = () => {
         setisReportModalOpen(false);
@@ -79,10 +73,7 @@ function AcceptedRequest() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const openModal = () => {
-        setIsModalOpen(true);
 
-    };
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -124,16 +115,11 @@ function AcceptedRequest() {
     const dispatch = useDispatch();
 
     const data = useSelector((state) => state.usersact?.acceptedrequestdata)
-    
 
-    const [isCurrentUser, setisCurrentUSer] = useState("")
-
-
+    const [page, setpage] = useState(1);
 
     useEffect(() => {
-        dispatch(getAcceptedRequestData());
-
-        setisCurrentUSer(getCookie("userid"))
+        dispatch(getAcceptedRequestData("listview", page));
     }, [])
 
     const ImageNotFoundText = {
@@ -212,24 +198,17 @@ function AcceptedRequest() {
                                                             <h1 style={statusText} className={`text-[#7A7A7A]`}>Online now</h1>
                                                         </div>
                                                         <div className='pr-[8px]'>
-                                                            <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
+                                                            <ul className='flex justify-evenly space-x-[25px] pr-[10px] pt-[10px]'>
                                                                 <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]`}>
                                                                     <MatchScoreModal user={res?.friendList} />
                                                                 </li>
-                                                                <li>
-                                                                    <div onClick={() => HandleShortlist(res?.friendList?.id || res?.friendList?._id)} className="cursor-pointer dark:hover:bg-[#383838] hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]">
-                                                                        <Image
-                                                                            loading="lazy"
-                                                                            width={15}
-                                                                            height={14}
-                                                                            alt="star"
-                                                                            src={"/assests/Black/Stars-2.svg"}
-                                                                        />
-                                                                    </div>
+                                                                <li className='cursor-pointer'>
+                                                                    <ShortlistUser UserId={res?.friendList?.id || res?.friendList?._id} />
                                                                 </li>
                                                                 <li>
-                                                                    <ProfileMenu HandleCancelRequest={() => HandleCancelRequest(res, res?.friendList?.id || res?.friendList?._id)} MenuTitle={"accepted"} SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
-                                                                
+                                                                    {/* <ProfileMenu HandleCancelRequest={() => HandleCancelRequest(res, res?.friendList?.id || res?.friendList?._id)} MenuTitle={"accepted"} SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} /> */}
+                                                                    <ProfileMenu accepteddata={res} res={res?.friendList} Section={'accepted'} />
+
                                                                 </li>
                                                             </ul>
                                                         </div>

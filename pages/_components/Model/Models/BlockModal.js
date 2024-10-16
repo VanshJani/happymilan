@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Sentblockrequest } from "../../../../store/actions/UsersAction";
+import { Cancelfriendrequest, Sentblockrequest } from "../../../../store/actions/UsersAction";
 import { getCookie } from "cookies-next";
 
 function BlockModal({ isOpen, onClose, data, title }) {
@@ -21,14 +21,15 @@ function BlockModal({ isOpen, onClose, data, title }) {
   const CurrentUser = getCookie("userid")
 
   const HandleBlockUser = (e) => {
-    const IsUser = data?.friend?.id === CurrentUser;
+    // const IsUser = data?.friend?.id === CurrentUser;
 
-
+    // currUser: accepteddata?.id,
+    // OtherUser: accepteddata?.lastInitiatorUser
 
     if (title == "Unblock") {
       if (e.target.name == 1) {
         onClose();
-        dispatch(Sentblockrequest({RequestID : data?.id , InitiatorUser : data?.lastInitiatorUser, status: "accepted"}))
+        dispatch(Sentblockrequest({ RequestID: data?.id, InitiatorUser: data?.lastInitiatorUser, status: "accepted" }))
       } else {
         onClose();
       }
@@ -36,7 +37,9 @@ function BlockModal({ isOpen, onClose, data, title }) {
       if (e.target.name == 1) {
 
         onClose();
-        dispatch(Sentblockrequest({ RequestID: data?.id, InitiatorUser: IsUser ? data?.user?.id : data?.friend?.id , status : "blocked" }))
+        console.log("Dataaaaa:", data)
+        // dispatch(Sentblockrequest({ RequestID: data?.currUser, InitiatorUser: data?.OtherUser, status: "blocked" }))
+        dispatch(Cancelfriendrequest(data?.currUser, data?.OtherUser, data?.status))
 
 
       } else {

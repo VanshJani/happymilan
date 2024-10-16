@@ -6,8 +6,8 @@ export const datinguserSlice = createSlice({
   name: 'datingUsers',
   initialState: {
     users: [],
-    minAge: 20,
-    maxAge: 30,
+    minAge: 0,
+    maxAge: 90,
     loading: false,
     error: null,
   },

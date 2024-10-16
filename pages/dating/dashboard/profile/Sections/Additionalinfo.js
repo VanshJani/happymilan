@@ -42,11 +42,12 @@ function Additionalinfo() {
 
 
     const [UpdatedData, setUpdatedData] = useState({
-        currentSalary: "",
+
         datingData: [
             {
                 educationLevel: "",
-                Occupation: ""
+                Occupation: "",
+                annualIncome: ""
             }]
 
     });
@@ -55,12 +56,13 @@ function Additionalinfo() {
     useEffect(() => {
         if (details) {
             setUpdatedData({
-                currentSalary: details?.currentSalary,
+
                 datingData: [
                     {
                         ...details?.datingData[0],
                         educationLevel: details?.datingData[0]?.educationLevel || "",
-                        Occupation: details?.datingData[0]?.Occupation || ""
+                        Occupation: details?.datingData[0]?.Occupation || "",
+                        annualIncome: details?.datingData[0]?.annualIncome || ""
                     }
                 ]
 
@@ -90,6 +92,17 @@ function Additionalinfo() {
                     {
                         ...prev.datingData[0],
                         educationLevel: value
+                    }]
+
+            }));
+        }
+        else if (name === "annualIncome") {
+            setUpdatedData((prev) => ({
+                ...prev,
+                datingData: [
+                    {
+                        ...prev.datingData[0],
+                        annualIncome: value
                     }]
 
             }));
@@ -166,8 +179,8 @@ function Additionalinfo() {
                             </ul>
                             <div>
                                 <div className="the-input-container">
-                                    <input type="text" id="currentSalary" name='currentSalary' onChange={handleInputChange} required />
-                                    <label for="currentSalary" className="label">Annual Salary</label>
+                                    <input type="text" id="annualIncome" name='annualIncome' onChange={handleInputChange} required />
+                                    <label for="annualIncome" className="label">Annual Salary</label>
                                     <div className="underline"></div>
                                 </div>
                             </div>
@@ -202,7 +215,7 @@ function Additionalinfo() {
                                             <p style={FildsTitle}>Annual Income</p>
                                         </li>
                                         <li>
-                                            <h1 style={FiledsValue}>{details?.currentSalary || "NA"}</h1>
+                                            <h1 style={FiledsValue}>{details?.datingData[0]?.annualIncome || "NA"}</h1>
                                         </li>
                                     </ul>
                                 </div>

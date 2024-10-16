@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import { Slider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,11 @@ function DatingSideBar() {
 
         const dispatch = useDispatch();
         const { minAge, maxAge } = useSelector((state) => state.rangeuser);
+
+        useEffect(() => {
+            dispatch(fetchUsers(minAge, maxAge));
+
+        }, [])
 
         const handleAgeChange = (event) => {
             console.log("🚀 ~ handleAgeChange ~ event:", event)
