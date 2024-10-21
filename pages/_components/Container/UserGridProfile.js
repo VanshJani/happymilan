@@ -14,6 +14,7 @@ import Pagination from '../../../components/common/Features/Pagination'
 import ProfileSkeletonLoader from '../../../components/common/animation/GridSkeleton'
 import { userDatas } from '../../../store/actions/GetingAlluser'
 import MatchScoreModal from '../Model/Models/MatchScoreModal'
+import GridLikeButton from '../common/Buttons/LikeSections/GridLikeButton'
 
 // Dynamically imported components
 const ShareModal = dynamic(() => import("../Model/Models/ShareModal"));
@@ -204,11 +205,9 @@ function UserGridProfile() {
                                                     <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.maritalStatus ? user?.maritalStatus : "NA"}</p>
 
                                                 </div>
-                                                <GridLikeUser
-                                                    userLikeDetails={user?.userLikeDetails}
-                                                    RequestedStatus={user?.friendsDetails}
-                                                    RequestId={sentrequest[user?.id ? user?.id : user?._id]}
-                                                    HandleRequestModal={() => HandleRequestModal(user)} from={"GridProfile"} currentPage={page} user={user} key={index} />
+                                                <GridLikeButton userId={user._id}
+                                                    TheUsername={user?.name}
+                                                    userdata={user} />
                                             </div>
                                         )
                                     })

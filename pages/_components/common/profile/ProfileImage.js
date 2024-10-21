@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMyProfileData } from "../../../../store/reducers/MyProfile";
 import { Skeleton } from "@mui/material";
 import Image from "next/image";
-import { useSocket } from "../../../../ContextProvider/SocketContext";
 
 function ProfileImage({ size }) {
   const [token, settoken] = useState("");
@@ -13,7 +12,6 @@ function ProfileImage({ size }) {
 
   const dispatch = useDispatch();
 
-  const socket = useSocket();
 
   useEffect(() => {
     const token = getCookie("authtoken")

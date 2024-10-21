@@ -13,6 +13,7 @@ import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination';
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
+import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser';
 
 function SentRequest() {
 
@@ -156,7 +157,7 @@ function SentRequest() {
                                                         <h1 style={profileStyles?.statusText} className={`text-[#7A7A7A]`}>{"Online now"}</h1>
                                                     </div>
                                                     <div className='pr-[8px]'>
-                                                        <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
+                                                        <ul className='flex justify-evenly space-x-[25px] pr-[10px] pt-[10px]'>
                                                             <li className="cursor-pointer hover:bg-[#F2F7FF] items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]">
                                                                 <div>
                                                                     <Image
@@ -175,16 +176,8 @@ function SentRequest() {
                                                                     </span>
                                                                 </div>
                                                             </li>
-                                                            <li>
-                                                                <div className="cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]">
-                                                                    <Image
-                                                                        loading="lazy"
-                                                                        width={15}
-                                                                        height={14}
-                                                                        alt="star"
-                                                                        src={"/assests/Black/Stars-2.svg"}
-                                                                    />
-                                                                </div>
+                                                            <li className='cursor-pointer'>
+                                                                <ShortlistUser UserId={res?.friend?.id || res?.friend?._id} />
                                                             </li>
                                                             <li>
                                                                 <ProfileMenu res={res?.friend} Section={'sent'} />

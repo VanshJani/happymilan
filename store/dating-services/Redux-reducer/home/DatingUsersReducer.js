@@ -1,4 +1,4 @@
-import { GET_DATING_USERS_FAILURE, GET_DATING_USERS_REQUEST, GET_DATING_USERS_SUCCESS, UPDATE_GENERAL_SECTION_FALIURE, UPDATE_GENERAL_SECTION_REQUEST, UPDATE_GENERAL_SECTION_SUCCESS } from "../../types";
+import { GET_DATING_USER_BY_ID_FALIURE, GET_DATING_USER_BY_ID_REQUEST, GET_DATING_USER_BY_ID_SUCCESS, GET_DATING_USERS_FAILURE, GET_DATING_USERS_REQUEST, GET_DATING_USERS_SUCCESS, UPDATE_GENERAL_SECTION_FALIURE, UPDATE_GENERAL_SECTION_REQUEST, UPDATE_GENERAL_SECTION_SUCCESS } from "../../types";
 
 const initialState = {
     users: [],
@@ -17,6 +17,12 @@ const initialState = {
             data: [],
             error: null
         }
+    },
+    Userdata: {
+        loading: false,
+        data: [],
+        error: null
+
     }
 };
 
@@ -86,6 +92,35 @@ const GetDatingUsersReducer = (state = initialState, action) => {
                         error: "Something went wrong !",
                     }
                 }
+            }
+        }
+        case GET_DATING_USER_BY_ID_REQUEST: {
+            return {
+                ...state,
+                Userdata: {
+                    loading: true
+                }
+
+            }
+        }
+        case GET_DATING_USER_BY_ID_SUCCESS: {
+            return {
+                ...state,
+                Userdata: {
+                    loading: false,
+                    data: action.payload
+                }
+
+            }
+        }
+        case GET_DATING_USER_BY_ID_FALIURE: {
+            return {
+                ...state,
+                Userdata: {
+                    loading: false,
+                    error: "Something Went Wrong !"
+                }
+
             }
         }
         default:

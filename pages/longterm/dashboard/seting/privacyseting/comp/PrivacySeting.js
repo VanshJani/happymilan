@@ -1,12 +1,8 @@
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Getprivacyquestions, UpdateDisplayName } from "../../../../../../store/actions/UserSettingAction";
-import { getCookie } from "cookies-next";
-import { capitalizeFirstLetter } from "../../../../../../utils/form/Captitelize";
 import DisplayNameSelect from "./function/DisplayNameSelect";
 import { Dialog } from "@mui/material";
-import { UPDATE_DISPLAY_STATUS } from "../../../../../../store/type";
 
 function PrivacySeting() {
 
@@ -24,9 +20,6 @@ function PrivacySeting() {
     setFormData(data);
   }, [data]);
 
-
-  // const [originalFormData, setOriginalFormData] = useState(data);
-  //  const [Loading, setLoading] = useState(false);
   const [changedQuestionId, setChangedQuestionId] = useState(null);
   const [showbtn, setshowbtn] = useState(false)
 
@@ -47,7 +40,6 @@ function PrivacySeting() {
   const { NameChangeloading, status, error } = useSelector((state) => state?.userseting.DisplayName)
   const [openShortlistModal, setopenShortlistModal] = React.useState(false);
 
-  const [shortlistText, setshortlistText] = useState();
   const Urlmodaltext = {
     color: "#000",
     fontFamily: "Poppins",
@@ -142,8 +134,7 @@ function PrivacySeting() {
                   <div className=" mt-[20px] xl:mt-[25px] w-[570px] lg:w-[640px] xl:w-[700px] h-[1px] bg-[#ECECEC]"></div>
                 </div>
               ))}
-              {/* <button onClick={postDataToApi}>Submit</button> */}
-
+            
               <div className="w-full">
                 <div className="flex justify-end mt-[10px]">
                   {showbtn ?

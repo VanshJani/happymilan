@@ -7,8 +7,6 @@ import { getCookie } from 'cookies-next';
 import ProfileModal from '../../../../longterm/dashboard/commonCompo/HandleProfileUpload/Modal';
 import BasicInfo from './BasicInfo';
 import Additionalinfo from './Additionalinfo';
-import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
-// import GetDatingUsersReducer from '../../../../../store/dating-services/Redux-reducer/home/DatingUsersReducer';
 import { fetchUserDetails } from '../../../../../store/dating-services/Redux-reducer/home/MyprofileReducer';
 import ViewProfile from '../../../../../components/common/Models/ViewProfile';
 import ProfileDetails from './ProfileDetails';
@@ -16,7 +14,6 @@ import HobbySectionInfo from './HobbySectionInfo';
 
 function GeneralSection() {
 
-    // const { data, status, totalLikes } = useSelector((state) => state.myprofile);
     const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
 
     const { darkMode, toggleDarkMode } = useDarkMode();
@@ -154,14 +151,11 @@ function GeneralSection() {
             <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
                 <div style={{ width: '347px', height: '450px', position: 'relative', borderRadius: "10px" }}>
                     <Image
-                        // width={347}
-                        // height={450}
                         style={{ borderRadius: "10px" }}
                         layout="fill"  // Ensure the image fills the container
                         objectFit='cover'  // Crop to fit without distortion
                         alt='profile'
                         src={details?.profilePic}
-                    // Ensure this points to a valid source
                     />
                     <div className='z-10 absolute bottom-6 grid place-items-center w-full'>
                         <ul className=' flex space-x-[19px]'>

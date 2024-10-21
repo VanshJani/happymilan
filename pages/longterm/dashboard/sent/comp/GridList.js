@@ -7,6 +7,8 @@ import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import ProfileSkeletonLoader from '../../../../../components/common/animation/GridSkeleton'
 import Link from 'next/link'
 import Avatar from 'react-avatar'
+import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
+import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'
 
 function GridList() {
 
@@ -70,10 +72,10 @@ function GridList() {
                                                     </ul>
                                                     <ul className='pr-[10px] flex space-x-[30px]'>
                                                         <li>
-                                                            <Image alt='shortlist' width={15} height={14} src='/assests/Black/Stars-2.svg' />
+                                                            <ShortlistUser UserId={res?.friend?.id || res?.friend?._id} />
                                                         </li>
                                                         <li>
-                                                            <Image alt='more' width={3} height={14} src='/assests/Black/3Dots.svg' />
+                                                            <ProfileMenu res={res?.friend} Section={"sent"} />
                                                         </li>
                                                     </ul>
                                                 </div>

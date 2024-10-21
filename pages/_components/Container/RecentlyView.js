@@ -13,6 +13,7 @@ import Avatar from 'react-avatar'
 import ProfileMenu from '../../../components/long-term/common/Model/ProfileMenu'
 import MatchScoreModal from '../Model/Models/MatchScoreModal'
 import ShortlistUser from '../common/Buttons/ShortlistUser'
+import GridLikeButton from '../common/Buttons/LikeSections/GridLikeButton'
 
 function RecentlyView() {
 
@@ -176,8 +177,7 @@ function RecentlyView() {
                       <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{item?.viewerId?.maritalStatus ? item?.viewerId?.maritalStatus : "NA"}</p>
 
                     </div>
-                    <GridLikeUser from={"GridProfile"} theUserName={item?.viewerId?.name} user={item?.viewerId} theid={item?.viewerId} key={index} />
-
+                    <GridLikeButton userId={item?.viewerId?.id || item?.viewerId?._id} TheUsername={item?.viewerId?.name} />
                   </div>
                 )
 

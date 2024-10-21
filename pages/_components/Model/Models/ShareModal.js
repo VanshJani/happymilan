@@ -46,7 +46,7 @@ function ShareModal({ isOpen, onClose, data, }) {
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div className="fixed inset-0 flex items-center justify-center z-50" style={{ zIndex: 9999 }}>
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 bg-white rounded-lg shadow-lg p-6 max-w-xl md:h-[80%] lg:h-[359px]">
           <div className="flex">

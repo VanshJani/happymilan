@@ -8,60 +8,25 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination } from 'swiper';
 import Image from 'next/image';
-import { Dialog, DialogContent } from '@mui/material';
+import { Dialog } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 import { sendRequest } from '../../../../../store/actions/UsersAction';
-import { addToShortlist } from '../../../../../store/actions/GetingAlluser';
-import RegisterAlertModal from '../../../../_components/Model/Models/RegisterAlertModal';
-import ReportModal from '../../../../_components/Model/Models/ReportModal';
-import ProfileMenu from '../../../../_components/Model/popover/MenuPop';
-import BlockUserModal from "../../../../_components/Model/Models/BlockModal";
 import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal';
 import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
-const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'), { ssr: false });
+import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser';
+import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 const ShowMore = dynamic(() => import('../../../../_components/common/profile/UserBio'), { ssr: false });
 const SendRequestBtn = dynamic(() => import('../../../../_components/common/Buttons/SendRequestBtn'), { ssr: false });
 
 
 function RecentViewUser() {
 
-    const { darkMode, toggleDarkMode } = useDarkMode();
-
-
-    const [isRegisterModalOpen, setisRegisterModalOpen] = useState(false);
-    const [isReportModalOpen, setisReportModalOpen] = useState(false);
-    const [isBlockModalOpen, setisBlockModalOpen] = useState(false);
-
-    const CloseRegisterModal = () => {
-        setisRegisterModalOpen(false);
-    };
-
-   
-    const closeBlockModal = () => { setisBlockModalOpen(false) }
-
-    
-
-    const CloseReportModal = () => {
-        setisReportModalOpen(false);
-    };
-
+    const { darkMode } = useDarkMode();
 
     const dispatch = useDispatch();
-
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => {
-        setIsModalOpen(true);
-
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
 
     const [sentrequest, setsentRequest] = useState(false);
 
@@ -80,7 +45,7 @@ function RecentViewUser() {
         fontWeight: "400",
         lineHeight: "12px"
     }
-   
+
     const ListText = {
         color: darkMode ? "#FFF" : "#000",
         fontFamily: "Poppins",
@@ -105,12 +70,8 @@ function RecentViewUser() {
         lineHeight: "normal"
     }
 
-    const [openURLModal, setOpenURLModal] = React.useState(false);
 
-   
-
-
-    const { data, loading } = useSelector((state) => state.usersact.recentusersdata)
+    const { data } = useSelector((state) => state.usersact.recentusersdata)
 
 
     const [openShortlistModal, setopenShortlistModal] = React.useState(false);
@@ -141,18 +102,6 @@ function RecentViewUser() {
 
     };
 
-
-    const HandleShortlist = (id) => {
-        dispatch(addToShortlist(id)); // Dispatch the action with the shortlist ID
-
-        setshortlistText("Profile has been shortlisted");
-        setopenShortlistModal(true);
-        setTimeout(() => {
-            setopenShortlistModal(false);
-        }, 800);
-
-
-    };
 
     const imageFoundText = {
         color: "#B3CBF1",
@@ -203,8 +152,6 @@ function RecentViewUser() {
                                                                         width={197}
                                                                         height={258}
                                                                         style={{
-                                                                            // width: "197px",
-                                                                            // height: "258px",
                                                                             borderRadius: "10px",
                                                                             objectFit: "cover",
                                                                         }}
@@ -273,7 +220,7 @@ function RecentViewUser() {
                                                 </div>
 
                                                 <div className="pr-[8px]">
-                                                    <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
+                                                    <ul className='flex justify-evenly space-x-[25px] pr-[10px] pt-[10px]'>
 
                                                         <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] flex space-x-[10px] top-[-8px] p-[5px] relative left-[5px]`}>
 
@@ -284,20 +231,11 @@ function RecentViewUser() {
 
                                                         <li
                                                             className="cursor-pointer"
-                                                            onClick={() => HandleShortlist(res?.viewerId?._id || res?.viewerId?.id)}
                                                         >
-                                                            <div className="cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838] p-[5px] rounded-[50%] relative top-[-5px]">
-                                                                <Image
-                                                                    loading="lazy"
-                                                                    width={15}
-                                                                    height={14}
-                                                                    alt="star"
-                                                                    src={"/assests/Black/Stars-2.svg"}
-                                                                />
-                                                            </div>
+                                                            <ShortlistUser UserId={res?.viewerId?._id || res?.viewerId?.id} />
                                                         </li>
                                                         <li>
-                                                            <ProfileMenu res={res?.viewerId} />
+                                                            <ProfileMenu res={res?.viewerId} Section={"RecenltyView"} />
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -428,7 +366,6 @@ function RecentViewUser() {
                                             <div className="absolute right-0 bottom-[18px]">
                                                 <SendRequestBtn
                                                     userdata={res?.viewerId?.name}
-                                                    // Requeststatus={res?.friendsDetails}
                                                     RequestId={sentrequest[res?.viewerId?._id || res?.viewerId?.id]}
                                                     HandleRequestModal={() => HandleRequestModal(res?.viewerId)}
                                                 />
@@ -443,39 +380,7 @@ function RecentViewUser() {
                 </div>
             </div>
 
-            <ShareModal isOpen={isModalOpen} onClose={closeModal} />
-
-            <React.Fragment>
-                <Dialog
-                    open={openURLModal}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogContent className='w-[249px] h-[81px] text-center grid place-items-center'>
-                        <div className='text-[14px]' style={Urlmodaltext}>
-                            URL has been copied
-                        </div>
-                    </DialogContent>
-                </Dialog>
-            </React.Fragment>
-
             <ProfileDataNotFound ProfileData={data} />
-
-            <RegisterAlertModal
-                title={""}
-                isOpen={isRegisterModalOpen}
-                onClose={CloseRegisterModal}
-            />
-            <ReportModal
-                title={"helo"}
-                isOpen={isReportModalOpen}
-                onClose={CloseReportModal}
-            />
-
-            <BlockUserModal
-                isOpen={isBlockModalOpen}
-                onClose={closeBlockModal}
-            />
 
             <React.Fragment>
                 <Dialog

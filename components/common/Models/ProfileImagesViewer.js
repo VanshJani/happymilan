@@ -13,7 +13,6 @@ import 'swiper/css/pagination';
 import { useSelector } from 'react-redux';
 import UploadImage from '../../../pages/longterm/dashboard/commonCompo/HandeImageUpload/UploadImage';
 import MenuPop from '../../Dating/common/Models/MenuPop';
-// import ViewProfile from './ViewProfile';
 
 function ProfileImagesViewer() {
     const { data } = useSelector((state) => state.myprofile);
@@ -61,10 +60,6 @@ function ProfileImagesViewer() {
     const handleCloseUpload = () => setOpenUpload(false);
 
 
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-
-    // const openModal = () => setIsModalOpen(true);
-    // const closeModal = () => setIsModalOpen(false);
 
 
     return (
@@ -164,14 +159,6 @@ function ProfileImagesViewer() {
             </Modal>
             <UploadImage openUpload={openUpload}
                 handleCloseUpload={handleCloseUpload} />
-
-
-
-            {/* <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
-                <div style={{ width: '200px', height: '250px', position: 'relative', borderRadius: "10px" }}>
-                 
-                </div>
-            </ViewProfile> */}
         </>
     )
 }

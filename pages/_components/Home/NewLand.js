@@ -276,21 +276,12 @@ function NewLand() {
                                         )
                                     })
                                 }
-                                {/* <li>
-                                    <button onClick={handleProfileChange} name='long-term' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]  border-[1px] border-[#000] ${Profiles?.id == 1 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"}`}>Long Term</button>
-                                </li>
-                                <li>
-                                    <button onClick={handleProfileChange} name='dating' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]   border-[1px] border-[#000] ${Profiles?.id == 2 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"} `}>Dating</button>
-                                </li>
-                                <li>
-                                    <button onClick={handleProfileChange} name='friendship' className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]  border-[1px] border-[#000] ${Profiles?.id == 3 ? "bg-[#000] text-[#FFF]" : " text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]"}`}>Friendship</button>
-                                </li> */}
                             </ul>
                         </div>
                     </div>
                     <div className=''>
 
-                        <div className='flex justify-between pr-[0px] 2xl:pl-[200px] xl:pl-[160px]'>
+                        <div className='flex justify-center lg:justify-between pr-[0px] 2xl:pl-[200px] xl:pl-[160px]'>
                             <div className='mt-[20px]'>
                                 <ul className='w-full space-y-[23px]'>
                                     <li style={GradientText}>{activeProfile?.title}</li>
@@ -303,14 +294,14 @@ function NewLand() {
 
                             </div>
 
-                            <div className=''>
+                            <div className='hidden lg:block'>
                                 <Image width={0} height={0} alt='img-1' src={activeProfile?.image} loading='lazy' className={`w-[auto] 2xl:h-[385px] xl:h-[330px] h-[300px] relative right-[80px]`} />
                             </div>
 
                         </div>
                         <div style={Bgcolor} className='w-[100%] h-[553px]'>
 
-                            <div className='flex justify-evenly items-center pt-[115px]'>
+                            <div className='flex justify-center lg:justify-evenly items-center pt-[115px]'>
 
                                 <div className=''>
 
@@ -319,7 +310,7 @@ function NewLand() {
                                         <li className='w-[468px] text-[18px] text-[#FFF]' style={Text3}>Connect with your chosen profiles and build stronger relationships</li>
                                     </ul>
                                 </div>
-                                <div>
+                                <div className='hidden lg:block'>
                                     <ul className='space-y-[60px]'>
                                         <li className='flex space-x-[63px]'>
                                             <div>
@@ -361,7 +352,7 @@ function NewLand() {
 
 
                     <div className='w-full h-full pb-[20px] pt-[80px]'>
-                        <div className='flex w-full justify-evenly items-center'>
+                        <div className='flex lg:flex-row  flex-col-reverse  w-full justify-evenly items-center'>
                             <div className='ml-[40px] w-[400px] space-y-[40px]'>
                                 <h1 id='gradient-Text-style' style={GradientText2} className='2xl:text-[54px] xl:text-[45px] lg:text-[40px]'>Chat anytime you want</h1>
                                 <p style={Text3} className='text-[#000] 2xl:text-[18px] xl:text-[16px] lg:text-[18px] text-[18px]'>Connect with your chosen profiles and build stronger relationships</p>
@@ -400,7 +391,7 @@ function NewLand() {
 
                     <div className='bg-[#FDF8FF] pt-[50px] w-full h-[774px] flex flex-col justify-evenly items-center'>
                         <div className='text-center space-y-[12px]'>
-                            <h1 className='2xl:text-[50px] xl:text-[50px] text-[40px]' style={TitleText3}>We offered most affordable plans</h1>
+                            <h1 className='2xl:text-[50px] xl:text-[50px] lg:text-[40px] text-[20px]' style={TitleText3}>We offered most affordable plans</h1>
                             <p className='text-[18px] text-[#000]' style={Text3}>Connect with your chosen profiles and build stronger relationships</p>
                         </div>
                         <div className='w-[80%] text-center space-y-[90px]'>
@@ -458,7 +449,7 @@ function NewLand() {
 
                     <div className='border-b-[1px] border-b-[#E9E9E9] pb-[60px]'>
                         <div className='text-center'>
-                            <h1 className='2xl:text-[50px] xl:text-[40px] text-[60px] text-black font-poppins  font-bold leading-[70px]'>Frequently Asked Questions</h1>
+                            <h1 className='2xl:text-[50px] xl:text-[40px] lg:text-[40px] text-[20px] text-black font-poppins  font-bold leading-[70px]'>Frequently Asked Questions</h1>
                         </div>
                         <ul className='flex flex-col items-center space-y-[13px] mt-[80px]'>
                             <li className='w-[70%]'>
@@ -532,10 +523,9 @@ function NewLand() {
                     </div>
                     <div className='space-y-[80px]'>
                         <div className='text-center pt-[80px]'>
-                            <h1 className='2xl:text-[50px] xl:text-[40px] text-[60px] text-black font-poppins  font-bold leading-[70px]'>Discover more apps</h1>
+                            <h1 className='2xl:text-[50px] xl:text-[40px] lg:text-[40px] text-[20px] text-black font-poppins  font-bold leading-[70px]'>Discover more apps</h1>
                         </div>
-                        <ul className='flex justify-evenly '>
-                        {/* <ul className='grid lg:grid-cols-3 grid-cols-1 lg:gap-0 gap-5 place-items-center '> */}
+                        <ul className='flex flex-col justify-center items-center space-y-5 lg:space-y-0 lg:flex-row lg:justify-evenly '>
                             <li className='cursor-pointer 2xl:w-[335px] 2xl:h-[335px] xl:w-[290px] xl:h-[290px] w-[323px] h-[323px] border-[1px]  border-[#E1E1E1] hover:border-[#8225AF] rounded-[24px] pl-[40px]'>
                                 <div className='flex flex-col justify-evenly w-full h-full'>
                                     <div>

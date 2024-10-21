@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import Layout from '../../Layout';
 const Profile = dynamic(() => import('./comp/Profile'));
 const UploadSection = dynamic(() => import('./comp/UploadSection'));
-const MoreSuggestion = dynamic(() => import('../../../_components/Container/MoreSuggestion'));
 const UserStory = dynamic(() => import('../../../_components/Container/UserStory'))
 
 function index() {
@@ -42,11 +41,10 @@ function index() {
 
             </div>
 
-            <div className='hidden  absolute 2xl:top-[175px] xl:top-[175px] right-10  xl:flex 2xl:flex flex-col space-y-[50px] justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
+            <div className='hidden  absolute 2xl:top-[175px] xl:top-[175px] right-10  xl:flex 2xl:flex flex-col  justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
               {/* Side Section 2 */}
               <UploadSection />
 
-              <MoreSuggestion />
             </div>
           </div>
         </div>

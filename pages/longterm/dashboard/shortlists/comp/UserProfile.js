@@ -14,10 +14,11 @@ import { sendRequest } from '../../../../../store/actions/UsersAction';
 import dynamic from 'next/dynamic';
 import { fetchshortlistUsers } from '../../../../../store/matrimoney-services/slices/getShortlistUsersSlice';
 import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
+import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 // Dynamic imports
 const SendRequestBtn = dynamic(() => import('../../../../_components/common/Buttons/SendRequestBtn'), { ssr: false });
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'), { ssr: false });
-const ProfileMenu = dynamic(() => import('../../../../_components/Model/popover/MenuPop'), { ssr: false });
+// const ProfileMenu = dynamic(() => import('../../../../_components/Model/popover/MenuPop'), { ssr: false });
 const ReportModal = dynamic(() => import('../../../../_components/Model/Models/ReportModal'), { ssr: false });
 const BlockUserModal = dynamic(() => import("../../../../_components/Model/Models/BlockModal"), { ssr: false });
 
@@ -197,7 +198,8 @@ function UserProfile() {
 
     const HandleRemoveShortlist = (res) => {
 
-        const shortlistdata = userData.find(data => data?.id === res?.id)
+        const shortlistdata = userData?.results?.find(data => data?.id === res?.id)
+        console.log("🚀 ~ HandleRemoveShortlist ~ userData:", userData)
 
         dispatch(RemoveShortlist(res?.id))
         setshortlistText("Shortlisted has been removed")
@@ -450,8 +452,7 @@ function UserProfile() {
                                                                 </div>
                                                             </li>
                                                             <li>
-                                                                <ProfileMenu SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
-
+                                                                <ProfileMenu res={res?.shortlistId} Section={"Shortlist"} />
                                                             </li>
                                                         </ul>
                                                     </div>

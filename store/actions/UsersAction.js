@@ -714,6 +714,12 @@ export const Cancelfriendrequest = (requestData, curUser, status) => {
     return async (dispatch) => {
         dispatch({ type: CANCEL_FRIEND_REQUEST })
 
+        console.log("obj", {
+            "user": requestData,
+            "request": curUser,
+            "status": status
+        })
+
         const axios = require('axios');
         const token = getCookie("authtoken")
         let data = JSON.stringify({
@@ -1279,7 +1285,7 @@ export const Getallstatus = () => {
 
         axios.request(config)
             .then((response) => {
-            console.log("🚀 ~ .then ~ response:", response)
+                console.log("🚀 ~ .then ~ response:", response)
 
                 const mystory = response.data.data.filter((item) => item.userId.id == currentUser)
                 const allstatus = response.data.data.filter((item) => item.userId.id != currentUser)

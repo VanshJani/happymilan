@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetDatingUsers } from '../../../store/dating-services/Redux-actions/home/DatingUsersActions';
 import ProfileMoreSection from '../../../components/Dating/common/Models/ProfileMoreSection';
+import Link from 'next/link';
 
 const SwipeCard = ({ card, onSwipe }) => {
     const handleDragEnd = (event, info) => {
@@ -52,14 +53,14 @@ const SwipeCard = ({ card, onSwipe }) => {
             </div>
             <motion.div
                 className="2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px] rounded-xl shadow-lg"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragSnapToOrigin
-                onDragEnd={handleDragEnd}
-                initial={{ scale: 1 }}
-                animate={{ x: 0 }}
-                whileTap={{ scale: 1.05 }}
-                onClick={(e) => e.preventDefault()} // Prevent tap from interfering with drag
+            // drag="x"
+            // dragConstraints={{ left: 0, right: 0 }}
+            // dragSnapToOrigin
+            // onDragEnd={handleDragEnd}
+            // initial={{ scale: 1 }}
+            // animate={{ x: 0 }}
+            // whileTap={{ scale: 1.05 }}
+            // onClick={(e) => e.preventDefault()} // Prevent tap from interfering with drag
             >
 
                 <div className="relative 2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px]">
@@ -80,9 +81,9 @@ const SwipeCard = ({ card, onSwipe }) => {
                             </div>
                         </div>
                         {/* <Link href={"#"}> */}
-                        <h1 className="text-[20px]" style={Text1}>
+                        <Link href={`/dating/dashboard/${card?.id || card?._id}`} ><h1 className="z-10 text-[20px]" style={Text1}>
                             {card?.name}
-                        </h1>
+                        </h1></Link>
                         {/* </Link> */}
                         <p className="text-[10px]" style={Text2}>
                             Male 36, 4’ 5” | Ahmedabad (2.1 km)

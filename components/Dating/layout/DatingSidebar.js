@@ -4,8 +4,11 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import { Slider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import ProfileImage from '../../../pages/_components/common/profile/DatingProfileImage';
+import dynamic from 'next/dynamic';
 import { fetchUsers, setAgeRange } from '../../../store/dating-services/Redux-reducer/home/datinguserSlice';
+
+const DatingProfileImage = dynamic(() => import("../../../pages/_components/common/profile/DatingProfileImage"));
+
 
 function DatingSideBar() {
     const RangeSlider2 = () => {
@@ -34,7 +37,7 @@ function DatingSideBar() {
 
                 <div className='w-[220px]'>
                     <ul className='flex justify-between'>
-                        <li><h1 style={Text3} className='text-[14px]'>Age</h1></li>
+                        <li><h1 style={Text3} className='text-[14px] dark:text-[#FFF]'>Age</h1></li>
                         <li><h1 style={Text3} className='text-[14px] text-[#0F52BA]'>{minAge}-{maxAge}</h1></li>
                     </ul>
                 </div>
@@ -87,7 +90,7 @@ function DatingSideBar() {
 
                 <div className='w-[220px]'>
                     <ul className='flex justify-between'>
-                        <li><h1 style={Text3} className='text-[14px]'>Distance</h1></li>
+                        <li><h1 style={Text3} className='text-[14px] dark:text-[#FFF]'>Distance</h1></li>
                         <li><h1 style={Text3} className='text-[14px] text-[#0F52BA]'>{value} km</h1></li>
                     </ul>
                 </div>
@@ -124,7 +127,6 @@ function DatingSideBar() {
         )
     }
     const Text2 = {
-        color: "#000",
         fontFamily: "Poppins",
         fontSize: "18px",
         fontStyle: "normal",
@@ -142,19 +144,15 @@ function DatingSideBar() {
     const myProfile = useSelector((state) => state.myprofile?.data);
 
 
-    const Click = () => {
-
-    }
-
     return (
         <>
 
             <aside id="separator-sidebar" className=" hidden lg:block w-[250px] pb-[100px] fixed top-[80px] 2xl:left-[15px] 2xl:pl-0 xl:pl-[10px] xl:left-0 bg-[#FFF] z-40 w-64 h-full transition-transform translate-x-full sm:translate-x-0" aria-label="Sidebar">
-                <div id="sidebarScroll" className="h-full px-3 py-4 overflow-y-auto bg-[#FFF] dark:bg-gray-800">
+                <div id="sidebarScroll" className="h-full px-3 py-4 overflow-y-auto bg-[#FFF] dark:bg-[#18191A]">
 
                     <div className="p-[10px] space-y-[20px]">
                         <div className="cursor-pointer rounded-full h-[50px] w-[50px] hover:opacity-90 duration-100">
-                            <ProfileImage size={47} />
+                            <DatingProfileImage size={47} />
                         </div>
                         <div>
                             <div className="group cursor-pointer duration-100 inline-block">
@@ -180,16 +178,16 @@ function DatingSideBar() {
 
                         <li className='pt-[8px] pb-[10px]'>
                             <div className='flex'>
-                                <input type='text' placeholder='search by location' className='border-[1px] border-[#E3E3E3] rounded-[20px] h-[40px] w-[230px] outline-none pl-[15px] pr-[30px]' />
+                                <input type='text' placeholder='search by location' className='border-[1px] border-[#E3E3E3] rounded-[20px] h-[40px] w-[230px] outline-none pl-[15px] pr-[30px] dark:bg-[#373636] dark:border-none' />
                                 <Image width={15} height={14} src="/assests/Black/Search.svg" className="relative right-[30px]" />
                             </div>
                         </li>
 
-                        <li>
+                        {/* <li>
                             <div>
                                 <RangeSlider />
                             </div>
-                        </li>
+                        </li> */}
                         <li>
                             <div>
                                 <RangeSlider2 />
@@ -201,11 +199,11 @@ function DatingSideBar() {
                             <svg className='dt-sec-1-icon' xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
                                 <path d="M0.647934 13.3521H4.25785V7.93719H8.14545V13.3521H11.7554V5.02149L6.20165 0.809917L0.647934 5.02149V13.3521ZM0 14V4.69752L6.20165 0L12.4033 4.69752V14H7.49752V8.58512H4.90579V14H0Z" />
                             </svg>
-                            <Link href="/dating/dashboard"><h1 style={Text3} className={`text-[14px] pl-[10px] hover:text-[#0F52BA] ${router.pathname === "/dating/dashboard" ? "text-[#0F52BA]" : ""}`}>Home</h1></Link>
+                            <Link href="/dating/dashboard"><h1 style={Text3} className={`dark:text-[#FFF] text-[14px] pl-[10px] hover:text-[#0F52BA] ${router.pathname === "/dating/dashboard" ? "text-[#0F52BA]" : ""}`}>Home</h1></Link>
                         </li>
                         <li id='dt-sec-2' className='pt-[8px] flex items-center  '>
                             <Image className='dt-sec-2-icon' width={15} height={14} src='/assests/Black/RightTick.svg' />
-                            <Link href="/dating/dashboard/accepted"><h1 style={Text3} className={`text-[14px] pl-[10px] hover:text-[#0F52BA] ${router.pathname === "/dating/dashboard/accepted" ? "text-[#0F52BA]" : ""}`}>Accepted</h1></Link>
+                            <Link href="/dating/dashboard/accepted"><h1 style={Text3} className={`dark:text-[#FFF] text-[14px] pl-[10px] hover:text-[#0F52BA] ${router.pathname === "/dating/dashboard/accepted" ? "text-[#0F52BA]" : ""}`}>Accepted</h1></Link>
                         </li>
                         <li className='pt-[8px] flex items-center   '>
                             <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -219,14 +217,14 @@ function DatingSideBar() {
                                     </clipPath>
                                 </defs>
                             </svg>
-                            <Link href="/dating/dashboard/newrequest"><h1 style={Text3} className={`pl-[10px] text-[14px] hover:text-[#0F52BA] ${router.pathname === "/dating/dashboard/newrequest" ? "text-[#0F52BA]" : ""}`}>New Requests</h1></Link>
+                            <Link href="/dating/dashboard/newrequest"><h1 style={Text3} className={`dark:text-[#FFF] pl-[10px] text-[14px] hover:text-[#0F52BA] ${router.pathname === "/dating/dashboard/newrequest" ? "text-[#0F52BA]" : ""}`}>New Requests</h1></Link>
                         </li>
                         <li className='pt-[8px] flex items-center '>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
                                 <path d="M0 5.71053L3.31579 0L6.63158 5.71053H0ZM3.33626 14C2.55848 14 1.90351 13.7339 1.37135 13.2018C0.839181 12.6696 0.573099 12.0176 0.573099 11.2456C0.573099 10.462 0.839181 9.80409 1.37135 9.27193C1.90351 8.73977 2.55848 8.47368 3.33626 8.47368C4.11404 8.47368 4.76901 8.73977 5.30117 9.27193C5.83333 9.80409 6.09942 10.4591 6.09942 11.2368C6.09942 12.0146 5.83333 12.6696 5.30117 13.2018C4.76901 13.7339 4.11404 14 3.33626 14ZM3.33626 13.4269C3.95029 13.4269 4.46881 13.2154 4.89181 12.7924C5.31482 12.3694 5.52632 11.8509 5.52632 11.2368C5.52632 10.6228 5.31482 10.1043 4.89181 9.68129C4.46881 9.25828 3.95029 9.04678 3.33626 9.04678C2.72222 9.04678 2.2037 9.25828 1.7807 9.68129C1.3577 10.1043 1.1462 10.6228 1.1462 11.2368C1.1462 11.8509 1.3577 12.3694 1.7807 12.7924C2.2037 13.2154 2.72222 13.4269 3.33626 13.4269ZM1.00292 5.13743H5.64912L3.31579 1.1462L1.00292 5.13743ZM8.73977 14V8.47368H14.2661V14H8.73977ZM9.31287 13.4269H13.693V9.04678H9.31287V13.4269ZM11.5029 5.71053C11.0799 5.38304 10.674 5.06238 10.2851 4.74854C9.8962 4.4347 9.55166 4.11745 9.25146 3.79678C8.95127 3.47612 8.71248 3.15205 8.53509 2.82456C8.3577 2.49708 8.26901 2.15595 8.26901 1.80117C8.26901 1.35088 8.41228 0.982456 8.69883 0.695906C8.98538 0.409357 9.3538 0.266082 9.80409 0.266082C10.1178 0.266082 10.4111 0.344542 10.684 0.501462C10.957 0.658382 11.23 0.900585 11.5029 1.22807C11.7758 0.91423 12.0556 0.675439 12.3421 0.511696C12.6287 0.347953 12.922 0.266082 13.2222 0.266082C13.6537 0.266082 14.014 0.420272 14.3031 0.728655C14.5923 1.03704 14.7368 1.41501 14.7368 1.86257C14.7368 2.2037 14.6481 2.5346 14.4708 2.85526C14.2934 3.17593 14.0546 3.49318 13.7544 3.80702C13.4542 4.12086 13.1096 4.4347 12.7208 4.74854C12.3319 5.06238 11.9259 5.38304 11.5029 5.71053ZM11.5029 4.97368C12.4444 4.26413 13.1233 3.66374 13.5395 3.17251C13.9557 2.68129 14.1637 2.23782 14.1637 1.84211C14.1637 1.55556 14.0716 1.31676 13.8874 1.12573C13.7032 0.934698 13.4747 0.839181 13.2018 0.839181C13.0136 0.839181 12.8301 0.897174 12.6512 1.01316C12.4724 1.12914 12.2193 1.35088 11.8918 1.67836L11.5029 2.06725L11.114 1.67836C10.7729 1.33723 10.5171 1.11209 10.3465 1.00292C10.1759 0.893762 9.99513 0.839181 9.80409 0.839181C9.51754 0.839181 9.28557 0.924464 9.10819 1.09503C8.9308 1.26559 8.8421 1.50097 8.8421 1.80117C8.8421 2.22417 9.05019 2.68129 9.46637 3.17251C9.88255 3.66374 10.5614 4.26413 11.5029 4.97368Z" fill="black" />
                             </svg>
                             <Link href="/dating/dashboard/category">
-                                <h1 style={Text3} className={`text-[14px] pl-[10px] hover:text-[#0F52BA] ${router.pathname === "/dating/dashboard/category" ? "text-[#0F52BA]" : ""}`}>By Category</h1>
+                                <h1 style={Text3} className={`text-[14px] pl-[10px] dark:text-[#FFF] hover:text-[#0F52BA] ${router.pathname === "/dating/dashboard/category" ? "text-[#0F52BA]" : ""}`}>By Category</h1>
                             </Link>
                         </li>
                     </ul>

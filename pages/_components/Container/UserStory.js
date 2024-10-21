@@ -17,6 +17,7 @@ import { Skeleton } from '@mui/material';
 import EmojiPicker from 'emoji-picker-react';
 import { Getstoryviewsdata, ViewstoryPost } from '../../../store/actions/UserStoryAction';
 
+// Add story 
 
 function UserStory({ formData, updateFormData }) {
 
@@ -236,8 +237,13 @@ function UserStory({ formData, updateFormData }) {
                                 <ul>
                                     {
                                         mystory.map((res) => (
-                                            <li>
-                                                <div name="currentUser" onClick={(e) => HandleStoryOpen(e, res)} style={{ boxSizing: 'content-box' }} className='w-[47px] h-[47px] cursor-pointer bg-[#FFF] rounded-full grid place-items-center border-[2px] border-[blue]' id='story-gradient-border'><Image alt='user-1' width={47} height={47} style={{ objectFit: "cover", borderRadius: "50%", width: "47px", height: "47px", border: '2px solid transparent', }} src={res?.userId?.profilePic ? res?.userId?.profilePic : '/assests/dashboard/user/1.svg'} /></div>
+                                            <li className='w-[47px] h-[47px]'>
+                                                <div name="currentUser" onClick={(e) => HandleStoryOpen(e, res)} style={{ boxSizing: 'content-box' }} className='w-[47px] h-[47px] cursor-pointer bg-[#FFF] rounded-full grid place-items-center border-[2px] border-[blue]' id='story-gradient-border'>
+                                                    <Image alt='user-1' width={47} height={47} style={{ objectFit: "cover", borderRadius: "50%", width: "47px", height: "47px", border: '2px solid transparent', }} src={res?.userId?.profilePic ? res?.userId?.profilePic : '/assests/dashboard/user/1.svg'} />
+                                                    <div className='relative top-[-19px] left-5'>
+                                                        <Image width={20} height={20} alt='tick' src={"/assests/story-tick-icon.svg"} />
+                                                    </div>
+                                                </div>
                                             </li>
                                         ))
                                     }
@@ -278,6 +284,11 @@ function UserStory({ formData, updateFormData }) {
                                     <h1 style={Text3}>Add Story</h1>
                                 </div>
 
+                                <div className='cursor-pointer' onClick={handleClose}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M1.26703 16L0 14.733L6.73297 8L0 1.26703L1.26703 0L8 6.73297L14.733 0L16 1.26703L9.26703 8L16 14.733L14.733 16L8 9.26703L1.26703 16Z" fill="black" />
+                                    </svg>
+                                </div>
 
                             </div>
 

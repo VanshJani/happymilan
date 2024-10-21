@@ -471,7 +471,7 @@ function DatingNav() {
                                             <span>
                                                 {darkMode ? icons.setting.dark : icons.setting.light}
                                             </span>
-                                            <Link className="relative left-[5px]" href="#">Accounts</Link>
+                                            <Link className="relative left-[5px]" href="/dating/dashboard/seting/credentials">Accounts</Link>
                                         </li>
                                         <li className="w-[230px] h-[34px] p-[10px] pl-[15px] hover:bg-[#F3F8FF] dark:hover:bg-[#18191a] rounded-[100px]  flex items-center space-x-[10px]">
 
@@ -545,7 +545,7 @@ function DatingNav() {
         <>
             <AppBar
                 sx={{ boxShadow: "none" }}
-                className={`z-10 border-none fixed top-0 left-0 top-0 h-max shadow-none  max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 p-4 text-white `}
+                className={` z-10 border-none fixed top-0 left-0 top-0 h-max shadow-none  max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 p-4 text-white `}
                 style={{ backgroundColor: darkMode ? "#18191a" : "#FFF" }}
 
             >
