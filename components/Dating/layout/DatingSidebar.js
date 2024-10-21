@@ -141,7 +141,9 @@ function DatingSideBar() {
     }
     const router = useRouter();
 
-    const myProfile = useSelector((state) => state.myprofile?.data);
+
+    const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
+
 
 
     return (
@@ -157,13 +159,13 @@ function DatingSideBar() {
                         <div>
                             <div className="group cursor-pointer duration-100 inline-block">
                                 <Link href={"/dating/dashboard/profile"}>
-                                    <h1 className="group-hover:opacity-75 text-[#000] dark:text-[#FFF]" style={Text2}>{myProfile?.name}</h1>
+                                    <h1 className="group-hover:opacity-75 text-[#000] dark:text-[#FFF]" style={Text2}>{details?.name}</h1>
                                 </Link>
                             </div>
                             <div className="space-x-[5px] pt-[10px]">
                                 <Link href={"/dating/dashboard/profile"}>
                                     <span style={Text3} className="text-[14px] text-[#50545A] dark:text-[#616161]">
-                                        ID: {myProfile?.userUniqueId?.toUpperCase()}
+                                        ID: {details?.userUniqueId?.toUpperCase()}
                                     </span>{" "}
                                 </Link>
                                 <span className="text-[#E3E3E3]">|</span>{" "}

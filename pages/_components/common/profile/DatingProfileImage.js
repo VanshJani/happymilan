@@ -2,9 +2,9 @@ import { getCookie } from "cookies-next";
 import React, { useEffect, useState } from "react";
 import Avatar from "react-avatar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMyProfileData } from "../../../../store/reducers/MyProfile";
 import { Skeleton } from "@mui/material";
 import Image from "next/image";
+import { fetchUserDetails } from "../../../../store/dating-services/Redux-reducer/home/MyprofileReducer";
 
 function DatingProfileImage({ size }) {
     const [token, settoken] = useState("");
@@ -17,14 +17,13 @@ function DatingProfileImage({ size }) {
         const token = getCookie("authtoken")
         settoken(token)
         if (!isDataFetched) {
-            dispatch(fetchMyProfileData());
+            dispatch(fetchUserDetails());
             setIsDataFetched(true);
         }
 
 
     }, []);
 
-    //   const { data, status } = useSelector((state) => state.myprofile);
     const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
 
 
