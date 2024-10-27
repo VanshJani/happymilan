@@ -1,4 +1,5 @@
-import { GET_DATING_USER_BY_ID_FALIURE, GET_DATING_USER_BY_ID_REQUEST, GET_DATING_USER_BY_ID_SUCCESS, GET_DATING_USERS_FAILURE, GET_DATING_USERS_REQUEST, GET_DATING_USERS_SUCCESS, UPDATE_GENERAL_SECTION_FALIURE, UPDATE_GENERAL_SECTION_REQUEST, UPDATE_GENERAL_SECTION_SUCCESS } from "../../types";
+import { GET_REQUEST, GET_REQUEST_FAILURE, GET_REQUEST_SUCCESS } from "../../../type";
+import { GET_ACCEPTED_DATING_REQUEST_DATA_FAILURE, GET_ACCEPTED_DATING_REQUEST_DATA_REQUEST, GET_ACCEPTED_DATING_REQUEST_DATA_SUCCESS, GET_DATING_USER_BY_ID_FALIURE, GET_DATING_USER_BY_ID_REQUEST, GET_DATING_USER_BY_ID_SUCCESS, GET_DATING_USERS_FAILURE, GET_DATING_USERS_REQUEST, GET_DATING_USERS_SUCCESS, UPDATE_GENERAL_SECTION_FALIURE, UPDATE_GENERAL_SECTION_REQUEST, UPDATE_GENERAL_SECTION_SUCCESS } from "../../types";
 
 const initialState = {
     users: [],
@@ -22,8 +23,18 @@ const initialState = {
         loading: false,
         data: [],
         error: null
-
+    },
+    Requests: {
+        users: [],
+        loading: false,
+        error: null
+    },
+    Accepted: {
+        users: [],
+        loading: false,
+        error: null
     }
+
 };
 
 const GetDatingUsersReducer = (state = initialState, action) => {
@@ -121,6 +132,59 @@ const GetDatingUsersReducer = (state = initialState, action) => {
                     error: "Something Went Wrong !"
                 }
 
+            }
+        }
+        case GET_REQUEST: {
+            return {
+                ...state,
+                Requests: {
+                    loading: true
+                }
+            }
+        }
+        case GET_REQUEST_SUCCESS: {
+            return {
+                ...state,
+                Requests: {
+                    loading: false,
+                    users: action.payload
+                }
+            }
+        }
+        case GET_REQUEST_FAILURE: {
+            return {
+                ...state,
+                Requests: {
+                    loading: false,
+                    error: "Something Went Wrong !"
+                }
+            }
+        }
+        case GET_ACCEPTED_DATING_REQUEST_DATA_REQUEST: {
+            return {
+                ...state,
+                Accepted: {
+                    loading: true
+                }
+            }
+        }
+        case GET_ACCEPTED_DATING_REQUEST_DATA_SUCCESS: {
+            return {
+                ...state,
+                Accepted: {
+                    loading: false,
+                    users: action.payload
+
+                }
+            }
+        }
+        case GET_ACCEPTED_DATING_REQUEST_DATA_FAILURE: {
+            return {
+                ...state,
+                Accepted: {
+                    loading: false,
+                    error: action.payload
+                }
             }
         }
         default:

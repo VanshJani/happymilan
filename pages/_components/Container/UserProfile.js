@@ -225,7 +225,7 @@ function SampleUserProfile() {
 
     const HandleRequestModal = (res) => {
         if (thedata?.data?.userProfileCompleted) {
-            dispatch(sendRequest(res._id));
+            dispatch(sendRequest("long-term", res._id || res?.id));
 
             setsentRequest((prevState) => ({
                 ...prevState,

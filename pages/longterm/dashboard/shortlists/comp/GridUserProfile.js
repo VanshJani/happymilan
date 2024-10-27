@@ -141,7 +141,7 @@ function GridUserProfile() {
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>{res?.shortlistId?.maritalStatus ? res?.shortlistId?.maritalStatus : "NA"}</p>
                                                 </div>
 
-                                                <GridLikeButton userId={res?.shortlistId?.id || res?.shortlistId?._id} TheUsername={res?.shortlistId?.name} />
+                                                <GridLikeButton userId={res?.shortlistId?.id || res?.shortlistId?._id} TheUsername={res?.shortlistId?.name} userdata={res?.shortlistId} />
                                             </div>
 
                                         )

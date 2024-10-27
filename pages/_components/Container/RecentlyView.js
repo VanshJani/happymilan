@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetrecentuserprofileData } from '../../../store/actions/UsersAction'
 import { Skeleton } from '@mui/material'
 import shuffledata from 'lodash/shuffle';
-import GridLikeUser from '../common/Buttons/GridLikeUser'
-import icons from '../../../utils/icons/icons'
 import { useDarkMode } from '../../../ContextProvider/DarkModeContext'
 import calculateAge from '../../../utils/helpers/CalculateAge'
 import Link from 'next/link'
@@ -177,7 +175,7 @@ function RecentlyView() {
                       <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{item?.viewerId?.maritalStatus ? item?.viewerId?.maritalStatus : "NA"}</p>
 
                     </div>
-                    <GridLikeButton userId={item?.viewerId?.id || item?.viewerId?._id} TheUsername={item?.viewerId?.name} />
+                    <GridLikeButton userdata={item?.viewerId} userId={item?.viewerId?.id || item?.viewerId?._id} TheUsername={item?.viewerId?.name} />
                   </div>
                 )
 

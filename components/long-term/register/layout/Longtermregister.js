@@ -39,7 +39,7 @@ function Longtermregister({ slug, children }) {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const { status, upload, general, address, contact, education, professional, partnerpref, allhobbies } = useSelector((state) => state.form?.formData)
+    const { status, upload, general, address, contact, education, professional, partnerpref, hobby } = useSelector((state) => state.form?.formData)
 
 
     const steps = [
@@ -112,7 +112,7 @@ function Longtermregister({ slug, children }) {
         },
         7: async () => {
             try {
-                dispatch(updatehobbiesData(allhobbies));
+                dispatch(updatehobbiesData(hobby?.hobbyval));
             } catch (error) {
                 console.error("Error in Hobbies API:", error);
             }

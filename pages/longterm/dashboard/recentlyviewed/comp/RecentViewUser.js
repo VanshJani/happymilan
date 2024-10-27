@@ -81,7 +81,7 @@ function RecentViewUser() {
 
     const HandleRequestModal = (res) => {
         // if (data?.data?.userProfileCompleted) {
-        dispatch(sendRequest(res.id));
+        dispatch(sendRequest("long-term", res.id));
 
         setsentRequest((prevState) => ({
             ...prevState,

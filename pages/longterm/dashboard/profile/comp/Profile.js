@@ -25,6 +25,7 @@ import SaveButton from '../../../../../components/common/Buttons/SaveButton';
 import { getFormattedTime } from '../../../../../utils/helpers/getFormattedTime';
 import { getFormattedDate } from '../../../../../utils/helpers/GetFormatedDate';
 import ViewProfile from '../../../../../components/common/Models/ViewProfile';
+import { GetProfilesCount } from '../../../../../store/matrimoney-services/actions/GetProfileCountsAction';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 function Profile() {
@@ -407,10 +408,11 @@ function Profile() {
     const { data, status, totalLikes } = useSelector((state) => state.myprofile);
 
     const [token, settoken] = useState();
-    const TotalSentRequest = useSelector((state) => state.usersact.sentrequestdata)
+    const { loading, data: Counts } = useSelector((state) => state.profilecount);
+
     useEffect(() => {
         dispatch(fetchTotalLikes())
-        dispatch(getSentrequestData())
+        dispatch(GetProfilesCount())
         settoken(getCookie("authtoken"))
 
     }, []);
@@ -543,20 +545,24 @@ function Profile() {
                                     <li>
                                         <div className='flex items-center space-x-[10px]'>
                                             <Image loading='lazy' alt='heartIcon' width={16} height={14} src='/assests/dashboard/icon/heart-icon.svg' />
-                                            <h1 style={Text3} id='live-count' className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{LiveLikeCount}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'> Likes </span></h1>
+                                            <h1 style={Text3} id='live-count' className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{LiveLikeCount || (Counts?.Likes || 0)}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'> Likes </span></h1>
                                         </div>
                                     </li>
                                     <li>
                                         <div className='flex items-center space-x-[10px]'>
                                             <Image loading='lazy' alt='upIcon' width={14} height={14} src='/assests/dashboard/icon/up-arrow.svg' />
+
                                             {/* Pending--v2  */}
-                                            <h1 style={Text3} className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{TotalSentRequest?.data?.data?.totalResults || 0}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>Sent</span></h1>
+                                            <h1 style={Text3} className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{Counts?.Sent || 0}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>Sent</span></h1>
                                         </div>
                                     </li>
                                     <li>
                                         <div className='flex items-center space-x-[10px]'>
                                             <Image loading='lazy' alt='downIcon' width={14} height={14} src='/assests/dashboard/icon/down-arrow.svg' />
-                                            <h1 style={Text3} className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{0}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>Received</span></h1>
+                                            <h1 style={Text3} className='dark:text-[#FFF] text-[12px] md:text-[14px] lg:text-[14px] 2xl:text-[14px] xl:text-[13px]'>{Counts?.Accepted || 0}<span style={Text2} className='pl-[5px] text-[14px] text-[#8B8B8B]'>
+                                                {/* Received */}
+                                                Accepted
+                                            </span></h1>
                                         </div>
                                     </li>
                                 </ul>

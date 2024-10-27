@@ -6,6 +6,9 @@ import UploadImage from "./UploadImage";
 import GlobalFooter from "../../_components/layout/GlobalFooter";
 import SearchResults from "./comp/SearchResults";
 import SearchBar from "./comp/SearchBar";
+import { getCookie } from "cookies-next";
+import { useDispatch, useSelector } from "react-redux";
+import { UploadSuccessStories } from "../../../store/actions/UserStoryAction";
 
 function index() {
     const router = useRouter();
@@ -33,18 +36,54 @@ function index() {
         lineHeight: "normal",
     }
 
+
+    const [results, setResults] = useState({});
+    const [selectedValue, setSelectedValue] = useState({}); // Use camelCase for variable naming
+
+
+    const [Alldata, SetAllData] = useState({
+        partnerName: "",
+        date: "",
+        content: "",
+        partnerID: ""
+    })
+
+    const data = useSelector((state) => state.storyviews.successstory?.data)
+    const { loading } = useSelector((state) => state.storyviews.successstoryUpload)
+
     const SubmitStories = () => {
+        dispatch(UploadSuccessStories(Alldata, data))
 
     }
 
-    const [results, setResults] = useState([]);
-    const [SelectedValue, SetSelectedValue] = useState("")
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        SetAllData({ ...Alldata, [name]: value })
+    }
+
+    const dispatch = useDispatch();
+
+    const HandlePublish = () => {
+        dispatch(UploadSuccessStories(Alldata, data))
+    }
 
     useEffect(() => {
-        setResults([])
-        console.log("Selected : ", SelectedValue)
-    }, [SetSelectedValue, SelectedValue])
+        setResults({}); // Clear results on selected value change
+        // console.log("Selected: ", selectedValue);
 
+        const CurrentUsername = getCookie("uname")
+
+        {
+            Object.keys(selectedValue).length > 0 && (
+                SetAllData({
+                    partnerName: `${CurrentUsername} & ${selectedValue?.name}`,
+                    partnerID: selectedValue?.ID
+                })
+            )
+        }
+
+    }, [selectedValue]); // Only depend on selectedValue
 
     return (
         <>
@@ -72,7 +111,7 @@ function index() {
                                             <h1 style={TitleText} className="text-[14px]">Your & Your Partner Name</h1>
                                         </div>
                                         <div>
-                                            <input type="text" placeholder="Rohan & Priya" className="outline-none pl-[20px] border-[1px] border-[#B5B5B5] hover:border-[#000] w-[90%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%] h-[50px] rounded-[10px]" />
+                                            <input name="partnerName" onChange={handleInputChange} value={Alldata?.partnerName} type="text" placeholder="Rohan & Priya" className="outline-none pl-[20px] border-[1px] border-[#B5B5B5] hover:border-[#000] w-[90%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%] h-[50px] rounded-[10px]" />
                                         </div>
                                     </li>
                                     <li className="space-y-[20px]">
@@ -81,7 +120,7 @@ function index() {
                                             <h1 style={TitleText} className="text-[14px]">When did you get married?</h1>
                                         </div>
                                         <div>
-                                            <input type="text" placeholder="DD/MM/YYYY" className="outline-none pl-[20px] border-[1px] border-[#B5B5B5] hover:border-[#000] w-[90%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%] h-[50px] rounded-[10px]" />
+                                            <input name="date" onChange={handleInputChange} type="text" placeholder="DD/MM/YYYY" className="outline-none pl-[20px] border-[1px] border-[#B5B5B5] hover:border-[#000] w-[90%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%] h-[50px] rounded-[10px]" />
                                         </div>
                                     </li>
                                     <li className="space-y-[20px]">
@@ -92,9 +131,13 @@ function index() {
                                             </h1>
                                         </div>
                                         <div>
+                                            {/* Uncomment the input if needed */}
                                             {/* <input type="text" placeholder="Enter Here" className="outline-none pl-[20px] border-[1px] border-[#B5B5B5] hover:border-[#000] w-[90%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%] h-[50px] rounded-[10px]" /> */}
-                                            <SearchBar  setResults={setResults} SelectedValue={SelectedValue} />
-                                            {results && results?.length > 0 && <SearchResults SetSelectedValue={SetSelectedValue} results={results} />}
+                                            <SearchBar setResults={setResults} SelectedValue={selectedValue} /> {/* Use camelCase for props */}
+                                            {/* {results && <SearchResults setSelectedValue={setSelectedValue} results={results} />} Simplified condition */}
+                                            {Object?.keys(results).length > 0 && (
+                                                <SearchResults SetSelectedValue={setSelectedValue} results={results} />
+                                            )}
                                         </div>
                                     </li>
                                     <li className="space-y-[20px]">
@@ -108,6 +151,7 @@ function index() {
                                         <div>
                                             <textarea
                                                 type="text"
+                                                name="content" onChange={handleInputChange}
                                                 className="outline-none pl-[20px] pt-[5px] border-[1px] border-[#B5B5B5] hover:border-[#000] w-[90%] lg:w-[100%] 2xl:w-[100%] xl:w-[100%] h-[256px] rounded-[10px]"
                                             />
                                         </div>
@@ -122,7 +166,11 @@ function index() {
                                             <button onClick={() => router.back()} className="w-[104px] h-[50px] bg-[#FFF] outline-none rounded-[23px]  hover:bg-[#F3F8FF]  border-[1px] border-[#8225AF] ">Back</button>
                                         </li>
                                         <li>
-                                            <button onClick={() => router.push("/successstories")} id="grad-button" className="w-[104px] h-[50px]  outline-none border-none rounded-[23px]">Publish</button>
+                                            <button onClick={HandlePublish} id="grad-button" className="w-[104px] h-[50px]  outline-none border-none rounded-[23px]">
+                                                {
+                                                    loading ? "Loading" : "Publish"
+                                                }
+                                            </button>
                                         </li>
                                     </ul>
 

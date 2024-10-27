@@ -97,7 +97,7 @@ function Request() {
     const dispatch = useDispatch();
     const HanldeAccept = (res) => {
 
-        dispatch(acceptRequest(res))
+        dispatch(acceptRequest("long-term", res))
         setshortlistText("Shortlisted has been removed")
         setopenShortlistModal(true)
         setTimeout(() => {
@@ -109,7 +109,8 @@ function Request() {
     }
 
     const HanldeReject = (res) => {
-        dispatch(rejectRequest(res));
+        console.log("🚀 ~ HanldeReject ~ res:", res)
+        dispatch(rejectRequest("long-term", res));
 
         setshortlistText("Shortlisted has been removed")
         setopenShortlistModal(true)
@@ -214,15 +215,28 @@ function Request() {
                                         <div className='flex justify-end items-center mt-[20px] 2xl:mt-[20px] xl:mt-[20px] lg:mt-0 mr-[20px] space-x-[10px]'>
                                             <h1 className='text-[16px] 2xl:text-[16px] xl:text-[14px]' style={BoldText}>Want to accept?</h1>
                                             <div className='flex space-x-[21px]'>
-                                                <div onClick={() => HanldeAccept(res)}
+                                                {/* <div onClick={() => HanldeAccept(res)}
                                                     onMouseEnter={() => setHoveredProfile(index)}
                                                     onMouseLeave={() => setHoveredProfile(null)}
                                                     className={`${hoveredProfile === index ? "bg-custom-gradient" : ""}  cursor-pointer w-[40px]  h-[40px] grid place-items-center rounded-full border-[1px] border-[#0F52BA]`}>
                                                     <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M5.65147 12L0 6.34853L0.637477 5.73308L5.65147 10.747L16.3765 0L17.014 0.637506L5.65147 12Z" fill={hoveredProfile === index ? "white" : "black"} />
                                                     </svg>
+                                                </div> */}
+
+                                                <div onClick={() => HanldeAccept(res)} id='accept-request' className='rounded-full border-[1px] border-[#17C270] w-[63px] h-[44px] grid place-items-center'>
+                                                    <svg className='accept-icon-dt' width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M6.15225 13.4522L0 7.29998L1.8915 5.40873L6.15225 9.66948L15.313 0.508728L17.2045 2.39998L6.15225 13.4522Z" />
+                                                    </svg>
+
                                                 </div>
-                                                <div
+
+                                                <div onClick={() => HanldeReject(res)} className='w-[63px] h-[44px] grid place-items-center' id='cancel-dating'>
+                                                    <svg className='cancel-icon-dt' width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path id="Vector" d="M1.85225 14.9045L0 13.0523L5.6 7.45225L0 1.85225L1.85225 0L7.45225 5.6L13.0522 0L14.9045 1.85225L9.3045 7.45225L14.9045 13.0523L13.0522 14.9045L7.45225 9.3045L1.85225 14.9045Z" />
+                                                    </svg>
+                                                </div>
+                                                {/* <div
                                                     onClick={() => HanldeReject(res)}
                                                     onMouseEnter={() => sethoveredRejectButton(index)}
                                                     onMouseLeave={() => sethoveredRejectButton(null)}
@@ -230,8 +244,8 @@ function Request() {
                                                     <svg className='SVG-hover' width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M0.529793 12L0 11.4702L5.47021 6L0 0.529793L0.529793 0L6 5.47021L11.4702 0L12 0.529793L6.52979 6L12 11.4702L11.4702 12L6 6.52979L0.529793 12Z" fill={hoveredRejectButton === index ? "white" : "black"} />
                                                     </svg>
-                                                    
-                                                </div>
+
+                                                </div> */}
                                             </div>
                                         </div>
 

@@ -24,6 +24,9 @@ function DatingProfileImage({ size }) {
 
     }, []);
 
+    //   const { data, status } = useSelector((state) => state.myprofile);
+    // request = _id
+    // user = userID  
     const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
 
 

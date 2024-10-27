@@ -52,7 +52,7 @@ function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleR
             }, 900);
 
 
-            dispatch(CreateLikeUser({ userId: user?.id, status: true }));
+            dispatch(CreateLikeUser({ userId: user?.id || user?._id, status: true }));
             setTimeout(() => {
                 dispatch(Getlikeduserdata());
                 if (from == "GridProfile") {

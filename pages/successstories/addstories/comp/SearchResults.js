@@ -3,25 +3,30 @@ import React, { useState } from 'react'
 function SearchResults({ results, SetSelectedValue }) {
 
 
-    // const [SelectedValue,SetSelectedValue] = useState("");
+    // const [SelectedValue, SetSelectedValue] = useState("");
+
+    const HandleClick = () => {
+        SetSelectedValue({
+            name: results?.name || "",
+            userID: results?.userUniqueId || "",
+            ID: results?.id || ""
+        })
+    }
 
     return (
         <div className=''>
 
             <div id="theresults-list">
-                {results?.map((result, id) => {
-                    // return <SearchResult result={result.name} key={id} />;
-                    return (
-                        <div
-                            id="thesearch-result"
-                            onClick={(e) => SetSelectedValue(result?.name)}
-                        >
-                            {result?.name}
-                        </div>
-                    )
-                })}
+
+                <div
+                    id="thesearch-result"
+                    onClick={HandleClick}
+                >
+                    {results?.name}  {" "}  {`(${results?.userUniqueId})`}
+                </div>
             </div>
         </div >
+        // <></>
     )
 }
 

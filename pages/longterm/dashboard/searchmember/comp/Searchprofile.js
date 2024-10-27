@@ -131,7 +131,7 @@ function Searchprofile() {
 
 
     const HandleShortlist = (id) => {
-    
+
         dispatch(addToShortlist(id)); // Dispatch the action with the shortlist ID
 
         setshortlistText("Profile has been shortlisted");
@@ -145,7 +145,7 @@ function Searchprofile() {
 
     const HandleRequestModal = (res) => {
         // if (data?.data?.userProfileCompleted) {
-        dispatch(sendRequest(res._id));
+        dispatch(sendRequest("long-term", res._id));
 
         setsentRequest((prevState) => ({
             ...prevState,

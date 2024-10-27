@@ -23,6 +23,9 @@ import { DatingformReducer } from './dating-services/Redux-reducer/register/dati
 import GetDatingUsersReducer from './dating-services/Redux-reducer/home/DatingUsersReducer';
 import datinguserReducer from './dating-services/Redux-reducer/home/MyprofileReducer'
 import datinguserSlice from './dating-services/Redux-reducer/home/datinguserSlice';
+import Datingcategoryreducer from './dating-services/Redux-reducer/home/DatingcategoryReducer';
+import GetProfileCounts from './matrimoney-services/reducers/GetProfileCountsReducer';
+import Kycdocumentsreducer from './reducers/KycDocumentsReducer';
 // import { datinguserSlice } from './dating-services/Redux-reducer/home/datinguserSlice';
 // import { datinguserSlice } fro./dating-services/Redux-reducer/home/datinguserSlicecer';
 // import FetchDatingUsersReducer from './dating-services/Redux-reducer/home/FetchDatingUsersReducer';
@@ -30,7 +33,8 @@ import datinguserSlice from './dating-services/Redux-reducer/home/datinguserSlic
 
 const datingReducers = {
   user: datinguserReducer,
-  rangeuser: datinguserSlice
+  rangeuser: datinguserSlice,
+  category: Datingcategoryreducer
 };
 
 const store = configureStore({
@@ -54,8 +58,10 @@ const store = configureStore({
     signUp: SignupReducer,
     getsentrequestdata: UserSentRequestGetSlice,
     shortlistusers: getShortlistUsersSlice,
+    profilecount: GetProfileCounts,
     datingregister: DatingformReducer,
     datingusers: GetDatingUsersReducer,
+    kyc: Kycdocumentsreducer,
     ...datingReducers
   },
 });

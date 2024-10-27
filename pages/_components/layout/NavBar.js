@@ -455,15 +455,21 @@ function NavBar({ handleSearch }) {
 
     const [notificationCount, setNotificationCount] = useState(0);
 
+
     if (typeof window !== 'undefined') {
         const messaging = getMessaging(firebaseApp);
 
         // Listen for incoming messages
         onMessage(messaging, (payload) => {
+            console.log("🚀 ~ onMessage ~ payload:", payload)
 
             // Display the message as a toast notification
-            setNotificationCount((prevCount) => prevCount + 1);
-            toast.success(payload.notification?.title);
+            if (payload.notification.title === "Request-received") {
+                setNotificationCount((prevCount) => prevCount + 1);
+                toast.success(payload.notification?.body);
+            } else {
+                toast.success(payload.notification?.body);
+            }
         });
     }
 

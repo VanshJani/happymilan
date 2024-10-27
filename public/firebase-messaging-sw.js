@@ -1,5 +1,7 @@
 // firebase-messaging-sw.js
 
+import { useEffect } from "react";
+
 // Import the Firebase scripts required for messaging.
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
@@ -28,4 +30,20 @@ messaging.onBackgroundMessage(function (payload) {
     };
 
     self.registration.showNotification(notificationTitle, notificationOptions);
+
+    console.log("🚀 ~ notificationTitle:", notificationTitle)
+
+    // Increment count only if the title is "Request-received"
+    if (notificationTitle === "Request-received") {
+        self.clients.matchAll().then(clients => {
+            clients.forEach(client => {
+
+                console.log("Hello from Notification")
+                client.postMessage({
+                    type: 'INCREMENT_NOTIFICATION_COUNT'
+                });
+            });
+        });
+    }
+
 });

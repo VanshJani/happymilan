@@ -1,10 +1,12 @@
 import Image from 'next/image'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
+import { UploadStoryImages, UploadSuccessStories } from '../../../store/actions/UserStoryAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 function UploadImage() {
     const TitleText = {
@@ -27,6 +29,19 @@ function UploadImage() {
     const [ImageHover, SetImageHover] = useState({
         UploadImageHover: false
     })
+
+
+    const dispatch = useDispatch();
+
+    const data = useSelector((state) => state.storyviews.successstory?.data)
+
+    const HandleUploadImage = () => {
+        dispatch(UploadSuccessStories(data))
+    }
+
+    useEffect(() => {
+        dispatch(UploadStoryImages(ImagesData))
+    }, [ImagesData])
 
     const HandleDeleteImage = (res, indexval) => {
         const FilteredData = ImagesData?.filter((item, index) => index !== indexval)
@@ -95,37 +110,41 @@ function UploadImage() {
 
                 {
                     ImagesData?.length > 0 ?
+                        <>
+                            <div>
+                                <Swiper
+                                    pagination={{ clickable: true }}
+                                    modules={[Pagination]}
+                                    className="mySwiper w-[300px] h-[350px] border-[1px] rounded-[10px] border-gray-300"
+                                >
+                                    {
+                                        ImagesData.map((item, index) => (
 
-                        <div>
-                            <Swiper
-                                pagination={{ clickable: true }}
-                                modules={[Pagination]}
-                                className="mySwiper w-[300px] h-[350px] border-[1px] rounded-[10px] border-gray-300"
-                            >
-                                {
-                                    ImagesData.map((item, index) => (
+                                            <SwiperSlide key={index} className=''>
+                                                <div className='w-[300px] h-[350px]'>
+                                                    <Image className='absolute top-[15px] z-10 right-[20px] cursor-pointer' onClick={() => HandleDeleteImage(item, index)} loading='lazy' alt='delete' width={24} height={24} src="/assests/dashboard/icon/Trash-icon.svg" />
+                                                    <Image
+                                                        src={item?.data}
+                                                        alt="Image description"
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                        className='rounded-[10px]'
+                                                    />
+                                                </div>
+                                            </SwiperSlide>
+                                        ))
+                                    }
+                                </Swiper>
 
-                                        <SwiperSlide key={index} className=''>
-                                            <div className='w-[300px] h-[350px]'>
-                                                <Image className='absolute top-[15px] z-10 right-[20px] cursor-pointer' onClick={() => HandleDeleteImage(item, index)} loading='lazy' alt='delete' width={24} height={24} src="/assests/dashboard/icon/Trash-icon.svg" />
-                                                <Image
-                                                    src={item?.data}
-                                                    alt="Image description"
-                                                    layout="fill"
-                                                    objectFit="cover"
-                                                    className='rounded-[10px]'
-                                                />
-                                            </div>
-                                        </SwiperSlide>
-                                    ))
-                                }
-                            </Swiper>
-
-                            <div className={`flex justify-end mt-[5px] ${ImagesData.length >= 3 ? "hidden" : ""}`} {...getRootProps()}>
-                                <input {...getInputProps()} className="hidden" />
-                                <Image onMouseEnter={() => SetImageHover({ UploadImageHover: true })} onMouseLeave={() => SetImageHover({ UploadImageHover: false })} alt='drag-drop' width={34.818} height={24} className='cursor-pointer w-[34.818px] h-[24px]' src={ImageHover.UploadImageHover ? '/assests/profile/after-imageupload-icon.svg' : '/assests/profile/before-imageupload-icon.svg'} />
+                                <div className={`flex justify-end mt-[5px] ${ImagesData.length >= 3 ? "hidden" : ""}`} {...getRootProps()}>
+                                    <input {...getInputProps()} className="hidden" />
+                                    <Image onMouseEnter={() => SetImageHover({ UploadImageHover: true })} onMouseLeave={() => SetImageHover({ UploadImageHover: false })} alt='drag-drop' width={34.818} height={24} className='cursor-pointer w-[34.818px] h-[24px]' src={ImageHover.UploadImageHover ? '/assests/profile/after-imageupload-icon.svg' : '/assests/profile/before-imageupload-icon.svg'} />
+                                </div>
                             </div>
-                        </div>
+
+
+                            <button onClick={HandleUploadImage} className='w-[150px] h-[40px] bg-[black] text-[#FFF]'>Upload Image</button>
+                        </>
 
                         :
                         <>

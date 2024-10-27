@@ -31,7 +31,7 @@ import { GET_REQUEST, GET_REQUEST_SUCCESS, GET_REQUEST_FAILURE } from '../type';
 import { fetchMyProfileData } from '../reducers/MyProfile';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const sendRequest = (requestData) => {
+export const sendRequest = (View, requestData) => {
     return async (dispatch) => {
         dispatch({ type: SEND_REQUEST });
         const currentUser = getCookie("userid")
@@ -41,17 +41,27 @@ export const sendRequest = (requestData) => {
             "friend": requestData,
             "user": currentUser
         });
+        console.log("🚀 ~ return ~ data:", data)
 
+        let url;
+        if (View === null || View === "" || View === undefined) {
+            url = `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/create-friend`;
+        } else if (View === "dating") {
+            url = `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/create-friend?appUsesType=dating`;
+        } else {
+            url = `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/create-friend`;
+        }
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/create-friend`,
+            url: url,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
             data: data
         };
+        console.log("🚀 ~ return ~ config.url:", config.url)
 
         axios.request(config)
             .then((response) => {
@@ -123,7 +133,7 @@ export const getRequestFailure = (error) => ({
     payload: error
 })
 
-export const acceptRequest = (requestData) => {
+export const acceptRequest = (Section, requestData) => {
     return async (dispatch) => {
 
         dispatch({ type: ACCEPT_REQUEST })
@@ -137,10 +147,14 @@ export const acceptRequest = (requestData) => {
             "status": "accepted"
         });
 
+
+
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/respond-friend-req`,
+            url:
+                Section != "long-term" ? `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/respond-friend-req?appUsesType=dating` :
+                    `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/respond-friend-req`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -169,7 +183,7 @@ export const acceptRequestFailure = (error) => ({
     type: ACCEPT_REQUEST_FAILURE,
     payload: error
 })
-export const rejectRequest = (requestData) => {
+export const rejectRequest = (Section, requestData) => {
     return async (dispatch) => {
         dispatch({ type: REJECT_REQUEST });
 
@@ -180,14 +194,16 @@ export const rejectRequest = (requestData) => {
         const token = getCookie("authtoken")
         let data = JSON.stringify({
             "user": currentuserId,
-            "request": requestData.id,
+            "request": requestData.id || requestData?._id,
             "status": "rejected"
         });
 
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/respond-friend-req`,
+            url:
+                Section != "long-term" ? `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/respond-friend-req?appUsesType=dating` :
+                    `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/respond-friend-req`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -398,31 +414,14 @@ export const getAcceptedRequestData = (viewType, pages) => {
 
             const config = {
                 method: 'get',
-                // url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frds`,
                 url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-frd-mobile?page=${pages}&limit=${limit}`,
                 headers: {
                     'Authorization': `Bearer ${token}`
-                    // 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NmQxODlmMDIxN2RkZTNlMTRmYzg5YmIiLCJpYXQiOjE3Mjc3NjI4NzMsImV4cCI6MTcyNzk0Mjg3M30.f7PtuE-a5osGXKuVn5dScLnemB3ZF4IY9IaBuF3r4gg`
                 }
             };
 
             const response = await axios(config);
             console.log("🚀 ~ return ~ response:", response.data.data)
-
-            // const currentUser = getCookie("userid");
-
-            // if (!currentUser) {
-            //     throw new Error('User ID is missing.');
-            // }
-
-            // const friendRequests = response.data.data
-            //     .map((res) => {
-            //         if (res?.user?.id && res?.friend?.id) {
-            //             return currentUser === res.friend.id ? res.user : res.friend;
-            //         }
-            //         return null;
-            //     })
-            //     .filter((user) => user !== null); // Filter out any null values
 
             dispatch({
                 type: GET_ACCEPTED_REQUEST_DATA_SUCCESS,
@@ -1335,8 +1334,6 @@ export const DeleteMystatus = (StatusID) => {
 
     }
 }
-// GET_ALL_STATUS_SUCCESS
-
 
 //Get match score 
 
@@ -1391,7 +1388,6 @@ export const SetAsProfileImage = createAsyncThunk(
             }
             const updatedGeneralData = {
                 profilePic: data?.ImageURL
-                // appUsesType: generalData?.userType?.appUsesType
             };
             const requestOptions = {
                 method: 'PUT',
@@ -1423,5 +1419,3 @@ export const SetAsProfileImage = createAsyncThunk(
         }
     }
 );
-
-

@@ -6,6 +6,7 @@ import Pagination from '../../../../../components/common/Features/Pagination'
 import GridLikeUser from '../../../../_components/common/Buttons/GridLikeUser'
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'
 import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
+import GridLikeButton from '../../../../_components/common/Buttons/LikeSections/GridLikeButton'
 
 function GridList() {
     const ProfileName = {
@@ -99,13 +100,17 @@ function GridList() {
                                         <p style={ListText} className='text-[14px]'>{res?.friendList?.maritalStatus || "NA"}</p>
                                     </div>
 
-                                    <GridLikeUser
+                                    {/* <GridLikeUser
                                         userLikeDetails={res?.friendList?.userLikeDetails}
                                         RequestedStatus={res?.friendList?.friendsDetails}
                                         // RequestId={sentrequest[res?.friendList?.id ? res?.friendList?.id : res?.friendList?._id]}
                                         // HandleRequestModal={() => HandleRequestModal(res?.friendList)} 
                                         from={"GridProfile"} currentPage={page} user={res?.friendList} key={index}
-                                    />
+                                    /> */}
+
+                                    <GridLikeButton userId={res?.friendList?._id || res?.friendList?.id}
+                                        TheUsername={res?.friendList?.name}
+                                        userdata={res?.friendList} />
                                 </div>
 
                             )

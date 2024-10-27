@@ -296,7 +296,7 @@ body::-webkit-scrollbar {
 .profile-page-scroll {
   scroll-behavior: smooth;
   scroll-padding-top: 70px;
- }
+}
 
 .sliding-panel {
   transition: transform 0.5s;
@@ -1003,7 +1003,7 @@ body::-webkit-scrollbar {
 .the-like-icon path {
   fill: #9E28D7;
   transition: fill 0.3s ease;
- }
+}
 
 .after-like-icon path {
   fill: #FFF;
@@ -1061,6 +1061,7 @@ body::-webkit-scrollbar {
   background-color: #7045EB;
 }
 
+
 .right-swipe-icon .right-swipe {
   fill: #7045EB;
   transition: fill 0.3s ease;
@@ -1070,6 +1071,7 @@ body::-webkit-scrollbar {
 .right-swipe-icon:hover .right-swipe {
   fill: #ffffff;
 }
+
 
 #accept-request {
   border: 1px solid #17C270;

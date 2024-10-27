@@ -69,9 +69,14 @@ const Chats = ({ toggleInnerDrawer, HandleWide }) => {
     }
 
     const dispatch = useDispatch();
+
+    const [page, setpage] = useState(1);
+    
     useEffect(() => {
-        dispatch(getAcceptedRequestData())
+        dispatch(getAcceptedRequestData("listview", page))
     }, [])
+
+
 
     const FriendeLists = useSelector(
         (state) => state.usersact.acceptedrequestdata,

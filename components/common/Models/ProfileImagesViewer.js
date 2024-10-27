@@ -15,7 +15,9 @@ import UploadImage from '../../../pages/longterm/dashboard/commonCompo/HandeImag
 import MenuPop from '../../Dating/common/Models/MenuPop';
 
 function ProfileImagesViewer() {
-    const { data } = useSelector((state) => state.myprofile);
+    // const { data } = useSelector((state) => state.myprofile);
+    const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
+
 
     const style = {
         position: 'absolute',
@@ -50,7 +52,7 @@ function ProfileImagesViewer() {
     };
 
     const handleClickOpenUpload = () => {
-        if (data?.userProfilePic?.length >= 5) {
+        if (details?.userProfilePic?.length >= 5) {
             alert("You have reached the maximum limit of 5 images. If you want to upload a new image, please delete one of your current images.");
         } else {
             setOpenUpload(true);
@@ -65,14 +67,14 @@ function ProfileImagesViewer() {
     return (
         <>
             <div className='2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px] fixed 2xl:top-[110px] xl:top-[95px] right-10  2xl:flex xl:flex flex-col space-y-[30px] justify-center items-end w-full'>
-                {data?.userProfilePic?.length > 0 ? (
+                {details?.userProfilePic?.length > 0 ? (
                     <Swiper
                         pagination={{ clickable: true }}
                         modules={[Pagination]}
                         className="mySwiper 2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px] rounded-[10px]"
                     >
                         {
-                            data?.userProfilePic?.map((res, index) => (
+                            details?.userProfilePic?.map((res, index) => (
                                 <SwiperSlide key={index}>
                                     <Image loading="lazy" onClick={handleOpen} width={300} height={381} className='2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px]' alt='image' src={res?.url} />
                                 </SwiperSlide>
@@ -115,7 +117,7 @@ function ProfileImagesViewer() {
                                     className="mySwiper w-[345px] h-[449px]"
                                 >
                                     {
-                                        data?.userProfilePic?.map((res, index) => {
+                                        details?.userProfilePic?.map((res, index) => {
                                             return (
                                                 <SwiperSlide key={index}>
                                                     <MenuPop data={res} />
@@ -131,13 +133,13 @@ function ProfileImagesViewer() {
                                 </Swiper>
                             </li>
                             <li className='w-[42px] h-[42px] rounded-full'>
-                                <Image id='custom-next-button' className={CurrImage == data?.userProfilePic?.length - 1 ? 'opacity-50' : 'hover:opacity-50  cursor-pointer duration-150'} width={42} height={42} src={"/assests/icons/arrow-btn.svg"} />
+                                <Image id='custom-next-button' className={CurrImage == details?.userProfilePic?.length - 1 ? 'opacity-50' : 'hover:opacity-50  cursor-pointer duration-150'} width={42} height={42} src={"/assests/icons/arrow-btn.svg"} />
                             </li>
                         </ul>
 
                         <ul className='flex space-x-[27px] justify-center'>
                             {
-                                data?.userProfilePic?.map((res, index) => {
+                                details?.userProfilePic?.map((res, index) => {
                                     return (
                                         <li key={index} className={`${CurrImage === index ? "border-[2px] border-[#8225AF]" : "border-[2px]"} rounded-[10px]`}>
                                             <Image loading='lazy' quality={40} width={50} height={50} style={{ objectFit: "cover", width: "60px", height: "60px", borderRadius: "10px" }} src={res?.url} />
@@ -146,7 +148,7 @@ function ProfileImagesViewer() {
                                 })
                             }
                             {
-                                data?.userProfilePic?.length < 6 && (
+                                details?.userProfilePic?.length < 6 && (
                                     <li onClick={handleClickOpenUpload} className='grid place-items-center w-[60px] h-[60px] rounded-[10px] bg-[#F1F1F1] cursor-pointer duration-150 hover:bg-[#ededed]'>
                                         <Image width={20} height={18} alt='camera' src={"/assests/profile/before-imageupload-icon.svg"} />
                                     </li>

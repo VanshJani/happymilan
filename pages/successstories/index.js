@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthNavbar from "../_components/layout/AuthNavbar";
 import Footer from "../_components/layout/Footer";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import GlobalFooter from "../_components/layout/GlobalFooter";
+import { useDispatch, useSelector } from "react-redux";
+import { FetchSuccessStories } from "../../store/actions/UserStoryAction";
 
 function index() {
   const router = useRouter();
@@ -57,6 +59,14 @@ function index() {
       date: "(Married on 19 Apr 2023)",
     },
   ];
+
+  const dispatch = useDispatch();
+
+  const { loading, data, error } = useSelector((state) => state.storyviews.storydata)
+
+  useEffect(() => {
+    dispatch(FetchSuccessStories())
+  }, [])
 
   const TitleText = {
     color: "#000",
@@ -132,7 +142,7 @@ function index() {
           </div>
 
           <div className="inline-flex justify-center items-center lg:flex md:justify-center  flex-wrap gap-y-[46px] gap-x-[26px]">
-            {imgdata.map((res, index) => {
+            {data?.results?.map((res, index) => {
               return (
                 <>
                   <div
@@ -145,7 +155,7 @@ function index() {
                       loading="lazy"
                       width={260}
                       height={381}
-                      src={res.img}
+                      src={res?.images?.[0]}
                       className="rounded-[10px] md:rounded-[10px] relative  top-[50px] lg:top-[0px] w-[150px] md:w-[180px] lg:w-[260px] h-[220px] md:h-[320px] lg:h-[381px] object-cover"
                     />
                     <div className=" lg:my-[-100px] my-[-50px] rounded-[10px] md:rounded-t-none md:rounded-b-3xs [background:linear-gradient(0deg,_#000,_rgba(0,_0,_0,_0))] w-[150px] md:w-[180px] lg:w-[260px] h-[100px] opacity-[0.9]">
@@ -156,7 +166,7 @@ function index() {
                               <span
                                 style={Text}
                                 className="text-[9px] md:text-[12px] lg:text-[18px] font-semibold"
-                              >{`${res.username}`}</span>
+                              >{`${res.title}`}</span>
                               <b className="font-poppins">{` `}</b>
                             </span>
                           </p>
@@ -186,11 +196,11 @@ function index() {
             })}
           </div>
         </div>
-       
+
       </div>
       <div id="footer-section" className="border-t-[1px] border-t-[#DEDEDE] w-full mt-[100px]">
-          <GlobalFooter />
-        </div>
+        <GlobalFooter />
+      </div>
     </>
   );
 }

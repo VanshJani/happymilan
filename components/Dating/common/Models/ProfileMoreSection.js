@@ -2,8 +2,14 @@ import { Box, Dialog, Modal, Popover } from '@mui/material'
 import Image from 'next/image';
 import React, { useState } from 'react'
 import ShareModal from '../../../../pages/_components/Model/Models/ShareModal';
+import ReportModal from '../../../../pages/_components/Model/Models/ReportModal';
+import { useDispatch, useSelector } from 'react-redux';
+// import BlockUserModal from '../../../../pages/_components/Model/Models/BlockModal';
+import BlockUserModal from '../../../../pages/_components/Model/Models/BlockModal';
+import { updateSpamUserdata } from '../../../../store/reducers/SpamReportReducer';
 
-function ProfileMoreSection({ data }) {
+function ProfileMoreSection({ res }) {
+// console.log("🚀 ~ ProfileMoreSection ~ res:", res)
 
 
 
@@ -23,39 +29,76 @@ function ProfileMoreSection({ data }) {
     };
 
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = (e) => {
-        setIsModalOpen(true);
-
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
-
 
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [CurrentUserID, SetCurrentUserID] = useState("");
-    // const [Username,SetUsername] = useState("")
-
     const [UserData, SetUserData] = useState("");
+    const [CurrURL, SetCurURL] = useState("")
+
+    // Block Modal Section -- start
 
 
-    const handleClick = (event, res) => {
-        SetUserData(data)
+    const [blockprofile, setblockprofile] = useState(false);
+    const [isBlockModalOpen, setisBlockModalOpen] = useState(false);
+
+    const openBlockModal = () => {
+        setisBlockModalOpen(true);
+    }
+    const closeBlockModal = () => { setisBlockModalOpen(false) }
+
+    // Block Modal Section -- End
+
+    // Report Modal Section - Start
+    // Manages the opening and closing of the report modal, and updates spam user data upon reporting
+
+    // State to manage the visibility of the report modal
+    const [isReportModalOpen, setisReportModalOpen] = useState(false);
+
+    // Redux dispatch hook and spam user data from the store
+    const dispatch = useDispatch();
+    const spamUserData = useSelector(state => state.Spamuser.SpamUserdata);
+
+    // Function to open the report modal
+    const OpenReportModal = () => {
+        setisReportModalOpen(true);
+    };
+
+    // Function to close the report modal
+    const CloseReportModal = () => {
+        setisReportModalOpen(false);
+    };
+
+    // Function to handle report action
+    // This closes the current modal, opens the report modal, and updates spam user data in the Redux store
+    const ReportModalHandle = () => {
+        handleClose(); // Close the current modal
+        OpenReportModal(); // Open the report modal
+        // Dispatch updated spam user data to the store
+        dispatch(updateSpamUserdata({
+            ...spamUserData,
+            spamUserId: res?.id,
+            UserName: res?.firstName + " " + res?.lastName
+        }));
+    };
+
+    // Report Modal Section - End
+
+
+
+
+    const handleClick = (event) => {
+        console.log("🚀 ~ handleClick ~ res:", res)
+        SetUserData(res)
         setAnchorEl(event.currentTarget);
-        SetCurrentUserID(data?._id || data?.res);
 
-        const userId = data?._id || data?.id;
+        const userId = res?.id || res?._id || "";
         const currentUrl = window.location.href;
-        const urlWithUserId = `${currentUrl}/${userId}`;
 
-        // SetCurURL(urlWithUserId);
-        // if (MenuTitle != "accepted") {
+        // Remove "/sent" from the URL if it exists
+        const newUrl = currentUrl.replace(/\/(sent|accepted|cancelled|deleted|newrequest)/g, '');
 
-        // }
+        // Append userId to the modified URL
+        const urlWithUserId = `${newUrl}/${userId}`;
+        SetCurURL(urlWithUserId);
     };
 
     const handleClose = () => {
@@ -68,28 +111,33 @@ function ProfileMoreSection({ data }) {
 
     const [openURLModal, setOpenURLModal] = React.useState(false);
 
-    const handleClickOpen = () => {
-        const userId = CurrentUserID;
-        const currentUrl = window.location.href;
-        const urlWithUserId = `${currentUrl}/${userId}`;
-
-        navigator.clipboard
-            .writeText(urlWithUserId)
-            .then(() => {
-                setOpenURLModal(true);
-                handleClose(); // Reset copied state after 2 seconds
-            })
-            .catch((error) => console.error("Failed to copy URL: ", error));
-
-        setTimeout(() => {
-            setOpenURLModal(false);
-        }, 800);
-    };
-
 
     const HandleOpenShareModal = () => {
         openModal()
         handleClose();
+    }
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = (e) => {
+        setIsModalOpen(true);
+
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+
+    const handleCopyURL = () => {
+
+        setOpenURLModal(true)
+        navigator.clipboard.writeText(CurrURL)
+        handleClose();
+        setTimeout(() => {
+            setOpenURLModal(false)
+        }, 1000);
+
     }
 
     return (
@@ -119,16 +167,14 @@ function ProfileMoreSection({ data }) {
                         boxShadow:
                             "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
                         borderRadius: "10px",
-                        marginLeft: "-15px",
-                        marginTop: "5px"
+                        marginLeft: "-14px",
+                        marginTop:"5px"
                     }, // Add this to remove the shadow
                 }}
-
-
             >
-                <div className={`flex flex- col items-center bg-[#FFF] rounded-[10px] w-[220px] h-[150px] `}>
+                <div className={`flex flex-col items-center bg-[#FFF] rounded-[10px] w-[220px] h-[full] pb-[10px] `}>
                     <div className="w-full h-full">
-                        <ul className=" w-full flex flex-col justify-center items-center space-y-[0px]">
+                        <ul className="w-full flex flex-col justify-center items-center space-y-[0px]">
                             <li
                                 style={Text3}
                                 onClick={HandleOpenShareModal}
@@ -146,28 +192,9 @@ function ProfileMoreSection({ data }) {
                                     <p>Share Profile</p>
                                 </div>
                             </li>
+
                             <li
-                                style={Text3}
-                                onClick={() => openBlockModal(UserData)}
-                                className=" cursor-pointer hover:bg-[#F2F7FF] w-full p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
-                            >
-                                <div className=" ml-[20px] flex space-x-[24px]">
-
-
-
-                                    <Image
-                                        loading="lazy"
-                                        alt="icon"
-                                        width={14}
-                                        height={14}
-                                        src="/assests/dashboard/icon/block-icon.svg"
-                                    />
-                                    <p>Block {data?.name ? data?.name : ""}</p>{" "}
-                                    {" "}
-                                </div>
-                            </li>
-                            <li
-
+                                onClick={ReportModalHandle}
                                 style={Text3}
                                 className="cursor-pointer w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
                             >
@@ -184,7 +211,7 @@ function ProfileMoreSection({ data }) {
                                 </div>
                             </li>
                             <li
-
+                                onClick={handleCopyURL}
                                 style={Text3}
                                 className="cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
                             >
@@ -199,14 +226,36 @@ function ProfileMoreSection({ data }) {
                                     <p>Copy URL</p>
                                 </div>
                             </li>
+                            
                         </ul>
-                    </div>
-                </div >
-            </Popover >
 
+                    </div>
+                </div>
+            </Popover>
+
+
+
+            <ShareModal isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
+            <BlockUserModal
+                isOpen={isBlockModalOpen}
+                onClose={closeBlockModal}
+                // data={{
+                //     currUser: accepteddata?._id || accepteddata?.id,
+                //     OtherUser: accepteddata?.lastInitiatorUser,
+                //     status: "blocked"
+                // }}
+            />
+
+            <ReportModal
+                title={"helo"}
+                isOpen={isReportModalOpen}
+                onClose={CloseReportModal}
+                ReportData={CurrURL}
+            />
 
             <React.Fragment>
-                <Dialog open={openURLModal}
+                <Dialog
+                    open={openURLModal}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                     PaperProps={{
@@ -230,7 +279,6 @@ function ProfileMoreSection({ data }) {
                 </Dialog>
             </React.Fragment>
 
-            <ShareModal isOpen={isModalOpen} onClose={closeModal} />
         </>
     )
 }

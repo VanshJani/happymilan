@@ -214,7 +214,7 @@ function UserProfile() {
 
 
     const HandleRequestModal = (res) => {
-        dispatch(sendRequest(res?.id))
+        dispatch(sendRequest("long-term", res?.id))
 
         setsentRequest((prevState) => ({
             ...prevState,

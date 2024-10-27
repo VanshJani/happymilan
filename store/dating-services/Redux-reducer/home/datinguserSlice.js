@@ -32,9 +32,8 @@ export const datinguserSlice = createSlice({
 
 export const { setAgeRange, fetchUsersRequest, fetchUsersSuccess, fetchUsersFailure } = datinguserSlice.actions;
 
-export const fetchUsers = (minAge, maxAge) => async (dispatch) => {
-  console.log("🚀 ~ fetchUsers ~ maxAge:", maxAge)
-  console.log("🚀 ~ fetchUsers ~ minAge:", minAge)
+export const fetchUsers = (minAge, maxAge, CurrentPage) => async (dispatch) => {
+
   dispatch(fetchUsersRequest());
   try {
 
@@ -47,7 +46,7 @@ export const fetchUsers = (minAge, maxAge) => async (dispatch) => {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://stag.mntech.website/api/v1/user/user/getUserByGenderDatingAge',
+      url: `https://stag.mntech.website/api/v1/user/user/getUserByGenderDatingAge?page=${CurrentPage?.page || 1}`,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${Token}`,

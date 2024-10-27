@@ -44,7 +44,7 @@ function MoreSuggestion() {
 
     const handleRequestModal = async (user) => {
         try {
-            await dispatch(sendRequest(user._id));
+            await dispatch(sendRequest("long-term",user._id));
             setsentRequest((prevState) => ({
                 ...prevState,
                 [user._id]: !prevState[user._id],

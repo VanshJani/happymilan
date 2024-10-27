@@ -31,7 +31,7 @@ export const updateGeneralInfo = createAsyncThunk(
       const updatedGeneralData = {
         ...generalData,
         userProfileCompleted: true
-    };
+      };
       const requestOptions = {
         method: 'PUT',
         headers: {
@@ -132,7 +132,7 @@ export const updateEducationData = createAsyncThunk(
       }
 
       const result = await response.json();
-     
+
       return result.data;
 
     } catch (error) {
@@ -224,7 +224,9 @@ export const updatehobbiesData = createAsyncThunk(
   async (hobbiesInfo, thunkAPI) => {
     const axios = require('axios');
     const authToken = getCookie('authtoken')
-    let data = hobbiesInfo;
+    const updatedGeneralData = {
+      hobbies: hobbiesInfo
+    };
 
     let config = {
       method: 'put',
@@ -234,7 +236,7 @@ export const updatehobbiesData = createAsyncThunk(
         'Authorization': `Bearer ${authToken}`,
         'Content-Type': 'application/json'
       },
-      data: data
+      data: updatedGeneralData
     };
 
     axios.request(config)
@@ -289,13 +291,13 @@ export const UploadImages3 = createAsyncThunk(
           return response.json();
         })
         .then(data => {
-    
+
           if (data.status === "Success") {
-    
+
             const token = getCookie("authtoken");
 
             // Fetch the image data from the Blob URL
-           
+
             fetch(imageData.data)
               .then(response => response.blob())
               .then(blobData => {

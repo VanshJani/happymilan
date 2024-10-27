@@ -206,7 +206,7 @@ function DatingNav() {
                                 <DatingProfileImage size={40} />
                             </div>
                             <div>
-                                <h1 style={Username2}>{"myProfile?.name"}</h1>
+                                <h1 style={Username2}>{details?.name}</h1>
                                 <p style={userStatus} className="text-[#0091FF]">Online</p>
 
                             </div>
@@ -350,23 +350,47 @@ function DatingNav() {
     }
 
 
-    const myProfile = useSelector((state) => state.myprofile?.data);
+
+    const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
+
 
 
 
     const [notificationCount, setNotificationCount] = useState(0);
 
-    if (typeof window !== 'undefined') {
-        const messaging = getMessaging(firebaseApp);
+    // if (typeof window !== 'undefined') {
+    //     const messaging = getMessaging(firebaseApp);
 
-        // Listen for incoming messages
-        onMessage(messaging, (payload) => {
+    //     // Listen for incoming messages
+    //     onMessage(messaging, (payload) => {
+    //         console.log("🚀 ~ onMessage ~ payload:", payload)
 
-            // Display the message as a toast notification
-            setNotificationCount((prevCount) => prevCount + 1);
-            toast.success(payload.notification?.title);
-        });
-    }
+    //         // Display the message as a toast notification
+    //         if (payload.notification.title === "Request-received") {
+    //             setNotificationCount((prevCount) => prevCount + 1);
+    //             toast.success(payload.notification?.body);
+    //         } else {
+    //             toast.success(payload.notification?.body);
+    //         }
+    //     });
+    // }
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const messaging = getMessaging(firebaseApp);
+
+            // Listen for incoming messages
+            onMessage(messaging, (payload) => {
+                console.log("🚀 ~ onMessage ~ payload:", payload);
+
+                if (payload.notification.title === "Request-received") {
+                    setNotificationCount((prevCount) => prevCount + 1);
+                }
+                toast.success(payload.notification?.body);
+            });
+        }
+    }, [])
+
 
     const handleNotificationOpen = () => {
         toggleNotification('right', true)();
@@ -449,8 +473,8 @@ function DatingNav() {
                                 </div>
 
                                 <div className="pl-[28px] ">
-                                    <h1 style={UserProfileName} className="text-[#000] dark:text-[#FFF]">{myProfile?.name}</h1>
-                                    <p style={userId} className="text-[#50545A]">ID: {myProfile?.userUniqueId?.toUpperCase()}</p>
+                                    <h1 style={UserProfileName} className="text-[#000] dark:text-[#FFF]">{details?.name}</h1>
+                                    <p style={userId} className="text-[#50545A]">ID: {details?.userUniqueId?.toUpperCase()}</p>
 
                                 </div>
                                 <div className="w-full grid place-items-center">
