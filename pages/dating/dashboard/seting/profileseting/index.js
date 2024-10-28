@@ -22,7 +22,7 @@ function index() {
             paddingLeft: "8px",
             width: "300px",
             height: "50px",
-            borderRadius: "8px", // Add padding on the right side
+            borderRadius: "23px", // Add padding on the right side
             border: "1px solid #e6e6e6",
             borderColor: state.isFocused ? "black" : provided.borderColor,
             "&:hover": {

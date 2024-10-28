@@ -503,7 +503,7 @@ function DatingNav() {
                                                 {darkMode ? icons["menu-lock"].dark : icons["menu-lock"].light}
                                             </span>
 
-                                            <Link className="relative left-[5px]" href="#">Privacy Policy</Link>
+                                            <Link className="relative left-[5px]" href="/dating/dashboard/seting/privacy">Privacy Seting</Link>
                                         </li>
 
 
@@ -512,7 +512,7 @@ function DatingNav() {
                                         <div className="bg-[#EBEBEB] h-[1px] w-[230px]"></div>
                                     </div>
                                     <ul className="pl-[10px]">
-                                        <li className="flex items-center space-x-[60px]">
+                                        <li className="w-[230px] h-[34px] p-[10px] pl-[15px] rounded-[100px]  flex items-center space-x-[60px]">
                                             <div className="flex space-x-[0px]">
                                                 <span className="relative left-[-2px]">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

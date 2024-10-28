@@ -13,7 +13,7 @@ const ProfileModal = ({ handleClose, handleOpen, setOpenProfileModal, openProfil
         height: "574px",
         outline: "none",
         bgcolor: 'background.paper',
-        borderRadius: "10px",
+        borderRadius: "18px",
         boxShadow: 24,
         p: 4,
     };
@@ -28,8 +28,9 @@ const ProfileModal = ({ handleClose, handleOpen, setOpenProfileModal, openProfil
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            // Apply border radius to Dialog
         >
-            <Box sx={style}>
+            <Box sx={style} >
                 <ImageCropper
                     updateAvatar={updateAvatar}
                     closeModal={closeModal}

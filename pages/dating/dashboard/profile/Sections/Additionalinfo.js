@@ -129,7 +129,7 @@ function Additionalinfo() {
         <>
             <div className={`space-y-[20px] w-full ${!showForm ? "h-[240px]" : "h-full"}  rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px] `}>
                 <div>
-                    <ul className='flex justify-between items-center'>
+                    <ul className='mt-2 h-full flex justify-between items-center'>
                         <li><p>Professional Details</p></li>
                         <li>
                             <div className='cursor-pointer w-[37px] h-[37px] dark:hover:bg-[#252525] hover:bg-[#F0F9FF] rounded-[50%] flex items-center justify-center'>
@@ -201,7 +201,7 @@ function Additionalinfo() {
                                             <p style={FildsTitle}>Education Level</p>
                                             <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData[0]?.educationLevel) || "NA"}</h1>
                                         </li>
-                                        <li className='space-y-[5px] w-[150px]'>
+                                        <li className='space-y-[5px] w-[200px]'>
                                             <p style={FildsTitle}>Occupation</p>
                                             <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData[0]?.Occupation) || "NA"}</h1>
                                         </li>

@@ -195,8 +195,8 @@ function BasicInfo() {
     return (
         <>
             <div className={`space-y-[20px] w-full ${showForm ? "h-full" : "h-[440px]"} rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px]`}>
-                <div>
-                    <ul className='flex justify-between items-center'>
+                <div className=''>
+                    <ul className='mt-2 h-full flex justify-between items-center'>
                         <li><p>Basic Info</p></li>
                         <li>
                             <div className='cursor-pointer w-[37px] h-[37px] dark:hover:bg-[#252525] hover:bg-[#F0F9FF] rounded-[50%] flex items-center justify-center'>
@@ -361,7 +361,7 @@ function BasicInfo() {
                                                 <p style={FildsTitle}>Date of Birth</p>
                                                 <h1 style={FiledsValue}>{getFormattedDate(details?.dateOfBirth) || "NA"}</h1>
                                             </li>
-                                            <li className='space-y-[5px] w-[150px]'>
+                                            <li className='space-y-[5px] w-[200px]'>
                                                 <p style={FildsTitle}>Currently Living</p>
                                                 <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.CurrentlyLiving) || "NA"}</h1>
                                             </li>
@@ -392,7 +392,7 @@ function BasicInfo() {
                                                 <p style={FildsTitle}>Religion</p>
                                                 <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.religion) || "NA"}</h1>
                                             </li>
-                                            <li className='space-y-[5px] w-[150px]'>
+                                            <li className='space-y-[5px] w-[200px]'>
                                                 <p style={FildsTitle}>Ethnicity</p>
                                                 <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.Ethnicity) || "NA"}</h1>
                                             </li>

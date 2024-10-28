@@ -56,6 +56,7 @@ function ProfileImagesViewer() {
             alert("You have reached the maximum limit of 5 images. If you want to upload a new image, please delete one of your current images.");
         } else {
             setOpenUpload(true);
+            setOpen(false);
         }
     };
 
@@ -91,14 +92,17 @@ function ProfileImagesViewer() {
                 )
                 }
             </div>
+
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
+
                 <Box sx={style}>
                     <div className='w-[780px] h-[520px] space-y-[26px]'>
+
                         <ul className='flex justify-evenly items-center'>
                             <li className='w-[42px] h-[42px] rounded-full'>
                                 <Image id='custom-prev-button' className={CurrImage === 0 ? 'transform scale-x-[-1] opacity-50' : 'transform scale-x-[-1] hover:opacity-50 duration-150 cursor-pointer'} width={42} height={42} src={"/assests/icons/arrow-btn.svg"} />

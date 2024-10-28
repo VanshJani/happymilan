@@ -1,19 +1,86 @@
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-// import SwiperCardNext from '../../../component/SwiperCard';
+import React, { useEffect, useState } from 'react'
 import DatingLayout from '../../../../../components/Dating/layout/DatingLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetDatingCategoryUsers } from '../../../../../store/dating-services/Redux-actions/home/DatingcategoryActions';
-// import CategoryUsers from '../../../../../components/Dating/UI/CategoryUsers';
 import Categoryusers from '../../../../../components/Dating/UI/CategoryUsers';
 import Image from 'next/image';
+import { Breadcrumbs } from '@mui/material';
+import Link from 'next/link';
 
 function index() {
 
     const router = useRouter();
 
     const { category } = router.query
-    console.log("🚀 ~ index ~ category:", category)
+
+
+    const [CategoryText, SetCategoryText] = useState("")
+
+
+    const EnumOfInterest = {
+        MEET_NEW_FRIENDS: 'meet-new-friends',
+        LOOKING_FOR_LOVE: 'looking-for-love',
+        MOVIE_DATE: 'movie-date',
+        FOODIES: 'foodies',
+        TRAVEL_BUDDIES: 'travel-buddies',
+        GAME_LOVER: 'game-lover',
+        CHITCHAT: 'chit-chat',
+        ADVENTUROUS: 'adventurous',
+    };
+
+
+    const Categories = [
+        {
+            id: 1,
+            title: "Meet New Friends",
+            slug: EnumOfInterest.MEET_NEW_FRIENDS,
+        },
+        {
+            id: 2,
+            title: "Looking for Love",
+            slug: EnumOfInterest.LOOKING_FOR_LOVE,
+        },
+        {
+            id: 3,
+            title: "Movie Date",
+            slug: EnumOfInterest.MOVIE_DATE,
+        },
+        {
+            id: 4,
+            title: "Foodies",
+            slug: EnumOfInterest.FOODIES,
+        },
+        {
+            id: 5,
+            title: "Travel Buddies",
+            slug: EnumOfInterest.TRAVEL_BUDDIES,
+        },
+        {
+            id: 6,
+            title: "Game Lover",
+            slug: EnumOfInterest.GAME_LOVER,
+        },
+        {
+            id: 7,
+            title: "Chit-Chat",
+            slug: EnumOfInterest.CHITCHAT,
+        },
+        {
+            id: 7,
+            title: "Adventurous",
+            slug: EnumOfInterest.ADVENTUROUS,
+        },
+    ]
+
+    useEffect(() => {
+        if (category) {
+            const matchedCategory = Categories.find((cat) => cat.slug === category);
+            if (matchedCategory) {
+                SetCategoryText(matchedCategory.title);
+            }
+        }
+    }, [category]);
 
     const dispatch = useDispatch();
 
@@ -44,6 +111,7 @@ function index() {
 
     const datingUsers = useSelector((state) => state?.category?.users?.paginatedResults || []);
 
+
     return (
         <DatingLayout>
 
@@ -53,7 +121,7 @@ function index() {
                 <div className='w-full flex justify-start'>
                     <ul className='w-full grid place-items-start'>
                         <li>
-                            <p className=' ' style={SectionTitle}>New Suggestions</p>
+                            <p className=' ' style={SectionTitle}>{CategoryText || "None"}</p>
                         </li>
                     </ul>
                 </div>

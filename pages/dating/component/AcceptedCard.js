@@ -87,7 +87,8 @@ const AcceptedUsersCard = () => {
                                                         {res?.friendList?.name}
                                                     </h1>
                                                     <p className="text-[10px]" style={Text2}>
-                                                        {capitalizeFirstLetter(res?.friendList?.gender)} 36, 4’ 5” | Ahmedabad (2.1 km)
+                                                        {/* {capitalizeFirstLetter(res?.friendList?.gender)} 36, 4’ 5” <span className='text-[#cccbcb]'>|</span> Ahmedabad (2.1 km) */}
+                                                        {`${capitalizeFirstLetter(res?.friendList?.datingData[0]?.Occupation) || "NA"} ,`}&nbsp;&nbsp;{"2.1 km away"}
                                                     </p>
                                                 </div>
                                             </li>

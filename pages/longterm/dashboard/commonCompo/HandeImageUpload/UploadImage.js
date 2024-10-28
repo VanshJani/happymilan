@@ -277,10 +277,11 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
                 open={openUpload}
                 onClose={handleCloseUpload}
                 className='flex justify-center'
+                sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }} // Apply border radius to Dialog
 
             >
 
-                <DialogContent className='dark:bg-[#303133] '>
+                <DialogContent className='dark:bg-[#303133] ' sx={{borderRadius:"18px"}}>
                     <div className='space-y-[20px]'>
                         {/* <div className='flex items-center justify-between space-x-[20px]'>
                             <div className='flex items-center space-x-[20px]'>

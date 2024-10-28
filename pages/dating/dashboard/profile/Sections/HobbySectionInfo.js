@@ -97,7 +97,7 @@ function HobbySectionInfo() {
                         <>
                             <div>
                                 <div style={{ width: "100%" }}>
-                                    <p style={FildsTitle}>Purpose</p>
+                                    <p style={FildsTitle}>Hobbies</p>
                                     <ReusableMultiSelect
                                         options={options}
                                         setSelectedValues={setSelectedInterests}

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import ViewProfile from '../../../common/Models/ViewProfile';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Dialog, DialogContent } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { Deleteimage, SetAsProfileImage } from '../../../../store/actions/UsersAction';
+import { Deleteimage } from '../../../../store/actions/UsersAction';
 import { fetchUserDetails, updateUserDetails } from '../../../../store/dating-services/Redux-reducer/home/MyprofileReducer';
 
 function MenuPop({ data }) {
@@ -29,6 +28,17 @@ function MenuPop({ data }) {
         fontWeight: "400",
         lineHeight: "normal",
     }
+
+    const ObjectData = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontSize: "14px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "normal",
+    }
+
+
 
     // Toggle menu visibility
 
@@ -128,16 +138,17 @@ function MenuPop({ data }) {
         <>
 
             <div className='absolute right-0' ref={menuRef}>
-                <svg className='cursor-pointer' onClick={handleToggle} xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16" fill="none">
-                    <path d="M2 15.2695C1.5875 15.2695 1.23442 15.1225 0.94075 14.8287C0.646917 14.535 0.5 14.182 0.5 13.7695C0.5 13.357 0.646917 13.0038 0.94075 12.71C1.23442 12.4163 1.5875 12.2695 2 12.2695C2.4125 12.2695 2.76558 12.4163 3.05925 12.71C3.35308 13.0038 3.5 13.357 3.5 13.7695C3.5 14.182 3.35308 14.535 3.05925 14.8287C2.76558 15.1225 2.4125 15.2695 2 15.2695ZM2 9.50021C1.5875 9.50021 1.23442 9.35329 0.94075 9.05946C0.646917 8.76579 0.5 8.41271 0.5 8.00021C0.5 7.58771 0.646917 7.23462 0.94075 6.94096C1.23442 6.64712 1.5875 6.50021 2 6.50021C2.4125 6.50021 2.76558 6.64712 3.05925 6.94096C3.35308 7.23462 3.5 7.58771 3.5 8.00021C3.5 8.41271 3.35308 8.76579 3.05925 9.05946C2.76558 9.35329 2.4125 9.50021 2 9.50021ZM2 3.73096C1.5875 3.73096 1.23442 3.58412 0.94075 3.29046C0.646917 2.99662 0.5 2.64346 0.5 2.23096C0.5 1.81846 0.646917 1.46537 0.94075 1.17171C1.23442 0.877874 1.5875 0.730957 2 0.730957C2.4125 0.730957 2.76558 0.877874 3.05925 1.17171C3.35308 1.46537 3.5 1.81846 3.5 2.23096C3.5 2.64346 3.35308 2.99662 3.05925 3.29046C2.76558 3.58412 2.4125 3.73096 2 3.73096Z" fill="#5F6368" />
-                </svg>
-
+                <div className=''>
+                    <svg className='cursor-pointer' onClick={handleToggle} xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16" fill="none">
+                        <path d="M2 15.2695C1.5875 15.2695 1.23442 15.1225 0.94075 14.8287C0.646917 14.535 0.5 14.182 0.5 13.7695C0.5 13.357 0.646917 13.0038 0.94075 12.71C1.23442 12.4163 1.5875 12.2695 2 12.2695C2.4125 12.2695 2.76558 12.4163 3.05925 12.71C3.35308 13.0038 3.5 13.357 3.5 13.7695C3.5 14.182 3.35308 14.535 3.05925 14.8287C2.76558 15.1225 2.4125 15.2695 2 15.2695ZM2 9.50021C1.5875 9.50021 1.23442 9.35329 0.94075 9.05946C0.646917 8.76579 0.5 8.41271 0.5 8.00021C0.5 7.58771 0.646917 7.23462 0.94075 6.94096C1.23442 6.64712 1.5875 6.50021 2 6.50021C2.4125 6.50021 2.76558 6.64712 3.05925 6.94096C3.35308 7.23462 3.5 7.58771 3.5 8.00021C3.5 8.41271 3.35308 8.76579 3.05925 9.05946C2.76558 9.35329 2.4125 9.50021 2 9.50021ZM2 3.73096C1.5875 3.73096 1.23442 3.58412 0.94075 3.29046C0.646917 2.99662 0.5 2.64346 0.5 2.23096C0.5 1.81846 0.646917 1.46537 0.94075 1.17171C1.23442 0.877874 1.5875 0.730957 2 0.730957C2.4125 0.730957 2.76558 0.877874 3.05925 1.17171C3.35308 1.46537 3.5 1.81846 3.5 2.23096C3.5 2.64346 3.35308 2.99662 3.05925 3.29046C2.76558 3.58412 2.4125 3.73096 2 3.73096Z" fill="#5F6368" />
+                    </svg>
+                </div>
                 {isOpen && (
-                    <div className="absolute top-0 right-2 bg-white shadow-lg border rounded-[10px] w-44">
-                        <ul className="flex flex-col py-5 pb-5">
+                    <div className="h-[100px] w-[170px] grid place-items-center absolute top-1 right-[18px] bg-white shadow-lg border rounded-[10px] ">
+                        <ul className="flex flex-col w-full">
                             <li
-                                className=" hover:bg-gray-100 cursor-pointer flex space-x-3 items-center p-2"
-                                style={Text}
+                                className="pl-5 w-full hover:bg-gray-100 cursor-pointer flex space-x-3 items-center p-2"
+                                style={ObjectData}
                                 onClick={handleSetAsProfilePicture}
                             >
                                 <span>
@@ -146,12 +157,12 @@ function MenuPop({ data }) {
                                     </svg>
                                 </span>
                                 <p>
-                                    Set as Profile Picture
+                                    Set as Profile
                                 </p>
                             </li>
                             <li
-                                className=" hover:bg-gray-100 cursor-pointer flex space-x-3 items-center p-2"
-                                style={Text}
+                                className="pl-5 w-full hover:bg-gray-100 cursor-pointer flex space-x-3 items-center p-2"
+                                style={ObjectData}
                                 onClick={handleClickDeleteImageModal}
                             >
                                 <span>
