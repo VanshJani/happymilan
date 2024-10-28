@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { sendRequest } from '../../../store/actions/UsersAction';
 import { Dialog } from '@mui/material';
 import { fetchUsers } from '../../../store/dating-services/Redux-reducer/home/datinguserSlice';
+import { capitalizeFirstLetter } from '../../../utils/form/Captitelize';
 
 const SwipeCard = ({ card, onSwipe }) => {
     // console.log("🚀 ~ SwipeCard ~ card:", card)
@@ -46,12 +47,12 @@ const SwipeCard = ({ card, onSwipe }) => {
 
     return (
         <>
-            <div>
+            <div className=''>
                 <ProfileMoreSection res={card} />
                 {/* <ProfileMenu res={card}  /> */}
             </div>
             <motion.div
-                className="2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px] rounded-xl shadow-lg"
+                className=" 2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px] rounded-xl shadow-lg"
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragSnapToOrigin
@@ -75,19 +76,19 @@ const SwipeCard = ({ card, onSwipe }) => {
                         </ul>
                     </div>
                     <img src={card?.profilePic || "https://studiomarcofischer.com/images/portrait-men/portrait-men-004-studiomarcofischer.jpg"} alt="Profile" className="2xl:h-[378px] 2xl:w-[329px] xl:w-[270px] xl:h-[319px] object-cover rounded-xl" />
-                    <div className="absolute bottom-[30px] space-y-[5px] text-[white] ml-[20px] 2xl:ml-[30px] xl:ml-[30px]">
-                        <div>
+                    <div className="absolute bottom-[20px] space-y-[0px] text-[white] ml-[20px] 2xl:ml-[30px] xl:ml-[30px]">
+                        <div className='mb-[5px]'>
                             <div className="rounded-[10px] text-center bg-[#30b70a] text-[black] w-[36px] h-[14px]">
-                                <p style={Text2} className="text-[10px]">online</p>
+                                <p style={Text2} className="text-[#FFF] text-[10px]">online</p>
                             </div>
                         </div>
                         {/* <Link href={"#"}> */}
                         <Link href={`/dating/dashboard/${card?.id || card?._id}`} ><h1 className="z-10 text-[20px]" style={Text1}>
-                            {card?.name}
+                            {capitalizeFirstLetter(card?.name)}
                         </h1></Link>
                         {/* </Link> */}
                         <p className="text-[10px]" style={Text2}>
-                            {card?.gender || "NA"} {card?.age || "NA"}, 4’ 5” | Ahmedabad (2.1 km)
+                            {`${capitalizeFirstLetter(card?.datingData[0]?.Occupation) || "NA"} ,`}&nbsp;&nbsp;{"2.1 km away"}
                         </p>
                     </div>
                 </div>
@@ -183,10 +184,10 @@ const SwiperCardNext = () => {
     const nextCardIndex = (currentIndex + 1) % users?.length;
 
     return (
-        <div className="mt-[20px] top-3 relative flex items-center space-x-[20px] justify-center">
+        <div className=" mt-[20px] top-3 relative flex items-center space-x-[20px] justify-center">
 
-            <div className="space-x-[20px] flex items-center justify-center h-full">
-                <div className='w-[91px] h-[104px]'>
+            <div className=" space-x-[20px] flex items-center justify-center h-full">
+                <div className=' w-[91px] h-[104px]'>
                     {currentIndex > 0 && (
                         <motion.div
                             className="w-[91px] h-[104px] opacity-50"
@@ -212,7 +213,7 @@ const SwiperCardNext = () => {
                 )}
 
                 <motion.div
-                    className="w-[91px] h-[104px] opacity-50"
+                    className="relative left-4 w-[91px] h-[104px] opacity-50"
                     initial={{ scale: 0.8, opacity: 0.5 }}
                     animate={{ scale: 1, opacity: 1 }}
                 >
@@ -224,7 +225,7 @@ const SwiperCardNext = () => {
                 </motion.div>
 
                 {/* Action Buttons */}
-                <div className="left-[-10px] absolute bottom-[-60px] w-full flex justify-center space-x-[12px]">
+                <div className=" left-[-10px] absolute bottom-[-60px] w-full flex justify-center space-x-[12px]">
 
                     <div>
                         <div onClick={() => handleButtonClick('dislike')} className='w-[63px] h-[44px] grid place-items-center' id='Reject-dating'>

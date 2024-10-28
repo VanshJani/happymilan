@@ -13,6 +13,7 @@ const ContactTab = dynamic(() => import('./sections/ContactTab'));
 const ProfessionalTab = dynamic(() => import('./sections/ProfessionalTab'));
 const PartnerPreferenceTab = dynamic(() => import('./sections/PartnerPreferenceTab'));
 import Modal from '../../commonCompo/HandleProfileUpload/Modal';
+import { getSentrequestData } from '../../../../../store/actions/UsersAction';
 import moment from 'moment-timezone';
 import HobbiesTab from './sections/HobbiesTab';
 import { useSocket } from '../../../../../ContextProvider/SocketContext';

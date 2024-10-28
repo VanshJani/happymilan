@@ -18,7 +18,7 @@ function UserCard() {
 
     return (
         <>
-            <div className='w-full grid place-items-center'>
+            <div className=' w-full grid place-items-center'>
 
                 <div className="space-y-[30px] flex flex-col items-center">
                     <div className='w-full flex justify-start'>

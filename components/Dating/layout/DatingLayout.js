@@ -34,7 +34,7 @@ function DatingLayout({ children, HideSection }) {
                             </div>
                             :
 
-                            <div className='hidden  z-[-10]  absolute 2xl:top-[180px] xl:top-[245px] right-10  2xl:flex xl:flex flex-col space-y-[30px] justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
+                            <div className='hidden z-30  absolute 2xl:top-[180px] xl:top-[245px] right-10  2xl:flex xl:flex flex-col space-y-[30px] justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
                                 <UnlockProfile />
                             </div>
                     }

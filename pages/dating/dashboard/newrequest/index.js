@@ -5,6 +5,7 @@ import DatingLayout from '../../../../components/Dating/layout/DatingLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetNewRequestDataDating } from '../../../../store/dating-services/Redux-actions/home/DatingUsersActions'
 import { acceptRequest, rejectRequest } from '../../../../store/actions/UsersAction'
+import { capitalizeFirstLetter } from '../../../../utils/form/Captitelize'
 
 
 function NewrequestData() {
@@ -101,7 +102,7 @@ function NewrequestData() {
                                                             height={137}
                                                             className="cursor-pointer 2xl:h-[137px] 2xl:w-[120px] xl:w-[120px] xl:h-[137px] lg:w-[100px] lg:h-[100px] w-full h-full"
                                                             alt='image'
-                                                            style={{ objectFit: "cover" }}
+                                                            style={{ objectFit: "cover",  borderRadius: "14px" }}
                                                             src={res?.user?.profilePic}
                                                         />
                                                     </li>
@@ -116,7 +117,7 @@ function NewrequestData() {
                                                                 {res?.user?.name}
                                                             </h1>
                                                             <p className="text-[10px]" style={Text2}>
-                                                                {res?.user?.gender} 36, 4’ 5” | Ahmedabad (2.1 km)
+                                                                {capitalizeFirstLetter(res?.user?.gender)} 36, 4’ 5” | Ahmedabad (2.1 km)
                                                             </p>
                                                         </div>
                                                     </li>

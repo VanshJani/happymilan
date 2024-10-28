@@ -15,48 +15,6 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
     const { darkMode, toggleDarkMode } = useDarkMode();
 
 
-    const SearchMemberSelectBoxStyle = {
-        control: (provided, state) => ({
-            ...provided,
-            paddingRight: '10px',
-            paddingLeft: "8px",
-            backgroundColor: darkMode ? "#141516" : "#FFF",
-            height: "50px",
-            borderRadius: "8px", // Add padding on the right side
-            // border: "1px solid #e6e6e6",
-            borderColor: state.isFocused ? 'black' : provided.borderColor,
-            '&:hover': {
-                borderColor: 'black',
-            },
-            boxShadow: state.isFocused ? 'none' : provided.boxShadow,
-        }),
-        multiValue: (provided) => ({
-            ...provided,
-            borderRadius: "10px",
-        }),
-        indicatorSeparator: (provided) => ({
-            ...provided,
-            display: 'none',
-            paddingRight: "20px"
-            // Hide the vertical line behind the arrow
-        }),
-        multiValueLabel: (provided) => ({
-            ...provided,
-            backgroundColor: "#F9F9F9",
-            borderRadius: "5px"
-        }),
-        multiValueRemove: (provided) => ({
-            ...provided,
-            backgroundColor: "#F9F9F9",
-            borderRadius: "5px"
-        }),
-        // option : (provided) => ({
-        //     ...provided,
-        //     backgroundColor:"#F9F9F9"
-        // })
-
-    };
-
     const Text1 = {
         fontFamily: "Poppins",
         fontSize: "18px",
@@ -158,7 +116,7 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
 
 
     function handleSelect(data) {
-        const values = data.map(item => item.value);
+        const values = data?.map(item => item.value);
         setSelectedOptions(data);
         updateSearchData({
             ...state.searchform,
@@ -398,7 +356,7 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
 
     const totalPage = Math.ceil(data.length / DataperPage)
 
-    const currentData = data.slice(
+    const currentData = data?.slice(
         (currentPage - 1) * DataperPage,
         currentPage * DataperPage
     )
@@ -436,13 +394,13 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
                                 <p style={titleText}>Select Age Range</p>
                                 <ul className='space-x-[31px] flex justify-between'>
                                     <li>
-                                        <input  type='number' onChange={HanldeInputChange} value={Userage.minAge} name='minAge' placeholder='min' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                        <input type='number' onChange={HanldeInputChange} value={Userage.minAge} name='minAge' placeholder='min' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
                                     </li>
                                     <li>
                                         <div className='text-[#000]'>-</div>
                                     </li>
                                     <li>
-                                        <input  type='number' onChange={HanldeInputChange} value={Userage.maxAge} name='maxAge' placeholder='max' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                        <input type='number' onChange={HanldeInputChange} value={Userage.maxAge} name='maxAge' placeholder='max' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
                                     </li>
                                 </ul>
                             </div>
@@ -450,13 +408,13 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
                                 <p style={titleText}>Select Prefer Heights</p>
                                 <ul className='space-x-[31px] flex justify-between'>
                                     <li>
-                                        <input  type='number' name='minHeight' value={Userage.minHeight} onChange={HanldeInputChange} placeholder='min' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                        <input type='number' name='minHeight' value={Userage.minHeight} onChange={HanldeInputChange} placeholder='min' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
                                     </li>
                                     <li>
                                         <div className='text-[#000]'>-</div>
                                     </li>
                                     <li>
-                                        <input  type='number' name='maxHeight' value={Userage.maxHeight} onChange={HanldeInputChange} placeholder='max' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                        <input type='number' name='maxHeight' value={Userage.maxHeight} onChange={HanldeInputChange} placeholder='max' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
                                     </li>
                                 </ul>
                             </div>
@@ -546,7 +504,7 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
                             <h1 style={titleText}>Save Search?</h1>
                             <div className='w-full md:w-[479px]'>
                                 {/* <input name='saveSearch' value={SearchSave} onChange={HanldeInputChange} type='text' placeholder='My Matches' className='dark:bg-[#141516] dark:text-[#FFF] pl-[20px] oultine-none w-full rounded-[8px] h-[50px] border-[1px] hover:border-[#000] border-[#D8D8D8]' /> */}
-                                <input  name='saveSearch' value={SearchSave} onChange={HanldeInputChange} type='text' placeholder='My Matches' id='num-input' className='pb-[10px] 2xl:w-[630px] xl:w-[540px] lg:w-full outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
+                                <input name='saveSearch' value={SearchSave} onChange={HanldeInputChange} type='text' placeholder='My Matches' id='num-input' className='pb-[10px] 2xl:w-[630px] xl:w-[540px] lg:w-full outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
 
                             </div>
                         </div>

@@ -170,7 +170,7 @@ function DatingSideBar() {
                                 </Link>
                                 <span className="text-[#E3E3E3]">|</span>{" "}
                                 <Link href={"/dating/dashboard/profile"}>
-                                    <span className="text-[14px] text-[#0F52BA] dark:text-[#FFF]">My Profile</span>
+                                    <span className="text-[14px] text-[#0F52BA] dark:text-[#FFF]  hover:text-[#0645A3]">My Profile</span>
                                 </Link>
                             </div>
                         </div>
@@ -180,7 +180,7 @@ function DatingSideBar() {
 
                         <li className='pt-[8px] pb-[10px]'>
                             <div className='flex'>
-                                <input type='text' placeholder='search by location' className='border-[1px] border-[#E3E3E3] rounded-[20px] h-[40px] w-[230px] outline-none pl-[15px] pr-[30px] dark:bg-[#373636] dark:border-none' />
+                                <input type='text' placeholder='Search By Location' className='border-[1px] border-[#E3E3E3] rounded-[20px] h-[40px] w-[240px] outline-none pl-[15px] pr-[30px] dark:bg-[#373636] dark:border-none' />
                                 <Image width={15} height={14} src="/assests/Black/Search.svg" className="relative right-[30px]" />
                             </div>
                         </li>

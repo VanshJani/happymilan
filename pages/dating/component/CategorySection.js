@@ -108,11 +108,11 @@ function CategorySection() {
                             Categories.map((category) => {
                                 return (
                                     <Link href={`/dating/dashboard/category/${category?.slug}`}>
-                                        <li key={category?.id} className='cursor-pointer relative w-[272px] h-[160px] rounded-[10px] overflow-hidden'>
+                                        <li key={category?.id} className='group cursor-pointer relative w-[272px] h-[160px] rounded-[10px] overflow-hidden'>
                                             <Image
                                                 width={272}
                                                 height={160}
-                                                className='rounded-[10px]'
+                                                className='rounded-[10px] group-hover:scale-105 duration-150'
                                                 loading='lazy'
                                                 alt='Friends'
                                                 src={category?.imageURL}
