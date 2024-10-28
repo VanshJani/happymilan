@@ -33,7 +33,7 @@ function AcceptedData() {
 
                 <div className=' w-full grid place-items-center'>
                     <div className='w-full flex justify-start'>
-                        <ul className='pr-[30px] pl-[30px] w-full flex justify-between'>
+                        <ul className='2xl:pr-[40px] 2xl:pl-[40px] xl:pr-[40px] xl:pl-[40px] pr-[30px] pl-[30px] w-full flex justify-between'>
                             <li>
                                 <p style={SectionTitle}>Accepted Profiles</p>
                             </li>
