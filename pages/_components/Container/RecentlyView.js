@@ -12,6 +12,7 @@ import ProfileMenu from '../../../components/long-term/common/Model/ProfileMenu'
 import MatchScoreModal from '../Model/Models/MatchScoreModal'
 import ShortlistUser from '../common/Buttons/ShortlistUser'
 import GridLikeButton from '../common/Buttons/LikeSections/GridLikeButton'
+import { capitalizeFirstLetter } from '../../../utils/form/Captitelize'
 
 function RecentlyView() {
 
@@ -168,11 +169,11 @@ function RecentlyView() {
                     </div>
                     <div className='text-center'>
                       <Link href={`/longterm/dashboard/${item?.viewerId?.id}`}>
-                        <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{item?.viewerId?.name}</h1>
+                        <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{capitalizeFirstLetter(item?.viewerId?.name)}</h1>
                       </Link>
                       <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{calculateAge(item?.viewerId?.dateOfBirth)}, 5’3”</p>
-                      <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{item?.viewerId?.religion ? item?.viewerId?.religion : "hindu, patel"}</p>
-                      <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{item?.viewerId?.maritalStatus ? item?.viewerId?.maritalStatus : "NA"}</p>
+                      <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(item?.viewerId?.cast) || "NA"}</p>
+                      <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(item?.viewerId?.maritalStatus) || "NA"}</p>
 
                     </div>
                     <GridLikeButton userdata={item?.viewerId} userId={item?.viewerId?.id || item?.viewerId?._id} TheUsername={item?.viewerId?.name} />

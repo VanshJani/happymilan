@@ -50,7 +50,7 @@ function UpgradeValidation(WrappedComponent) {
                         <Image width={0} height={0} alt="lock" src={"/assests/profile/Lock-gradient.svg"} loading="lazy" className="w-[18.151px] h-[24px]" />
 
                         <h1 style={Text}>Upgrade to send & receive messages.</h1>
-                        <UpgradeButton IconSize={17} BtnSizeH={40} BtnSizeW={110} />
+                        <UpgradeButton platform={"long-term"} IconSize={17} BtnSizeH={40} BtnSizeW={110} />
 
                     </Box>
                 </Stack>

@@ -23,7 +23,9 @@ function DatingSideBar() {
 
         const handleAgeChange = (event) => {
             console.log("🚀 ~ handleAgeChange ~ event:", event)
-            const newMinAge = event.target.value[0];
+            // const newMinAge = event.target.value[0];
+
+            const newMinAge = event.target.value[0] < 18 ? 18 : event.target.value[0];
 
             const newMaxAge = event.target.value[1];
 

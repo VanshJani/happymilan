@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-function UpgradeButton({ IconSize, BtnSizeH, BtnSizeW }) {
+function UpgradeButton({ platform, IconSize, BtnSizeH, BtnSizeW }) {
 
     const router = useRouter()
     const Text2 = {
@@ -16,7 +16,7 @@ function UpgradeButton({ IconSize, BtnSizeH, BtnSizeW }) {
     }
     return (
         <>
-            <button id="grad-btn" onClick={() => router.push("/longterm/dashboard/upgrade")} style={Text2} className={`hover:opacity-90 text-[#FFF] mr-[2px] text-center flex items-center justify-center w-[${BtnSizeW}px] h-[${BtnSizeH}px] bg-[#0F52BA] rounded-[22px]`}>Upgrade<Image loading='lazy' alt="img" width={IconSize} height={IconSize} className="pl-[5px]" src="/assests/dashboard/icon/crown-icon.svg" /></button>
+            <button id="grad-btn" onClick={() => platform != "dating" ? router.push("/longterm/dashboard/upgrade") : router.push("/dating/dashboard/upgrade")} style={Text2} className={`hover:opacity-90 text-[#FFF] mr-[2px] text-center flex items-center justify-center w-[${BtnSizeW}px] h-[${BtnSizeH}px] bg-[#0F52BA] rounded-[22px]`}>Upgrade<Image loading='lazy' alt="img" width={IconSize} height={IconSize} className="pl-[5px]" src="/assests/dashboard/icon/crown-icon.svg" /></button>
         </>
     )
 }

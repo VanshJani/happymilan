@@ -397,7 +397,7 @@ function NavBar({ handleSearch }) {
                         {isUpgradeActive ? "" : <>
                             <li>
                                 <div className="relative left-[14px] top-[10px]">
-                                    <UpgradeButton IconSize={17} BtnSizeH={40} BtnSizeW={110} />
+                                    <UpgradeButton platform={"long-term"} IconSize={17} BtnSizeH={40} BtnSizeW={110} />
                                 </div>
                             </li>
                         </>
@@ -484,7 +484,7 @@ function NavBar({ handleSearch }) {
                 className="p-1 font-normal poppins rounded-[10px]"
             >
                 {isUpgradeActive ? "" : <>
-                    <UpgradeButton IconSize={23} BtnSizeH={40} BtnSizeW={123} />
+                    <UpgradeButton platform={"long-term"} IconSize={23} BtnSizeH={40} BtnSizeW={123} />
                 </>}
 
             </div>

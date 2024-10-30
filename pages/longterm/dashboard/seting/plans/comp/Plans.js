@@ -85,7 +85,7 @@ function Plans() {
                     </h1>
                 </div>
                 <div className='mt-[23px]'>
-                    <div className='w-[700px] h-[536px] rounded-[14px] border-[1px] border-[#E3E3E3]'>
+                    <div className='w-[660px] h-[536px] rounded-[14px] border-[1px] border-[#E3E3E3]'>
                         <div className='flex space-y-[23px]  space-x-[95px] pl-[38px] w-[100%] h-[98px]' id='PlansDiv'>
                             <div className='mt-[23px]'>
                                 <ul className='space-y-[6px]'>
@@ -207,7 +207,7 @@ function Plans() {
 
                                 <div className='flex h-full items-center relative top-[50px] space-x-[20px]'>
                                     <div>
-                                        <button  style={btnText} className='border-[#8225AF] hover:bg-[#F3F8FF] text-[#000] border-[1px] w-[137px] h-[50px] rounded-[23px]'>
+                                        <button style={btnText} className='border-[#8225AF] hover:bg-[#F3F8FF] text-[#000] border-[1px] w-[137px] h-[50px] rounded-[23px]'>
                                             Cancel Plan
                                         </button>
                                     </div>

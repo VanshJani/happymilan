@@ -164,7 +164,7 @@ function DatingNav() {
         );
     }, []);
 
-    const isUpgradeActive = router.pathname.startsWith('/longterm/dashboard/upgrade');
+    const isUpgradeActive = router.pathname.startsWith('/dating/dashboard/upgrade');
 
     const [MobileState, setMobileState] = useState({
         top: false,
@@ -298,7 +298,7 @@ function DatingNav() {
                         {isUpgradeActive ? "" : <>
                             <li>
                                 <div className="relative left-[14px] top-[10px]">
-                                    <UpgradeButton IconSize={17} BtnSizeH={40} BtnSizeW={110} />
+                                    <UpgradeButton platform={"dating"} IconSize={17} BtnSizeH={40} BtnSizeW={110} />
                                 </div>
                             </li>
                         </>
@@ -358,31 +358,12 @@ function DatingNav() {
 
     const [notificationCount, setNotificationCount] = useState(0);
 
-    // if (typeof window !== 'undefined') {
-    //     const messaging = getMessaging(firebaseApp);
-
-    //     // Listen for incoming messages
-    //     onMessage(messaging, (payload) => {
-    //         console.log("🚀 ~ onMessage ~ payload:", payload)
-
-    //         // Display the message as a toast notification
-    //         if (payload.notification.title === "Request-received") {
-    //             setNotificationCount((prevCount) => prevCount + 1);
-    //             toast.success(payload.notification?.body);
-    //         } else {
-    //             toast.success(payload.notification?.body);
-    //         }
-    //     });
-    // }
-
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const messaging = getMessaging(firebaseApp);
 
             // Listen for incoming messages
             onMessage(messaging, (payload) => {
-                console.log("🚀 ~ onMessage ~ payload:", payload);
-
                 if (payload.notification.title === "Request-received") {
                     setNotificationCount((prevCount) => prevCount + 1);
                 }
@@ -403,7 +384,7 @@ function DatingNav() {
                 className="p-1 font-normal poppins rounded-[10px]"
             >
                 {isUpgradeActive ? "" : <>
-                    <UpgradeButton IconSize={23} BtnSizeH={40} BtnSizeW={123} />
+                    <UpgradeButton platform={"dating"} IconSize={23} BtnSizeH={40} BtnSizeW={123} />
                 </>}
 
             </div>
