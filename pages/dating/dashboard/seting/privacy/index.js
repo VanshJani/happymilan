@@ -79,6 +79,25 @@ function index() {
         lineHeight: "normal",
     }
 
+
+    const smallText = {
+        color: "#818181",
+        fontFamily: "Poppins",
+        fontSize: "12px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineheight: "normal",
+    }
+
+    const QuestionText = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontSize: "14px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "normal",
+    }
+
     const [SelectedDisplayName, SetSelectedDisplayName] = useState()
 
     const HandleChangeUserName = (e) => {
@@ -101,7 +120,7 @@ function index() {
                     {/* <div className=" mt-[20px] xl:mt-[25px] w-[570px] lg:w-[640px] xl:w-[700px] h-[1px] bg-[#ECECEC]"></div> */}
                     {/* <DisplayNameSelect HandleChangeUserName={HandleChangeUserName} /> */}
                     <div className=" mt-[10px] xl:mt-[25px] w-[570px] lg:w-[640px] xl:w-[700px] h-[1px] bg-[#ECECEC]"></div>
-                    {loading ? " " :
+                    {/* {loading ? " " :
                         <>
                             <div>
                                 {formData?.map((question, questionIndex) => (
@@ -140,7 +159,57 @@ function index() {
                                     </div>
                                 </div>
                             </div>
-                        </>}
+                        </>} */}
+
+                    <div className="space-y-[29px] mt-[21px]">
+                        <div>
+                            <h1>Select Profile Privacy Option</h1>
+                        </div>
+                        <ul className="space-y-[24px]">
+                            <li className="flex space-x-[16px]">
+                                <input
+                                    className="relative top-1 w-[15.5px]  xl:w-[16px] h-[15.5px] xl:h-[16px]"
+                                    type="radio"
+                                    id={`id-1`}
+                                    name={`question1`}
+                                // checked={option.isSelected} // Apply default selection based on isSelected property
+                                // onChange={() => handleOptionChange(questionIndex, optionIndex)}
+                                />
+                                <ul>
+                                    <li style={QuestionText}>Private Profile</li>
+                                    <li style={smallText}> Only Full Name will be visible</li>
+                                </ul>
+                            </li>
+                            <li className="flex space-x-[16px]">
+                                <input
+                                    className="relative top-1 w-[15.5px]  xl:w-[16px] h-[15.5px] xl:h-[16px]"
+                                    type="radio"
+                                    id={`id-1`}
+                                    name={`question1`}
+                                // checked={option.isSelected} // Apply default selection based on isSelected property
+                                // onChange={() => handleOptionChange(questionIndex, optionIndex)}
+                                />
+                                <ul>
+                                    <li style={QuestionText}>Visible to Premium Members Only</li>
+                                    <li style={smallText}>Full Name, Photo Gallery, Contact, Address will be hidden to unregistered members.</li>
+                                </ul>
+                            </li>
+                            <li className="flex space-x-[16px]">
+                                <input
+                                    className="relative top-1 w-[15.5px]  xl:w-[16px] h-[15.5px] xl:h-[16px]"
+                                    type="radio"
+                                    id={`id-1`}
+                                    name={`question1`}
+                                // checked={option.isSelected} // Apply default selection based on isSelected property
+                                // onChange={() => handleOptionChange(questionIndex, optionIndex)}
+                                />
+                                <ul>
+                                    <li style={QuestionText}>Only Accepted Members</li>
+                                    <li style={smallText}>Full Name and Photos will be visible and contact, address will not be visible</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <Dialog

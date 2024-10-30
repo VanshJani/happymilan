@@ -39,7 +39,7 @@ function ShortlistUser({ UserId }) {
 
     return (
         <>
-            <div className='mr-[5px]'>
+            <div className='mr-[6px]'>
                 <Image loading='lazy' onClick={HandleShortlist} alt='star-icon' className='absolute' width={15} height={14} src={shortlistedUser ? "/assests/Black/filled-star.svg" : '/assests/Black/Stars-2.svg'} />
             </div>
             <React.Fragment>

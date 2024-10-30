@@ -19,19 +19,14 @@ function UserCard() {
     return (
         <>
             <div className=' w-full grid place-items-center'>
-
-                <div className="space-y-[30px] flex flex-col items-center">
-                    <div className='w-full flex justify-start'>
-                        <ul className='w-full flex justify-between'>
-                            <li>
-                                <p className='' style={SectionTitle}>New Suggestions</p>
-                            </li>
-                            <li className='h-[24px] w-[25px]'>
-
-                            </li>
-                        </ul>
-
-                    </div>
+                <div className='w-full mt-2'>
+                    <ul className='w-full 2xl:pl-[40px]  xl:pl-[40px]  pl-[30px] '>
+                        <li>
+                            <p style={SectionTitle}>New Suggestions</p>
+                        </li>
+                    </ul>
+                </div>
+                <div className='mt-[6px]'>
                     {
                         datingUsers.length > 0 ? (
                             <SwiperCardNext />

@@ -90,19 +90,16 @@ function CategorySection() {
         <>
             <div className='w-full grid place-items-center'>
 
-                <div className="space-y-[20px] flex flex-col items-center">
-                    <div className='w-full'>
-                        <ul className='w-full flex justify-between'>
-                            <li>
-                                <p style={SectionTitle}>Browse By Categories</p>
-                            </li>
-                            <li>
-                            </li>
-                        </ul>
+                <div className='w-full mt-2'>
+                    <ul className='w-full 2xl:pl-[40px]  xl:pl-[40px]  pl-[30px] '>
+                        <li>
+                            <p style={SectionTitle}>Browse By Categories</p>
+                        </li>
+                    </ul>
+                </div>
+                <div className='mt-9'>
 
-                    </div>
-
-                    <ul className='grid grid-cols-2 gap-4'>
+                    <ul className='grid grid-cols-2 gap-5'>
 
                         {
                             Categories.map((category) => {

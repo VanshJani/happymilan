@@ -15,6 +15,7 @@ import dynamic from 'next/dynamic';
 import { fetchshortlistUsers } from '../../../../../store/matrimoney-services/slices/getShortlistUsersSlice';
 import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
+import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal';
 // Dynamic imports
 const SendRequestBtn = dynamic(() => import('../../../../_components/common/Buttons/SendRequestBtn'), { ssr: false });
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'), { ssr: false });
@@ -403,7 +404,6 @@ function UserProfile() {
                                             <div className="w-full pt-[15px] 2xl:pt-[15px] xl:pt-[20px]">
                                                 <div className="flex justify-between  h-[50px]">
                                                     <div>
-                                                        {/* <Link href={`/longterm/dashboard/${res.id}`}><h1 className='2xl:text-[20px] xl:text-[15px] text-[15px]' style={ProfileName}>{res.name}</h1></Link> */}
                                                         <h1
                                                             onClick={() => HandlePushUser(res.id)}
                                                             className="2xl:text-[20px] xl:text-[15px] text-[15px] cursor-pointer text-[#000] dark:text-[#FFF]"
@@ -418,41 +418,23 @@ function UserProfile() {
                                                             {"Online now"}
                                                         </h1>
                                                     </div>
-                                                    <div className="pr-[8px]">
-                                                        <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
-                                                            <li className="cursor-pointer hover:bg-[#F2F7FF] items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]">
-                                                                <div>
-                                                                    <Image
-                                                                        loading="lazy"
-                                                                        alt="couple-icon"
-                                                                        width={17}
-                                                                        height={14}
-                                                                        src="/assests/Black/Couple2.svg"
 
-                                                                    />
-                                                                </div>
-                                                                <div className="">
-                                                                    <span className="relative top-[-2px] text-[10px] text-[#000] dark:text-[#FFF]"
-                                                                        style={Text4}>
-                                                                        Match Score
-                                                                    </span>
-                                                                </div>
+                                                    <div className="pr-[8px]">
+                                                        <ul className='flex justify-evenly space-x-[20px] pr-[10px] pt-[10px]'>
+
+                                                            <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] flex space-x-[10px] top-[-8px] p-[5px] relative left-[5px]`}>
+                                                                <MatchScoreModal user={res?.friendList} />
                                                             </li>
-                                                            <li
-                                                                className="cursor-pointer"
-                                                                onClick={() => HandleRemoveShortlist(res)}
-                                                            >
-                                                                <div className="cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]">
-                                                                    <Image loading="lazy"
-                                                                        width={15}
-                                                                        height={14}
-                                                                        alt="star"
-                                                                        src={"/assests/Black/filled-star.svg"}
-                                                                    />
-                                                                </div>
+                                                            <li onClick={() => HandleRemoveShortlist(res)} className="cursor-pointer">
+                                                                <Image loading="lazy"
+                                                                    width={15}
+                                                                    height={14}
+                                                                    alt="star"
+                                                                    src={"/assests/Black/filled-star.svg"}
+                                                                />
                                                             </li>
                                                             <li>
-                                                                <ProfileMenu res={res?.shortlistId} Section={"Shortlist"} />
+                                                                <ProfileMenu res={res?.shortlistId} Section={'Shortlist'} />
                                                             </li>
                                                         </ul>
                                                     </div>

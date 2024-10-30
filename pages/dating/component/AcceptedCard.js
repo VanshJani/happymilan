@@ -36,7 +36,7 @@ const AcceptedUsersCard = () => {
     const Text1 = {
         fontFamily: "Poppins",
         fontStyle: "normal",
-        fontWeight: "700",
+        fontWeight: "600",
         lineHeight: "normal"
     }
 
@@ -47,14 +47,6 @@ const AcceptedUsersCard = () => {
         lineHeight: "14px"
     }
 
-    const SectionTitle = {
-        color: "#000",
-        fontFamily: "Poppins",
-        fontSize: "16px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "22px", /* 137.5% */
-    }
     return (
         <>
             <div className='mt-5'>
@@ -63,7 +55,6 @@ const AcceptedUsersCard = () => {
                         users?.data?.results?.map((res, index) => {
                             return (
                                 <div key={index} className='w-[100%]  h-[137px] border-[1px] border-[#EAE5E5] rounded-[18px]'>
-                                    {/* <div key={index} className='w-[640px] h-[137px] 2xl:w-[640px] 2xl:h-[137px] xl:w-[600px] xl:h-[137px] lg:w-[500px] lg:h-[137px] border-[1px] border-[#EAE5E5] rounded-[18px]'> */}
                                     <div className='flex justify-between items-center h-full pr-5 space-x-[160px]'>
                                         <ul className='flex items-center  space-x-5'>
                                             <li>
@@ -80,14 +71,13 @@ const AcceptedUsersCard = () => {
                                                 <div className="">
                                                     <div>
                                                         <div className="rounded-[10px] text-center bg-[#30b70a] text-[black] w-[36px] h-[14px]">
-                                                            <p style={Text2} className="text-[10px]">online</p>
+                                                            <p style={Text2} className="text-[10px] text-[#FFF]">online</p>
                                                         </div>
                                                     </div>
                                                     <h1 className="text-[20px]" style={Text1}>
                                                         {res?.friendList?.name}
                                                     </h1>
                                                     <p className="text-[10px]" style={Text2}>
-                                                        {/* {capitalizeFirstLetter(res?.friendList?.gender)} 36, 4’ 5” <span className='text-[#cccbcb]'>|</span> Ahmedabad (2.1 km) */}
                                                         {`${capitalizeFirstLetter(res?.friendList?.datingData[0]?.Occupation) || "NA"} ,`}&nbsp;&nbsp;{"2.1 km away"}
                                                     </p>
                                                 </div>

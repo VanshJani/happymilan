@@ -10,7 +10,7 @@ import { Dialog } from '@mui/material';
 import { fetchUsers } from '../../../store/dating-services/Redux-reducer/home/datinguserSlice';
 import { capitalizeFirstLetter } from '../../../utils/form/Captitelize';
 
-const SwipeCard = ({ card, onSwipe }) => {
+const SwipeCard = ({ card, onSwipe, openShortlistModal, shortlistText }) => {
     // console.log("🚀 ~ SwipeCard ~ card:", card)
     const handleDragEnd = (event, info) => {
         const offset = info.offset.x;
@@ -44,6 +44,14 @@ const SwipeCard = ({ card, onSwipe }) => {
 
 
     const [ActiveImageSlide, SetActiveImageSlide] = useState(0)
+
+    const Urlmodaltext = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "normal",
+    };
 
     return (
         <>
@@ -92,6 +100,33 @@ const SwipeCard = ({ card, onSwipe }) => {
                         </p>
                     </div>
                 </div>
+
+                <React.Fragment>
+                    <Dialog
+                        open={openShortlistModal}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                        PaperProps={{
+                            style: {
+                                backgroundColor: "transparent", // or 'none' if you prefer
+                                boxShadow: "none",
+                            },
+                        }}
+                        BackdropProps={{
+                            style: { opacity: 0, backgroundColor: "none", boxShadow: "none" },
+                        }}
+                        sx={{position:"absolute" , right: "55px"}}
+                    >
+                        <div
+                            style={{ padding: "17px 19px 17px 20px" }}
+                            className=" bg-[#333333]  w-[249px] rounded-[100px] text-center grid place-items-center"
+                        >
+                            <div className="text-[14px]" style={Urlmodaltext}>
+                                <span className="text-[#fff]"> {shortlistText}</span>
+                            </div>
+                        </div>
+                    </Dialog>
+                </React.Fragment>
             </motion.div>
         </>
     );
@@ -131,7 +166,7 @@ const SwiperCardNext = () => {
 
     const [openShortlistModal, setopenShortlistModal] = useState(false);
 
-    const [shortlistText, setshortlistText] = useState();
+    const [shortlistText, setshortlistText] = useState("Request Sent");
 
     const Urlmodaltext = {
         color: "#000",
@@ -140,12 +175,13 @@ const SwiperCardNext = () => {
         fontWeight: "400",
         lineHeight: "normal",
     };
+    //   setopenShortlistModal(true);
 
 
     const handleButtonClick = (action) => {
         if (action === 'like') {
             // console.log('Liked:', datingUsers?.[currentIndex]?.name);
-            handleSwipe('right');  // Trigger right swipe for 'like'
+            // handleSwipe('right');  // Trigger right swipe for 'like'
         } else if (action === 'dislike') {
             // console.log('Disliked:', datingUsers?.[currentIndex]?.name);
             handleSwipe('left');   // Trigger left swipe for 'dislike'
@@ -160,7 +196,7 @@ const SwiperCardNext = () => {
             // console.log("Swiped Right::::", datingUsers?.[currentIndex]);
             dispatch(sendRequest("dating", users?.[currentIndex]?._id));
 
-            setshortlistText(`You sent a request to ${users?.[currentIndex]?.name}`);
+            setshortlistText(`Request Sent`);
             setopenShortlistModal(true);
 
             setTimeout(() => {
@@ -209,6 +245,8 @@ const SwiperCardNext = () => {
                     <SwipeCard
                         card={users?.[currentIndex]}
                         onSwipe={handleSwipe}
+                        openShortlistModal={openShortlistModal}
+                        shortlistText={shortlistText}
                     />
                 )}
 
@@ -223,6 +261,8 @@ const SwiperCardNext = () => {
                         className="w-full h-full object-cover rounded-xl opacity-50"
                     />
                 </motion.div>
+
+
 
                 {/* Action Buttons */}
                 <div className=" left-[-10px] absolute bottom-[-60px] w-full flex justify-center space-x-[12px]">
@@ -260,34 +300,10 @@ const SwiperCardNext = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <React.Fragment>
-                <Dialog
-                    open={openShortlistModal}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    PaperProps={{
-                        style: {
-                            backgroundColor: "transparent", // or 'none' if you prefer
-                            boxShadow: "none",
-                        },
-                    }}
-                    BackdropProps={{
-                        style: { opacity: 0, backgroundColor: "none", boxShadow: "none" },
-                    }}
-                >
-                    <div
-                        style={{ padding: "17px 19px 17px 20px" }}
-                        className="bg-[#333333] w-[249px] rounded-[100px] text-center grid place-items-center"
-                    >
-                        <div className="text-[14px]" style={Urlmodaltext}>
-                            <span className="text-[#fff]"> {shortlistText}</span>
-                        </div>
-                    </div>
-                </Dialog>
-            </React.Fragment>
-        </div>
 
+
+            </div>
+        </div>
 
     );
 };

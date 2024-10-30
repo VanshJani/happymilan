@@ -75,8 +75,8 @@ function NewrequestData() {
             <DatingLayout>
                 <div className='w-full grid place-items-center'>
 
-                    <div className='w-full flex justify-start'>
-                        <ul className='pl-[35px] w-full grid place-items-start'>
+                    <div className=' mt-2 w-full flex justify-start'>
+                        <ul className='2xl:pl-[40px]  xl:pl-[40px]  pl-[30px]  w-full grid place-items-start'>
                             <li>
                                 <p style={SectionTitle}>
                                     New Requests ({(users?.results?.length > 9 ? users?.results?.length : `0${users?.results?.length || 0}`)})

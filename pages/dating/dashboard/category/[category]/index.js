@@ -118,15 +118,15 @@ function index() {
 
             <div className='w-full grid place-items-center'>
 
-                <div className='w-full flex justify-start'>
-                    <ul className='w-full grid place-items-start'>
+                <div className='w-full mt-2'>
+                    <ul className='w-full 2xl:pl-[40px]  xl:pl-[40px]  pl-[30px] '>
                         <li>
-                            <p className=' ' style={SectionTitle}>{CategoryText || "None"}</p>
+                            <p style={SectionTitle}>{CategoryText || "None"}</p>
                         </li>
                     </ul>
                 </div>
 
-                <div className="space-y-[30px] flex flex-col items-center">
+                <div className="mt-[6px]">
 
                     {
                         datingUsers?.length > 0 ?

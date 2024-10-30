@@ -258,7 +258,7 @@ function ProfileMenu({ Credentials, res, Section, accepteddata }) {
     return (
         <>
 
-            <div onClick={(event) => handleClick(event, res)} className="grid place-items-center cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838] relative top-[-8px] rounded-[10px] h-[30px] w-[16px]">
+            <div onClick={(event) => handleClick(event, res)} className="grid place-items-center cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838] relative top-[-6px] rounded-[10px] h-[25px] w-[25px]">
                 <span aria-describedby={id}
                     variant="contained"
                     className="cursor-pointer"

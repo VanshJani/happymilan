@@ -584,7 +584,7 @@ function NavBar({ handleSearch }) {
                                                 {darkMode ? icons["menu-lock"].dark : icons["menu-lock"].light}
                                             </span>
 
-                                            <Link className="relative left-[5px]" href="/longterm/dashboard/seting/privacyseting">Privacy Policy</Link>
+                                            <Link className="relative left-[5px]" href="/longterm/dashboard/seting/privacyseting">Privacy Seting</Link>
                                         </li>
 
 

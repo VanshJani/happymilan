@@ -170,7 +170,7 @@ function UserGridProfile() {
                                         return (
 
                                             <div key={user.id} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
-                                                <div className='flex justify-between pt-[10px]'>
+                                                <div className='mt-2 flex justify-between pt-[10px]'>
                                                     <ul className='pl-[10px] flex space-x-[10px]'>
                                                         <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}>
 

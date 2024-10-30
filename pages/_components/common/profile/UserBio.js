@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-const ShowMore = ({ text, userid ,  maxLength = 100, className = '' }) => {
+const ShowMore = ({ text, userid, maxLength = 100, className = '' }) => {
 
   const router = useRouter();
   const toggleShowMore = () => {
@@ -14,7 +14,7 @@ const ShowMore = ({ text, userid ,  maxLength = 100, className = '' }) => {
       <p className="text-[#979797] text-[14px] 2xl:text-[12px] xl:text-[12px] pr-[10px]">
         {truncatedText}
         {text?.length > maxLength && (
-           <span className="cursor-pointer underline text-[#0F52BA] cursor-pointer" onClick={toggleShowMore}>
+          <span className="cursor-pointer underline text-[#0F52BA]" onClick={toggleShowMore}>
             {'more'}
           </span>
         )}

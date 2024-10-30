@@ -7,6 +7,7 @@ import GridLikeUser from '../../../../_components/common/Buttons/GridLikeUser'
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'
 import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
 import GridLikeButton from '../../../../_components/common/Buttons/LikeSections/GridLikeButton'
+import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
 
 function GridList() {
     const ProfileName = {
@@ -74,12 +75,13 @@ function GridList() {
                             return (
 
                                 <div key={index} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
-                                    <div className='flex justify-between pt-[10px]'>
+                                    <div className='mt-2 flex justify-between pt-[10px]'>
                                         <ul className='pl-[10px] flex space-x-[10px]'>
-                                            <li>
-                                                <Image loading='lazy' alt="couple" width={17} height={14} src='/assests/Black/Couple2.svg' />
+                                            <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}>
+
+                                                <MatchScoreModal user={res?.friendList} />
+
                                             </li>
-                                            <li className='text-[10px]' style={Text4}>You & Her </li>
                                         </ul>
                                         <ul className='pr-[10px] flex space-x-[30px]'>
                                             <li>
@@ -99,14 +101,6 @@ function GridList() {
                                         <p style={ListText} className='text-[14px]'> {res?.friendList?.religion || 'NA'}, {res?.friendList?.cast || 'NA'}</p>
                                         <p style={ListText} className='text-[14px]'>{res?.friendList?.maritalStatus || "NA"}</p>
                                     </div>
-
-                                    {/* <GridLikeUser
-                                        userLikeDetails={res?.friendList?.userLikeDetails}
-                                        RequestedStatus={res?.friendList?.friendsDetails}
-                                        // RequestId={sentrequest[res?.friendList?.id ? res?.friendList?.id : res?.friendList?._id]}
-                                        // HandleRequestModal={() => HandleRequestModal(res?.friendList)} 
-                                        from={"GridProfile"} currentPage={page} user={res?.friendList} key={index}
-                                    /> */}
 
                                     <GridLikeButton userId={res?.friendList?._id || res?.friendList?.id}
                                         TheUsername={res?.friendList?.name}

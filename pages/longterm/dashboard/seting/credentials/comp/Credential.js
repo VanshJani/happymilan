@@ -865,7 +865,7 @@ function Credentials() {
         {/* Email */}
         <div>
           <div className="mt-[15px] xl:mt-[20px] flex  ">
-            <h1 className="text-[15px] xl:text-[16px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Email</h1>
+            <h1 className="text-[15px] xl:text-[17px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Email</h1>
             <div onClick={handleClickOpen} className="cursor-pointer hover:bg-[#F3F8FF] p-[6px] rounded-full">
               <Image alt="edit" loading="lazy" className="" onClick={handleClickOpen} width={20} height={20} src="/assests/dashboard/icon/edit-details-icon.svg" />
             </div>
@@ -898,7 +898,7 @@ function Credentials() {
         <div>
           {/* Password */}
           <div className="mt-[20px] flex  ">
-            <h1 className="text-[15px] xl:text-[16px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Password</h1>
+            <h1 className="text-[15px] xl:text-[17px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Password</h1>
             <div onClick={handleClickOpenModal} className="cursor-pointer hover:bg-[#F3F8FF] p-[6px] rounded-full">
               <Image alt="icon" loading="lazy" onClick={handleClickOpenModal} width={20} height={20} src="/assests/dashboard/icon/edit-details-icon.svg" />
             </div>
@@ -926,7 +926,7 @@ function Credentials() {
         {/* Phone number */}
         <div>
           <div className="mt-[20px] flex  ">
-            <h1 className="text-[15px] xl:text-[16px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Mobile Number</h1>
+            <h1 className="text-[15px] xl:text-[17px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Mobile Number</h1>
             <div onClick={handleClickShow} className="cursor-pointer hover:bg-[#F3F8FF] p-[6px] rounded-full">
               <Image alt="icon" loading="lazy" onClick={handleClickShow} width={20} height={20} src="/assests/dashboard/icon/edit-details-icon.svg" />
             </div>
