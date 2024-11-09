@@ -206,7 +206,6 @@ function SampleUserProfile() {
 
     const [shortlistText, setshortlistText] = useState();
 
-    // const swiperRef = useRef(null);
 
     const HandleShortlist = (id) => {
         dispatch(addToShortlist(id)); // Dispatch the action with the shortlist ID
@@ -470,7 +469,7 @@ function SampleUserProfile() {
                                                                             src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                             className="inline pr-[5px]"
                                                                         />
-                                                                        {`${res.religion ? capitalizeFirstLetter(res.religion) : "NA"}, ${res.cast ? capitalizeFirstLetter(res.cast) : "NA"}`}
+                                                                        {`${capitalizeFirstLetter(res?.religion) || "NA"}, ${capitalizeFirstLetter(res?.cast) || "NA"}`}
                                                                     </>
                                                                     : ""}
                                                             </li>

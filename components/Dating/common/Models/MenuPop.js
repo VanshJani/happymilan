@@ -210,6 +210,7 @@ function MenuPop({ data }) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className=""
+                sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }}
             >
                 <DialogContent className="text-center w-[400px] mt-[20px]">
                     <div id="alert-dialog-description">

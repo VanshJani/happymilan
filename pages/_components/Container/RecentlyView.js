@@ -2,9 +2,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetrecentuserprofileData } from '../../../store/actions/UsersAction'
-import { Skeleton } from '@mui/material'
 import shuffledata from 'lodash/shuffle';
-import { useDarkMode } from '../../../ContextProvider/DarkModeContext'
 import calculateAge from '../../../utils/helpers/CalculateAge'
 import Link from 'next/link'
 import Avatar from 'react-avatar'
@@ -13,10 +11,10 @@ import MatchScoreModal from '../Model/Models/MatchScoreModal'
 import ShortlistUser from '../common/Buttons/ShortlistUser'
 import GridLikeButton from '../common/Buttons/LikeSections/GridLikeButton'
 import { capitalizeFirstLetter } from '../../../utils/form/Captitelize'
+import ProfileSkeletonLoader from '../../../components/common/animation/GridSkeleton'
 
 function RecentlyView() {
 
-  const { darkMode, toggleDarkMode } = useDarkMode();
 
 
   const ProfileName = {
@@ -101,30 +99,7 @@ function RecentlyView() {
         <div></div>
         {loading ?
           <>
-            {[0, 1, 2].map((res, Index) => {
-              return (
-                <div key={Index} style={ProfileCard} className='bg-[#FFF] dark:bg-[#242526] inline-block lg:flex flex-col space-y-[15px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px rounded-[10px]'>
-                  <div className='flex justify-center pt-[10px]'>
-                    <Skeleton variant="text" width={120} className='pl-[10px] flex space-x-[10px]' />
-
-                  </div>
-                  <div className='flex justify-center '>
-                    <Skeleton variant="circular" alt='profile' style={{ objectFit: "cover" }} width={102} height={102} className='w-[102px] h-[102px] rounded-[50%]' src={""} />
-                  </div>
-                  <div className='text-center grid place-items-center'>
-                    <Skeleton variant='h1' width={110} style={ProfileName} className='text-[18px]' />
-                    <Skeleton variant="text" width={90} style={ListText} className='text-[14px]' />
-                    <Skeleton variant="text" width={90} style={ListText} className='text-[14px]' />
-                  </div>
-
-                  <div className='flex space-x-[15px] justify-center'>
-                    <div><Skeleton variant="circular" alt='ignore' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/ignore-icon-2.svg' /></div>
-                    <div><Skeleton variant="circular" alt='like' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/heart-icon-2.svg' /></div>
-                    <div><Skeleton variant="circular" alt='send' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/send-icon-2.svg' /></div>
-                  </div>
-                </div>
-              )
-            })}
+            <ProfileSkeletonLoader ViewType={3} />
           </>
 
 

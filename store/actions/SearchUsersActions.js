@@ -14,10 +14,10 @@ export const GetSearchUsersData = (searchData) => {
         const axios = require('axios');
         const authToken = getCookie("authtoken")
         let data = {
-            "minAge": searchData?.minAge,
-            "maxAge": searchData?.maxAge,
-            "maxHeight": searchData?.maxHeight,
-            "minHeight": searchData?.minHeight,
+            "minAge": parseInt(searchData?.minAge),
+            "maxAge": parseInt(searchData?.maxAge),
+            "maxHeight": parseInt(searchData?.maxHeight),
+            "minHeight": parseInt(searchData?.minHeight),
             "maritalStatus": [
                 ...searchData.maritalStatus
                 // 'single'
@@ -58,7 +58,7 @@ export const GetSearchUsersData = (searchData) => {
 
         axios.request(config)
             .then((response) => {
-               
+
                 console.log(JSON.stringify(response.data));
                 dispatch({ type: GET_SEARCHUSERS_DATA_SUCCESS, payload: response.data.data })
             })
@@ -135,7 +135,7 @@ export const GetSaveSearchData = (response) => (
 
 
 export const SaveUserSearchPost = (searchData) => {
-    
+
 
 
     return async (dispatch) => {
@@ -196,7 +196,7 @@ export const SaveUserSearchPost = (searchData) => {
 
         axios.request(config)
             .then((response) => {
-               
+
                 console.log(JSON.stringify(response.data));
                 dispatch({ type: POST_SAVESEARCH_DATA_SUCCESS, payload: response.data.data })
                 dispatch(FetchSaveSearchData())
@@ -212,7 +212,7 @@ export const SaveUserSearchPost = (searchData) => {
 
 
 export const DeleteSaveSearchData = (SearchID) => {
-   
+
     return async (dispatch) => {
         dispatch({ type: DELETE_SAVESEARCH_DATA })
 

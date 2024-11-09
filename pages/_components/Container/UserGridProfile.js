@@ -1,13 +1,11 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FetchGriduserdata, sendRequest } from '../../../store/actions/UsersAction'
-import { Dialog, Skeleton } from '@mui/material'
-import Link from 'next/link'
+import { sendRequest } from '../../../store/actions/UsersAction'
+import { Dialog } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useDarkMode } from '../../../ContextProvider/DarkModeContext'
 import dynamic from 'next/dynamic'
-import GridLikeUser from '../common/Buttons/GridLikeUser'
 import ShortlistUser from '../common/Buttons/ShortlistUser'
 import Avatar from 'react-avatar'
 import Pagination from '../../../components/common/Features/Pagination'
@@ -86,7 +84,7 @@ function UserGridProfile() {
 
     const HandleRequestModal = (res) => {
         if (thedata.data.userProfileCompleted) {
-            dispatch(sendRequest("long-term",res.id));
+            dispatch(sendRequest("long-term", res.id));
 
             setsentRequest((prevState) => ({
                 ...prevState,
@@ -160,7 +158,7 @@ function UserGridProfile() {
                     {
                         loading ?
                             <>
-                                <ProfileSkeletonLoader />
+                                <ProfileSkeletonLoader ViewType={6} />
                             </>
                             :
                             <>

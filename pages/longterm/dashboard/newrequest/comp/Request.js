@@ -80,16 +80,6 @@ function Request() {
         lineHeight: "normal"
     }
 
-    const ImageNotFoundText = {
-        color: "#B3CBF1",
-        textAlign: "center",
-        fontFamily: "Poppins",
-        fontSize: "12px",
-        fontStyle: "normal",
-        fontWeight: "500",
-        lineHeight: "normal"
-    }
-
     const [openShortlistModal, setopenShortlistModal] = React.useState(false)
 
     const [shortlistText, setshortlistText] = useState();
@@ -121,8 +111,6 @@ function Request() {
 
     }
 
-    const [hoveredProfile, setHoveredProfile] = useState(null);
-    const [hoveredRejectButton, sethoveredRejectButton] = useState(null);
 
 
     if (loading) {
@@ -153,7 +141,6 @@ function Request() {
                                                         <SwiperSlide key={theindex}>
                                                             <Image
                                                                 alt={`img${theindex + 1}`}
-                                                                // onClick={HandleShow}
                                                                 width={197} height={258}
                                                                 className='w-[197px] h-[258px]'
                                                                 src={Imageres?.url}
@@ -200,12 +187,12 @@ function Request() {
                                         <div className='mt-[10px] 2xl:mt-[10px] xl:mt-[5px] pl-[2px]'>
                                             <div id="user-card">
                                                 <ul id="user-card-grid">
-                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' /> {`${res?.user?.age ?? "NA"}, ${res?.user?.height ?? "NA"}`}</li>
-                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.maritalStatus ?? "NA"}`}</li>
-                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.religion ?? "NA"}, ${res?.user?.cast ?? "NA"}`}</li>
-                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.address?.currentCity ?? "NA"}, ${res?.user?.address?.currentCountry ?? "NA"}`}</li>
-                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.motherTongue ?? "NA"}`}</li>
-                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.userProfessional?.jobTitle ?? "NA"}`}</li>
+                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' /> {`${res?.user?.age || "NA"}, ${res?.user?.height || "NA"}`}</li>
+                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.maritalStatus || "NA"}`}</li>
+                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.religion || "NA"}, ${res?.user?.cast || "NA"}`}</li>
+                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.address?.currentCity || "NA"}, ${res?.user?.address?.currentCountry || "NA"}`}</li>
+                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.motherTongue || "NA"}`}</li>
+                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.userProfessional?.jobTitle || "NA"}`}</li>
                                                 </ul>
                                             </div>
                                             <div className="mt-[20px] 2xl:mt-[20px] xl:mt-[15px] h-[45px]">
@@ -215,15 +202,7 @@ function Request() {
                                         <div className='flex justify-end items-center mt-[20px] 2xl:mt-[20px] xl:mt-[20px] lg:mt-0 mr-[20px] space-x-[10px]'>
                                             <h1 className='text-[16px] 2xl:text-[16px] xl:text-[14px]' style={BoldText}>Want to accept?</h1>
                                             <div className='flex space-x-[21px]'>
-                                                {/* <div onClick={() => HanldeAccept(res)}
-                                                    onMouseEnter={() => setHoveredProfile(index)}
-                                                    onMouseLeave={() => setHoveredProfile(null)}
-                                                    className={`${hoveredProfile === index ? "bg-custom-gradient" : ""}  cursor-pointer w-[40px]  h-[40px] grid place-items-center rounded-full border-[1px] border-[#0F52BA]`}>
-                                                    <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M5.65147 12L0 6.34853L0.637477 5.73308L5.65147 10.747L16.3765 0L17.014 0.637506L5.65147 12Z" fill={hoveredProfile === index ? "white" : "black"} />
-                                                    </svg>
-                                                </div> */}
-
+                                               
                                                 <div onClick={() => HanldeAccept(res)} id='accept-request' className='rounded-full border-[1px] border-[#17C270] w-[63px] h-[44px] grid place-items-center'>
                                                     <svg className='accept-icon-dt' width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M6.15225 13.4522L0 7.29998L1.8915 5.40873L6.15225 9.66948L15.313 0.508728L17.2045 2.39998L6.15225 13.4522Z" />
@@ -236,16 +215,7 @@ function Request() {
                                                         <path id="Vector" d="M1.85225 14.9045L0 13.0523L5.6 7.45225L0 1.85225L1.85225 0L7.45225 5.6L13.0522 0L14.9045 1.85225L9.3045 7.45225L14.9045 13.0523L13.0522 14.9045L7.45225 9.3045L1.85225 14.9045Z" />
                                                     </svg>
                                                 </div>
-                                                {/* <div
-                                                    onClick={() => HanldeReject(res)}
-                                                    onMouseEnter={() => sethoveredRejectButton(index)}
-                                                    onMouseLeave={() => sethoveredRejectButton(null)}
-                                                    className={`${hoveredRejectButton === index ? "bg-custom-gradient" : ""} w-[40px] h-[40px] grid place-items-center rounded-full border-[1px] border-[#0F52BA]`}>
-                                                    <svg className='SVG-hover' width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.529793 12L0 11.4702L5.47021 6L0 0.529793L0.529793 0L6 5.47021L11.4702 0L12 0.529793L6.52979 6L12 11.4702L11.4702 12L6 6.52979L0.529793 12Z" fill={hoveredRejectButton === index ? "white" : "black"} />
-                                                    </svg>
-
-                                                </div> */}
+                                               
                                             </div>
                                         </div>
 

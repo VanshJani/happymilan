@@ -25,10 +25,16 @@ const SkeletonWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ProfileSkeletonLoader = () => {
+// 0 - grid section 
+// 1 - 3 list section 
+
+const ProfileSkeletonLoader = ({ ViewType }) => {
+
+  const arrayLength = ViewType === 0 ? 6 : 3;
+
   return (
     <>
-      {[...Array(6)].map((_, index) => (
+      {[...Array(arrayLength)].map((_, index) => (
         <ProfileCardSkeleton key={index}>
           <Skeleton variant="text" width={120} height={30} />
           <Skeleton variant="circular" width={102} height={102} />

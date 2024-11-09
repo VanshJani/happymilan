@@ -15,14 +15,6 @@ function index() {
 
   const { darkMode, toggleDarkMode } = useDarkMode();
 
-
-  const Text4 = {
-    color: "#000",
-    fontFamily: "Poppins",
-    fontStyle: "normal",
-    fontWeight: "400",
-    lineHeight: "12px"
-  }
   const modifyText = {
     color: "#000",
     fontFamily: "Poppins",
@@ -31,11 +23,6 @@ function index() {
     lineHeight: "normal"
   }
 
-  const Box = {
-    borderRadius: "10px",
-    background: "#FFF",
-    boxShadow: "0px 0px 14px 0px rgba(0, 0, 0, 0.07)"
-  }
 
   const Text5 = {
     color: "#0F52BA",

@@ -33,6 +33,7 @@ const Message = () => {
     getLastConversation();
 
     socket.on('message', (data) => {
+    console.log("🚀 ~ socket.on ~ data:", data)
 
       if (data?.data?.message === 'file upload url generated') {
         setMessages((prev) => {

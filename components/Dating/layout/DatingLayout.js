@@ -1,6 +1,4 @@
 import React from 'react'
-import UploadSection from '../../../pages/longterm/dashboard/profile/comp/UploadSection'
-// import UnlockProfile from '../../../pages/dating/component/UnlockProfile'
 import DatingSideBar from './DatingSidebar'
 import DatingNav from './DatingNavbar'
 import UnlockProfile from '../common/LockProfiles'
@@ -29,7 +27,6 @@ function DatingLayout({ children, HideSection }) {
                     {
                         HideSection ?
                             <div className='absolute right-10'>
-                                {/* <UploadSection /> */}
                                 <ProfileImagesViewer/>
                             </div>
                             :

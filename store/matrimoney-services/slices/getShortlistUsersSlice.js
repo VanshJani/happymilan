@@ -12,11 +12,6 @@ export const fetchshortlistUsers = (Pages) => async (dispatch, getState) => {
 
         const limit = Pages?.viewType === 'grid' ? 6 : 10;
 
-        // const Pages = {
-        //     currentPage: currentPage,
-        //     viewType : "Gridview"
-        // }
-
         const config = {
             method: 'get',
             url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/shortlist/get-short-list-paginat/${LoginUserID}?page=${Pages?.currentPage}&limit=${limit}`,

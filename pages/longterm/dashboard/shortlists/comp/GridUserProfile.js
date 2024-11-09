@@ -84,7 +84,7 @@ function GridUserProfile() {
                     <div className=''></div>
 
                     {
-                        status === "loading" ? <ProfileSkeletonLoader /> :
+                        status === "loading" ? <ProfileSkeletonLoader ViewType={6} /> :
                             <>
                                 {
                                     userData?.results?.map((res, index) => {

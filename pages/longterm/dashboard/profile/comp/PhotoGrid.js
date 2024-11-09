@@ -51,7 +51,7 @@ function PhotoGrid({ handleClickOpen }) {
     }, []);
 
     const dispatch = useDispatch();
-    
+
 
     const selector = useSelector((state) => state.myprofile);
     const loader = useSelector((state) => state.usersact.deleteimagedata);
@@ -137,6 +137,7 @@ function PhotoGrid({ handleClickOpen }) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className=""
+                sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }}
             >
                 <DialogContent className="text-center w-[400px] mt-[20px]">
                     <div id="alert-dialog-description">

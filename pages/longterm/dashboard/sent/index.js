@@ -56,7 +56,7 @@ function index() {
           </div>
 
         </div>
-        <div className='block lg:block 2xl:hidden xl:hidden relative top-[60px] pl-[15px]'>
+        <div className='block lg:hidden 2xl:hidden xl:hidden relative top-[60px] pl-[15px]'>
           <h1 className='p-[5px] relative 2xl:left-[40px] lg:left-[10px] xl:left-[55px]'><span style={Text6}>Sent Requests</span></h1>
         </div>
         <div className='block lg:hidden 2xl:hidden xl:hidden'>

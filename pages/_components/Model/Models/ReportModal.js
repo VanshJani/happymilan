@@ -2,9 +2,9 @@ import Image from "next/image";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { updateSpamUserdata } from "../../../../store/reducers/SpamReportReducer";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PostSpamUser } from "../../../../store/actions/SpamuserAction";
-import { Box, Dialog, DialogContent, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 const DynamicSelect = dynamic(() => import("react-select"), { ssr: false });
 
 const Comp1 = ({ handleNextClick, SetSelectedText, onClose }) => {
@@ -33,7 +33,7 @@ const Comp1 = ({ handleNextClick, SetSelectedText, onClose }) => {
       paddingLeft: "8px",
       width: "500px",
       height: "50px",
-      borderRadius: "8px", // Add padding on the right side
+      borderRadius: "23px", // Add padding on the right side
       border: "1px solid #e6e6e6",
       borderColor: state.isFocused ? "black" : provided.borderColor,
       "&:hover": {
@@ -66,6 +66,7 @@ const Comp1 = ({ handleNextClick, SetSelectedText, onClose }) => {
 
   // "\"reason\" must be one of [just-dont-like-it, its-spam, nudity-or-sexual-activity, bullying-or-harassment, scam-or-fraud]"
   const spamUserData = useSelector(state => state.Spamuser.SpamUserdata);
+  console.log("🚀 ~ Comp1 ~ spamUserData:", spamUserData)
 
 
 
@@ -87,7 +88,7 @@ const Comp1 = ({ handleNextClick, SetSelectedText, onClose }) => {
           <div className="text-center w-full">
             <h1
               style={Heading}
-              onClick={() => SetiscurrentPage(iscurrentPage + 1)}
+
             >
               Report
             </h1>
@@ -131,7 +132,7 @@ const Comp1 = ({ handleNextClick, SetSelectedText, onClose }) => {
                 className="h-[50px] w-[500px] flex justify-end"
                 styles={customStyles}
                 options={reportReasons}
-                // onChange={handleSelectReport}
+
                 onChange={(selectedOption) => handleSelectReport({ target: { name: "reason", value: selectedOption } })}
 
               />
@@ -145,8 +146,9 @@ const Comp1 = ({ handleNextClick, SetSelectedText, onClose }) => {
           <div>
             <button
               onClick={handleNextClick}
-              id="grad-button"
-              className="rounded-[10px] w-[500px] h-[50px] rounded-[23px]"
+              id={!spamUserData?.reason ? "DisableBTN" : "grad-button"}
+              disabled={!spamUserData?.reason}
+              className=" w-[500px] h-[50px] rounded-[23px]"
             >
               Continue
             </button>
@@ -190,7 +192,7 @@ const Comp2 = ({ handleNextClick, isSelctedText, onClose }) => {
           <div className="text-center w-full">
             <h1
               style={Heading}
-              onClick={() => SetiscurrentPage(iscurrentPage + 1)}
+
             >
               Report
             </h1>
@@ -300,7 +302,7 @@ const Comp3 = ({ handleNextClick, onClose }) => {
           <div className="text-center w-full">
             <h1
               style={Heading}
-              onClick={() => SetiscurrentPage(iscurrentPage + 1)}
+
             >
               Thanks for letting us know
             </h1>
@@ -443,8 +445,8 @@ function ReportModal({ isOpen, onClose }) {
         aria-describedby="modal-modal-description"
         MenuListProps={{
           'aria-labelledby': 'fade-button',
-      }}
-        sx={{display:"grid", placeItems:"center"}}
+        }}
+        sx={{ display: "grid", placeItems: "center" }}
       >
         {renderTabContent()}
       </Modal>

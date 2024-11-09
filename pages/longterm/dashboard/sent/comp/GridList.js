@@ -58,7 +58,7 @@ function GridList() {
                 <div className=' w-[90%] xl:w-full space-x-[10px] relative 2xl:left-0 xl:left-[10px] 2xl:pl-[25px] xl:pl-[30px] 2xl:mt-[-15px] xl:mt-[-16px] flex flex-wrap  2xl:space-x-[27px] xl:space-x-[15px] space-y-[25px]'>
                     <div className=''></div>
                     {
-                        status === "loading" ? <ProfileSkeletonLoader /> :
+                        status === "loading" ? <ProfileSkeletonLoader ViewType={6}/> :
                             <>
                                 {
                                     userData?.map((res, index) => {

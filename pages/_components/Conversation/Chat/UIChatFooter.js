@@ -175,14 +175,14 @@ const ChatFooter = ({ formData, updateFormData }) => {
 
 
         const token = getCookie("authtoken")
-        const newSocket = io.connect(`${process.env.NEXT_PUBLIC_SOCKET_AUTH_URL}`, {
-            path: '/api/socket.io',
-            query: { token: token }
-        });
+        // const newSocket = io.connect(`${process.env.NEXT_PUBLIC_SOCKET_AUTH_URL}`, {
+        //     path: '/api/socket.io',
+        //     query: { token: token }
+        // });
 
-        newSocket.on('connect', () => {
-            console.log('Connected to socket');
-        });
+        // socket.on('connect', () => {
+        //     console.log('Connected to socket');
+        // });
 
 
         if (!currentUserID) {
@@ -209,7 +209,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 fileName: imagesdata.key,
                 type: imagesdata?.contentType.startsWith("video") ? "video" : "image"
             };
-          
+
 
             const chatContentObj = {
                 from: currentUserID,
@@ -217,10 +217,10 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 fileName: imagesdata.key,
                 type: imagesdata?.contentType.startsWith("video") ? "video" : "image"
             };
-         
 
 
-            newSocket.emit("uploadContent", message ? chatContent : chatContentObj);
+
+            socket.emit("uploadContent", message ? chatContent : chatContentObj);
 
             const handleSocketMessage = (data) => {
                 console.log("Socket message received");
@@ -239,7 +239,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                                 },
                                 data: blob
                             };
-                           
+
 
                             axios.request(config)
                                 .then(() => {
@@ -251,7 +251,7 @@ const ChatFooter = ({ formData, updateFormData }) => {
                                         type: imagesdata?.contentType.startsWith("video") ? "video" : "image"
                                     };
 
-                                    newSocket.emit("sendMessage", chatContent2);
+                                    socket.emit("sendMessage", chatContent2);
                                     resetFormData();
                                     setMessage('');
                                 })
@@ -269,8 +269,8 @@ const ChatFooter = ({ formData, updateFormData }) => {
                 }
             };
 
-            newSocket.off('message', handleSocketMessage);
-            newSocket.on('message', handleSocketMessage);
+            socket.off('message', handleSocketMessage);
+            socket.on('message', handleSocketMessage);
 
 
         } else if (message.trim() !== '') {

@@ -57,6 +57,8 @@ function BlockModal({ isOpen, onClose, data, title }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         className=""
+        sx={{ '& .MuiDialog-paper': { borderRadius: '23px' } }}
+
       >
 
         <DialogContent className="text-center w-[500px]  mt-[20px]">
@@ -66,10 +68,10 @@ function BlockModal({ isOpen, onClose, data, title }) {
         </DialogContent>
         <div className="flex justify-evenly p-[20px] mb-[20px]">
           <div className="relative right-[-10px]">
-            <button onClick={HandleBlockUser} name={1} id="grad-button" className="rounded-[10px] w-[122px] h-[50px]">Yes</button>
+            <button onClick={HandleBlockUser} name={1} id="grad-button" className="rounded-[23px] w-[122px] h-[50px]">Yes</button>
           </div>
           <div className="relative left-[-10px]">
-            <button onClick={HandleBlockUser} name={0} className="border-[black] border-[1px] rounded-[10px] w-[122px] h-[50px]">No</button>
+            <button onClick={HandleBlockUser} name={0} className="border-[black] border-[1px] rounded-[23px] w-[122px] h-[50px]">No</button>
           </div>
         </div>
       </Dialog>

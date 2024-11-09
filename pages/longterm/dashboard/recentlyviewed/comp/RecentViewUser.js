@@ -223,11 +223,8 @@ function RecentViewUser() {
                                                     <ul className='flex justify-evenly space-x-[27px] pr-[10px] pt-[10px]'>
 
                                                         <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] flex space-x-[10px] top-[-8px] p-[5px] relative left-[5px]`}>
-
                                                             <MatchScoreModal user={res?.viewerId} />
-
                                                         </li>
-
 
                                                         <li
                                                             className="cursor-pointer"

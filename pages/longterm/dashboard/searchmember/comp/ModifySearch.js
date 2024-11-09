@@ -2,18 +2,13 @@ import React, { useEffect, useState } from 'react'
 import dynamic from "next/dynamic";
 import { DeleteSaveSearchData, FetchSaveSearchData, GetSearchUsersData, SaveUserSearchPost, updateSearchData } from '../../../../../store/actions/SearchUsersActions';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import { Dialog, DialogContent, Skeleton } from '@mui/material';
 import Image from 'next/image';
 import { MaritalStatus, cityOptions, communityOptions, countryoflivingOptions, motherTongueOption, religionOptions, statesOptions } from '../../../../../utils/options/UserSearch/SearchMemberOptions';
 import { LabelStyle } from '../../../../../utils/options/styles/SelectBoxStyle';
-// import { SearchMemberSelectBoxStyle } from '../../../../../utils/options/styles/SelectBoxStyle';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 function ModifySearch({ state, updateSearchData, setFormOpen }) {
-
-    const { darkMode, toggleDarkMode } = useDarkMode();
-
 
     const Text1 = {
         fontFamily: "Poppins",
@@ -57,6 +52,7 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
     const [SearchSave, SetSearchSave] = useState("")
 
     const { status, data } = useSelector((state) => state.searchform.Searchsave)
+    console.log("🚀 ~ ModifySearch ~ data:", data)
 
 
     const SaveButtonClick = (res) => {
@@ -82,7 +78,8 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
             motherTongue: res?.motherTongue,
             currentCountry: res?.currentCountry,
             currentCity: res?.currentCity,
-            stateofLiving: res?.state
+            stateofLiving: res?.state,
+            saveSearch: res?.saveSearch,
 
             // Set the religion field to the updated value
         });
@@ -188,6 +185,28 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
 
     const SearchData = useSelector((state) => state.searchform)
 
+
+
+    const isButtonEnabled = () => {
+        // Check if any of the fields in SearchData have values
+        return (
+            SearchData.minAge > 0 ||
+            SearchData.maxAge > 0 ||
+            SearchData.minHeight > 0 ||
+            SearchData.maxHeight > 0 ||
+            SearchData.minWeight > 0 ||
+            SearchData.maxWeight > 0 ||
+            SearchData.maritalStatus.length > 0 ||
+            SearchData.religion.length > 0 ||
+            SearchData.community.length > 0 ||
+            SearchData.stateofLiving.length > 0 ||
+            SearchData.motherTongue.length > 0 ||
+            SearchData.currentCountry.length > 0 ||
+            SearchData.currentCity.length > 0
+            // SearchData.saveSearch !== ""
+        );
+    };
+
     const dispatch = useDispatch();
 
 
@@ -234,6 +253,7 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
             currentCountry: [],
             currentCity: [],
             stateofLiving: [],
+            saveSearch: "",
             loading: false, // to track if API call is in progress
             searchResults: null, // to store search results from the API
             error: null, // to store any errors that occur during API call
@@ -267,19 +287,28 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
     }
 
 
-    const SearchDataHandle = () => {
-        handleClickDeleteImageModal()
-
-    }
-
-
-
-
-
-
 
 
     const [openLogoutModal, setOpenLogoutModal] = React.useState(false);
+
+    const [dialogMessage, setDialogMessage] = useState("");
+    const [showConfirmButtons, setShowConfirmButtons] = useState(false);
+
+
+    const SearchDataHandle = () => {
+
+        if (SearchData.saveSearch !== "") {
+
+            setDialogMessage("Do you want to save your current search criteria for future use?")
+            setShowConfirmButtons(true)
+
+        } else {
+            setDialogMessage("Please enter the save search criteria before searching.")
+            setShowConfirmButtons(false)
+        }
+        handleClickDeleteImageModal()
+
+    }
 
     const handleClickDeleteImageModal = (res) => {
         setOpenLogoutModal(true);
@@ -291,36 +320,34 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
     };
 
     const HandleLogout = (e) => {
-        if (e.target.name != "stay") {
+        if (e.target.name === "okay") {
+            setOpenLogoutModal(false);
+        } else {
 
-            dispatch(SaveUserSearchPost(SearchData))
+            if (e.target.name != "stay") {
+
+                dispatch(SaveUserSearchPost(SearchData))
+                dispatch(GetSearchUsersData(SearchData))
+
+                setFormOpen(false)
+                setTimeout(() => {
+                    CLearAllData()
+                }, 2000)
+
+                console.log(SearchData)
+
+                setOpenLogoutModal(false);
+
+            }
+            setOpenLogoutModal(false)
             dispatch(GetSearchUsersData(SearchData))
-
-            setFormOpen(false)
             setTimeout(() => {
                 CLearAllData()
             }, 2000)
 
-            console.log(SearchData)
-
-            setOpenLogoutModal(false);
-
+            setFormOpen(false)
         }
-        setOpenLogoutModal(false)
-        dispatch(GetSearchUsersData(SearchData))
-        setTimeout(() => {
-            CLearAllData()
-        }, 2000)
-
-        setFormOpen(false)
-
     }
-
-
-
-
-
-
 
     const HanldeInputChange = (e) => {
         const name = e.target.name;
@@ -352,14 +379,18 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
 
 
     const [currentPage, SetcurrentPage] = useState(1)
-    const DataperPage = 3;
+    // const DataperPage = 3;
 
-    const totalPage = Math.ceil(data.length / DataperPage)
+    // useEffect(() => {
+    //     console.log("Data : ", data)
+    // }, [])
 
-    const currentData = data?.slice(
-        (currentPage - 1) * DataperPage,
-        currentPage * DataperPage
-    )
+    // const totalPage = Math.ceil(data.length / DataperPage)
+
+    // const currentData = data?.slice(
+    //     (currentPage - 1) * DataperPage,
+    //     currentPage * DataperPage
+    // )
 
 
     const handlePrev = () => {
@@ -503,7 +534,6 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
                         <div className='space-y-[30px] pl-[5px]'>
                             <h1 style={titleText}>Save Search?</h1>
                             <div className='w-full md:w-[479px]'>
-                                {/* <input name='saveSearch' value={SearchSave} onChange={HanldeInputChange} type='text' placeholder='My Matches' className='dark:bg-[#141516] dark:text-[#FFF] pl-[20px] oultine-none w-full rounded-[8px] h-[50px] border-[1px] hover:border-[#000] border-[#D8D8D8]' /> */}
                                 <input name='saveSearch' value={SearchSave} onChange={HanldeInputChange} type='text' placeholder='My Matches' id='num-input' className='pb-[10px] 2xl:w-[630px] xl:w-[540px] lg:w-full outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />
 
                             </div>
@@ -512,13 +542,16 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
                     <div className='w-full'>
                         <div className='w-[700px] flex justify-between space-x-[20px]'>
                             <button onClick={CLearAllData} className={` border-[1px] border-[#8225AF] hover:bg-[#F2F7FF] dark:hover:bg-[#141516] w-[130px] h-[50px] dark:text-[#FFF] text-[black] rounded-[25px]`}>Clear All</button>
-                            <button id='grad-btn' className={` border-[1px] border-[#0F52BA] bg-[#0F52BA] text-[white] w-[130px] h-[50px] rounded-[25px]`} onClick={SearchDataHandle} >Search</button>
+                            <button
+                                id={isButtonEnabled() ? "grad-btn" : "DisableBTN"}
+                                // id='grad-btn' 
+                                className={`  text-[white] w-[130px] h-[50px] rounded-[25px]`} disabled={!isButtonEnabled()} onClick={SearchDataHandle} >Search</button>
                         </div>
                     </div>
                 </div>
 
 
-                <div className='relative top-[-200px]'>
+                <div className='relative top-[-196px]'>
                     <div style={{ width: "280px", height: "260px" }} className='border-[1px] border-[#E3E3E3] rounded-[18px] dark:bg-[#242526]'>
                         <div className='pb-[13px] relative pt-[14px] left-[16px]'>
                             <span className='text-[#000] dark:text-[#FFF]' style={saveSearchText}>My Saved Search</span>
@@ -535,7 +568,7 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
                                     </ul>
                                 </> : <>
 
-                                    {data.length > 0 ? <>
+                                    {data?.results?.length > 0 ? <>
 
 
 
@@ -543,15 +576,15 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
 
 
 
-                                            {currentData?.map((res, index) => {
+                                            {data?.results?.map((res, index) => {
                                                 return (
                                                     <>
                                                         <li key={index} className='relative'>
                                                             <div onClick={() => SaveButtonClick(res)} className='text-[#000] dark:hover:text-[#e3e3e3] dark:text-[#FFF] cursor-pointer flex justify-between p-[10px] h-[40px] w-[264px] rounded-[22px] dark:hover:bg-[#383838] hover:bg-[#F2F7FF] '>
-                                                                <div><span className='' style={SaveText}>{res?.saveSearch}</span></div>
+                                                                <div><span className='absolute left-5' style={SaveText}>{res?.saveSearch}</span></div>
 
                                                             </div>
-                                                            <div className='cursor-pointer absolute top-[11px] right-10' onClick={() => DeleteList(res)}>
+                                                            <div className='cursor-pointer absolute top-[11px] right-5' onClick={() => DeleteList(res)}>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                                                     <g clipPath="url(#clip0_1066_324)">
                                                                         <path d="M4.5 14.25C4.5 15.075 5.175 15.75 6 15.75H12C12.825 15.75 13.5 15.075 13.5 14.25V5.25H4.5V14.25ZM6 6.75H12V14.25H6V6.75ZM11.625 3L10.875 2.25H7.125L6.375 3H3.75V4.5H14.25V3H11.625Z" fill="#5F6368" />
@@ -609,26 +642,39 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
 
             {/* Modal for Save Search  */}
 
+
+
+
             <Dialog
                 open={openLogoutModal}
                 onClose={handleCloseLogout}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className=""
+                sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }}
             >
                 <DialogContent className="text-center w-[400px] mt-[20px]">
                     <div id="alert-dialog-description">
-                        <p style={LogoutModalText}>Do you want to save your current search criteria for future use?</p>
+                        <p style={LogoutModalText}>{dialogMessage}</p>
                     </div>
                 </DialogContent>
-                <div className="flex justify-evenly p-[20px] mb-[20px]">
-                    <div>
-                        <button onClick={HandleLogout} name="stay" id="grad-button" className="rounded-[24px] w-[122px] h-[50px]">No</button>
+                {
+                    showConfirmButtons ? <div className="flex justify-evenly p-[20px] mb-[20px]">
+                        <div>
+                            <button onClick={HandleLogout} name="stay" id="grad-button" className="rounded-[24px] w-[122px] h-[50px]">No</button>
+                        </div>
+                        <div>
+                            <button onClick={HandleLogout} name="exit" className="border-[black] border-[1px] rounded-[24px] w-[122px] h-[50px]">Yes</button>
+                        </div>
                     </div>
-                    <div>
-                        <button onClick={HandleLogout} name="exit" className="border-[black] border-[1px] rounded-[24px] w-[122px] h-[50px]">Yes</button>
-                    </div>
-                </div>
+                        :
+                        <div className="flex justify-center p-[20px] mb-[20px]">
+                            <div>
+                                <button onClick={HandleLogout} name="okay" id="grad-button" className="rounded-[24px] w-[122px] h-[50px]">Okay</button>
+                            </div>
+                        </div>
+                }
+
             </Dialog >
 
 

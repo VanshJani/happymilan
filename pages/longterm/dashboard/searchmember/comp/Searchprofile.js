@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 
 // import required modules
-const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'));
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -22,11 +21,9 @@ import UserprofileSkeleton from "../../../../../components/common/shader/Userpro
 import { useRouter } from "next/router";
 import SendRequestBtn from "../../../../_components/common/Buttons/SendRequestBtn";
 import { useDarkMode } from "../../../../../ContextProvider/DarkModeContext";
-import dynamic from "next/dynamic";
-import ProfileMenu from "../../../../_components/Model/popover/MenuPop";
-import BlockUserModal from "../../../../_components/Model/Models/BlockModal";
-import RegisterAlertModal from '../../../../_components/Model/Models/RegisterAlertModal';
-import ReportModal from '../../../../_components/Model/Models/ReportModal';
+import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
+import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
+import ShowMore from '../../../../_components/common/profile/UserBio';
 
 
 function Searchprofile() {
@@ -46,12 +43,6 @@ function Searchprofile() {
         fontStyle: "normal",
         fontWeight: "400",
         lineHeight: "12px",
-    };
-    const Text3 = {
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal",
     };
 
     const ListText = {
@@ -74,45 +65,7 @@ function Searchprofile() {
     };
 
     const [sentrequest, setsentRequest] = useState(false);
-    const [CurrURL, SetCurURL] = useState("");
 
-
-
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isRegisterModalOpen, setisRegisterModalOpen] = useState(false);
-    const [isReportModalOpen, setisReportModalOpen] = useState(false);
-    const [isBlockModalOpen, setisBlockModalOpen] = useState(false);
-    const [Data, setData] = useState("");
-
-    const openModal = (e) => {
-        setIsModalOpen(true);
-
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
-
-
-    const CloseRegisterModal = () => {
-        setisRegisterModalOpen(false);
-    };
-
-    const openBlockModal = () => {
-        setisBlockModalOpen(true);
-    }
-    const closeBlockModal = () => { setisBlockModalOpen(false) }
-
-    const OpenReportModal = () => {
-        setisReportModalOpen(true);
-
-    };
-
-    const CloseReportModal = () => {
-        setisReportModalOpen(false);
-    };
 
     const Urlmodaltext = {
         color: "#000",
@@ -185,15 +138,6 @@ function Searchprofile() {
         dispatch(Postrecentuserprofile(res));
     };
 
-    const MAX_CHARACTERS = 100; // Define your maximum character limit
-
-    const handleTextOverflow = (text) => {
-        if (text.length > MAX_CHARACTERS) {
-            return text.slice(0, MAX_CHARACTERS) + "..."; // Truncate the text if it exceeds the limit
-        } else {
-            return text; // Return the original text if it doesn't exceed the limit
-        }
-    };
 
     const { loading, data } = useSelector((state) => state.usersact.searchusersprofiledata)
 
@@ -219,7 +163,7 @@ function Searchprofile() {
                                 <div key={Index} className="relative 2xl:left-[40px] xl:left-[55px] lg:left-[10px] left-[40px]">
                                     <div
                                         style={Box}
-                                        className={`bg-[#FFF] dark:bg-[#242526] relative left-[-4px]  xl:left-[-3px] 2xl:left-[-3px]  flex m-[10px] lg:w-[590px]  2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] bg-[#FFF]`}
+                                        className={`dark:bg-[#242526] relative left-[-4px]  xl:left-[-3px] 2xl:left-[-3px]  flex m-[10px] lg:w-[590px]  2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] bg-[#FFF]`}
                                     >
                                         <div className="w-[350px]">
                                             <div className="p-[15px] w-full ">
@@ -296,13 +240,17 @@ function Searchprofile() {
                                                         className="2xl:text-[20px] xl:text-[15px] text-[15px] cursor-pointer text-[#000] dark:text-[#FFF]"
                                                         style={ProfileName}
                                                     >
-                                                        {res.name}
+                                                        {capitalizeFirstLetter(res.name)}
                                                     </h1>
                                                     <h1
                                                         style={statusText}
-                                                        className={`text-[#17C270]`}
+                                                        className="text-[#17C270] break-words"
                                                     >
-                                                        {"Online now"}
+                                                        {res?.isUserActive ?
+                                                            <span className="text-[9px] text-[#0091FF]">Online now</span>
+                                                            :
+                                                            <span className="text-[9px] text-[#a6a6a6]">Offline</span>
+                                                        }
                                                     </h1>
                                                 </div>
                                                 <div className="pr-[8px]">
@@ -340,7 +288,7 @@ function Searchprofile() {
                                                             </div>
                                                         </li>
                                                         <li>
-                                                            <ProfileMenu SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={res} />
+                                                            <ProfileMenu res={res} />
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -374,7 +322,7 @@ function Searchprofile() {
                                                                 src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                 className="inline pr-[5px]"
                                                             />
-                                                            {res.maritalStatus ? res.maritalStatus : "NA , NA"}
+                                                            {capitalizeFirstLetter(res?.maritalStatus) || "NA , NA"}
                                                         </li>
                                                         <li
                                                             className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -388,7 +336,7 @@ function Searchprofile() {
                                                                 src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                 className="inline pr-[5px]"
                                                             />
-                                                            {`${res.religion ? res.religion : "NA"}, ${res.cast ? res.cast : "NA"}`}
+                                                            {`${capitalizeFirstLetter(res?.religion) || "NA"}, ${capitalizeFirstLetter(res?.cast) || "NA"}`}
                                                         </li>
                                                         <li
                                                             className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -402,7 +350,7 @@ function Searchprofile() {
                                                                 src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                 className="inline pr-[5px]"
                                                             />
-                                                            {`${res.address ? res.address.currentCity : "NA"} , ${res.address ? res.address.currentCountry : "NA"}`}
+                                                            {`${capitalizeFirstLetter(res?.address?.[0]?.currentCity) || "NA"} , ${capitalizeFirstLetter(res?.address?.[0]?.currentCountry) || "NA"}`}
                                                         </li>
                                                         <li
                                                             className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -416,7 +364,7 @@ function Searchprofile() {
                                                                 src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                 className="inline pr-[5px]"
                                                             />
-                                                            {`${res.motherTongue ? res.motherTongue : "NA , NA"}  `}
+                                                            {`${capitalizeFirstLetter(res?.motherTongue) || "NA , NA"}  `}
                                                         </li>
 
                                                         <li
@@ -431,29 +379,12 @@ function Searchprofile() {
                                                                 src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                 className="inline pr-[5px]"
                                                             />
-                                                            {res.userProfessional ? res.userProfessional.jobTitle : "NA , NA"}
+                                                            {capitalizeFirstLetter(res?.userProfessional?.jobTitle) || "NA , NA"}
                                                         </li>
                                                     </ul>
                                                 </div>
                                                 <div className="mt-[20px] 2xl:mt-[20px] xl:mt-[15px] h-[45px]">
-                                                    <p
-                                                        style={Text3}
-                                                        className="text-[#979797] text-[14px] 2xl:text-[12px] xl:text-[12px] pr-[10px]"
-                                                    >
-                                                        {handleTextOverflow(
-                                                            res.writeBoutYourSelf
-                                                                ? res.writeBoutYourSelf
-                                                                : "NA",
-                                                        )}
-                                                        {res.writeBoutYourSelf &&
-                                                            res.writeBoutYourSelf.length >
-                                                            MAX_CHARACTERS && (
-                                                                <span className="text-[#0F52BA]">
-                                                                    {" "}
-                                                                    more{" "}
-                                                                </span>
-                                                            )}
-                                                    </p>
+                                                    <ShowMore userid={res?._id || res?.id} text={res?.writeBoutYourSelf} maxLength={100} />
                                                 </div>
                                             </div>
 
@@ -462,19 +393,9 @@ function Searchprofile() {
                                                     RequestId={sentrequest[res?._id]}
                                                     HandleRequestModal={() => HandleRequestModal(res)}
                                                 />
-                                                {/* <button onClick={()=>alert(res?.name)}>Send Request</button> */}
                                             </div>
                                         </div>
                                     </div>
-
-                                    {/* {likeloading ? <></> : <>
-
-                                        <LikeUser
-                                            ActiveLike={ActiveLike}
-                                            setActiveLike={setActiveLike}
-                                            userId={res.id}
-                                        />
-                                    </>} */}
                                 </div>
 
                             </>
@@ -495,22 +416,8 @@ function Searchprofile() {
                 </div>
             </div>
 
-            <ShareModal isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
-            <RegisterAlertModal
-                title={Data}
-                isOpen={isRegisterModalOpen}
-                onClose={CloseRegisterModal}
-            />
-            <ReportModal
-                title={"helo"}
-                isOpen={isReportModalOpen}
-                onClose={CloseReportModal}
-            />
 
-            <BlockUserModal
-                isOpen={isBlockModalOpen}
-                onClose={closeBlockModal}
-            />
+
             <React.Fragment>
                 <Dialog
                     open={openShortlistModal}

@@ -779,6 +779,8 @@ const TypingMessage = () => {
 
 const AudioMessage = ({ el, Outgoing, userMessage, sendAt, onDeleteMessage }) => {
 
+
+    console.log({ Outgoing, userMessage, sendAt, onDeleteMessage })
     const { userData, updateUser } = useContext(UserContext);
 
     const [isPlaying, setIsPlaying] = useState(false);
