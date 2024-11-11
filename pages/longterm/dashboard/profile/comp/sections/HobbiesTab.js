@@ -1,14 +1,17 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { updateHobbies, updatehobbiesData } from '../../../../../../store/actions/registerUser';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { updateFormData, updateHobbies, updatehobbiesData } from '../../../../../../store/actions/registerUser';
 import { fetchMyhoobies, updateMyHobbies } from '../../../../../../store/reducers/MyProfile';
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton';
+import ReusableMultiSelect from '../../../../../../components/Dating/register/sections/MusltiSelectDating';
+import MultiSelect from '../../../../../alert';
+import { capitalizeFirstLetter } from '../../../../../../utils/form/Captitelize';
 
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
-function HobbiesTab() {
+function HobbiesTab({ formData, updateFormData }) {
 
 
 
@@ -26,34 +29,36 @@ function HobbiesTab() {
         lineHeight: "normal"
     }
 
-
-    const FitnessDataoption = [
-        { value: "Running", label: "Running" },
-        { value: "Cycling", label: "Cycling" },
-        { value: "Yoga", label: "Yoga" },
-        { value: "Walking", label: "Walking" },
-        { value: "Working Out", label: "Working Out" },
-        { value: "Trekking", label: "Trekking" },
-        { value: "Aerobics/Zumba", label: "Aerobics/Zumba" },
-        { value: "Swimming", label: "Swimming" },
-
-    ]
     const creativeOption = [
         { value: "Writing", label: "Writing" },
         { value: "PlayInstrument", label: "Play Instrument" },
         { value: "Poetry", label: "Poetry" }
     ]
 
+    const hobbyOptions = [
+        { value: "Reading", label: "Reading" },
+        { value: "Cooking", label: "Cooking" },
+        { value: "Traveling", label: "Traveling" },
+        { value: "Photography", label: "Photography" },
+        { value: "Gardening", label: "Gardening" },
+        { value: "Painting", label: "Painting" },
+        { value: "Drawing", label: "Drawing" },
+        { value: "Hiking", label: "Hiking" },
+        { value: "Cycling", label: "Cycling" },
+        { value: "Dancing", label: "Dancing" },
+        { value: "Fishing", label: "Fishing" },
+        { value: "Knitting", label: "Knitting" },
+        { value: "Sewing", label: "Sewing" },
+        { value: "Baking", label: "Baking" },
+        { value: "Yoga", label: "Yoga" },
+        { value: "Meditation", label: "Meditation" },
+        { value: "Chess", label: "Chess" },
+        { value: "PlayingGuitar", label: "Playing Guitar" },
+        { value: "WritingPoetry", label: "Writing Poetry" },
+        { value: "Calligraphy", label: "Calligraphy" },
+        { value: "BirdWatching", label: "Bird Watching" }
+    ];
 
-
-    const FunOptions =
-        [
-            { value: "Movie", label: "Movie" },
-            { value: "Sports", label: "Sports" },
-            { value: "Biking", label: "Biking" },
-            { value: "Music", label: "Music" },
-            { value: "SocialMedia", label: "Social Media" }
-        ]
 
 
 
@@ -61,19 +66,11 @@ function HobbiesTab() {
 
     const [TheData, SetData] = useState()
 
-    const { status, partnerpref } = useSelector((state) => state.form?.formData)
-    const { loading, data } = useSelector((state) => state.myprofile.profileData?.HobbiesData)
-    const { upload, allhobbies } = useSelector((state) => state.form?.formData)
-
     const [showForm, setShowForm] = useState(false);
 
     const handleEditClick = () => {
         setShowForm(!showForm);
 
-        if (data?.[0]) {
-            const Creative = creativeOption.filter(option => data[0]?.values.includes(option.value));
-            SetData(Creative)
-        }
     };
 
     const Text1 = {
@@ -83,53 +80,41 @@ function HobbiesTab() {
         fontStyle: "normal",
         lineHeight: "normal",
     };
+    const HobbyValue = {
+        color: "#000",
+        textAlign: "center",
+        fontFamily: "Poppins",
+        fontSize: "14px",
+        fontStyle: "normal",
+        fontWeight: "600",
+        lineHeight: "normal",
+    }
 
 
+    const [selectedInterests, setSelectedInterests] = useState([]);
+    // let initialSelected = ["meet-new-friends"]
 
-    const customStyle = {
-        control: (provided, state) => ({
-            ...provided,
-            paddingRight: '10px',
-            paddingLeft: "8px",
-            height: "50px",
-            borderRadius: "8px", // Add padding on the right side
-            border: "1px solid #e6e6e6",
-            borderColor: state.isFocused ? 'black' : provided.borderColor,
-            '&:hover': {
-                borderColor: 'black',
-            },
-            boxShadow: state.isFocused ? 'none' : provided.boxShadow,
-        }),
-        indicatorSeparator: (provided) => ({
-            ...provided,
-            display: 'none',
-            paddingRight: "20px"
-            // Hide the vertical line behind the arrow
-        }),
+    const handleInterestsChange = (selected) => {
+        setSelectedInterests(selected);
     };
+
 
     const dispatch = useDispatch();
 
 
+    const { data, status, totalLikes } = useSelector((state) => state.myprofile);
 
+    const { hobby } = useSelector((state) => state.form?.formData)
 
-
-    const handleInputChange = (event) => {
-        const value = event.target.value;
-        const name = event.target.name
-        const values = value.map(item => item.value);
-        dispatch(updateHobbies(name, values));
-
-    }
 
     const SubmitChanges = () => {
-        dispatch(updateMyHobbies(allhobbies))
+        dispatch(updateMyHobbies({ data, hobbies: hobby?.hobbyval }))
         setShowForm(false)
     }
 
-    useEffect(() => {
-        dispatch(fetchMyhoobies())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(fetchMyhoobies())
+    // }, [])
 
     return (
         <>
@@ -154,45 +139,9 @@ function HobbiesTab() {
                         <div className="space-y-[20px] flex flex-col items-center justify-center">
 
                             <div className='w-[90%]'>
-                                <h1 className="font-semibold" style={Text1}>Creative</h1>
+                                <h1 className="font-semibold" style={Text1}>Hobby</h1>
                                 <div className='w-full mt-[10px]'>
-                                    <DynamicSelect
-
-                                        options={creativeOption}
-                                        placeholder="Select.."
-                                        styles={customStyle}
-                                        value={TheData}
-                                        onChange={(selectedOption) => handleInputChange({ target: { name: "creative", value: selectedOption } })}
-                                        isSearchable={true}
-                                        isMulti />
-                                </div>
-                            </div>
-
-                            <div className='w-[90%]'>
-                                <h1 className="font-semibold" style={Text1}>Fun</h1>
-                                <div className='w-full mt-[10px]'>
-                                    <DynamicSelect
-                                        options={FunOptions}
-                                        placeholder="Select.."
-                                        styles={customStyle}
-                                        onChange={(selectedOption) => handleInputChange({ target: { name: "fun", value: selectedOption } })}
-                                        isSearchable={true}
-                                        isMulti />
-                                </div>
-                            </div>
-
-                            <div className='w-[90%]'>
-                                <h1 className="font-semibold" style={Text1}>Fitness</h1>
-                                <div className='w-full mt-[10px]'>
-                                    <DynamicSelect
-                                        // defaultValue={}
-                                        options={FitnessDataoption}
-                                        placeholder="Select.."
-                                        styles={customStyle}
-                                        onChange={(selectedOption) => handleInputChange({ target: { name: "fitness", value: selectedOption } })}
-                                        isSearchable={true}
-                                        isMulti />
-
+                                    <MultiSelect formData={formData} updateFormData={updateFormData} />
                                 </div>
                             </div>
                             <div className='w-[90%] flex justify-end pb-[10px] mt-[10px]'>
@@ -206,29 +155,17 @@ function HobbiesTab() {
                         <div className='flex justify-center '>
                             <div className='grid place-items-center w-[90%] h-[1px] bg-[#F1F1F1]'></div>
                         </div>
-                        <div className='grid place-items-center'>
-                            <div className="w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]">
-                                {data?.map((res) => {
-                                    return (
-                                        <>
-                                            <div>
-                                                <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>{res?.category}</p>
-                                                {res?.values?.map((val) => {
-                                                    return (
-                                                        <>
-                                                            <span style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{val} , </span>
+                        <div className='relative left-8'>
+                            <ul className='flex space-x-[15px]'>
+                                {
+                                    data?.hobbies?.map((res, index) => {
+                                        return (
+                                            <li key={index} className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]' style={HobbyValue}>{capitalizeFirstLetter(res)}</li>
 
-                                                        </>
-                                                    )
-                                                })}
-                                            </div>
-                                            <br />
-
-                                        </>
-                                    )
-                                })}
-
-                            </div>
+                                        )
+                                    })
+                                }
+                            </ul>
                         </div>
                     </>}
             </div>
@@ -236,4 +173,6 @@ function HobbiesTab() {
     )
 }
 
-export default HobbiesTab
+// export default HobbiesTab
+
+export default connect((state) => ({ formData: state.form.formData }), { updateFormData })(HobbiesTab);

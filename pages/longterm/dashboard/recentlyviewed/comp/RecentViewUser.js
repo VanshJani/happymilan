@@ -288,7 +288,7 @@ function RecentViewUser() {
                                                                         src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                         className="inline pr-[5px]"
                                                                     />
-                                                                    {`${res?.viewerId?.religion ? capitalizeFirstLetter(res?.viewerId?.religion) : "NA"}, ${res?.viewerId?.cast ? capitalizeFirstLetter(res?.viewerId?.cast) : "NA"}`}
+                                                                    {`${res?.viewerId?.religion ? capitalizeFirstLetter(res?.viewerId?.religion) : "NA"}, ${res?.viewerId?.caste ? capitalizeFirstLetter(res?.viewerId?.caste) : "NA"}`}
                                                                 </>
                                                                 : ""}
                                                         </li>

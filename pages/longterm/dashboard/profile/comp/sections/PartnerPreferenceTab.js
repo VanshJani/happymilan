@@ -516,33 +516,8 @@ const PartnerPreferenceTab = ({ partnerPrefID, formData, updateFormData }) => {
                                             {/* <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>INR 10 Lacs or above</h1> */}
                                             <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{data?.income}</h1>
                                         </div>
-                                        <div>
-                                            <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Creative</p>
-                                            {/* <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>Writing, Painting</h1> */}
-                                            <ul className='flex'>
-                                                {data?.creative.map((val) => {
-                                                    return (
-                                                        <li>
-                                                            <span style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]' >{val} ,</span>
-                                                        </li>
-                                                    )
-                                                })}
-
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Fun</p>
-                                            <ul className='flex'>
-                                                {data?.fun.map((val) => {
-                                                    return (
-                                                        <li>
-                                                            <span style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]' >{val} ,</span>
-                                                        </li>
-                                                    )
-                                                })}
-
-                                            </ul>
-                                        </div>
+                                     
+                                        
                                         <div>
                                             <p style={Text2} className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'>Prefer Diet</p>
                                             {/* <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>Vegetarian</h1> */}

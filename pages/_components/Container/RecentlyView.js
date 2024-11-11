@@ -147,7 +147,7 @@ function RecentlyView() {
                         <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{capitalizeFirstLetter(item?.viewerId?.name)}</h1>
                       </Link>
                       <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{calculateAge(item?.viewerId?.dateOfBirth)}, 5’3”</p>
-                      <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(item?.viewerId?.cast) || "NA"}</p>
+                      <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(item?.viewerId?.caste) || "NA"}</p>
                       <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(item?.viewerId?.maritalStatus) || "NA"}</p>
 
                     </div>

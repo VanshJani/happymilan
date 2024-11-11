@@ -8,6 +8,7 @@ import { useDarkMode } from "../../../ContextProvider/DarkModeContext";
 import { getMessaging, onMessage } from 'firebase/messaging';
 import firebaseApp from '../../../utils/firebase/firebase';
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
 
 function SideBar() {
   const { darkMode, toggleDarkMode } = useDarkMode();
@@ -53,6 +54,26 @@ function SideBar() {
   }
 
 
+  const [Copied, Setcopied] = useState(false)
+
+  const OnCopied = () => {
+    // Copy dummy text or user ID to clipboard
+    navigator.clipboard.writeText(myProfile?.userUniqueId?.toUpperCase()).then(() => {
+      Setcopied(true);
+      toast.success("Your ID has been copied!");
+
+      // Reset `copied` state after 2 seconds
+      setTimeout(() => {
+        Setcopied(false);
+      }, 2000);
+    }).catch(err => {
+      toast.error("Failed to copy ID!");
+      console.error("Could not copy text: ", err);
+    });
+  };
+
+
+
 
   return (
     <>
@@ -70,11 +91,27 @@ function SideBar() {
               <div onClick={() => router.push("/longterm/dashboard/profile")} className="group cursor-pointer duration-100 inline-block">
                 <h1 className="group-hover:opacity-75 text-[#000] dark:text-[#FFF]" style={Text2}>{myProfile?.name}</h1>
               </div>
-              <div className="pt-[10px]">
-                <span style={Text3} className="text-[14px] text-[#50545A] dark:text-[#616161]">
-                  {/* ID: HM1002021 */}
-                  ID: {myProfile?.userUniqueId?.toUpperCase()}
-                </span>{" "}
+              <div className="pt-[10px] flex space-x-2">
+                <div className="flex space-x-2 items-center">
+                  <span style={Text3} className="text-[14px] text-[#50545A] dark:text-[#616161]">
+                    {/* ID: HM1002021 */}
+                    ID: {myProfile?.userUniqueId?.toUpperCase()}
+                  </span>
+                  <div onClick={OnCopied} className="cursor-pointer w-[12px] h-[12px]">
+
+                    {
+                      !Copied ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                      </svg>
+                        :
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                          <path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75 0 0 1 21 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875 0 0 1 7.5 16.125V3.375Z" />
+                          <path d="M15 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 17.25 7.5h-1.875A.375.375 0 0 1 15 7.125V5.25ZM4.875 6H6v10.125A3.375 3.375 0 0 0 9.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V7.875C3 6.839 3.84 6 4.875 6Z" />
+                        </svg>
+                    }
+                  </div>
+                </div>{" "}
                 <span className="text-[#E3E3E3]">|</span>{" "}
                 <Link href="/longterm/dashboard/profile">
                   <span className="text-[14px] text-[#0F52BA] dark:text-[#FFF]">My Profile</span>
@@ -548,63 +585,15 @@ function SideBar() {
                 </h1>
               </Link>
             </li>
-
-            <li className={`${darkMode ? "" : "hover:bg-[#F2F7FF]"} duration-100 rounded-[17px] p-[5px] pl-[10px] flex items-center`}>
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clipPath="url(#clip0_576_112)">
-                  <path
-                    d="M2.67881 14C2.34272 14 2.05008 13.8754 1.80091 13.6262C1.55174 13.3771 1.42715 13.0844 1.42715 12.7483V1.0894H0.5V0.57947H3.83775V0H9.58609V0.57947H12.9238V1.0894H11.9967V12.7483C11.9967 13.1003 11.8761 13.3969 11.6348 13.6381C11.3936 13.8794 11.097 14 10.745 14H2.67881ZM11.4868 1.0894H1.93709V12.7483C1.93709 12.9647 2.01049 13.1424 2.15728 13.2815C2.30408 13.4205 2.47792 13.4901 2.67881 13.4901H10.745C10.9305 13.4901 11.1004 13.4128 11.255 13.2583C11.4095 13.1038 11.4868 12.9338 11.4868 12.7483V1.0894ZM4.95033 11.5894H5.46027V2.96689H4.95033V11.5894ZM7.96358 11.5894H8.47351V2.96689H7.96358V11.5894Z"
-                    fill={darkMode ?
-                      router.pathname === "/longterm/dashboard/deleted"
-                        ? "#FFF"
-                        : "#7D7F86"
-                      :
-                      router.pathname === "/longterm/dashboard/deleted"
-                        ? "#0F52BA"
-                        : "black"
-                    }
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_576_112">
-                    <rect
-                      width="13"
-                      height="14"
-                      fill="white"
-                      transform="translate(0.5)"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
-              <Link href="/longterm/dashboard/deleted">
-                <h1
-                  style={Text3}
-                  id={router.pathname === "/longterm/dashboard/deleted" ? "sidebar-navlink-grad" : ""}
-                  className={`text-[14px] dark:hover:text-[#FFF] pl-[10px]
-                  ${darkMode
-                      ? router.pathname === "/longterm/dashboard/deleted"
-
-                        ? "text-[#FFF]"
-                        : "text-[#7D7F86]"
-                      :
-                      router.pathname === "/longterm/dashboard/deleted"
-                        ? ""
-                        : ""}`}
-                >
-                  Deleted
-                </h1>
-              </Link>
-            </li>
           </ul>
         </div>
 
       </aside >
+
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
     </>
   );
 }

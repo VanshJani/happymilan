@@ -177,7 +177,7 @@ function SearchUsers({ searchResults }) {
                                         <div className='text-center'>
                                             <h1 onClick={() => HandlePushUser(user?.id)} style={ProfileName} className='cursor-pointer text-[18px] hover:opacity-75 duration-100'>{user?.name}</h1>
                                             <p style={ListText} className='text-[14px]'>32, 5’3”</p>
-                                            <p style={ListText} className='text-[14px]'>{`${user?.religion ? user.religion : "NA"} , ${user?.cast ? user.cast : "NA"}`}</p>
+                                            <p style={ListText} className='text-[14px]'>{`${user?.religion ? user.religion : "NA"} , ${user?.caste ? user.caste : "NA"}`}</p>
                                             <p style={ListText} className='text-[14px]'>{user?.maritalStatus ? user.maritalStatus : "NA"}</p>
                                         </div>
 

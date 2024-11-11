@@ -150,7 +150,7 @@ function Userprofile({ params, toggleDrawer }) {
                   style={Text5}
                   className="2xl:text-[16px] xl:text-[14px] text-[14px]"
                 >
-                  {data && data?.cast ? capitalizeFirstLetter(data?.cast) : "NA NA"}
+                  {data && data?.caste ? capitalizeFirstLetter(data?.caste) : "NA NA"}
                 </h1>
               </div>
             </div>

@@ -469,7 +469,7 @@ function SampleUserProfile() {
                                                                             src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                             className="inline pr-[5px]"
                                                                         />
-                                                                        {`${capitalizeFirstLetter(res?.religion) || "NA"}, ${capitalizeFirstLetter(res?.cast) || "NA"}`}
+                                                                        {`${capitalizeFirstLetter(res?.religion) || "NA"}, ${capitalizeFirstLetter(res?.caste) || "NA"}`}
                                                                     </>
                                                                     : ""}
                                                             </li>

@@ -1,10 +1,8 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getEducationData, updateEducationData } from '../../../../../../store/actions/UsersAction';
-import { getCookie } from 'cookies-next';
-import { FetchMyEducationData, updateMyEducationData } from '../../../../../../store/reducers/MyProfile';
+import { updateMyEducationData } from '../../../../../../store/reducers/MyProfile';
 import { capitalizeFirstLetter } from '../../../../../../utils/form/Captitelize';
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
@@ -28,13 +26,8 @@ function EducationTab() {
 
     const dispatch = useDispatch();
     const { loading, data } = useSelector((state) => state.myprofile.profileData.EducationData)
-    const status = useSelector((state) => state.usersact)
-    const currentUser = getCookie("userid")
-    useEffect(() => {
 
-        dispatch(getEducationData(currentUser))
-        dispatch(FetchMyEducationData())
-    }, [])
+
     const [showForm, setShowForm] = useState(false);
 
     const handleEditClick = () => {
@@ -113,11 +106,11 @@ function EducationTab() {
 
 
     const [AllData, SetAllData] = useState({
-        degree: data?.degree ? data.degree : "",
-        collage: data?.collage ? data.collage : "",
-        city: data?.city ? data.city : "",
-        state: data?.state ? data.state : "",
-        country: data?.country ? data.country : "",
+        degree: data?.degree || "",
+        collage: data?.collage || "",
+        city: data?.city || "",
+        state: data?.state || "",
+        country: data?.country || "",
 
 
     })
@@ -132,10 +125,7 @@ function EducationTab() {
     }
 
     const HandleSubmit = () => {
-        // console.log(AllData)
         dispatch(updateMyEducationData({ EducationId: data?.id, UpdatedDataforEducation: AllData }))
-        // dispatch(updateEducationData(data?.id, AllData))
-        // { EducationId, UpdatedDataforEducation }
         setShowForm(false)
     }
 
@@ -286,8 +276,6 @@ function EducationTab() {
                             }
 
                         </>}
-
-
             </div>
         </>
     )

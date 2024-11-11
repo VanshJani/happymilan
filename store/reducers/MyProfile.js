@@ -78,7 +78,7 @@ export const updateMyEducationData = createAsyncThunk(
 
       if (response.ok) {
         const result = await response.json();
-        
+
         return result.data;
 
       } else if (response.status === 401) {
@@ -117,6 +117,7 @@ export const updateMyAddressData = createAsyncThunk(
 
       if (response.ok) {
         const result = await response.json();
+        console.log("address data", result.data)
         return result.data;
 
       } else if (response.status === 401) {
@@ -215,7 +216,15 @@ export const updateMyPartnerPrefdata = createAsyncThunk(
 
 export const updateMyHobbies = createAsyncThunk(
   'register/updatemyhobbies',
-  async (hobbiesInfo, thunkAPI) => {
+  async (hobbyinfo, thunkAPI) => {
+
+    // { data, hobbyval: hobby?.hobbyval }
+    const { data, hobbies } = hobbyinfo;
+
+    const hobbydata = {
+      // ...data,
+      hobbies: hobbies
+    }
     try {
       const token = getCookie("authtoken")
 
@@ -226,7 +235,7 @@ export const updateMyHobbies = createAsyncThunk(
       const requestOptions = {
         method: 'PUT', // Use PUT method for updating data
         headers: myHeaders,
-        body: JSON.stringify(hobbiesInfo), // Convert updatedData to JSON and send in the body
+        body: JSON.stringify(hobbydata), // Convert updatedData to JSON and send in the body
         redirect: 'follow',
       };
 
@@ -234,8 +243,8 @@ export const updateMyHobbies = createAsyncThunk(
 
       if (response.ok) {
         const result = await response.json();
-        
-        return result.userData.hobbies;
+
+        return result.userData;
 
       } else if (response.status === 401) {
 
@@ -250,6 +259,45 @@ export const updateMyHobbies = createAsyncThunk(
     }
   }
 );
+
+export const updateProfilePic = createAsyncThunk(
+  'myprofile/profilepic/updateProfilePic',
+  async (profilepicData, thunkAPI) => {
+    try {
+      const token = getCookie("authtoken")
+
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', `Bearer ${token}`);
+      myHeaders.append('Content-Type', 'application/json'); // Add content type for updating data
+
+      const requestOptions = {
+        method: 'PUT', // Use PUT method for updating data
+        headers: myHeaders,
+        body: JSON.stringify(profilepicData), // Convert updatedData to JSON and send in the body
+        redirect: 'follow',
+      };
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/update-user`, requestOptions);
+
+      if (response.ok) {
+        const result = await response.json();
+
+        return result.userData;
+
+      } else if (response.status === 401) {
+
+        throw new Error('Unauthorized');
+      } else {
+        console.error('API request failed:', response.statusText);
+        throw new Error('API request failed');
+      }
+    } catch (error) {
+      console.error('Error updating data:', error);
+      throw error;
+    }
+  }
+);
+
 
 const initialState = {
   status: STATUSES.IDLE,
@@ -277,10 +325,10 @@ const initialState = {
       data: null,
       error: null
     },
-    HobbiesData:{
-      loading : false,
-      data : null,
-      error : null
+    HobbiesData: {
+      loading: false,
+      data: null,
+      error: null
     }
   }
 }
@@ -296,7 +344,24 @@ const MyPofileData = createSlice({
       })
       .addCase(fetchMyProfileData.fulfilled, (state, action) => {
         state.status = STATUSES.IDLE;
-        state.data = action.payload;
+        state.data = action.payload.userData;
+        // addressData,
+        // educationData,
+        state.profileData = {
+          ...state.profileData,
+          adressData: {
+            loading: false,
+            data: action.payload.addressData,
+          },
+          EducationData: {
+            loading: false,
+            data: action.payload.educationData
+          },
+          ProfessionalData: {
+            loading: false,
+            data: action.payload.professionalData
+          }
+        }
       })
       .addCase(fetchMyProfileData.rejected, (state, action) => {
         state.status = STATUSES.ERROR;
@@ -493,45 +558,6 @@ const MyPofileData = createSlice({
         }
 
       })))
-      .addCase(fetchAdressData.pending, (state, action) => (({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          adressData: {
-            ...state.profileData.adressData,
-            loading: STATUSES.LOADING,
-            data: null,
-            error: null
-          }
-        }
-
-      })))
-      .addCase(fetchAdressData.fulfilled, (state, action) => (({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          adressData: {
-            ...state.profileData.adressData,
-            loading: STATUSES.IDLE,
-            data: action.payload,
-            error: null
-          }
-        }
-
-      })))
-      .addCase(fetchAdressData.rejected, (state, action) => (({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          adressData: {
-            ...state.profileData.adressData,
-            loading: STATUSES.ERROR,
-            data: null,
-            error: action.payload
-          }
-        }
-
-      })))
       .addCase(fetchPartnerPrefdata.pending, (state, action) => (({
         ...state,
         profileData: {
@@ -618,7 +644,7 @@ const MyPofileData = createSlice({
             ...state.profileData.HobbiesData,
             loading: STATUSES.LOADING,
             data: null,
-            error:null
+            error: null
           }
         }
 
@@ -631,7 +657,7 @@ const MyPofileData = createSlice({
             ...state.profileData.HobbiesData,
             loading: STATUSES.IDLE,
             data: action.payload,
-            error:null
+            error: null
           }
         }
 
@@ -644,7 +670,7 @@ const MyPofileData = createSlice({
             ...state.profileData.HobbiesData,
             loading: STATUSES.ERROR,
             data: null,
-            error:action.payload
+            error: action.payload
           }
         }
 
@@ -657,24 +683,23 @@ const MyPofileData = createSlice({
             ...state.profileData.HobbiesData,
             loading: STATUSES.LOADING,
             data: null,
-            error:null
+            error: null
           }
         }
 
       })))
-      .addCase(updateMyHobbies.fulfilled, (state, action) => (({
-        ...state,
-        profileData: {
+      .addCase(updateMyHobbies.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.profileData = {
           ...state.profileData,
           HobbiesData: {
             ...state.profileData.HobbiesData,
             loading: STATUSES.IDLE,
             data: action.payload,
-            error:null
+            error: null
           }
-        }
-
-      })))
+        };
+      })
       .addCase(updateMyHobbies.rejected, (state, action) => (({
         ...state,
         profileData: {
@@ -683,10 +708,19 @@ const MyPofileData = createSlice({
             ...state.profileData.HobbiesData,
             loading: STATUSES.ERROR,
             data: null,
-            error:action.payload
+            error: action.payload
           }
         }
 
+      })))
+      .addCase(updateProfilePic.pending, (state, action) => (({
+        ...state,
+      })))
+      .addCase(updateProfilePic.fulfilled, (state, action) => {
+        state.data = action.payload;
+      })
+      .addCase(updateProfilePic.rejected, (state, action) => (({
+        ...state,
       })))
   },
 });
@@ -710,7 +744,7 @@ export const fetchMyhoobies = createAsyncThunk('myProfile/fetchmyhobbies', async
 
       if (response.ok) {
         const result = await response.json();
-       
+
         return result.data?.user?.hobbies;
       } else if (response.status === 401) {
 
@@ -748,7 +782,16 @@ export const fetchMyProfileData = createAsyncThunk('myProfile/fetchData', async 
 
       if (response.ok) {
         const result = await response.json();
-        return result.data.user;
+
+        const { address: addressData, userEducation: educationData, userProfessional: professionalData, ...userData } = result.data.user;
+        return {
+          userData,
+          addressData,
+          educationData,
+          professionalData
+        };
+
+
       } else if (response.status === 401) {
 
         throw new Error('Unauthorized');
@@ -883,41 +926,6 @@ export const fetchproffessionalData = createAsyncThunk('myProfile/ProfessionalTa
   }
 });
 
-export const fetchAdressData = createAsyncThunk('myProfile/AddressTab', async (addressID, thunkAPI) => {
-  try {
-    const token = getCookie('authtoken');
-    const CurrentUserID = getCookie("userid")
-
-    if (token) {
-      const myHeaders = new Headers();
-      myHeaders.append('Authorization', `Bearer ${token}`);
-
-      const requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow',
-      };
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/address/${addressID}`, requestOptions);
-
-      if (response.ok) {
-        const result = await response.json();
-        return result.data;
-      } else if (response.status === 401) {
-
-        throw new Error('Unauthorized');
-      } else {
-        console.error('API request failed:', response.statusText);
-        throw new Error('API request failed');
-      }
-    } else {
-      throw new Error('Token not found');
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
-  }
-});
 
 export const fetchPartnerPrefdata = createAsyncThunk('myProfile/PartnerprefData', async (partnerId, thunkAPI) => {
   try {

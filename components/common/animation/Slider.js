@@ -2,42 +2,42 @@ import React, { useEffect, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 
 function Slider() {
-  const [renderKey, setRenderKey] = useState(0);
+    const [renderKey, setRenderKey] = useState(0);
 
-  useEffect(() => {
-    setRenderKey(prevKey => prevKey + 1);
-  }, []);
+    useEffect(() => {
+        setRenderKey(prevKey => prevKey + 1);
+    }, []);
 
-  const row2 = [
-    "/heroSec/slider/upi-logo.svg",
-    "/heroSec/slider/phonepe-logo.svg",
-    "/heroSec/slider/visa-logo.svg",
-    "/heroSec/slider/g-pay-logo.svg",
-    "/heroSec/slider/master-card-logo.svg",
-  ];
+    const row2 = [
+        "/heroSec/slider/upi-logo.svg",
+        "/heroSec/slider/phonepe-logo.svg",
+        "/heroSec/slider/visa-logo.svg",
+        "/heroSec/slider/g-pay-logo.svg",
+        "/heroSec/slider/master-card-logo.svg",
+    ];
 
-  return (
-    <AppContainer key={renderKey}>
-      <Wrapper>
-        <Marquee>
-          <MarqueeGroup2>
-            {row2.map((el, index) => (
-              <ImageGroup key={index}>
-                <Image alt={`image ${index}`} src={el} />
-              </ImageGroup>
-            ))}
-          </MarqueeGroup2>
-          <MarqueeGroup2>
-            {row2.map((el, index) => (
-              <ImageGroup key={index}>
-                <Image alt={`image ${index}`} src={el} />
-              </ImageGroup>
-            ))}
-          </MarqueeGroup2>
-        </Marquee>
-      </Wrapper>
-    </AppContainer>
-  );
+    return (
+        <AppContainer key={renderKey}>
+            <Wrapper>
+                <Marquee>
+                    <MarqueeGroup2>
+                        {row2.map((el, index) => (
+                            <ImageGroup key={index}>
+                                <Image src={el} />
+                            </ImageGroup>
+                        ))}
+                    </MarqueeGroup2>
+                    <MarqueeGroup2>
+                        {row2.map((el, index) => (
+                            <ImageGroup key={index}>
+                                <Image src={el} />
+                            </ImageGroup>
+                        ))}
+                    </MarqueeGroup2>
+                </Marquee>
+            </Wrapper>
+        </AppContainer>
+    );
 }
 
 export default Slider;

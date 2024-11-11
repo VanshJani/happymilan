@@ -10,13 +10,10 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { useSelector } from 'react-redux';
 import UploadImage from '../../../pages/longterm/dashboard/commonCompo/HandeImageUpload/UploadImage';
 import MenuPop from '../../Dating/common/Models/MenuPop';
 
-function ProfileImagesViewer() {
-    // const { data } = useSelector((state) => state.myprofile);
-    const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
+function ProfileImagesViewer({ Privacy, Section, details }) {
 
 
     const style = {
@@ -67,7 +64,7 @@ function ProfileImagesViewer() {
 
     return (
         <>
-            <div className='2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px] fixed 2xl:top-[110px] xl:top-[95px] right-10  2xl:flex xl:flex flex-col space-y-[30px] justify-center items-end w-full'>
+            <div className={`2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px] fixed ${Section != "long-term" ? "2xl:top-[110px] xl:top-[95px]" : "2xl:top-[180px] xl:top-[180px]"}  right-10  2xl:flex xl:flex flex-col space-y-[30px] justify-center items-end w-full`}>
                 {details?.userProfilePic?.length > 0 ? (
                     <Swiper
                         pagination={{ clickable: true }}
@@ -124,7 +121,11 @@ function ProfileImagesViewer() {
                                         details?.userProfilePic?.map((res, index) => {
                                             return (
                                                 <SwiperSlide key={index}>
-                                                    <MenuPop data={res} />
+                                                    {
+                                                        !Privacy ?
+                                                            <MenuPop Section={Section} details={details} data={res} />
+                                                            : ""
+                                                    }
                                                     <div>
                                                         <div>
                                                             <Image loading="lazy" quality={50} width={300} height={381} className='w-[332px] h-[449px]' style={{ width: "332px", height: "449px", objectFit: "cover", borderRadius: "10px" }} alt='image' src={res?.url} />
@@ -152,11 +153,15 @@ function ProfileImagesViewer() {
                                 })
                             }
                             {
-                                details?.userProfilePic?.length < 6 && (
-                                    <li onClick={handleClickOpenUpload} className='grid place-items-center w-[60px] h-[60px] rounded-[10px] bg-[#F1F1F1] cursor-pointer duration-150 hover:bg-[#ededed]'>
-                                        <Image width={20} height={18} alt='camera' src={"/assests/profile/before-imageupload-icon.svg"} />
-                                    </li>
-                                )
+                                !Privacy ?
+
+                                    details?.userProfilePic?.length < 6 && (
+                                        <li onClick={handleClickOpenUpload} className='grid place-items-center w-[60px] h-[60px] rounded-[10px] bg-[#F1F1F1] cursor-pointer duration-150 hover:bg-[#ededed]'>
+                                            <Image width={20} height={18} alt='camera' src={"/assests/profile/before-imageupload-icon.svg"} />
+                                        </li>
+                                    )
+                                    :
+                                    ""
                             }
                         </ul>
 

@@ -3,10 +3,16 @@ import DatingSideBar from './DatingSidebar'
 import DatingNav from './DatingNavbar'
 import UnlockProfile from '../common/LockProfiles'
 import ProfileImagesViewer from '../../common/Models/ProfileImagesViewer'
+import { useSelector } from 'react-redux'
 
 function DatingLayout({ children, HideSection }) {
+
+    const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
+
     return (
         <>
+
+
             <DatingNav />
 
             <DatingSideBar />
@@ -27,7 +33,7 @@ function DatingLayout({ children, HideSection }) {
                     {
                         HideSection ?
                             <div className='absolute right-10'>
-                                <ProfileImagesViewer/>
+                                <ProfileImagesViewer details={details} />
                             </div>
                             :
 

@@ -233,44 +233,6 @@ export const rejectRequestFailure = (error) => ({
     payload: error
 })
 
-
-export const getEducationData = (requestData) => {
-    return async (dispatch) => {
-        dispatch({ type: GET_EDUCATION_DATA });
-
-        const axios = require('axios');
-        const token = getCookie("authtoken")
-
-        let config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/userEducation/${requestData}`,
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        };
-
-        axios.request(config)
-            .then((response) => {
-
-                dispatch({ type: GET_EDUCATION_DATA_SUCCESS, payload: response.data })
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }
-}
-
-export const getEducationDataSuccess = (response) => ({
-    type: GET_EDUCATION_DATA_SUCCESS,
-    payload: response
-})
-
-export const getEducationDataFailure = (error) => ({
-    type: GET_EDUCATION_DATA_FAILURE,
-    payload: error
-})
 export const updateEducationData = (userid, alldata) => {
     return async (dispatch) => {
         dispatch({ type: UPDATE_EDUCATION_DATA });

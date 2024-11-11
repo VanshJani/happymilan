@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAcceptedRequestData } from '../../../../../store/actions/UsersAction'
 import Pagination from '../../../../../components/common/Features/Pagination'
-import GridLikeUser from '../../../../_components/common/Buttons/GridLikeUser'
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'
 import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
-import GridLikeButton from '../../../../_components/common/Buttons/LikeSections/GridLikeButton'
 import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
+import styles from '../../../../../styles/styles.module.css'
+
 
 function GridList() {
     const ProfileName = {
@@ -24,14 +24,6 @@ function GridList() {
         fontStyle: "normal",
         fontWeight: "400",
         lineHeight: "24px" /* 171.429% */
-    }
-
-    const Text4 = {
-        color: "#000",
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "12px"
     }
 
 
@@ -74,7 +66,7 @@ function GridList() {
                         data?.data?.results?.map((res, index) => {
                             return (
 
-                                <div key={index} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
+                                <div key={index} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[8px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
                                     <div className='mt-2 flex justify-between pt-[10px]'>
                                         <ul className='pl-[10px] flex space-x-[10px]'>
                                             <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}>
@@ -98,13 +90,19 @@ function GridList() {
                                     <div className='text-center'>
                                         <h1 style={ProfileName} className='text-[18px]'>{res?.friendList?.name}</h1>
                                         <p style={ListText} className='text-[14px]'>32, 5’3”</p>
-                                        <p style={ListText} className='text-[14px]'> {res?.friendList?.religion || 'NA'}, {res?.friendList?.cast || 'NA'}</p>
+                                        <p style={ListText} className='text-[14px]'> {res?.friendList?.religion || 'NA'}, {res?.friendList?.caste || 'NA'}</p>
                                         <p style={ListText} className='text-[14px]'>{res?.friendList?.maritalStatus || "NA"}</p>
                                     </div>
+                                    <div className='grid place-items-center space-y-[14px]'>
+                                        <div>
+                                            <div className='w-[148px] bg-[#EEEEEE] h-[1px]'></div>
+                                        </div>
 
-                                    <GridLikeButton userId={res?.friendList?._id || res?.friendList?.id}
-                                        TheUsername={res?.friendList?.name}
-                                        userdata={res?.friendList} />
+                                        <ul className='flex space-x-[10px]'>
+                                            <li><h1 className={`${styles.BoldText} text-[#000] dark:text-[#FFF] text-[16px] 2xl:text-[16px] xl:text-[14px]`}>Accepted</h1></li>
+                                            <li><Image loading='lazy' alt="accepted" width={23} height={23} src='/assests/dashboard/icon/accepted-right.svg' /></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                             )

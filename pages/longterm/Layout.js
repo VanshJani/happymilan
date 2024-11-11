@@ -5,6 +5,8 @@ import NavBar from "../_components/layout/NavBar";
 import SideBar from "../_components/layout/SideBar";
 import dynamic from "next/dynamic";
 import axios from "axios";
+import ProfileImagesViewer from "../../components/common/Models/ProfileImagesViewer";
+import { useSelector } from "react-redux";
 
 // Dynamically import components
 const UserStory = dynamic(() => import('../_components/Container/UserStory'), { ssr: false });
@@ -35,50 +37,108 @@ const Layout = ({ Section, Show, children }) => {
         }
     }, [token]);
 
+
+    const { data, status, totalLikes } = useSelector((state) => state.myprofile);
+
+    const { user, loading } = useSelector((state) => state.userById)
+
+
+    // Separate components to optimize re-renders
+    const UserProfileSection = () => (
+        <div className='hidden absolute 2xl:top-20 xl:top-20 right-10  xl:flex 2xl:flex flex-col  justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
+            <div className='absolute right-10 hidden xl:block 2xl:block'>
+                <ProfileImagesViewer Privacy={true} Section={"long-term"} details={user} />
+            </div>
+        </div>
+    );
+
+    const ProfileSection = () => (
+        <div className='hidden absolute 2xl:top-20 xl:top-20 right-10  xl:flex 2xl:flex flex-col  justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
+            {/* Side Section 2 */}
+            {/* <UploadSection /> */}
+            <div className='absolute right-10 hidden xl:block 2xl:block'>
+                <ProfileImagesViewer Privacy={false} Section={"long-term"} details={data} />
+            </div>
+        </div>
+    );
+
+
+    const RenderComp = useMemo(() => {
+        if (Section === "profile" && data) {
+            return (
+                <div className='hidden absolute 2xl:top-20 xl:top-20 right-10  xl:flex 2xl:flex flex-col  justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
+                    {/* Side Section 2 */}
+                    {/* <UploadSection /> */}
+                    <div className='absolute right-10 hidden xl:block 2xl:block'>
+                        <ProfileImagesViewer Privacy={false} Section={"long-term"} details={data} />
+                    </div>
+                </div>
+            )
+        }
+        if (Section === "userprofile" && user) {
+            return (
+                <div className='hidden absolute 2xl:top-20 xl:top-20 right-10  xl:flex 2xl:flex flex-col  justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
+                    <div className='absolute right-10 hidden xl:block 2xl:block'>
+                        <ProfileImagesViewer Privacy={true} Section={"long-term"} details={user} />
+                    </div>
+                </div>
+            )
+        }
+        return <SidePanel Section={Section} />;
+    }, [Section, data, user]);
+
+
+
+
     return (
         <>
             <NavBar handleSearch={handleSearch} />
             <SideBar />
 
-            {Section !== "profile" ? (
-                <div id='main-centerlized-content' className='flex justify-center flex-col'>
-                    <div id='first-child' className='pl-[0px] lg:pl-[240px] 2xl:pl-[280px] xl:pl-[240px] flex  mt-[100px]'>
-                        <div className='h-full'>
-                            <div id='story-centerlized-content' className='h-[60px] pl-[15px] md:pl-[15px] lg:pl-[10px] 2xl:pl-0 xl:pl-0'>
-                                <UserStory />
-                            </div>
-                            {/* Search and Content Display */}
-                            {searchTerm === '' ? (
-                                <>
-                                    {children}
-                                </>
-                            ) : (
-                                <div>
+            {/* {Section !== "profile" ? ( */}
 
-                                    {searchResults.length === 0 ? (
-                                        <div className='w-[48vw] h-screen grid place-items-center relative left-[-55px]'>
-                                            <div className="">
-                                                <p>No search results</p>
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div className="translate-x-[10px]">
-                                            <SearchUsers searchResults={searchResults} />
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-
-                            {/* Side Panel */}
-                            <SidePanel Section={Section} />
+            <div id='main-centerlized-content' className='flex justify-center flex-col'>
+                <div id='first-child' className='pl-[0px] lg:pl-[240px] 2xl:pl-[280px] xl:pl-[240px] flex  mt-[100px]'>
+                    <div className='h-full'>
+                        <div id='story-centerlized-content' className='h-[60px] pl-[15px] md:pl-[15px] lg:pl-[10px] 2xl:pl-0 xl:pl-0'>
+                            <UserStory />
                         </div>
+                        {/* Search and Content Display */}
+                        {searchTerm === '' ? (
+                            <>
+                                {children}
+                            </>
+                        ) : (
+                            <div>
+
+                                {searchResults.length === 0 ? (
+                                    <div className='w-[48vw] h-screen grid place-items-center relative left-[-55px]'>
+                                        <div className="">
+                                            <p>No search results</p>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="translate-x-[10px]">
+                                        <SearchUsers searchResults={searchResults} />
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Side Panel */}
+
+
+                        {
+                            RenderComp
+                        }
                     </div>
                 </div>
-            ) : (
+            </div>
+            {/* ) : (
                 <>
                     {children}
                 </>
-            )}
+            )} */}
 
             {/* Footer Section */}
             <div className={`${Show ? "" : "hidden"} pt-[100px]`}>

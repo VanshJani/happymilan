@@ -279,7 +279,7 @@ function CommonNavbar({ background }) {
 
 
             {!token ? <>
-                <Typography
+                {/* <Typography
                     id="nav-links"
                     as="li"
                     variant="small"
@@ -290,7 +290,7 @@ function CommonNavbar({ background }) {
                 >
 
                     <div className="">
-                        <Link href="/login" passHref>
+                        <Link href="/login">
                             <button style={LoginText} id="grad-button" className="flex items-center justify-evenly rounded-full w-[92px] h-[39px]">
                                 Login
                                 <Image loading="lazy" width={18} height={18}
@@ -301,7 +301,41 @@ function CommonNavbar({ background }) {
                             </button>
                         </Link>
                     </div>
+                </Typography> */}
+                <Typography
+                    id="nav-links"
+                    as="li"
+                    variant="small"
+                    color="blue-gray"
+                    className={`p-1 font-normal rounded-[10px] p-[7px] ${isLoginActive ? "bg-[rgba(15,82,186,0.05)] text-[#0F52BA]" : ""}`}
+                    style={{
+                        fontFamily: "Poppins",
+                        fontSize: "14px",
+                        fontStyle: "normal",
+                        fontWeight: "400",
+                        lineHeight: "normal",
+                    }}
+                >
+                    <Link href="/login">
+                        <a>
+                            <button
+                                id="grad-button"
+                                className="flex items-center justify-evenly rounded-full w-[92px] h-[39px]"
+                                style={LoginText}
+                            >
+                                Login
+                                <Image
+                                    loading="lazy"
+                                    width={18}
+                                    height={18}
+                                    alt="icon"
+                                    src="/assests/Black/Vector-2.svg"
+                                />
+                            </button>
+                        </a>
+                    </Link>
                 </Typography>
+
             </>
                 :
                 <>

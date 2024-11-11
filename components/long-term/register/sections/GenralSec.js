@@ -79,7 +79,7 @@ function GenralSec({ formData, updateFormData, SetActiveTab }) {
                                     placeholder="Caste"
                                     styles={LabelStyle}
                                     options={CasteOptions}
-                                    onChange={(selectedOption) => handleInputChange({ target: { name: "cast", value: selectedOption?.value } })}
+                                    onChange={(selectedOption) => handleInputChange({ target: { name: "caste", value: selectedOption?.value } })}
                                 />
                             </li>
                             <li className='h-[40px]'>

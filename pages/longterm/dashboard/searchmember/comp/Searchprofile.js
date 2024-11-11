@@ -336,7 +336,7 @@ function Searchprofile() {
                                                                 src={darkMode ? "/assests/Black/RightTickWhite.svg" : "/assests/Black/RightTick.svg"}
                                                                 className="inline pr-[5px]"
                                                             />
-                                                            {`${capitalizeFirstLetter(res?.religion) || "NA"}, ${capitalizeFirstLetter(res?.cast) || "NA"}`}
+                                                            {`${capitalizeFirstLetter(res?.religion) || "NA"}, ${capitalizeFirstLetter(res?.caste) || "NA"}`}
                                                         </li>
                                                         <li
                                                             className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"

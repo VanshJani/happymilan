@@ -117,7 +117,7 @@ function SentRequest() {
 
     return (
         <>
-
+            
             <div className=''>
 
                 <div className='flex flex-col'>
@@ -188,7 +188,7 @@ function SentRequest() {
                                                             </li>
                                                             <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={profileStyles?.ListText}>
                                                                 <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                {capitalizeFirstLetter(res?.friend?.religion) || 'NA'}, {capitalizeFirstLetter(res?.friend?.cast) || 'NA'}
+                                                                {capitalizeFirstLetter(res?.friend?.religion) || 'NA'}, {capitalizeFirstLetter(res?.friend?.caste) || 'NA'}
                                                             </li>
                                                             <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={profileStyles?.ListText}>
                                                                 <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />

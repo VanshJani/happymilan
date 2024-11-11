@@ -136,7 +136,7 @@ function GridUserProfile() {
                                                     </Link>
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>{`32, ${res?.shortlistId?.height ? res?.shortlistId?.height : "NA"}`}</p>
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>
-                                                        {`${res?.shortlistId?.religion ? capitalizeFirstLetter(res?.shortlistId?.religion) : "NA"} , ${res?.shortlistId?.cast ? capitalizeFirstLetter(res?.shortlistId?.cast) : "NA"}`}
+                                                        {`${res?.shortlistId?.religion ? capitalizeFirstLetter(res?.shortlistId?.religion) : "NA"} , ${res?.shortlistId?.caste ? capitalizeFirstLetter(res?.shortlistId?.caste) : "NA"}`}
                                                     </p>
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>{res?.shortlistId?.maritalStatus ? res?.shortlistId?.maritalStatus : "NA"}</p>
                                                 </div>

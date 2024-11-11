@@ -3,13 +3,14 @@ import { Dialog, DialogContent } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Deleteimage } from '../../../../store/actions/UsersAction';
 import { fetchUserDetails, updateUserDetails } from '../../../../store/dating-services/Redux-reducer/home/MyprofileReducer';
+import { updateProfilePic } from '../../../../store/reducers/MyProfile';
 
-function MenuPop({ data }) {
+function MenuPop({ Section, details, data }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
 
-    const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
+    // const { details } = useSelector((state) => state.user); // Ensure this is pointing to the correct part of the Redux state
 
     const LogoutModalText = {
         fontFamily: "Poppins",
@@ -82,7 +83,11 @@ function MenuPop({ data }) {
     const UploadProfileImage = () => {
         // dispatch(SetAsProfileImage({ details, ImageURL: data?.url }))
         // console.log(data)
-        dispatch(updateUserDetails(alldata))
+        if (Section != "dating") {
+            dispatch(updateProfilePic(alldata))
+        } else {
+            dispatch(updateUserDetails(alldata))
+        }
         setOpen(false)
         setTimeout(() => {
             dispatch(fetchUserDetails())

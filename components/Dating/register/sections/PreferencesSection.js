@@ -1,10 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { updateDatingFormData } from '../../../../store/dating-services/Redux-actions/register/registerAction';
 import { connect } from 'react-redux';
 import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle';
 import dynamic from 'next/dynamic';
-import DatingMultiSelect from './MultiSelect';
-import MultiSelectDating from './MusltiSelectDating';
 import ReusableMultiSelect from './MusltiSelectDating';
 import { CityOptions } from '../../../../utils/options/Register/EducationSectionOptions';
 const DynamicSelect = dynamic(() => import("react-select"), { ssr: false });

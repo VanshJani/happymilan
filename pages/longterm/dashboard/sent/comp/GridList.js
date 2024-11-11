@@ -3,14 +3,14 @@ import React, { useEffect, useMemo, useState } from 'react'
 import Pagination from '../../../../../components/common/Features/Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination'
-import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import ProfileSkeletonLoader from '../../../../../components/common/animation/GridSkeleton'
 import Link from 'next/link'
 import Avatar from 'react-avatar'
 import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'
-import GridLikeButton from '../../../../_components/common/Buttons/LikeSections/GridLikeButton'
 import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
+import styles from '../../../../../styles/styles.module.css'
+
 
 function GridList() {
 
@@ -58,59 +58,13 @@ function GridList() {
                 <div className=' w-[90%] xl:w-full space-x-[10px] relative 2xl:left-0 xl:left-[10px] 2xl:pl-[25px] xl:pl-[30px] 2xl:mt-[-15px] xl:mt-[-16px] flex flex-wrap  2xl:space-x-[27px] xl:space-x-[15px] space-y-[25px]'>
                     <div className=''></div>
                     {
-                        status === "loading" ? <ProfileSkeletonLoader ViewType={6}/> :
+                        status === "loading" ? <ProfileSkeletonLoader ViewType={6} /> :
                             <>
                                 {
                                     userData?.map((res, index) => {
                                         return (
 
-                                            // <div key={index} style={profileStyles?.ProfileCard} className='inline-block lg:flex flex-col space-y-[15px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
-                                            //     <div className='mt-2 flex justify-between pt-[10px]'>
-                                            //         <ul className='pl-[10px] flex space-x-[10px]'>
-                                            //             <li>
-                                            //                 <Image alt='icon-1' width={17} height={14} src='/assests/Black/Couple2.svg' />
-                                            //             </li>
-                                            //             <li className='text-[10px]' style={profileStyles?.Text4}>You & Her </li>
-                                            //         </ul>
-                                            //         <ul className='pr-[10px] flex space-x-[30px]'>
-                                            //             <li>
-                                            //                 <ShortlistUser UserId={res?.friend?.id || res?.friend?._id} />
-                                            //             </li>
-                                            //             <li>
-                                            //                 <ProfileMenu res={res?.friend} Section={"sent"} />
-                                            //             </li>
-                                            //         </ul>
-                                            //     </div>
-                                            //     <div className='flex justify-center'>
-                                            //         <Link className='w-[100px] h-[100px] rounded-[50%]' href={`/longterm/dashboard/${res?.friend?._id}`} >
-
-                                            //             <div className='w-[100px] h-[100px] rounded-[50%] flex justify-center hover:opacity-80'>
-                                            //                 {res?.friend?.profilePic ? <>
-                                            //                     <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='w-[100px] h-[100px] rounded-[50%]' src={res?.friend?.profilePic} />
-                                            //                 </>
-                                            //                     :
-                                            //                     <><Avatar name={res?.friend?.name} round size='100' /></>
-                                            //                 }
-                                            //             </div>
-                                            //         </Link>
-                                            //     </div>
-                                            //     <div className='text-center'>
-                                            //         <Link href={`/longterm/dashboard/${res?.friend?._id}`} >
-                                            //             <h1 style={profileStyles?.ProfileName} className='text-[18px]'>{res?.friend?.name}</h1>
-                                            //         </Link>
-                                            //         <p style={profileStyles?.ListText} className='text-[14px]'>{`32, ${res?.friend?.height || "NA"}`}</p>
-                                            //         <p style={profileStyles?.ListText} className='text-[14px]'>
-                                            //             {`${capitalizeFirstLetter(res?.friend?.religion) || "NA"} , ${capitalizeFirstLetter(res?.friend?.cast) || "NA"}`}
-                                            //         </p>
-                                            //         <p style={profileStyles?.ListText} className='text-[14px]'>{res?.friend?.maritalStatus || "NA"}</p>
-                                            //     </div>
-
-                                            //     <GridLikeButton userId={res?.friend?.id || res?.friend?._id}
-                                            //         TheUsername={res?.friend?.name}
-                                            //         userdata={res?.friend} />
-                                            // </div>
-
-                                            <div key={index} style={profileStyles?.ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
+                                            <div key={index} style={profileStyles?.ProfileCard} className='inline-block lg:flex flex-col space-y-[8px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
                                                 <div className='mt-2 flex justify-between pt-[10px]'>
                                                     <ul className='pl-[10px] flex space-x-[10px]'>
                                                         <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}>
@@ -144,13 +98,20 @@ function GridList() {
                                                 <div className='text-center'>
                                                     <h1 style={profileStyles?.ProfileName} className='text-[18px]'>{res?.friend?.name}</h1>
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>32, 5’3”</p>
-                                                    <p style={profileStyles?.ListText} className='text-[14px]'> {res?.friend?.religion || 'NA'}, {res?.friend?.cast || 'NA'}</p>
+                                                    <p style={profileStyles?.ListText} className='text-[14px]'> {res?.friend?.religion || 'NA'}, {res?.friend?.caste || 'NA'}</p>
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>{res?.friend?.maritalStatus || "NA"}</p>
                                                 </div>
 
-                                                <GridLikeButton userId={res?.friend?._id || res?.friend?.id}
-                                                    TheUsername={res?.friend?.name}
-                                                    userdata={res?.friend} />
+                                                <div className='grid place-items-center space-y-[14px]'>
+                                                    <div>
+                                                        <div className='w-[148px] bg-[#EEEEEE] h-[1px]'></div>
+                                                    </div>
+
+                                                    <ul className='flex space-x-[10px]'>
+                                                        <li><h1 className={`${styles.BoldText} text-[#000] dark:text-[#FFF] text-[16px] 2xl:text-[16px] xl:text-[14px]`}>Sent</h1></li>
+                                                        <li><Image loading='lazy' alt="accepted" width={23} height={23} src='/assests/dashboard/icon/accepted-right.svg' /></li>
+                                                    </ul>
+                                                </div>
                                             </div>
 
                                         )

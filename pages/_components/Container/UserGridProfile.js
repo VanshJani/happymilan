@@ -199,7 +199,7 @@ function UserGridProfile() {
 
                                                     <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{user?.name}</h1>
                                                     <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.age ? user?.age : "NA"}, {user?.height ? user?.height : "NA"}”</p>
-                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.religion ? user?.religion : "NA"}, {user?.cast ? user?.cast : "NA"}</p>
+                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.religion ? user?.religion : "NA"}, {user?.caste ? user?.caste : "NA"}</p>
                                                     <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.maritalStatus ? user?.maritalStatus : "NA"}</p>
 
                                                 </div>

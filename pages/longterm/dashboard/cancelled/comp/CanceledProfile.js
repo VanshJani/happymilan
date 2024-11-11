@@ -208,9 +208,9 @@ function CanceledProfile({ thedata, isauthuserID }) {
                                                                     className="inline pr-[5px]"
                                                                 />
                                                                 {res?.user?.id === isauthuserID ? (
-                                                                    `${res?.friend?.religion ? capitalizeFirstLetter(res.friend.religion) : "NA"}, ${res?.user?.cast ? capitalizeFirstLetter(res.user.cast) : "NA"}`
+                                                                    `${res?.friend?.religion ? capitalizeFirstLetter(res.friend.religion) : "NA"}, ${res?.user?.caste ? capitalizeFirstLetter(res.user.caste) : "NA"}`
                                                                 ) : (
-                                                                    `${res?.friend?.religion ? capitalizeFirstLetter(res.friend.religion) : "NA"}, ${res?.user?.cast ? capitalizeFirstLetter(res.user.cast) : "NA"}`
+                                                                    `${res?.friend?.religion ? capitalizeFirstLetter(res.friend.religion) : "NA"}, ${res?.user?.caste ? capitalizeFirstLetter(res.user.caste) : "NA"}`
                                                                 )}
                                                             </li>
 

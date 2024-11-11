@@ -4,9 +4,7 @@ import dynamic from "next/dynamic";
 import { connect } from "react-redux";
 import { getCookie } from "cookies-next";
 import { updateDatingFormData } from "../../../../store/dating-services/Redux-actions/register/registerAction";
-import { LabelStyle2 } from "../../../../utils/options/styles/SelectBoxStyle";
 import DatingMultiSelect from "./MultiSelect";
-const DynamicSelect = dynamic(() => import("react-select"), { ssr: false });
 
 function DatingProfileSelection({
     datingForm,
@@ -43,16 +41,7 @@ function DatingProfileSelection({
         ADVENTUROUS: 'adventurous',
     };
 
-    const profileOptions = [
-        { id: 1, label: "Meet New Friends", value: EnumOfInterest.MEET_NEW_FRIENDS },
-        { id: 2, label: "Looking for Love", value: EnumOfInterest.LOOKING_FOR_LOVE },
-        { id: 3, label: "Movie Date", value: EnumOfInterest.MOVIE_DATE },
-        { id: 4, label: "Foodies", value: EnumOfInterest.FOODIES },
-        { id: 5, label: "Travel Buddies", value: EnumOfInterest.TRAVEL_BUDDIES },
-        { id: 6, label: "Game Lover", value: EnumOfInterest.GAME_LOVER },
-        { id: 7, label: "Chit Chat", value: EnumOfInterest.CHITCHAT },
-        { id: 8, label: "Adventurous", value: EnumOfInterest.ADVENTUROUS },
-    ];
+    
 
     function splitName(fullName) {
         const nameParts = fullName?.trim()?.split(" ") || [];

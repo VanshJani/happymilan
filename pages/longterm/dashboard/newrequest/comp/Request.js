@@ -189,7 +189,7 @@ function Request() {
                                                 <ul id="user-card-grid">
                                                     <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' /> {`${res?.user?.age || "NA"}, ${res?.user?.height || "NA"}`}</li>
                                                     <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.maritalStatus || "NA"}`}</li>
-                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.religion || "NA"}, ${res?.user?.cast || "NA"}`}</li>
+                                                    <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.religion || "NA"}, ${res?.user?.caste || "NA"}`}</li>
                                                     <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.address?.currentCity || "NA"}, ${res?.user?.address?.currentCountry || "NA"}`}</li>
                                                     <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.motherTongue || "NA"}`}</li>
                                                     <li className='text-[14px] 2xl:text-[14px] xl:text-[13px]' style={ListText}><Image alt='img' width={15} height={14} src='/assests/Black/RightTick.svg' className='inline pr-[5px]' />{`${res?.user?.userProfessional?.jobTitle || "NA"}`}</li>
@@ -202,7 +202,7 @@ function Request() {
                                         <div className='flex justify-end items-center mt-[20px] 2xl:mt-[20px] xl:mt-[20px] lg:mt-0 mr-[20px] space-x-[10px]'>
                                             <h1 className='text-[16px] 2xl:text-[16px] xl:text-[14px]' style={BoldText}>Want to accept?</h1>
                                             <div className='flex space-x-[21px]'>
-                                               
+
                                                 <div onClick={() => HanldeAccept(res)} id='accept-request' className='rounded-full border-[1px] border-[#17C270] w-[63px] h-[44px] grid place-items-center'>
                                                     <svg className='accept-icon-dt' width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M6.15225 13.4522L0 7.29998L1.8915 5.40873L6.15225 9.66948L15.313 0.508728L17.2045 2.39998L6.15225 13.4522Z" />
@@ -215,7 +215,7 @@ function Request() {
                                                         <path id="Vector" d="M1.85225 14.9045L0 13.0523L5.6 7.45225L0 1.85225L1.85225 0L7.45225 5.6L13.0522 0L14.9045 1.85225L9.3045 7.45225L14.9045 13.0523L13.0522 14.9045L7.45225 9.3045L1.85225 14.9045Z" />
                                                     </svg>
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
 

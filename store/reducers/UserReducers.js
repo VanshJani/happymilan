@@ -2,8 +2,7 @@
 import {
     SEND_REQUEST, REQUEST_SUCCESS, REQUEST_FAILURE, GET_REQUEST, GET_REQUEST_SUCCESS,
     GET_REQUEST_FAILURE, ACCEPT_REQUEST, ACCEPT_REQUEST_SUCCESS, ACCEPT_REQUEST_FAILURE,
-    REJECT_REQUEST, REJECT_REQUEST_SUCCESS, REJECT_REQUEST_FAILURE, GET_EDUCATION_DATA,
-    GET_EDUCATION_DATA_SUCCESS, GET_EDUCATION_DATA_FAILURE, GET_PROFESSIONAL_DATA_FAILURE,
+    REJECT_REQUEST, REJECT_REQUEST_SUCCESS, REJECT_REQUEST_FAILURE, GET_PROFESSIONAL_DATA_FAILURE,
     GET_PROFESSIONAL_DATA_SUCCESS, GET_PROFESSIONAL_DATA, GET_PARTNERPREFERENCE_DATA,
     GET_PARTNERPREFERENCE_DATA_SUCCESS, GET_PARTNERPREFERENCE_DATA_FAILURE, UPDATE_EDUCATION_DATA,
     UPDATE_EDUCATION_DATA_SUCCESS, UPDATE_EDUCATION_DATA_FAILURE, UPDATE_PROFESSIONAL_DATA,
@@ -265,29 +264,6 @@ const userReducer = (state = initialState, action) => {
                 data: null,
                 error: action.payload
             }
-        case GET_EDUCATION_DATA: {
-            return {
-                ...state,
-                loading: true,
-                error: null
-            }
-        }
-        case GET_EDUCATION_DATA_SUCCESS: {
-            return {
-                ...state,
-                loading: false,
-                educationdata: action.payload,
-                error: null
-            }
-        }
-        case GET_EDUCATION_DATA_FAILURE: {
-            return {
-                ...state,
-                loading: false,
-                educationdata: null,
-                error: action.payload
-            }
-        }
         case UPDATE_EDUCATION_DATA: {
             return {
                 ...state,

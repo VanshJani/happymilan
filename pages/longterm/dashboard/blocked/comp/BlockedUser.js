@@ -287,7 +287,7 @@ function BlockedUser() {
                                                             </li>
                                                             <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                 <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                {IsUser ? (res?.user?.religion ? res.user.religion : 'NA') : (res?.friend?.religion ? res.friend.religion : 'NA')}, {IsUser ? (res?.user?.cast ? res.user.cast : 'NA') : (res?.friend?.cast ? res.friend.cast : 'NA')}
+                                                                {IsUser ? (res?.user?.religion ? res.user.religion : 'NA') : (res?.friend?.religion ? res.friend.religion : 'NA')}, {IsUser ? (res?.user?.caste ? res.user.caste : 'NA') : (res?.friend?.caste ? res.friend.caste : 'NA')}
                                                             </li>
                                                             <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                 <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
