@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound'
 
 function BlockUserGrid() {
     const ProfileName = {
@@ -216,7 +217,10 @@ function BlockUserGrid() {
 
 
 
-                </div >
+                </div>
+
+                <ProfileDataNotFound ProfileData={usersdatas} />
+
                 <div className='flex pt-[50px] space-x-[40px] justify-center items-center w-auto 2xl:w-full xl:w-full'>
                     <div id='active-no' className=' cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>1</div>
                     <div id='pagination-count' className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>2</div>

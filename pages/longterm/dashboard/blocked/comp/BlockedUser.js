@@ -180,7 +180,7 @@ function BlockedUser() {
 
                     {
 
-                        data?.results?.map((res, index) => {
+                        data?.data?.results?.map((res, index) => {
                             // const { images } = res
 
                             const IsUser = res?.friend?.id === isCurrentUser;
@@ -331,7 +331,8 @@ function BlockedUser() {
             </div>
 
 
-            <ProfileDataNotFound ProfileData={data?.blockedusersdata?.data} />
+            {/* <ProfileDataNotFound ProfileData={data?.blockedusersdata?.data} /> */}
+            <ProfileDataNotFound ProfileData={data?.data?.results} />
 
             <ShareModal isOpen={isModalOpen} onClose={closeModal} />
 

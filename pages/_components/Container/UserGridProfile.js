@@ -13,6 +13,8 @@ import ProfileSkeletonLoader from '../../../components/common/animation/GridSkel
 import { userDatas } from '../../../store/actions/GetingAlluser'
 import MatchScoreModal from '../Model/Models/MatchScoreModal'
 import GridLikeButton from '../common/Buttons/LikeSections/GridLikeButton'
+import { capitalizeFirstLetter } from '../../../utils/form/Captitelize'
+import Link from 'next/link'
 
 // Dynamically imported components
 const ShareModal = dynamic(() => import("../Model/Models/ShareModal"));
@@ -189,18 +191,24 @@ function UserGridProfile() {
                                                 </div>
                                                 <div onClick={() => HandleVisitProfile(user)} className='flex justify-center '>
                                                     {user?.profilePic ? <>
-                                                        <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={user?.profilePic} />
+                                                        <Link href={`/longterm/dashboard/${user?.id || user?._id}`}>
+                                                            <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={user?.profilePic} />
+                                                        </Link>
                                                     </>
                                                         :
-                                                        <><Avatar name={user?.name} round size='100' className='hover:opacity-70 duration-150'/></>
+                                                        <>
+                                                            <Link href={`/longterm/dashboard/${user?.id || user?._id}`}>
+                                                                <Avatar name={user?.name} round size='100' className='hover:opacity-70 duration-150' />
+                                                            </Link>
+                                                        </>
                                                     }
                                                 </div>
                                                 <div className='text-center'>
 
-                                                    <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{user?.name}</h1>
+                                                    <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{capitalizeFirstLetter(user?.name)}</h1>
                                                     <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.age || "NA"}, {user?.heigh || "NA"}”</p>
-                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.religion || "NA"}, {user?.caste || "NA"}</p>
-                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.maritalStatus || "NA"}</p>
+                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(user?.religion) || "NA"}, {capitalizeFirstLetter(user?.caste) || "NA"}</p>
+                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(user?.maritalStatus) || "NA"}</p>
 
                                                 </div>
                                                 <GridLikeButton userId={user._id}

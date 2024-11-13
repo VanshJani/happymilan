@@ -22,7 +22,7 @@ function CanceledProfile({ thedata, isauthuserID }) {
     const { darkMode } = useDarkMode();
 
     const { loading, data } = useSelector((state) => state.usersact.cancelusersdata)
-    
+
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -298,7 +298,7 @@ function CanceledProfile({ thedata, isauthuserID }) {
                 </div>
             </div>
 
-            <ProfileDataNotFound ProfileData={data?.data} />
+            <ProfileDataNotFound ProfileData={data?.data?.results} />
 
             <ShareModal isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
             <React.Fragment>
