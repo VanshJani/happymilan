@@ -7,6 +7,8 @@ import ProfileMenu from '../../../../../components/long-term/common/Model/Profil
 import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
 import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
 import styles from '../../../../../styles/styles.module.css'
+import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
+import Link from 'next/link'
 
 
 function GridList() {
@@ -85,13 +87,26 @@ function GridList() {
                                         </ul>
                                     </div>
                                     <div className='flex justify-center'>
-                                        <Image loading='lazy' alt="profile" width={102} height={102} className='w-[102px] h-[102px] rounded-[50%]' src={res?.friendList?.profilePic} />
+                                        {/* <Image loading='lazy' alt="profile" style={{ objectFit: "cover" }} width={102} height={102} className='hover:opacity-70 duration-150 w-[102px] h-[102px] rounded-[50%]' src={res?.friendList?.profilePic} /> */}
+                                        {res?.friendList?.profilePic ? <>
+                                            <Link href={`/longterm/dashboard/${res?.friendList?.id || res?.friendList?._id}`}>
+                                                <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={res?.friendList?.profilePic} />
+                                            </Link>
+                                        </>
+                                            :
+                                            <>
+                                                <Link href={`/longterm/dashboard/${res?.friendList?.id || res?.viewerId?._id}`}>
+                                                    <Avatar name={res?.friendList?.name} round size='100' className='hover:opacity-70 duration-150' />
+                                                </Link>
+                                            </>
+                                        }
+
                                     </div>
                                     <div className='text-center'>
-                                        <h1 style={ProfileName} className='text-[18px]'>{res?.friendList?.name}</h1>
+                                        <h1 style={ProfileName} className='text-[18px]'>{capitalizeFirstLetter(res?.friendList?.name)}</h1>
                                         <p style={ListText} className='text-[14px]'>32, 5’3”</p>
-                                        <p style={ListText} className='text-[14px]'> {res?.friendList?.religion || 'NA'}, {res?.friendList?.caste || 'NA'}</p>
-                                        <p style={ListText} className='text-[14px]'>{res?.friendList?.maritalStatus || "NA"}</p>
+                                        <p style={ListText} className='text-[14px]'> {capitalizeFirstLetter(res?.friendList?.religion) || 'NA'}, {capitalizeFirstLetter(res?.friendList?.caste) || 'NA'}</p>
+                                        <p style={ListText} className='text-[14px]'>{capitalizeFirstLetter(res?.friendList?.maritalStatus) || "NA"}</p>
                                     </div>
                                     <div className='grid place-items-center space-y-[14px]'>
                                         <div>

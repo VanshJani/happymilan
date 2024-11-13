@@ -18,6 +18,7 @@ import ProfileDataNotFound from '../../../../../components/common/Error/ProfileD
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser';
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
+import LikeUser from '../../../../_components/common/Buttons/LikeUser';
 const ShowMore = dynamic(() => import('../../../../_components/common/profile/UserBio'), { ssr: false });
 const SendRequestBtn = dynamic(() => import('../../../../_components/common/Buttons/SendRequestBtn'), { ssr: false });
 
@@ -112,6 +113,10 @@ function RecentViewUser() {
         fontWeight: "500",
         lineHeight: "normal",
     };
+
+
+    const [ActiveLike, setActiveLike] = useState(false);
+
 
 
     return (
@@ -360,12 +365,35 @@ function RecentViewUser() {
                                                 </div>
                                             </div>
 
-                                            <div className="absolute right-0 bottom-[18px]">
-                                                <SendRequestBtn
-                                                    userdata={res?.viewerId?.name}
-                                                    RequestId={sentrequest[res?.viewerId?._id || res?.viewerId?.id]}
-                                                    HandleRequestModal={() => HandleRequestModal(res?.viewerId)}
-                                                />
+                                            <div className="absolute right-6 bottom-[18px]">
+                                                <div className="flex items-center justify-center">
+                                                    <div>
+                                                        <SendRequestBtn
+                                                            userdata={res?.viewerId?.name}
+                                                            RequestId={sentrequest[res?.viewerId?._id || res?.viewerId?.id]}
+                                                            HandleRequestModal={() => HandleRequestModal(res?.viewerId)}
+                                                        />
+                                                    </div>
+                                                    <div className="relative top-[10px]">
+                                                        {/* {likeloading ?
+                                                            <>
+                                                                <div className="animate-pulse w-[63px] h-[40px] bg-gray-200 rounded-[22px]"></div>
+                                                            </>
+                                                            :
+                                                            <> */}
+
+                                                        <LikeUser
+                                                            ActiveLike={ActiveLike}
+                                                            setActiveLike={setActiveLike}
+                                                            userId={res?.viewerId?._id || res?.viewerId?.id}
+                                                            TheUsername={res?.viewerId?.name}
+                                                            userdata={res?.viewerId}
+
+
+                                                        />
+                                                        {/* </>} */}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

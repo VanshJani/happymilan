@@ -7,6 +7,7 @@ import { FetchMoreSuggestiondata } from '../../../store/actions/GetingAlluser';
 import { sendRequest } from '../../../store/actions/UsersAction';
 import Link from 'next/link';
 import Avatar from 'react-avatar';
+import { capitalizeFirstLetter } from '../../../utils/form/Captitelize';
 
 function MoreSuggestion() {
     const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function MoreSuggestion() {
 
     const handleRequestModal = async (user) => {
         try {
-            await dispatch(sendRequest("long-term",user._id));
+            await dispatch(sendRequest("long-term", user._id));
             setsentRequest((prevState) => ({
                 ...prevState,
                 [user._id]: !prevState[user._id],
@@ -187,13 +188,13 @@ function MoreSuggestion() {
                                             </div>
                                             <div>
                                                 <Link href={`/longterm/dashboard/${res._id}`}>
-                                                    <h1 className='text-[#000] dark:text-[#FFF] hover:opacity-75 duration-100' style={Text7}>{res.name}</h1>
+                                                    <h1 className='text-[#000] dark:text-[#FFF] hover:opacity-75 duration-100' style={Text7}>{capitalizeFirstLetter(res.name)}</h1>
                                                 </Link>
                                                 <h1 className='text-[#000] dark:text-[#FFF]' style={Text8}>
-                                                    {res?.gender === "male" ? "M" : res?.gender === "female" ? "F" : "NA"}, 29, {res?.userProfessional ? res?.userProfessional?.jobTitle : "NA"}
+                                                    {res?.gender === "male" ? "M" : res?.gender === "female" ? "F" : "NA"}, 29, {capitalizeFirstLetter(res?.userProfessional?.jobTitle) || "NA"}
                                                 </h1>
                                                 <h1 className="text-[#AEAEAE] dark:text-[#FFF]" style={Text8}>
-                                                    {res?.address ? res?.address?.currentCity : "NA"}, {res?.address ? res?.address?.currentCountry : "NA"}
+                                                    {capitalizeFirstLetter(res?.address?.currentCity) || "NA"}, {capitalizeFirstLetter(res?.address?.currentCountry) || "NA"}
                                                 </h1>
                                             </div>
                                         </div>

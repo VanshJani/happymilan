@@ -193,14 +193,14 @@ function DeleteProfile() {
                   top="32%"
                   left="38%"
                 >
-                  <Typography className="bg-[#fff]    w-[370px] h-[264px] rounded-[10px] border-[1px] border-[#DDD]">
+                  <Typography className="bg-[#fff]    w-[370px] h-[200px] rounded-[18px] border-[1px] border-[#DDD]">
                     <div className="w-[100%] h-[100%] ">
-                      <div className="text-center p-[50px]">
-                        <div className="mt-[10px]">
+                      <div className="text-center flex flex-col justify-evenly h-full">
+                        <div className="mt-[0px] space-y-2">
                           <h1 className="text-[20px]">Are you sure want</h1>
                           <p className="text-[14px]">Hide Your Profile?</p>
                         </div>
-                        <div className="flex gap-[15px] mt-[40px]">
+                        <div className="space-x-5">
                           <button
                             onClick={handleModelClose}
                             className="text-[16px] w-[126px] h-[40px] xl:h-[50px] border-[1px] border-[#0F52BA] rounded-[23px]"
@@ -274,14 +274,14 @@ function DeleteProfile() {
                   top="32%"
                   left="38%"
                 >
-                  <Typography className="bg-[#fff]    w-[370px] h-[264px] rounded-[10px] border-[1px] border-[#DDD]">
+                  <Typography className="bg-[#fff]    w-[370px] h-[200px] rounded-[18px] border-[1px] border-[#DDD]">
                     <div className="w-[100%] h-[100%] ">
-                      <div className="text-center p-[50px]">
-                        <div className="mt-[10px]">
+                      <div className="text-center flex flex-col justify-evenly h-full">
+                        <div className="mt-[0px] space-y-2">
                           <h1 className="text-[20px]">Are you sure want</h1>
                           <p className="text-[14px]">Delete Your Profile?</p>
                         </div>
-                        <div className="flex gap-[15px] mt-[40px]">
+                        <div className="space-x-5">
                           <button
                             onClick={handleModelHide}
                             className="hover:bg-[#EFF5FF] text-[16px] w-[126px] h-[40px] xl:h-[50px] border-[1px] border-[#0F52BA] rounded-[23px]"

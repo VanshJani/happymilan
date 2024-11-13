@@ -88,14 +88,14 @@ function RecentlyView() {
     <>
 
 
-      <div className='relative 2xl:left-[50px] '>
+      <div className='relative 2xl:left-[45px] '>
 
 
         {data?.length > 0 ? <h1 style={Text3} className='dark:text-[#FFF] relative 2xl:left-[10px] xl:left-[65px] lg:left-[20px] text-[16px]'>Recently Viewed</h1> : <>
         </>
         }
       </div>
-      <div className=' inline-block space-y-[10px] relative 2xl:left-[-10px] left-[5px] pt-[10px] lg:flex flex-wrap xl:justify-center 2xl:justify-center space-x-[10px] 2xl:space-x-[25px] xl:space-x-[15px]'>
+      <div className=' inline-block space-y-[10px] relative 2xl:left-[-15px] left-[5px] pt-[10px] lg:flex flex-wrap xl:justify-center 2xl:justify-center space-x-[10px] 2xl:space-x-[25px] xl:space-x-[15px]'>
         <div></div>
         {loading ?
           <>
@@ -107,9 +107,8 @@ function RecentlyView() {
             {
               shuffleData?.slice(0, 3).map((item, index) => {
                 return (
-
                   <div key={index} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
-                    <div className='flex justify-between pt-[10px]'>
+                    <div className='mt-2 flex justify-between pt-[10px]'>
                       <ul className='pl-[10px] flex space-x-[10px]'>
                         <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}>
 
@@ -120,7 +119,7 @@ function RecentlyView() {
                       <ul className='pr-[10px] flex space-x-[30px]'>
                         <li>
                           <li>
-                            <ShortlistUser UserId={item?.viewerId?.id} />
+                            <ShortlistUser UserId={item?.viewerId?.id || item?.viewerId?._id} />
                           </li>
                         </li>
                         <li>
@@ -128,29 +127,31 @@ function RecentlyView() {
                         </li>
                       </ul>
                     </div>
-                    <div className='flex justify-center '>
+                    <div onClick={() => HandleVisitProfile(user)} className='flex justify-center '>
                       {item?.viewerId?.profilePic ? <>
-                        <Link href={`/longterm/dashboard/${item?.viewerId?.id}`}>
-                          <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='w-[100px] h-[100px] rounded-[50%]' src={item?.viewerId?.profilePic} />
+                        <Link href={`/longterm/dashboard/${item?.viewerId?.id || item?.viewerId?._id}`}>
+                          <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={item?.viewerId?.profilePic} />
                         </Link>
                       </>
                         :
                         <>
-                          <Link href={`/longterm/dashboard/${item?.viewerId?.id}`}>
-                            <Avatar name={item?.viewerId?.name} round size='100' />
+                          <Link href={`/longterm/dashboard/${item?.viewerId?.id || item?.viewerId?._id}`}>
+                            <Avatar name={item?.viewerId?.name} round size='100' className='hover:opacity-70 duration-150'/>
                           </Link>
                         </>
                       }
                     </div>
                     <div className='text-center'>
-                      <Link href={`/longterm/dashboard/${item?.viewerId?.id}`}>
-                        <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{capitalizeFirstLetter(item?.viewerId?.name)}</h1>
-                      </Link>
+
+                      <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{capitalizeFirstLetter(item?.viewerId?.name)}</h1>
                       <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{calculateAge(item?.viewerId?.dateOfBirth)}, 5’3”</p>
                       <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(item?.viewerId?.caste) || "NA"}</p>
                       <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(item?.viewerId?.maritalStatus) || "NA"}</p>
 
                     </div>
+                    {/* <GridLikeButton userId={user._id}
+                      TheUsername={user?.name}
+                      userdata={user} /> */}
                     <GridLikeButton userdata={item?.viewerId} userId={item?.viewerId?.id || item?.viewerId?._id} TheUsername={item?.viewerId?.name} />
                   </div>
                 )

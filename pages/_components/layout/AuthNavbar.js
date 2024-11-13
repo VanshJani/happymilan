@@ -317,7 +317,7 @@ function CommonNavbar({ background }) {
                     }}
                 >
                     <Link href="/login">
-                        <a>
+                       
                             <button
                                 id="grad-button"
                                 className="flex items-center justify-evenly rounded-full w-[92px] h-[39px]"
@@ -332,7 +332,7 @@ function CommonNavbar({ background }) {
                                     src="/assests/Black/Vector-2.svg"
                                 />
                             </button>
-                        </a>
+                      
                     </Link>
                 </Typography>
 

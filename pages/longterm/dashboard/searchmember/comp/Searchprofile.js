@@ -24,6 +24,7 @@ import { useDarkMode } from "../../../../../ContextProvider/DarkModeContext";
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import ShowMore from '../../../../_components/common/profile/UserBio';
+import LikeUser from '../../../../_components/common/Buttons/LikeUser';
 
 
 function Searchprofile() {
@@ -120,6 +121,7 @@ function Searchprofile() {
     };
 
 
+    const [ActiveLike, setActiveLike] = useState(false);
 
 
     const imageFoundText = {
@@ -388,11 +390,42 @@ function Searchprofile() {
                                                 </div>
                                             </div>
 
-                                            <div className="absolute right-0 mt-[0px]">
+                                            {/* <div className="absolute right-0 mt-[0px]">
                                                 <SendRequestBtn
                                                     RequestId={sentrequest[res?._id]}
                                                     HandleRequestModal={() => HandleRequestModal(res)}
                                                 />
+                                            </div> */}
+
+                                            <div className="absolute right-6 bottom-[18px]">
+                                                <div className="flex items-center justify-center">
+                                                    <div>
+                                                        <SendRequestBtn
+                                                            userdata={res?.name}
+                                                            RequestId={sentrequest[res?._id || res?.id]}
+                                                            HandleRequestModal={() => HandleRequestModal(res)}
+                                                        />
+                                                    </div>
+                                                    <div className="relative top-[10px]">
+                                                        {/* {likeloading ?
+                                                            <>
+                                                                <div className="animate-pulse w-[63px] h-[40px] bg-gray-200 rounded-[22px]"></div>
+                                                            </>
+                                                            :
+                                                            <> */}
+
+                                                        <LikeUser
+                                                            ActiveLike={ActiveLike}
+                                                            setActiveLike={setActiveLike}
+                                                            userId={res?._id || res?.id}
+                                                            TheUsername={res?.name}
+                                                            userdata={res}
+
+
+                                                        />
+                                                        {/* </>} */}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

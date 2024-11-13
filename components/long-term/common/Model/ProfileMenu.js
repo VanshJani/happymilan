@@ -95,7 +95,7 @@ function ProfileMenu({ Credentials, res, Section, accepteddata }) {
         const currentUrl = window.location.href;
 
         // Remove "/sent" from the URL if it exists
-        const newUrl = currentUrl.replace(/\/(sent|accepted|cancelled|deleted|newrequest)/g, '');
+        const newUrl = currentUrl.replace(/\/(sent|accepted|cancelled|deleted|newrequest|recentlyviewed)/g, '');
 
         // Append userId to the modified URL
         const urlWithUserId = `${newUrl}/${userId}`;
@@ -143,8 +143,49 @@ function ProfileMenu({ Credentials, res, Section, accepteddata }) {
 
 
     const SecntSection = () => {
+
+        const [isCancelModalOpen, setisCancelModalOpen] = useState(false);
+
+        const closeCancelModal = () => {
+            setisCancelModalOpen(false)
+        }
+        const HandleUnfriend = () => {
+            setisCancelModalOpen(true)
+            console.log("acdata = ", accepteddata)
+            // console.log("acdata2 = ", {
+            //     currUser: accepteddata?.id,
+            //     OtherUser: accepteddata.user?._id == accepteddata?.lastInitiatorUser ? accepteddata?.friend?._id : accepteddata?.lastInitiatorUser
+            // })
+
+        }
         return (
             <>
+
+                <li
+                    onClick={HandleUnfriend}
+                    style={Text3}
+                    className="cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]"
+                >
+                    <div className=" ml-[20px] flex space-x-[24px]">
+                        <Image loading="lazy"
+                            alt="copy"
+                            width={14}
+                            height={14}
+                            src="/assests/Black/UnfriendUser.svg"
+                        />{" "}
+                        <p>Remove {UserData?.name ? UserData?.name : ""}</p>
+                    </div>
+                </li>
+
+                <CancelRequestModal
+                    data={{
+                        currUser: accepteddata?._id || accepteddata?.id,
+                        OtherUser: accepteddata?.friend?._id,
+                        status: "rejected"
+                    }}
+                    isOpen={isCancelModalOpen}
+                    onClose={closeCancelModal}
+                />
             </>
         )
     }
@@ -312,7 +353,7 @@ function ProfileMenu({ Credentials, res, Section, accepteddata }) {
                                     <p>Share Profile</p>
                                 </div>
                             </li>
-                           
+
                             <li
                                 onClick={ReportModalHandle}
                                 style={Text3}

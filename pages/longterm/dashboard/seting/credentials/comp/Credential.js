@@ -873,16 +873,26 @@ function Credentials() {
           <Modal
             className="focus:outline-none"
             BackdropProps={{ style: { opacity: 1 } }}
+            sx={{ borderRadius: "18px" }}
             open={open}
             onClose={handleClose}
           >
-            <Box>
-              <Typography
+            <Box
+              sx={{
+                borderRadius: "18px", // Add border radius
+                bgcolor: "background.paper", // Set background color
+                // height: "300px",
+                // width: "300px",
+              }}
+              className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[18px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
+
+            >
+              {/* <Typography
                 id="boxshadow"
                 className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[6px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
-              >
-                {renderTabContent()}
-              </Typography>
+              > */}
+              {renderTabContent()}
+              {/* </Typography> */}
             </Box>
           </Modal>
           <div className="flex ">
@@ -912,7 +922,7 @@ function Credentials() {
             <Box>
               <Typography
                 id="boxshadow"
-                className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[6px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
+                className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[18px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
               >
                 {renderTabContent2()}
               </Typography>
@@ -940,7 +950,7 @@ function Credentials() {
             <Box>
               <Typography
                 id="boxshadow"
-                className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[6px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
+                className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[18px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
               >
                 {renderTabContent3()}
               </Typography>

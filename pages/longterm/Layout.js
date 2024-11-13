@@ -43,32 +43,12 @@ const Layout = ({ Section, Show, children }) => {
     const { user, loading } = useSelector((state) => state.userById)
 
 
-    // Separate components to optimize re-renders
-    const UserProfileSection = () => (
-        <div className='hidden absolute 2xl:top-20 xl:top-20 right-10  xl:flex 2xl:flex flex-col  justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
-            <div className='absolute right-10 hidden xl:block 2xl:block'>
-                <ProfileImagesViewer Privacy={true} Section={"long-term"} details={user} />
-            </div>
-        </div>
-    );
-
-    const ProfileSection = () => (
-        <div className='hidden absolute 2xl:top-20 xl:top-20 right-10  xl:flex 2xl:flex flex-col  justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
-            {/* Side Section 2 */}
-            {/* <UploadSection /> */}
-            <div className='absolute right-10 hidden xl:block 2xl:block'>
-                <ProfileImagesViewer Privacy={false} Section={"long-term"} details={data} />
-            </div>
-        </div>
-    );
-
 
     const RenderComp = useMemo(() => {
         if (Section === "profile" && data) {
             return (
                 <div className='hidden absolute 2xl:top-20 xl:top-20 right-10  xl:flex 2xl:flex flex-col  justify-center items-end w-full 2xl:w-[380px] xl:w-[350px]'>
-                    {/* Side Section 2 */}
-                    {/* <UploadSection /> */}
+
                     <div className='absolute right-10 hidden xl:block 2xl:block'>
                         <ProfileImagesViewer Privacy={false} Section={"long-term"} details={data} />
                     </div>
@@ -88,6 +68,15 @@ const Layout = ({ Section, Show, children }) => {
     }, [Section, data, user]);
 
 
+
+    const Text6 = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontSize: "16px",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "22px"
+    }
 
 
     return (
@@ -118,9 +107,13 @@ const Layout = ({ Section, Show, children }) => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="translate-x-[10px]">
-                                        <SearchUsers searchResults={searchResults} />
-                                    </div>
+                                    <>
+                                        <h1 className='p-[5px] relative 2xl:left-[5px] lg:left-[10px] xl:left-[5px] top-[10px]'><span style={Text6}>Search Result</span></h1>
+                                        <div className="relative left-[-45px] translate-x-[0px] top-5">
+                                            <SearchUsers searchResults={searchResults} />
+                                        </div>
+
+                                    </>
                                 )}
                             </div>
                         )}

@@ -122,23 +122,30 @@ function GridUserProfile() {
 
                                                         <div className='w-[100px] h-[100px] rounded-[50%] flex justify-center hover:opacity-80'>
                                                             {res?.shortlistId?.profilePic ? <>
-                                                                <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='w-[100px] h-[100px] rounded-[50%]' src={res?.shortlistId?.profilePic} />
+                                                                {/* <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='w-[100px] h-[100px] rounded-[50%]' src={res?.shortlistId?.profilePic} /> */}
+                                                                <Link href={`/longterm/dashboard/${res?.shortlistId?.id || res?.shortlistId?._id}`}>
+                                                                    <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={res?.shortlistId?.profilePic} />
+                                                                </Link>
                                                             </>
                                                                 :
-                                                                <><Avatar name={res?.shortlistId?.name} round size='100' /></>
+                                                                <>
+                                                                    <Link href={`/longterm/dashboard/${res?.shortlistId?.id || res?.shortlistId?._id}`}>
+                                                                        <Avatar name={res?.shortlistId?.name} round size='100' />
+                                                                    </Link>
+                                                                </>
                                                             }
                                                         </div>
                                                     </Link>
                                                 </div>
                                                 <div className='text-center'>
                                                     <Link href={`/longterm/dashboard/${res?.shortlistId?._id}`} >
-                                                        <h1 style={profileStyles?.ProfileName} className='text-[18px]'>{res?.shortlistId?.name}</h1>
+                                                        <h1 style={profileStyles?.ProfileName} className='text-[18px]'>{capitalizeFirstLetter(res?.shortlistId?.name)}</h1>
                                                     </Link>
-                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{`32, ${res?.shortlistId?.height ? res?.shortlistId?.height : "NA"}`}</p>
+                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{`32, ${res?.shortlistId?.height || "NA"}`}</p>
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>
-                                                        {`${res?.shortlistId?.religion ? capitalizeFirstLetter(res?.shortlistId?.religion) : "NA"} , ${res?.shortlistId?.caste ? capitalizeFirstLetter(res?.shortlistId?.caste) : "NA"}`}
+                                                        {`${capitalizeFirstLetter(res?.shortlistId?.religion) || "NA"} , ${capitalizeFirstLetter(res?.shortlistId?.caste) || "NA"}`}
                                                     </p>
-                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{res?.shortlistId?.maritalStatus ? res?.shortlistId?.maritalStatus : "NA"}</p>
+                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{capitalizeFirstLetter(res?.shortlistId?.maritalStatus) || "NA"}</p>
                                                 </div>
 
                                                 <GridLikeButton userId={res?.shortlistId?.id || res?.shortlistId?._id} TheUsername={res?.shortlistId?.name} userdata={res?.shortlistId} />

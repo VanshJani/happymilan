@@ -17,6 +17,7 @@ import dynamic from 'next/dynamic';
 import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser';
+import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 
 const ShowMore = dynamic(() => import('../../../../_components/common/profile/UserBio'), { ssr: false });
 const MatchScoreModal = dynamic(() => import('../../../../_components/Model/Models/MatchScoreModal'), { ssr: false });
@@ -127,23 +128,23 @@ function AcceptedRequest() {
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {res?.friendList?.religion ? res?.friendList?.religion : 'NA'}, {res?.friendList?.caste ? res?.friendList?.caste : 'NA'}
+                                                                    {capitalizeFirstLetter(res?.friendList?.religion) || 'NA'}, {capitalizeFirstLetter(res?.friendList?.caste) || 'NA'}
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {res?.friendList?.motherTongue ? res.friendList.motherTongue : "NA, NA"}
+                                                                    {capitalizeFirstLetter(res?.friendList?.motherTongue) || "NA"}
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {res?.friendList?.maritalStatus ? res.friendList.maritalStatus : "NA, NA"}
+                                                                    {capitalizeFirstLetter(res?.friendList?.maritalStatus) || "NA"}
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {res?.friendList?.address ? res?.friendList?.address?.currentCity : "NA"}, {res?.friendList?.address ? res.friendList.address.currentCountry : "NA"}
+                                                                    {capitalizeFirstLetter(res?.friendList?.address?.currentCity) || "NA"}, {capitalizeFirstLetter(res?.friendList?.address?.currentCountry) || "NA"}
                                                                 </li>
                                                                 <li className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]' style={ListText}>
                                                                     <Image loading='lazy' alt='mark' width={15} height={14} src={darkMode ? "/assests/Black/RightTickWhite.svg" : '/assests/Black/RightTick.svg'} className='inline pr-[5px]' />
-                                                                    {res?.friendList?.userProfessional ? res?.friendList?.userProfessional?.jobTitle : "NA, NA"}
+                                                                    {capitalizeFirstLetter(res?.friendList?.userProfessional?.jobTitle) || "NA"}
                                                                 </li>
                                                             </ul>
                                                         </div>

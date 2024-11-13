@@ -117,7 +117,7 @@ function SentRequest() {
 
     return (
         <>
-            
+
             <div className=''>
 
                 <div className='flex flex-col'>
@@ -168,13 +168,13 @@ function SentRequest() {
                                                         <ul className='flex justify-evenly space-x-[26px] pr-[10px] pt-[10px]'>
 
                                                             <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] flex space-x-[10px] top-[-8px] p-[5px] relative left-[5px]`}>
-                                                                <MatchScoreModal user={res?.friendList} />
+                                                                <MatchScoreModal user={res?.friend} />
                                                             </li>
                                                             <li className="cursor-pointer">
                                                                 <ShortlistUser UserId={res?.friend?.id || res?.friend?._id} />
                                                             </li>
                                                             <li>
-                                                                <ProfileMenu res={res?.friend} Section={'sent'} />
+                                                                <ProfileMenu accepteddata={res} res={res?.friend} Section={'sent'} />
                                                             </li>
                                                         </ul>
                                                     </div>

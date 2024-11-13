@@ -10,6 +10,7 @@ import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'
 import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
 import styles from '../../../../../styles/styles.module.css'
+import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 
 
 function GridList() {
@@ -87,19 +88,27 @@ function GridList() {
 
                                                         <div className='w-[100px] h-[100px] rounded-[50%] flex justify-center hover:opacity-80'>
                                                             {res?.friend?.profilePic ? <>
-                                                                <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='w-[100px] h-[100px] rounded-[50%]' src={res?.friend?.profilePic} />
+
+                                                                <Link href={`/longterm/dashboard/${res?.friend?.id || res?.friend?._id}`}>
+                                                                    <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={res?.friend?.profilePic} />
+                                                                </Link>
+
                                                             </>
                                                                 :
-                                                                <><Avatar name={res?.friend?.name} round size='100' /></>
+                                                                <>
+                                                                    <Link href={`/longterm/dashboard/${res?.friend?.id || res?.friend?._id}`}>
+                                                                        <Avatar name={res?.friend?.name} round size='100' className='hover:opacity-70 duration-150' />
+                                                                    </Link>
+                                                                </>
                                                             }
                                                         </div>
                                                     </Link>
                                                 </div>
                                                 <div className='text-center'>
-                                                    <h1 style={profileStyles?.ProfileName} className='text-[18px]'>{res?.friend?.name}</h1>
+                                                    <h1 style={profileStyles?.ProfileName} className='text-[18px]'>{capitalizeFirstLetter(res?.friend?.name)}</h1>
                                                     <p style={profileStyles?.ListText} className='text-[14px]'>32, 5’3”</p>
-                                                    <p style={profileStyles?.ListText} className='text-[14px]'> {res?.friend?.religion || 'NA'}, {res?.friend?.caste || 'NA'}</p>
-                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{res?.friend?.maritalStatus || "NA"}</p>
+                                                    <p style={profileStyles?.ListText} className='text-[14px]'> {capitalizeFirstLetter(res?.friend?.religion) || 'NA'}, {capitalizeFirstLetter(res?.friend?.caste) || 'NA'}</p>
+                                                    <p style={profileStyles?.ListText} className='text-[14px]'>{capitalizeFirstLetter(res?.friend?.maritalStatus) || "NA"}</p>
                                                 </div>
 
                                                 <div className='grid place-items-center space-y-[14px]'>

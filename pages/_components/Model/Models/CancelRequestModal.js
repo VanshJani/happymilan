@@ -23,6 +23,13 @@ function CancelRequestModal({ isOpen, onClose, data, title }) {
         if (e.target.name == 1) {
 
             dispatch(Cancelfriendrequest(data?.currUser, data?.OtherUser, data?.status))
+
+            // data={{
+            //     currUser: accepteddata?._id || accepteddata?.id,
+            //     OtherUser: accepteddata?.lastInitiatorUser,
+            //     status: "rejected"
+            // }}
+           
             onClose();
             setTimeout(() => {
                 dispatch(getAcceptedRequestData())

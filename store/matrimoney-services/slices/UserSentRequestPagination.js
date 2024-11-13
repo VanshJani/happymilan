@@ -13,7 +13,8 @@ export const fetchFriends = (View, Pages) => async (dispatch, getState) => {
         const config = {
             method: 'get',
             // url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sentv2?page=${Pages?.currentPage || 1}&limit=${View === "Gridview" ? "6" : "10"}`,
-            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sentv2`,
+            // url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sentv2`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/get-request-sent`,
             headers: {
                 'Authorization': `Bearer ${token}`
             }

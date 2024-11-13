@@ -16,6 +16,8 @@ import { fetchshortlistUsers } from '../../../../../store/matrimoney-services/sl
 import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound';
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu';
 import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal';
+import LikeUser from '../../../../_components/common/Buttons/LikeUser';
+import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 // Dynamic imports
 const SendRequestBtn = dynamic(() => import('../../../../_components/common/Buttons/SendRequestBtn'), { ssr: false });
 const ShareModal = dynamic(() => import('../../../../_components/Model/Models/ShareModal'), { ssr: false });
@@ -237,6 +239,7 @@ function UserProfile() {
 
 
 
+    const [ActiveLike, setActiveLike] = useState(false);
 
 
 
@@ -466,7 +469,7 @@ function UserProfile() {
                                                                     src={"/assests/Black/RightTick.svg"}
                                                                     className="inline pr-[5px]"
                                                                 />
-                                                                {res?.shortlistId?.maritalStatus ? res?.shortlistId?.maritalStatus : "NA , NA"}
+                                                                {capitalizeFirstLetter(res?.shortlistId?.maritalStatus) || "NA"}
                                                             </li>
                                                             <li
                                                                 className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -479,7 +482,7 @@ function UserProfile() {
                                                                     src={"/assests/Black/RightTick.svg"}
                                                                     className="inline pr-[5px]"
                                                                 />
-                                                                {`${res?.shortlistId?.religion ? res?.shortlistId?.religion : "NA"}, ${res?.shortlistId?.cast ? res?.shortlistId?.cast : "NA"}`}
+                                                                {`${capitalizeFirstLetter(res?.shortlistId?.religion) || "NA"}, ${capitalizeFirstLetter(res?.shortlistId?.cast) || "NA"}`}
                                                             </li>
                                                             <li
                                                                 className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -492,7 +495,7 @@ function UserProfile() {
                                                                     src={"/assests/Black/RightTick.svg"}
                                                                     className="inline pr-[5px]"
                                                                 />
-                                                                {`${res?.shortlistId?.address ? res?.shortlistId?.address?.currentCity : "NA"} , ${res?.shortlistId?.address ? res?.shortlistId?.address?.currentCountry : "NA"}`}
+                                                                {`${capitalizeFirstLetter(res?.shortlistId?.address?.currentCity) || "NA"} , ${capitalizeFirstLetter(res?.shortlistId?.address?.currentCountry) || "NA"}`}
                                                             </li>
                                                             <li
                                                                 className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
@@ -505,7 +508,7 @@ function UserProfile() {
                                                                     src={"/assests/Black/RightTick.svg"}
                                                                     className="inline pr-[5px]"
                                                                 />
-                                                                {`${res?.shortlistId?.motherTongue ? res?.shortlistId?.motherTongue : "NA , NA"}  `}
+                                                                {`${capitalizeFirstLetter(res?.shortlistId?.motherTongue) || "NA"}  `}
                                                             </li>
 
                                                             <li
@@ -519,7 +522,7 @@ function UserProfile() {
                                                                     src={"/assests/Black/RightTick.svg"}
                                                                     className="inline pr-[5px]"
                                                                 />
-                                                                {res?.shortlistId?.userProfessional ? res?.shortlistId?.userProfessional?.jobTitle : "NA , NA"}
+                                                                {capitalizeFirstLetter(res?.shortlistId?.userProfessional?.jobTitle) || "NA"}
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -545,11 +548,35 @@ function UserProfile() {
                                                     </div>
                                                 </div>
 
-                                                <div className="absolute right-0 mt-[-10px]">
-                                                    <SendRequestBtn
-                                                        RequestId={sentrequest[res?.shortlistId?.id]}
-                                                        HandleRequestModal={() => HandleRequestModal(res)}
-                                                    />
+                                                <div className="absolute right-6 bottom-[18px]">
+                                                    <div className="flex items-center justify-center">
+                                                        <div>
+                                                            <SendRequestBtn
+                                                                userdata={res?.shortlistId?.name}
+                                                                RequestId={sentrequest[res?.shortlistId?._id || res?.shortlistId?.id]}
+                                                                HandleRequestModal={() => HandleRequestModal(res?.shortlistId)}
+                                                            />
+                                                        </div>
+                                                        <div className="relative top-[10px]">
+                                                            {/* {likeloading ?
+                                                            <>
+                                                                <div className="animate-pulse w-[63px] h-[40px] bg-gray-200 rounded-[22px]"></div>
+                                                            </>
+                                                            :
+                                                            <> */}
+
+                                                            <LikeUser
+                                                                ActiveLike={ActiveLike}
+                                                                setActiveLike={setActiveLike}
+                                                                userId={res?.shortlistId?._id || res?.shortlistId?.id}
+                                                                TheUsername={res?.shortlistId?.name}
+                                                                userdata={res?.shortlistId}
+
+
+                                                            />
+                                                            {/* </>} */}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

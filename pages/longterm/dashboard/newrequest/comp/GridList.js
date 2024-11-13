@@ -1,6 +1,14 @@
 import Image from 'next/image'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
+import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
+import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'
+import Link from 'next/link'
+import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
+import { Dialog } from '@mui/material'
+import { acceptRequest, getFriendsList, rejectRequest } from '../../../../../store/actions/UsersAction'
+import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound'
 
 function GridList() {
     const ProfileName = {
@@ -163,8 +171,46 @@ function GridList() {
         },
     ]
 
+    const Urlmodaltext = {
+        color: "#000",
+        fontFamily: "Poppins",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "normal"
+    }
+
     const { data, loading } = useSelector((state) => state.usersact.requestdata)
 
+    const [openShortlistModal, setopenShortlistModal] = React.useState(false)
+
+    const [shortlistText, setshortlistText] = useState();
+
+    const dispatch = useDispatch();
+    const HanldeAccept = (res) => {
+
+        dispatch(acceptRequest("long-term", res))
+        setshortlistText("Shortlisted has been removed")
+        setopenShortlistModal(true)
+        setTimeout(() => {
+            setopenShortlistModal(false);
+            dispatch(getFriendsList());
+
+        }, 800);
+
+    }
+
+    const HanldeReject = (res) => {
+        console.log("🚀 ~ HanldeReject ~ res:", res)
+        dispatch(rejectRequest("long-term", res));
+
+        setshortlistText("Shortlisted has been removed")
+        setopenShortlistModal(true)
+        setTimeout(() => {
+            setopenShortlistModal(false);
+            dispatch(getFriendsList());
+        }, 800);
+
+    }
 
     return (
         <>
@@ -173,40 +219,68 @@ function GridList() {
                     <div className=''></div>
 
                     {
-                        userData?.map((item) => {
+                        data && data.data && data.data.map((res, index) => {
                             return (
                                 <>
-                                    <div style={ProfileCard} className='inline-block lg:flex flex-col space-y-[15px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
-                                        <div className='flex justify-between pt-[10px]'>
+                                    <div key={index} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
+                                        <div className='mt-2 flex justify-between pt-[10px]'>
                                             <ul className='pl-[10px] flex space-x-[10px]'>
-                                                <li>
-                                                    <Image alt='img' width={17} height={14} src='/assests/Black/Couple2.svg' />
+                                                <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}>
+
+                                                    <MatchScoreModal user={res?.user} />
+
                                                 </li>
-                                                <li className='text-[10px]' style={Text4}>You & Her </li>
                                             </ul>
                                             <ul className='pr-[10px] flex space-x-[30px]'>
                                                 <li>
-                                                    <Image alt='img' width={15} height={14} src='/assests/Black/Stars-2.svg' />
+                                                    <li>
+                                                        <ShortlistUser UserId={res?.user?.id || res?.user?._id} />
+                                                    </li>
                                                 </li>
                                                 <li>
-                                                    <Image alt='img' width={3} height={14} src='/assests/Black/3Dots.svg' />
+                                                    <ProfileMenu res={res?.user} Section={'recentview'} />
                                                 </li>
                                             </ul>
                                         </div>
                                         <div className='flex justify-center '>
-                                            <Image alt='img' width={102} height={102} className='w-[102px] h-[102px] rounded-[50%]' src={item.profilePic} />
+                                            {res?.user?.profilePic ? <>
+                                                <Link href={`/longterm/dashboard/${res?.user?.id || res?.user?._id}`}>
+                                                    <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={res?.user?.profilePic} />
+                                                </Link>
+                                            </>
+                                                :
+                                                <>
+                                                    <Link href={`/longterm/dashboard/${res?.user?.id || res?.user?._id}`}>
+                                                        <Avatar name={res?.user?.name} round size='100' className='hover:opacity-70 duration-150' />
+                                                    </Link>
+                                                </>
+                                            }
                                         </div>
                                         <div className='text-center'>
-                                            <h1 style={ProfileName} className='text-[18px]'>Rohan Patel</h1>
-                                            <p style={ListText} className='text-[14px]'>32, 5’3”</p>
-                                            <p style={ListText} className='text-[14px]'>Hindu, Patel</p>
-                                            <p style={ListText} className='text-[14px]'>Never Married</p>
-                                        </div>
 
-                                        <div className='flex space-x-[15px] justify-center'>
-                                            <div><Image alt='img' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/ignore-icon-2.svg' /></div>
-                                            <div><Image alt='img' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/heart-icon-2.svg' /></div>
-                                            <div><Image alt='img' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/send-icon-2.svg' /></div>
+                                            <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{capitalizeFirstLetter(res?.user?.name)}</h1>
+                                            <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{res?.user?.age || "NA"}, {res?.user?.height || "NA"}”</p>
+                                            <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(res?.user?.religion) || "NA"}, {capitalizeFirstLetter(res?.user?.caste) || "NA"}</p>
+                                            <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(res?.user?.maritalStatus) || "NA"}</p>
+
+                                        </div>
+                                        <div>
+                                            <div className='flex justify-center space-x-[21px]'>
+
+                                                <div onClick={() => HanldeAccept(res)} id='accept-request' className='rounded-full border-[1px] border-[#17C270] w-[63px] h-[44px] grid place-items-center'>
+                                                    <svg className='accept-icon-dt' width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M6.15225 13.4522L0 7.29998L1.8915 5.40873L6.15225 9.66948L15.313 0.508728L17.2045 2.39998L6.15225 13.4522Z" />
+                                                    </svg>
+
+                                                </div>
+
+                                                <div onClick={() => HanldeReject(res)} className='w-[63px] h-[44px] grid place-items-center' id='cancel-dating'>
+                                                    <svg className='cancel-icon-dt' width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path id="Vector" d="M1.85225 14.9045L0 13.0523L5.6 7.45225L0 1.85225L1.85225 0L7.45225 5.6L13.0522 0L14.9045 1.85225L9.3045 7.45225L14.9045 13.0523L13.0522 14.9045L7.45225 9.3045L1.85225 14.9045Z" />
+                                                    </svg>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </>
@@ -215,10 +289,7 @@ function GridList() {
                         })
                     }
 
-
-
-
-                </div >
+                </div>
                 <div className='flex pt-[50px] space-x-[40px] justify-center items-center w-auto 2xl:w-full xl:w-full'>
                     <div id='active-no' className=' cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>1</div>
                     <div id='pagination-count' className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>2</div>
@@ -226,6 +297,35 @@ function GridList() {
                     <div id='pagination-count' className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>4</div>
                 </div>
             </div>
+
+            <React.Fragment>
+                <Dialog
+                    open={openShortlistModal}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    PaperProps={{
+                        style: {
+                            backgroundColor: "transparent", // or 'none' if you prefer
+                            boxShadow: "none",
+                        },
+                    }}
+                    BackdropProps={{
+                        style: { opacity: 0, backgroundColor: "none", boxShadow: "none" },
+                    }}
+                >
+                    <div
+                        style={{ padding: "17px 19px 17px 20px" }}
+                        className="bg-[#333333] w-[249px] rounded-[100px] text-center grid place-items-center"
+                    >
+                        <div className="text-[14px]" style={Urlmodaltext}>
+                            <span className="text-[#fff]"> {shortlistText}</span>
+                        </div>
+                    </div>
+                </Dialog>
+            </React.Fragment>
+
+            <ProfileDataNotFound ProfileData={data?.data} />
+
         </>
     )
 }

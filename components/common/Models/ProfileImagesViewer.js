@@ -74,7 +74,7 @@ function ProfileImagesViewer({ Privacy, Section, details }) {
                         {
                             details?.userProfilePic?.map((res, index) => (
                                 <SwiperSlide key={index}>
-                                    <Image loading="lazy" onClick={handleOpen} width={300} height={381} className='2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px]' alt='image' src={res?.url} />
+                                    <Image loading="lazy" onClick={handleOpen} style={{ objectFit: "cover" }} width={300} height={381} className='2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px]' alt='image' src={res?.url} />
                                 </SwiperSlide>
                             ))
                         }
@@ -128,7 +128,7 @@ function ProfileImagesViewer({ Privacy, Section, details }) {
                                                     }
                                                     <div>
                                                         <div>
-                                                            <Image loading="lazy" quality={50} width={300} height={381} className='w-[332px] h-[449px]' style={{ width: "332px", height: "449px", objectFit: "cover", borderRadius: "10px" }} alt='image' src={res?.url} />
+                                                            <Image loading="lazy" quality={50} width={300} height={381} className='w-[332px] h-[449px]' style={{ objectFit: "cover", borderRadius: "10px" }} alt='image' src={res?.url} />
                                                         </div>
                                                     </div>
                                                 </SwiperSlide>

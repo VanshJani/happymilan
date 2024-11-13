@@ -151,7 +151,7 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
   return (
     <div>
       <div className="grid place-items-center">
-        <div className="2xl:w-[540px]  xl:w-[540px]  w-[90%]">
+        <div className="mt-[-5px] 2xl:w-[520px]  xl:w-[520px]  w-[90%]">
           <ul className="flex justify-between">
             <li>
               <h1 className="" style={SpanStyle}>Upload Photo</h1>
@@ -166,7 +166,8 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
 
         <div className="grid place-items-center">
           <label htmlFor="dropzone-file">
-            <div className='relative top-[40px] rounded-[10px] grid place-items-center 2xl:w-[540px] 2xl:h-[400px] xl:w-[540px] xl:h-[325px] md:w-[300px] w-[90%] h-[325px] md:h-[325px]  bg-[#F5F5F5]'>
+            <div className='relative top-[20px] grid place-items-center  md:w-[350px] md:h-[150px] lg:w-[426px] lg:h-[257px] 2xl:w-[526px] 2xl:h-[450px] xl:w-[526px] xl:h-[357px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[22px]'>
+              {/* <div className='relative top-[20px] rounded-[10px] grid place-items-center 2xl:w-[540px] 2xl:h-[400px] xl:w-[540px] xl:h-[325px] md:w-[300px] w-[90%] h-[325px] md:h-[325px]  bg-[#F5F5F5]'> */}
               <div className=''>
                 <input id="dropzone-file" className="cursor-pointer opacity-0 absolute" type="file" accept="image/*" onChange={onSelectFile} />
                 <div className='w-full grid place-items-center mt-[-10%] mb-[10%]'>
@@ -181,9 +182,9 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
       )}
       {error && <p className="text-red-400 text-xs">{error}</p>}
       {imgSrc && (
-        <div className="grid place-items-center relative top-[40px]">
+        <div className="grid place-items-center left-[-0px] relative top-[40px]">
 
-          <div className="2xl:w-[540px] 2xl:h-[325px] xl:w-[540px] xl:h-[325px] w-[90%] h-[325px] bg-[#000] rounded-[10px]">
+          <div className="2xl:w-[520px] 2xl:h-[325px] xl:w-[520px] xl:h-[325px] w-[90%] h-[325px] bg-[#000] rounded-[10px]">
             <div className="grid place-items-center">
               <ReactCrop
                 crop={crop}
@@ -206,7 +207,7 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
               <h1 style={Text3}>Adjust the round object to set your photo</h1>
             </div>
           </div>
-          <div className="flex justify-center relative top-[80px] space-x-[30px]">
+          <div className="flex justify-center relative top-[50px] space-x-[30px]">
             <button className="cursor-pointer w-[125px] h-[49px] rounded-[10px]  bg-[#FFF] border-[1px] border-[black]">
               <input className="cursor-pointer w-[100px] opacity-0 absolute" type="file" accept="image/*" onChange={onSelectFile} />
               Change</button>

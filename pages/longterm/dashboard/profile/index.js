@@ -3,11 +3,8 @@
 import React from 'react'
 import dynamic from 'next/dynamic';
 import Layout from '../../Layout';
-import ProfileImagesViewer from '../../../../components/common/Models/ProfileImagesViewer';
 import { useSelector } from 'react-redux';
 const Profile = dynamic(() => import('./comp/Profile'));
-const UploadSection = dynamic(() => import('./comp/UploadSection'));
-const UserStory = dynamic(() => import('../../../_components/Container/UserStory'))
 
 function index() {
 

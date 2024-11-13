@@ -187,7 +187,8 @@ function MenuPop({ Section, details, data }) {
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                sx={{ borderRadius: "10px" }}
+                // sx={{ borderRadius: "23px" }}
+                sx={{ '& .MuiDialog-paper': { borderRadius: '20px' } }}
             >
                 <DialogContent className="text-center w-[450px] mt-[20px]">
                     <div style={LogoutModalText} id="alert-dialog-description">

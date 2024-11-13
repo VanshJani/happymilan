@@ -487,7 +487,18 @@ function Userprofile({ params, toggleDrawer }) {
       </>
     );
   };
-  const HobbiesTab = () => {
+  const HobbiesTab = ({ data }) => {
+
+    const HobbyValue = {
+      color: "#000",
+      textAlign: "center",
+      fontFamily: "Poppins",
+      fontSize: "14px",
+      fontStyle: "normal",
+      fontWeight: "600",
+      lineHeight: "normal",
+    }
+
     return (
       <>
         <div className="w-full h-[369px] border-[1px] border-[#F1F1F1] rounded-[10px] space-y-[20px]">
@@ -501,74 +512,20 @@ function Userprofile({ params, toggleDrawer }) {
               <li></li>
             </ul>
           </div>
-          <div className="flex justify-center ">
-            <div className="grid place-items-center w-[90%] h-[1px] bg-[#F1F1F1]"></div>
+          <div className='flex justify-center '>
+            <div className='grid place-items-center w-[90%] h-[1px] bg-[#F1F1F1]'></div>
           </div>
-          <div className="grid place-items-center">
-            <div className="w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]">
-              <div>
-                <p
-                  style={Text2}
-                  className="2xl:text-[14px] xl:text-[12px] text-[12px]"
-                >
-                  Creative
-                </p>
-                <h1
-                  style={Text5}
-                  className="2xl:text-[16px]  xl:text-[14px] text-[14px]"
-                >
-                  Writing, Painting
-                </h1>
-              </div>
-              <div>
-                <p
-                  style={Text2}
-                  className="2xl:text-[14px] xl:text-[12px] text-[12px]"
-                ></p>
-                <h1
-                  style={Text5}
-                  className="2xl:text-[16px]  xl:text-[14px] text-[14px]"
-                ></h1>
-              </div>
-              <div>
-                <p
-                  style={Text2}
-                  className="2xl:text-[14px] xl:text-[12px] text-[12px]"
-                >
-                  Fun
-                </p>
-                <h1
-                  style={Text5}
-                  className="2xl:text-[16px]  xl:text-[14px] text-[14px]"
-                >
-                  Movie
-                </h1>
-              </div>
-              <div>
-                <p
-                  style={Text2}
-                  className="2xl:text-[14px] xl:text-[12px] text-[12px]"
-                ></p>
-                <h1
-                  style={Text5}
-                  className="2xl:text-[16px]  xl:text-[14px] text-[14px]"
-                ></h1>
-              </div>
-              <div>
-                <p
-                  style={Text2}
-                  className="2xl:text-[14px] xl:text-[12px] text-[12px]"
-                >
-                  Fitness
-                </p>
-                <h1
-                  style={Text5}
-                  className="2xl:text-[16px]  xl:text-[14px] text-[14px]"
-                >
-                  Walking
-                </h1>
-              </div>
-            </div>
+          <div className='relative left-8'>
+            <ul className='flex space-x-[15px]'>
+              {
+                data?.hobbies?.map((res, index) => {
+                  return (
+                    <li key={index} className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]' style={HobbyValue}>{capitalizeFirstLetter(res)}</li>
+
+                  )
+                })
+              }
+            </ul>
           </div>
         </div>
       </>
@@ -681,38 +638,6 @@ function Userprofile({ params, toggleDrawer }) {
                   style={Text2}
                   className="2xl:text-[14px] xl:text-[12px] text-[12px]"
                 >
-                  Creative
-                </p>
-                <h1
-                  style={Text5}
-                  className="2xl:text-[16px]  xl:text-[14px] text-[14px]"
-                >
-                  {data && data.userPartner?.creative
-                    ? data.userPartner?.creative && data.userPartner.creative
-                    : "NA"}
-                </h1>
-              </div>
-              <div>
-                <p
-                  style={Text2}
-                  className="2xl:text-[14px] xl:text-[12px] text-[12px]"
-                >
-                  Fun
-                </p>
-                <h1
-                  style={Text5}
-                  className="2xl:text-[16px]  xl:text-[14px] text-[14px]"
-                >
-                  {data && data.userPartner?.fun
-                    ? data.userPartner?.fun && data.userPartner.fun
-                    : "NA"}
-                </h1>
-              </div>
-              <div>
-                <p
-                  style={Text2}
-                  className="2xl:text-[14px] xl:text-[12px] text-[12px]"
-                >
                   Prefer Diet
                 </p>
                 <h1
@@ -757,7 +682,7 @@ function Userprofile({ params, toggleDrawer }) {
         return <ProfessionalTab data={user} />;
         break;
       case 6:
-        return <HobbiesTab />;
+        return <HobbiesTab data={user} />;
         break;
       case 7:
         return <PartnerPreferenceTab data={user} />;

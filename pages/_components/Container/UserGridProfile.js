@@ -189,18 +189,18 @@ function UserGridProfile() {
                                                 </div>
                                                 <div onClick={() => HandleVisitProfile(user)} className='flex justify-center '>
                                                     {user?.profilePic ? <>
-                                                        <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='w-[100px] h-[100px] rounded-[50%]' src={user?.profilePic} />
+                                                        <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={user?.profilePic} />
                                                     </>
                                                         :
-                                                        <><Avatar name={user?.name} round size='100' /></>
+                                                        <><Avatar name={user?.name} round size='100' className='hover:opacity-70 duration-150'/></>
                                                     }
                                                 </div>
                                                 <div className='text-center'>
 
                                                     <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{user?.name}</h1>
-                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.age ? user?.age : "NA"}, {user?.height ? user?.height : "NA"}”</p>
-                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.religion ? user?.religion : "NA"}, {user?.caste ? user?.caste : "NA"}</p>
-                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.maritalStatus ? user?.maritalStatus : "NA"}</p>
+                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.age || "NA"}, {user?.heigh || "NA"}”</p>
+                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.religion || "NA"}, {user?.caste || "NA"}</p>
+                                                    <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{user?.maritalStatus || "NA"}</p>
 
                                                 </div>
                                                 <GridLikeButton userId={user._id}
