@@ -127,7 +127,7 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
             isProfile: false
 
         }))
-       
+
 
         SetPreviewImage(prev => [...prev, ...selectedImages2]);
 
@@ -167,7 +167,7 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
         const { getRootProps, getInputProps } = useDropzone({ onDrop })
         return (
             <>
-                <div className='flex flex-col justify-center items-center space-y-[20px] w-[526px] h-[330px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[10px]'>
+                <div className='flex flex-col justify-center items-center space-y-[20px] w-[526px] h-[330px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[18px]'>
 
                     <div {...getRootProps()}>
                         <Image alt='drag-drop' width={63} height={44} src='/loginassests/register-icons/Drag-Drop.svg' />
@@ -196,7 +196,7 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
         const { getRootProps, getInputProps } = useDropzone({ onDrop })
         return (
             <>
-                <div className='w-[526px] h-[330px] bg-[#F5F5F5] dark:bg-[#242526] rounded-[10px]'>
+                <div className='w-[526px] h-[330px] bg-[#F5F5F5] dark:bg-[#242526] rounded-[18px]'>
                     <div className='flex space-x-[20px]'>
                         {PreviewImage.map((res, index) => {
                             return (
@@ -281,7 +281,7 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
 
             >
 
-                <DialogContent className='dark:bg-[#303133] ' sx={{borderRadius:"18px"}}>
+                <DialogContent className='dark:bg-[#303133] ' sx={{ borderRadius: "18px" }}>
                     <div className='space-y-[20px]'>
                         {/* <div className='flex items-center justify-between space-x-[20px]'>
                             <div className='flex items-center space-x-[20px]'>
@@ -294,11 +294,11 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
 
                         </div> */}
                         <div className='flex justify-between'>
-                            <div>
+                            <div className='p-1'>
                                 <h1 className='dark:text-[#FFF]' style={TextTitle}>Upload Photo</h1>
                             </div>
-                            <div>
-                                <img alt='close-icon' onClick={CloseTheModal} className="w-[24px] h-[24px] cursor-pointer"  src="/assests/social/close.svg" />
+                            <div className="p-1 rounded-full cursor-pointer hover:bg-[#F3F8FF]">
+                                <img alt='close-icon' onClick={CloseTheModal} className="w-[24px] h-[24px] cursor-pointer" src="/assests/social/close.svg" />
 
                             </div>
                         </div>
@@ -307,10 +307,12 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
 
                             {RenderComponent()}
 
-                            <div className='pt-[20px] flex space-x-[28px] justify-center'>
-                                <button style={Text3} onClick={CloseTheModal} className='w-[126px] h-[44px] rounded-[24px] hover:bg-[#F3F8FF] bg-[#FFF] border-[1px] border-[#0F52BA] text-[#000]'>Close</button>
-                                <button id='grad-btn' style={Text3} onClick={HandleNext} className='w-[126px] h-[44px] rounded-[24px] bg-[#0F52BA] border-[1px] border-[#0F52BA] text-[#FFF]'>Publish</button>
-                            </div>
+                            {
+                                activeTab > 1 ? <div className='pt-[20px] flex space-x-[28px] justify-center'>
+                                    <button style={Text3} onClick={CloseTheModal} className='w-[126px] h-[44px] rounded-[24px] hover:bg-[#F3F8FF] bg-[#FFF] border-[1px] border-[#0F52BA] text-[#000]'>Close</button>
+                                    <button id='grad-btn' style={Text3} onClick={HandleNext} className='w-[126px] h-[44px] rounded-[24px] bg-[#0F52BA] border-[1px] border-[#0F52BA] text-[#FFF]'>Publish</button>
+                                </div>
+                                    : ""}
                         </div>
                     </div>
                 </DialogContent>

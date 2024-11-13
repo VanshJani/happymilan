@@ -9,7 +9,7 @@ const ProfileModal = ({ handleClose, handleOpen, setOpenProfileModal, openProfil
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: '38%',
+        width: '580px',
         height: "550px",
         outline: "none",
         bgcolor: 'background.paper',

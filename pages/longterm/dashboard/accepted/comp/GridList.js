@@ -9,6 +9,7 @@ import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModa
 import styles from '../../../../../styles/styles.module.css'
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import Link from 'next/link'
+import Avatar from 'react-avatar'
 
 
 function GridList() {

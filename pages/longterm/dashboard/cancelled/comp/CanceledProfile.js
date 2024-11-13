@@ -22,7 +22,7 @@ function CanceledProfile({ thedata, isauthuserID }) {
     const { darkMode } = useDarkMode();
 
     const { loading, data } = useSelector((state) => state.usersact.cancelusersdata)
-
+    
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -112,7 +112,7 @@ function CanceledProfile({ thedata, isauthuserID }) {
 
                     {
 
-                        data?.data.map((res, index) => {
+                        data?.data?.results?.map((res, index) => {
                             // const { images } = res
 
                             return (

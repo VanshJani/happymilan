@@ -199,7 +199,7 @@ function GridUser() {
                                         <ul className='pr-[10px] flex space-x-[30px]'>
                                             <li>
                                                 <li>
-                                                    <ShortlistUser UserId={user?.viewerId?.id || user?.viewerId?._id} />
+                                                    <ShortlistUser UserId={(user?.viewerId?.id || user?.viewerId?._id) || ""} />
                                                 </li>
                                             </li>
                                             <li>
@@ -209,13 +209,13 @@ function GridUser() {
                                     </div>
                                     <div className='flex justify-center '>
                                         {user?.viewerId?.profilePic ? <>
-                                            <Link href={`/longterm/dashboard/${user?.viewerId?.id || user?.viewerId?._id}`}>
+                                            <Link href={`/longterm/dashboard/${(user?.viewerId?.id || user?.viewerId?._id) || ""}`}>
                                                 <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={user?.viewerId?.profilePic} />
                                             </Link>
                                         </>
                                             :
                                             <>
-                                                <Link href={`/longterm/dashboard/${user?.viewerId?.id || user?.viewerId?._id}`}>
+                                                <Link href={`/longterm/dashboard/${(user?.viewerId?.id || user?.viewerId?._id) || ""}`}>
                                                     <Avatar name={user?.viewerId?.name} round size='100' className='hover:opacity-70 duration-150' />
                                                 </Link>
                                             </>
@@ -229,7 +229,7 @@ function GridUser() {
                                         <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{capitalizeFirstLetter(user?.viewerId?.maritalStatus) || "NA"}</p>
 
                                     </div>
-                                    <GridLikeButton userId={user?.viewerId?.id || user?.viewerId._id}
+                                    <GridLikeButton userId={(user?.viewerId?.id || user?.viewerId._id) || ""}
                                         TheUsername={user?.viewerId?.name}
                                         userdata={user?.viewerId} />
                                 </div>

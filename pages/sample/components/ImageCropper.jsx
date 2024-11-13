@@ -151,12 +151,12 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
   return (
     <div>
       <div className="grid place-items-center">
-        <div className="mt-[-5px] 2xl:w-[520px]  xl:w-[520px]  w-[90%]">
+        <div className="mt-[-5px] 2xl:w-[500px]  xl:w-[520px]  w-[90%]">
           <ul className="flex justify-between">
             <li>
               <h1 className="" style={SpanStyle}>Upload Photo</h1>
             </li>
-            <li>
+            <li className="p-1 rounded-full cursor-pointer hover:bg-[#F3F8FF]">
               <img alt='close-icon' className="w-[24px] h-[24px] cursor-pointer" onClick={handleClose} src="/assests/social/close.svg" />
             </li>
           </ul>
@@ -166,7 +166,7 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
 
         <div className="grid place-items-center">
           <label htmlFor="dropzone-file">
-            <div className='relative top-[20px] grid place-items-center  md:w-[350px] md:h-[150px] lg:w-[426px] lg:h-[257px] 2xl:w-[526px] 2xl:h-[450px] xl:w-[526px] xl:h-[357px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[22px]'>
+            <div className='relative top-[20px] grid place-items-center  md:w-[350px] md:h-[150px] lg:w-[426px] lg:h-[257px] 2xl:w-[500px] 2xl:h-[450px] xl:w-[526px] xl:h-[357px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[22px]'>
               {/* <div className='relative top-[20px] rounded-[10px] grid place-items-center 2xl:w-[540px] 2xl:h-[400px] xl:w-[540px] xl:h-[325px] md:w-[300px] w-[90%] h-[325px] md:h-[325px]  bg-[#F5F5F5]'> */}
               <div className=''>
                 <input id="dropzone-file" className="cursor-pointer opacity-0 absolute" type="file" accept="image/*" onChange={onSelectFile} />

@@ -1,5 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
+import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
 
 function GridUserCancel() {
     const ProfileName = {
@@ -161,7 +164,9 @@ function GridUserCancel() {
             }
         },
     ]
- 
+
+    const { loading, data } = useSelector((state) => state.usersact.cancelusersdata)
+
 
     return (
         <>
@@ -170,43 +175,55 @@ function GridUserCancel() {
                     <div className=''></div>
 
                     {
-                        userData?.map((item) => {
+                        data?.data?.results?.map((res, index) => {
                             return (
-                                <>
-                                    <div style={ProfileCard} className='inline-block lg:flex flex-col space-y-[15px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
-                                        <div className='flex justify-between pt-[10px]'>
-                                            <ul className='pl-[10px] flex space-x-[10px]'>
-                                                <li>
-                                                    <Image loading='lazy' alt='couple-icon' width={17} height={14} src='/assests/Black/Couple2.svg' />
-                                                </li>
-                                                <li className='text-[10px]' style={Text4}>You & Her </li>
-                                            </ul>
-                                            <ul className='pr-[10px] flex space-x-[30px]'>
-                                                <li>
-                                                    <Image loading='lazy' alt='star-icon' width={15} height={14} src='/assests/Black/Stars-2.svg' />
-                                                </li>
-                                                <li>
-                                                    <Image loading='lazy' alt='more' width={3} height={14} src='/assests/Black/3Dots.svg' />
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className='flex justify-center '>
-                                            <Image loading='lazy' alt='profile-pic' width={102} height={102} className='w-[102px] h-[102px] rounded-[50%]' src={item?.profilePic} />
-                                        </div>
-                                        <div className='text-center'>
-                                            <h1 style={ProfileName} className='text-[18px]'>Rohan Patel</h1>
-                                            <p style={ListText} className='text-[14px]'>32, 5’3”</p>
-                                            <p style={ListText} className='text-[14px]'>Hindu, Patel</p>
-                                            <p style={ListText} className='text-[14px]'>Never Married</p>
-                                        </div>
 
-                                        <div className='flex space-x-[15px] justify-center'>
-                                            <div><Image alt='img' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/ignore-icon-2.svg' /></div>
-                                            <div><Image alt='img' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/heart-icon-2.svg' /></div>
-                                            <div><Image alt='img' width={40} height={40} className='w-[40px] h-[40px]' src='/assests/dashboard/icon/send-icon-2.svg' /></div>
-                                        </div>
+                                <div key={user.id} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
+                                    <div className='mt-2 flex justify-between pt-[10px]'>
+                                        <ul className='pl-[10px] flex space-x-[10px]'>
+                                            <li className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}>
+
+                                                <MatchScoreModal user={res?.user} />
+
+                                            </li>
+                                        </ul>
+                                        <ul className='pr-[10px] flex space-x-[30px]'>
+                                            <li>
+                                                <li>
+                                                    <ShortlistUser UserId={res?.user?.id} />
+                                                </li>
+                                            </li>
+                                            <li>
+                                                <ProfileMenu Sections={"Grid"} SetCurURL={SetCurURL} openBlockModal={openBlockModal} OpenReportModal={OpenReportModal} openModal={openModal} res={user} />
+                                            </li>
+                                        </ul>
                                     </div>
-                                </>
+                                    <div onClick={() => HandleVisitProfile(user)} className='flex justify-center '>
+                                        {res?.user?.profilePic ? <>
+                                            <Image quality={45} loading='lazy' alt='profile-pic' width={100} height={100} style={{ objectFit: "cover" }} className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]' src={res?.user?.profilePic} />
+                                        </>
+                                            :
+                                            <><Avatar name={res?.user?.name} round size='100' className='hover:opacity-70 duration-150' /></>
+                                        }
+                                    </div>
+                                    <div className='text-center'>
+
+                                        <h1 style={ProfileName} className=' text-[#000] dark:text-[#FFF] text-[18px]'>{res?.user?.name}</h1>
+                                        <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{res?.user?.age || "NA"}, {res?.user?.heigh || "NA"}”</p>
+                                        <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{res?.user?.religion || "NA"}, {res?.user?.caste || "NA"}</p>
+                                        <p style={ListText} className=' text-[#000] dark:text-[#FFF] text-[14px]'>{res?.user?.maritalStatus || "NA"}</p>
+
+                                    </div>
+                                    <div className="absolute right-[140px] bottom-[40px]">
+                                        <ul className='flex space-x-[10px] items-center'>
+                                            <li><h1 className='text-[16px] 2xl:text-[16px] xl:text-[14px]' style={BoldText}>Ignored</h1></li>
+                                            <li>
+                                                <Image loading='lazy' alt='dislike-icon' width={24} height={23} src='/assests/Black/dislike-2.svg' />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                             )
 
                         })

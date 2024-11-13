@@ -155,8 +155,7 @@ function BlockedUser() {
     }, [])
 
 
-    const data = useSelector((state) => state.usersact)
-
+    const data = useSelector((state) => state.usersact.blockedusersdata)
 
     const HandleUnblockUser = (res) => {
 
@@ -181,7 +180,7 @@ function BlockedUser() {
 
                     {
 
-                        data?.blockedusersdata?.data.map((res, index) => {
+                        data?.results?.map((res, index) => {
                             // const { images } = res
 
                             const IsUser = res?.friend?.id === isCurrentUser;

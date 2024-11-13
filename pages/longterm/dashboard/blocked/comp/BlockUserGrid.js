@@ -33,6 +33,8 @@ function BlockUserGrid() {
         boxShadow: "0px 0px 14px 0px rgba(0, 0, 0, 0.07)"
     }
 
+    const usersdatas = []
+
     const userData = [
         {
             id: 1,
@@ -161,7 +163,7 @@ function BlockUserGrid() {
             }
         },
     ]
- 
+
     return (
         <>
             <div className='mt-[50px] lg:mt-0 h-full w-full 2xl:w-[730px] xl:w-[634px] '>
@@ -169,7 +171,7 @@ function BlockUserGrid() {
                     <div className=''></div>
 
                     {
-                        userData?.map((item) => {
+                        usersdatas?.map((item) => {
                             return (
                                 <>
                                     <div style={ProfileCard} className='inline-block lg:flex flex-col space-y-[15px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
