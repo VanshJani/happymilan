@@ -21,8 +21,7 @@ import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import calculateAge from '../../../../../utils/helpers/CalculateAge';
 import ViewProfile from '../../../../../components/common/Models/ViewProfile';
 import { GetProfilesCount } from '../../../../../store/matrimoney-services/actions/GetProfileCountsAction';
-import UserProfileMenu from '../../../../../components/long-term/common/Model/UserProfilemenu';
-import icons from '../../../../../utils/icons/icons';
+import UserProfileMenu from '../../../../../components/long-term/common/Model/UserPopover';
 
 
 function Profile() {

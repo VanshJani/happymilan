@@ -15,7 +15,8 @@ import LocationTab from "./tabs/LocationTab";
 import Notfound from "../../../../../components/common/Error/Notfound";
 import Avatar from "react-avatar";
 import ViewProfile from "../../../../../components/common/Models/ViewProfile";
-import UserProfileMenu from "../../../../../components/long-term/common/Model/UserProfilemenu";
+// import UserProfileMenu from "../../../../../components/long-term/common/Model/UserProfilemenu";
+import UserProfileMenu from "../../../../../components/long-term/common/Model/UserPopover";
 
 function Userprofile({ params, toggleDrawer }) {
   const Username = {
