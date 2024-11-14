@@ -21,6 +21,8 @@ import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext';
 import calculateAge from '../../../../../utils/helpers/CalculateAge';
 import ViewProfile from '../../../../../components/common/Models/ViewProfile';
 import { GetProfilesCount } from '../../../../../store/matrimoney-services/actions/GetProfileCountsAction';
+import UserProfileMenu from '../../../../../components/long-term/common/Model/UserProfilemenu';
+import icons from '../../../../../utils/icons/icons';
 
 
 function Profile() {
@@ -304,6 +306,9 @@ function Profile() {
 
                         </div>
                     </div>
+                    <div>
+                        <UserProfileMenu Privacy={true} res={data} />
+                    </div>
                 </div>
             </div>
 
@@ -329,10 +334,10 @@ function Profile() {
                     />
                     <div className='z-10 absolute bottom-6 grid place-items-center w-full'>
                         <ul className=' flex space-x-[19px]'>
-                            <li onClick={handleOpen} className='w-[38px] h-[38px] grid place-items-center bg-[#ffffff] rounded-full'>
+                            <li onClick={handleOpen} className='cursor-pointer w-[38px] h-[38px] grid place-items-center bg-[#ffffff] hover:bg-[#F2F7FF] rounded-full'>
                                 <Image alt='editIcon' width={18} height={18} src={darkMode ? '/assests/dashboard/icon/edit-details-icon-white.svg' : '/assests/dashboard/icon/edit-details-icon.svg'} />
                             </li>
-                            <li onClick={() => console.log("")} className='w-[38px] h-[38px] bg-[white] rounded-full grid place-items-center'>
+                            <li onClick={() => console.log("")} className='cursor-pointer hover:bg-[#F2F7FF] w-[38px] h-[38px] bg-[white] rounded-full grid place-items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <path d="M3.21326 13.7097C2.82684 13.7097 2.49772 13.5738 2.22589 13.302C1.95407 13.0302 1.81817 12.701 1.81817 12.3146V1.61881H0.954529V0.755173H4.40907V0.0908203H9.59089V0.755173H13.0454V1.61881H12.1818V12.3146C12.1818 12.7121 12.0487 13.044 11.7824 13.3103C11.5161 13.5766 11.1842 13.7097 10.7867 13.7097H3.21326ZM11.3182 1.61881H2.6818V12.3146C2.6818 12.4696 2.73163 12.597 2.83128 12.6966C2.93092 12.7963 3.05825 12.8461 3.21326 12.8461H10.7867C10.9196 12.8461 11.0414 12.7907 11.1521 12.68C11.2628 12.5693 11.3182 12.4475 11.3182 12.3146V1.61881ZM5.10661 11.1188H5.97027V3.34608H5.10661V11.1188ZM8.0297 11.1188H8.89335V3.34608H8.0297V11.1188Z" fill="black" />
                                 </svg>

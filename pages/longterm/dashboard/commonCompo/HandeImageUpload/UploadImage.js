@@ -61,6 +61,13 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
         lineHeight: "normal"
     }
 
+    const Text1 = {
+        fontFamily: "Poppins",
+        fontStyle: "normal",
+        fontWeight: "400",
+        lineHeight: "32px"
+    }
+
     const [Uname, SetUname] = useState("")
     useEffect(() => {
         const name = getCookie("userName")
@@ -167,7 +174,7 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
         const { getRootProps, getInputProps } = useDropzone({ onDrop })
         return (
             <>
-                <div className='flex flex-col justify-center items-center space-y-[20px] w-[526px] h-[330px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[18px]'>
+                {/* <div className='flex flex-col justify-center items-center space-y-[20px] w-[526px] h-[330px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[18px]'>
 
                     <div {...getRootProps()}>
                         <Image alt='drag-drop' width={63} height={44} src='/loginassests/register-icons/Drag-Drop.svg' />
@@ -178,6 +185,16 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
                         <p className='dark:text-[#FFF] text-[#000]' style={Text2}>Or drag and drop a file</p>
                     </div>
 
+                </div> */}
+                <div className='md:pb-[20px] lg:pb-0 flex flex-col justify-center items-center space-y-[20px] w-full h-full   md:w-[350px] md:h-[150px] lg:w-[426px] lg:h-[257px] 2xl:w-[526px] 2xl:h-[450px] xl:w-[526px] xl:h-[357px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[22px]'>
+                    <div {...getRootProps()} className='mt-[10%] lg:mt-0 md:w-[60px] md:h-[60px] lg:w-auto lg:h-auto 2xl:w-auto 2xl:h-auto xl:w-auto xl:h-auto'>
+                        <input {...getInputProps()} className="hidden" />
+                        <Image loading='lazy' alt="drag-drop" width={63} height={44} src='/loginassests/register-icons/Drag-Drop.svg' />
+                    </div>
+                    <div className='text-center'>
+                        <h1 style={Text1} className='dark:text-[#FFF] 2xl:text-[24px] xl:text-[24px] lg:text-[24px] md:text-[18px]'>Select Photos</h1>
+                        <p className='dark:text-[#FFF]' style={Text2}>Or drag and drop a file</p>
+                    </div>
                 </div>
             </>
 
@@ -276,37 +293,28 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
             <Dialog
                 open={openUpload}
                 onClose={handleCloseUpload}
-                className='flex justify-center'
-                sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }} // Apply border radius to Dialog
+                // className='flex justify-center'
+                // sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }} // Apply border radius to Dialog
+                className='flex justify-center rounded-[22px]'
+                sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }}
 
             >
 
-                <DialogContent className='dark:bg-[#303133] ' sx={{ borderRadius: "18px" }}>
+                {/* <DialogContent className='dark:bg-[#303133] ' sx={{ borderRadius: "18px" }}> */}
+                <DialogContent className='dark:bg-[#18191a] rounded-[20px]'>
                     <div className='space-y-[20px]'>
-                        {/* <div className='flex items-center justify-between space-x-[20px]'>
-                            <div className='flex items-center space-x-[20px]'>
-                                <ProfileImage size={47} />
-                                <div className='text-[#000]'>
-                                    <h1 style={Username}>{Uname}</h1>
-                                    <p style={Activity}>27, Designer</p>
-                                </div>
-                            </div>
-
-                        </div> */}
                         <div className='flex justify-between'>
                             <div className='p-1'>
                                 <h1 className='dark:text-[#FFF]' style={TextTitle}>Upload Photo</h1>
                             </div>
-                            <div className="p-1 rounded-full cursor-pointer hover:bg-[#F3F8FF]">
-                                <img alt='close-icon' onClick={CloseTheModal} className="w-[24px] h-[24px] cursor-pointer" src="/assests/social/close.svg" />
-
+                            <div className='cursor-pointer p-1 w-8 h-8 grid place-items-center rounded-full hover:bg-[#F3F8FF]' onClick={CloseTheModal}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M1.26703 16L0 14.733L6.73297 8L0 1.26703L1.26703 0L8 6.73297L14.733 0L16 1.26703L9.26703 8L16 14.733L14.733 16L8 9.26703L1.26703 16Z" fill="black" />
+                                </svg>
                             </div>
                         </div>
-
                         <div className=''>
-
                             {RenderComponent()}
-
                             {
                                 activeTab > 1 ? <div className='pt-[20px] flex space-x-[28px] justify-center'>
                                     <button style={Text3} onClick={CloseTheModal} className='w-[126px] h-[44px] rounded-[24px] hover:bg-[#F3F8FF] bg-[#FFF] border-[1px] border-[#0F52BA] text-[#000]'>Close</button>

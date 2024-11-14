@@ -285,7 +285,13 @@ function UserStory({ formData, updateFormData }) {
                                     <h1 style={Text3}>Add Story</h1>
                                 </div>
 
-                                <div className='cursor-pointer' onClick={handleClose}>
+                                {/* <div className='cursor-pointer' onClick={handleClose}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M1.26703 16L0 14.733L6.73297 8L0 1.26703L1.26703 0L8 6.73297L14.733 0L16 1.26703L9.26703 8L16 14.733L14.733 16L8 9.26703L1.26703 16Z" fill="black" />
+                                    </svg>
+                                </div> */}
+                                {/* <li onClick={handleClose} className="p-1 w-8 h-8 grid place-items-center rounded-full cursor-pointer hover:bg-[#F3F8FF]"> */}
+                                <div className='cursor-pointer p-1 w-8 h-8 grid place-items-center rounded-full hover:bg-[#F3F8FF]' onClick={handleClose}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                         <path d="M1.26703 16L0 14.733L6.73297 8L0 1.26703L1.26703 0L8 6.73297L14.733 0L16 1.26703L9.26703 8L16 14.733L14.733 16L8 9.26703L1.26703 16Z" fill="black" />
                                     </svg>

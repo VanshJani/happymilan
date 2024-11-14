@@ -156,18 +156,20 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
             <li>
               <h1 className="" style={SpanStyle}>Upload Photo</h1>
             </li>
-            <li className="p-1 rounded-full cursor-pointer hover:bg-[#F3F8FF]">
-              <img alt='close-icon' className="w-[24px] h-[24px] cursor-pointer" onClick={handleClose} src="/assests/social/close.svg" />
+            <li onClick={handleClose} className="p-1 w-8 h-8 grid place-items-center rounded-full cursor-pointer hover:bg-[#F3F8FF]">
+              {/* <img alt='close-icon' className="w-[24px] h-[24px] cursor-pointer" onClick={handleClose} src="/assests/social/close.svg" /> */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M1.26703 16L0 14.733L6.73297 8L0 1.26703L1.26703 0L8 6.73297L14.733 0L16 1.26703L9.26703 8L16 14.733L14.733 16L8 9.26703L1.26703 16Z" fill="black" />
+              </svg>
             </li>
           </ul>
         </div>
       </div>
       {InputVisible && (
 
-        <div className="grid place-items-center">
+        <div className="grid place-items-center ">
           <label htmlFor="dropzone-file">
-            <div className='relative top-[20px] grid place-items-center  md:w-[350px] md:h-[150px] lg:w-[426px] lg:h-[257px] 2xl:w-[500px] 2xl:h-[450px] xl:w-[526px] xl:h-[357px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[22px]'>
-              {/* <div className='relative top-[20px] rounded-[10px] grid place-items-center 2xl:w-[540px] 2xl:h-[400px] xl:w-[540px] xl:h-[325px] md:w-[300px] w-[90%] h-[325px] md:h-[325px]  bg-[#F5F5F5]'> */}
+            <div className='relative top-[20px] grid place-items-center  md:w-[350px] md:h-[150px] lg:w-[426px] lg:h-[257px] 2xl:w-[510px] 2xl:h-[450px] xl:w-[526px] xl:h-[357px] dark:bg-[#242526] bg-[#F5F5F5] rounded-[22px]'>
               <div className=''>
                 <input id="dropzone-file" className="cursor-pointer opacity-0 absolute" type="file" accept="image/*" onChange={onSelectFile} />
                 <div className='w-full grid place-items-center mt-[-10%] mb-[10%]'>
@@ -208,10 +210,10 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
             </div>
           </div>
           <div className="flex justify-center relative top-[50px] space-x-[30px]">
-            <button className="cursor-pointer w-[125px] h-[49px] rounded-[10px]  bg-[#FFF] border-[1px] border-[black]">
+            <button className="cursor-pointer w-[125px] h-[49px] rounded-[18px]  bg-[#FFF] border-[1px] border-[black]">
               <input className="cursor-pointer w-[100px] opacity-0 absolute" type="file" accept="image/*" onChange={onSelectFile} />
               Change</button>
-            <button id="grad-button" className="cursor-pointer w-[125px] h-[49px] rounded-[10px]"
+            <button id="grad-button" className="cursor-pointer w-[125px] h-[49px] rounded-[18px]"
 
               onClick={() => {
                 setCanvasPreview(

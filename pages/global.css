@@ -1098,3 +1098,21 @@ body::-webkit-scrollbar {
 #dt-sec-1:hover .dt-sec-1-icon {
   fill: #0F52BA;
 }
+
+.shortlist-button:hover {
+  background-color: #FFBC47;
+}
+
+.the-shortlist-icon path {
+  fill: #FFBC47;
+  transition: fill 0.3s ease;
+}
+
+.after-shortlist-icon path {
+  fill: #FFF;
+}
+
+.shortlist-button:hover .the-shortlist-icon path {
+  fill: #FFF;
+  transition: fill 0.3s ease;
+}

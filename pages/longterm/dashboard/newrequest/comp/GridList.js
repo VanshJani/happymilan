@@ -9,6 +9,7 @@ import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import { Dialog } from '@mui/material'
 import { acceptRequest, getFriendsList, rejectRequest } from '../../../../../store/actions/UsersAction'
 import ProfileDataNotFound from '../../../../../components/common/Error/ProfileDataNotFound'
+import Pagination from '../../../../../components/common/Features/Pagination'
 
 function GridList() {
     const ProfileName = {
@@ -181,6 +182,18 @@ function GridList() {
 
     const { data, loading } = useSelector((state) => state.usersact.requestdata)
 
+
+    const [page, setpage] = useState(1);
+
+    const NextPage = (page) => {
+        setpage(page)
+    }
+
+    // useEffect(() => {
+    //     dispatch(userDatas({ page })); // Load the first page on mount
+    // }, [page, dispatch]);
+
+
     const [openShortlistModal, setopenShortlistModal] = React.useState(false)
 
     const [shortlistText, setshortlistText] = useState();
@@ -200,7 +213,6 @@ function GridList() {
     }
 
     const HanldeReject = (res) => {
-        console.log("🚀 ~ HanldeReject ~ res:", res)
         dispatch(rejectRequest("long-term", res));
 
         setshortlistText("Shortlisted has been removed")
@@ -219,7 +231,7 @@ function GridList() {
                     <div className=''></div>
 
                     {
-                        data && data.data && data.data.map((res, index) => {
+                        data && data.data && data.data?.results.map((res, index) => {
                             return (
                                 <>
                                     <div key={index} style={ProfileCard} className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'>
@@ -290,12 +302,8 @@ function GridList() {
                     }
 
                 </div>
-                <div className='flex pt-[50px] space-x-[40px] justify-center items-center w-auto 2xl:w-full xl:w-full'>
-                    <div id='active-no' className=' cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>1</div>
-                    <div id='pagination-count' className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>2</div>
-                    <div id='pagination-count' className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>3</div>
-                    <div id='pagination-count' className='duration-300 cursor-pointer w-[44px] h-[44px] border-[1px] border-[black] grid place-items-center rounded-full'>4</div>
-                </div>
+                <Pagination currentPage={data?.data?.results} totalPages={data?.data?.results.totalPages} onPageChange={NextPage} darkMode={false} URL={'/longterm/dashboard/newrequest'} />
+
             </div>
 
             <React.Fragment>
@@ -324,7 +332,7 @@ function GridList() {
                 </Dialog>
             </React.Fragment>
 
-            <ProfileDataNotFound ProfileData={data?.data} />
+            <ProfileDataNotFound ProfileData={data?.data?.results} />
 
         </>
     )

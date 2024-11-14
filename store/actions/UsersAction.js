@@ -101,8 +101,9 @@ export const getFriendsList = () => {
         };
 
         const response = await axios.request(config);
+        console.log("🚀 ~ return ~ response:", response)
 
-        response.data.data.forEach(async (element) => {
+        response?.data?.data?.results.forEach(async (element) => {
             const url = `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/${element.id}`;
 
             try {

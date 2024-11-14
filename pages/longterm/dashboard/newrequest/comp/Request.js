@@ -123,7 +123,7 @@ function Request() {
 
                 <div className='flex flex-col'>
 
-                    {data && data.data && data.data.map((res, index) => {
+                    {data && data.data && data.data?.results.map((res, index) => {
                         return (
                             <div key={index} className="relative 2xl:left-[40px] xl:left-[55px] lg:left-[10px] left-[40px]">
                                 <div style={Box} className={`flex m-[10px] lg:w-[590px] 2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] bg-[#FFF]`}>
@@ -254,7 +254,7 @@ function Request() {
                 </Dialog>
             </React.Fragment>
 
-            <ProfileDataNotFound ProfileData={data?.data} />
+            <ProfileDataNotFound ProfileData={data?.data?.results} />
 
         </>
     )
