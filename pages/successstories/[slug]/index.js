@@ -193,7 +193,7 @@ function index({ data }) {
                                                 </div>
                                             </div>
                                             <div className='absolute grid place-items-end relative top-[-50px] right-[19px]'>
-                                                <button style={TitleText} className='text-[14px] w-[81px] h-[40px] rounded-[10px]' id='grad-button'>Send</button>
+                                                <button style={TitleText} className='text-[14px] w-[81px] h-[40px] rounded-[18px]' id='grad-button'>Send</button>
                                             </div>
                                         </div>
 

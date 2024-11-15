@@ -29,7 +29,7 @@ function CancelRequestModal({ isOpen, onClose, data, title }) {
             //     OtherUser: accepteddata?.lastInitiatorUser,
             //     status: "rejected"
             // }}
-           
+
             onClose();
             setTimeout(() => {
                 dispatch(getAcceptedRequestData())
@@ -48,6 +48,7 @@ function CancelRequestModal({ isOpen, onClose, data, title }) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 className=""
+                sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }}
             >
                 <DialogContent className="text-center w-[500px]  mt-[20px]">
                     <div id="alert-dialog-description">

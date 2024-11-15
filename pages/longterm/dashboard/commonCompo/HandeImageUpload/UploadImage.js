@@ -17,28 +17,9 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
         fontWeight: "500",
         lineHeight: "normal"
     }
-    const Activity = {
-        fontFamily: "Poppins",
-        fontSize: "12px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal"
-    }
 
-    const Text4 = {
-        fontFamily: "Poppins",
-        fontSize: "24px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "32px"
-    }
-    const Text6 = {
-        fontFamily: "Poppins",
-        fontSize: "15px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal"
-    }
+
+
     const Text2 = {
         fontFamily: "Poppins",
         fontSize: "16px",
@@ -46,13 +27,7 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
         fontWeight: "400",
         lineHeight: "32px"
     }
-    const Text7 = {
-        fontFamily: "Poppins",
-        fontSize: "10px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal"
-    }
+
     const Text3 = {
         fontFamily: "Poppins",
         fontSize: "14px",
@@ -258,15 +233,11 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
                         })}
 
 
-                        <div className='mt-[10px] h-[130px] w-[130px]  rounded-[10px] flex flex-col justify-center items-center dark:bg-[#303133]  bg-[#EBEBEB]'>
+                        <div className={`${userProfile?.images?.length > 0 ? "ml-4" : ""} cursor-pointer hover:bg-[#E7E7E7] duration-150 mt-[10px] h-[130px] w-[130px]  rounded-[10px] flex flex-col justify-center items-center dark:bg-[#303133]  bg-[#EBEBEB]`}>
                             <div {...getRootProps()}>
                                 <Image alt='drag-drop' width={35} height={35} src='/loginassests/register-icons/Drag-Drop.svg' />
                             </div>
                             <input {...getInputProps()} className="hidden" />
-                            <div className='text-center mt-[5px]'>
-                                <h1 className='dark:text-[#FFF] text-[#000]' style={Text6}>Select Photos</h1>
-                                <p className='dark:text-[#FFF] text-[#000]' style={Text7}>Or drag and drop a file</p>
-                            </div>
                         </div>
 
                     </div >

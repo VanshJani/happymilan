@@ -186,19 +186,7 @@ const AddressTab = () => {
                             </div>
 
                             <div className='w-[90%]  pt-[20px] space-x-[20px]'>
-                                <div>
-                                    <h1 className='text-[#000] pb-[10px] dark:text-[#FFF]' style={labelText}>Same as current address</h1>
-                                    <div className=' flex justify-between'>
-                                        <div>
-                                            <button className='w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px]  rounded-[10px] h-[50px] dark:bg-[#141516] dark:hover:bg-[#252525] hover:bg-[#F0F9FF] dark:border-[1px] dark:border-[#787878]  dark:text-[#FFF] bg-[#F8F8F8]' >Add Your Origin</button>
-                                        </div>
-                                        <div className='relative left-[-15px] flex items-center'>
-                                            <div className='ml-[-10px]'><Checkbox className='border-none  rounded-[4px] bg-[#F3F3F3]' /></div>
-                                            <div><h1 className='dark:text-[#FFF]'>Same as current address</h1></div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div className='flex justify-end pb-[10px] mt-[10px]'>
 
                                     <SaveButton onClick={SaveUpdateDataBtn}>Save</SaveButton>

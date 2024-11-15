@@ -97,7 +97,7 @@ function RequestNotification() {
             ) : (
               data &&
               data.data &&
-              data?.data?.map((res, index) => (
+              data?.data?.results?.map((res, index) => (
                 <RequestCard
                   key={index}
                   user={res?.user}

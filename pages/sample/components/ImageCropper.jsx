@@ -210,10 +210,10 @@ const ImageCropper = ({ setModalOpen, handleClose, closeModal, updateAvatar }) =
             </div>
           </div>
           <div className="flex justify-center relative top-[50px] space-x-[30px]">
-            <button className="cursor-pointer w-[125px] h-[49px] rounded-[18px]  bg-[#FFF] border-[1px] border-[black]">
+            <button className="cursor-pointer w-[125px] h-[49px] rounded-[23px]  bg-[#FFF] duration-150 hover:bg-[#F2F7FF] border-[1px] border-[black]">
               <input className="cursor-pointer w-[100px] opacity-0 absolute" type="file" accept="image/*" onChange={onSelectFile} />
               Change</button>
-            <button id="grad-button" className="cursor-pointer w-[125px] h-[49px] rounded-[18px]"
+            <button id="grad-button" className="cursor-pointer w-[125px] h-[49px] rounded-[23px]"
 
               onClick={() => {
                 setCanvasPreview(
