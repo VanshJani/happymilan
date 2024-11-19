@@ -18,6 +18,7 @@ export const loginAsync = createAsyncThunk('/dashboard/myprofile', async (creden
 
   const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/login`, UserCredentials);
 
+  console.log("🚀 ~ loginAsync ~ response:", response)
   return response.data;
   //  return console.log(response.data)
 });
@@ -77,10 +78,13 @@ const loginAuth = createSlice({
         state.error = null;
       })
       .addCase(loginAsync.rejected, (state, action) => {
+        console.log("🚀 ~ .addCase ~ action:", action)
+        console.log("🚀 ~ .addCase ~ state:", state)
         state.status = STATUSES.ERROR;
         state.handleError = STATUSES.ERROR
         // Provide more descriptive error messages based on different rejection reasons
-        state.error = action.error.message || "Authentication Error: Please check your email and password and try again.";
+        state.error = "Incorrect email or password."
+        // || "Authentication Error: Please check your email and password and try again.";
       });
 
   },

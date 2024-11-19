@@ -254,8 +254,10 @@ function UserStory({ formData, updateFormData }) {
                                     <div className='w-[47px] h-[47px] bg-[#FFF] rounded-full grid place-items-center'>
                                         <div className='cursor-pointer'>
                                             <ProfileImage size={47} />
-                                            <div className='relative left-[34px] top-[-17px]'>
-                                                <Image loading='lazy' alt='add-icon' width={18} height={18} onClick={handleClickOpen} src='/assests/stories/Add-story-icon.svg' />
+                                            <div className='relative left-[34px] top-[-17px] w-[20px] h-[20px] '>
+                                                <Image loading='lazy' alt='add-icon'
+                                                    className='hover:rotate-90 duration-300'
+                                                    width={18} height={18} onClick={handleClickOpen} src='/assests/stories/Add-story-icon.svg' />
                                             </div>
                                         </div>
                                     </div>
@@ -292,7 +294,9 @@ function UserStory({ formData, updateFormData }) {
                                 </div> */}
                                 {/* <li onClick={handleClose} className="p-1 w-8 h-8 grid place-items-center rounded-full cursor-pointer hover:bg-[#F3F8FF]"> */}
                                 <div className='cursor-pointer p-1 w-8 h-8 grid place-items-center rounded-full hover:bg-[#F3F8FF]' onClick={handleClose}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <svg
+                                        className='hover:rotate-90 duration-300'
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                         <path d="M1.26703 16L0 14.733L6.73297 8L0 1.26703L1.26703 0L8 6.73297L14.733 0L16 1.26703L9.26703 8L16 14.733L14.733 16L8 9.26703L1.26703 16Z" fill="black" />
                                     </svg>
                                 </div>

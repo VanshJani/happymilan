@@ -11,6 +11,9 @@ import { fetchUserDetails } from '../../../../../store/dating-services/Redux-red
 import ViewProfile from '../../../../../components/common/Models/ViewProfile';
 import ProfileDetails from './ProfileDetails';
 import HobbySectionInfo from './HobbySectionInfo';
+import PurposeTab from './PurposeTab';
+import UserProfileMenu from '../../../../../components/long-term/common/Model/UserPopover';
+
 
 function GeneralSection() {
 
@@ -26,24 +29,7 @@ function GeneralSection() {
         lineHeight: "normal"
     }
 
-    const Text = {
-        color: "#000",
-        textAlign: "center",
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal",
-    }
 
-    const HobbyValue = {
-        color: "#000",
-        textAlign: "center",
-        fontFamily: "Poppins",
-        fontSize: "14px",
-        fontStyle: "normal",
-        fontWeight: "600",
-        lineHeight: "normal",
-    }
 
     const [token, settoken] = useState("")
     const dispatch = useDispatch();
@@ -53,7 +39,6 @@ function GeneralSection() {
         dispatch(fetchUserDetails())
     }, [])
 
-    const [showForm, setshowForm] = useState(false)
 
     const [openProfileModal, setOpenProfileModal] = React.useState(false);
     const handleOpen = () => {
@@ -73,6 +58,9 @@ function GeneralSection() {
             <div className='w-full h-full grid place-items-center'>
                 <div className='xl:w-[631px] w-full'>
                     <div className='bg-custom-gradient xl:w-[631px] w-full h-[138px] rounded-[10px]'>
+                        <div className='relative right-0 left-2'>
+                            <UserProfileMenu Privacy={true} res={details} />
+                        </div>
                         <div className='w-full h-full flex justify-center'>
                             <div onClick={openModal} className='cursor-pointer translate-y-10'>
                                 {
@@ -111,6 +99,8 @@ function GeneralSection() {
                         </div>
                     </div>
 
+
+
                     <div className='mt-[90px]'>
                         <div className='pb-[10px]'>
                             <ul className='text-center space-y-[20px]'>
@@ -127,6 +117,9 @@ function GeneralSection() {
                     </div>
                     <div className='space-y-[20px] mt-[27px]'>
                         <div>
+                            <PurposeTab />
+                        </div>
+                        <div>
                             <BasicInfo />
                         </div>
                         <div>
@@ -137,6 +130,7 @@ function GeneralSection() {
                         </div>
                     </div>
                 </div>
+
             </div>
 
 

@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserById } from '../../../../../store/actions/GetingUserById';
 import Avatar from 'react-avatar';
 import Image from 'next/image';
 import calculateAge from '../../../../../utils/helpers/CalculateAge';
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import { getFormattedDate } from '../../../../../utils/helpers/GetFormatedDate';
 import { GetDatingUserById } from '../../../../../store/dating-services/Redux-actions/home/DatingUsersActions';
+import UserProfileMenu from '../../../../../components/long-term/common/Model/UserPopover';
+
 
 function Userprofile() {
 
@@ -25,18 +26,7 @@ function Userprofile() {
         fontWeight: "400",
         lineHeight: "normal",
     };
-    const Text4 = {
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "24px",
-    };
-    const Text5 = {
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: "505",
-        lineHeight: "normal",
-    };
+   
 
 
 
@@ -65,13 +55,7 @@ function Userprofile() {
         fontWeight: "600",
         lineHeight: "normal",
     }
-    const labelText = {
-        fontFamily: "Poppins",
-        fontSize: "14px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal"
-    }
+    
 
     const router = useRouter();
 
@@ -90,6 +74,9 @@ function Userprofile() {
         <div className='w-full h-full grid place-items-center'>
             <div className='xl:w-[631px] w-full'>
                 <div className='bg-custom-gradient xl:w-[631px] w-full h-[138px] rounded-[10px]'>
+                    <div className='relative right-0 left-2'>
+                        <UserProfileMenu Privacy={true} res={data} />
+                    </div>
                     <div className='w-full h-full flex justify-center'>
                         <div className='cursor-pointer translate-y-10'>
 
@@ -159,7 +146,30 @@ function Userprofile() {
                 </div>
                 <div className='space-y-[20px] mt-[27px]'>
 
-                    <div className={`space-y-[20px] w-full h-[440px] rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px]`}>
+                    <div className={`space-y-[20px] w-full h-[169px] rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px]`}>
+                        <div className='pt-4'>
+                            <ul className='flex justify-between items-center'>
+                                <li><p>Purpose</p></li>
+                            </ul>
+                        </div>
+                        <div className='flex justify-center'>
+                            <div className='grid place-items-center w-full h-[1px] bg-[#F1F1F1]'></div>
+                        </div>
+                        <div>
+                            <ul className='flex space-x-[15px]'>
+                                {
+                                    data?.datingData?.[0]?.interestedIn?.map((res, index) => {
+                                        return (
+                                            <li key={index} style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full border-[1px] border-[#DEDEDE] text-[#000]'>{res}</li>
+                                        )
+                                    })
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className={`space-y-[20px] w-full h-[357px] rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px]`}>
                         <div className='pt-4'>
                             <ul className='flex justify-between items-center'>
                                 <li><p>Basic Info</p></li>
@@ -171,26 +181,6 @@ function Userprofile() {
 
                         <div className='space-y-8'>
                             <div>
-                                <ul className='space-y-[5px]'>
-                                    <li>
-                                        <p style={FildsTitle}>Purpose</p>
-                                    </li>
-                                    <li>
-                                        <ul className='flex space-x-[15px]'>
-                                            {
-                                                data?.datingData?.[0]?.interestedIn?.map((res, index) => {
-                                                    return (
-                                                        <li key={index} style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{res}</li>
-                                                    )
-                                                })
-                                            }
-
-                                        </ul>
-
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
                                 <div className=''>
                                     <ul className='flex justify-between'>
                                         <li className='space-y-[5px]'>
@@ -200,23 +190,6 @@ function Userprofile() {
                                         <li className='space-y-[5px] w-[150px]'>
                                             <p style={FildsTitle}>Currently Living</p>
                                             <h1 style={FiledsValue}>{capitalizeFirstLetter(data?.datingData?.[0]?.CurrentlyLiving) || "NA"}</h1>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div>
-                                <div className=''>
-                                    <ul className='space-y-[5px]'>
-                                        <li>
-                                            <p style={FildsTitle}>Language Spoken</p>
-                                        </li>
-                                        <li>
-                                            <ul className='flex space-x-[15px]'>
-                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Casual Dating"}</li>
-                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Meet New Friends"}</li>
-
-                                            </ul>
-
                                         </li>
                                     </ul>
                                 </div>
@@ -235,11 +208,28 @@ function Userprofile() {
                                     </ul>
                                 </div>
                             </div>
+                            <div>
+                                <div className=''>
+                                    <ul className='space-y-[5px]'>
+                                        <li>
+                                            <p style={FildsTitle}>Language Spoken</p>
+                                        </li>
+                                        <li>
+                                            <ul className='flex space-x-[15px]'>
+                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full border-[1px] border-[#DEDEDE] text-[#000]'>{"Casual Dating"}</li>
+                                                <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full border-[1px] border-[#DEDEDE] text-[#000]'>{"Meet New Friends"}</li>
+
+                                            </ul>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div>
-                        <div className={`space-y-[20px] w-full h-[240px]  rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px] `}>
+                        <div className={`space-y-[20px] w-full h-[169px]  rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px] `}>
                             <div className='pt-4'>
                                 <ul className='flex justify-between items-center'>
                                     <li><p>Professional Details</p></li>
@@ -265,18 +255,7 @@ function Userprofile() {
                                         </ul>
                                     </div>
                                 </div>
-                                <div>
-                                    <div>
-                                        <ul className='space-y-[5px]'>
-                                            <li>
-                                                <p style={FildsTitle}>Annual Income</p>
-                                            </li>
-                                            <li>
-                                                <h1 style={FiledsValue}>{data?.datingData?.[0]?.annualIncome || "NA"}</h1>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -294,7 +273,7 @@ function Userprofile() {
                                     {
                                         data?.hobbies?.map((res, index) => {
                                             return (
-                                                <li key={index} className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]' style={FiledsValue2}>{capitalizeFirstLetter(res)}</li>
+                                                <li key={index} className='p-[10px] pl-[15px] pr-[15px] rounded-full border-[1px] border-[#DEDEDE] text-[#000]' style={FiledsValue2}>{capitalizeFirstLetter(res)}</li>
 
                                             )
                                         })
@@ -305,7 +284,7 @@ function Userprofile() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
 
     )
 }

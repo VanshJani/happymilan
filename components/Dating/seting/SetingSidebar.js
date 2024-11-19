@@ -74,17 +74,18 @@ function SetingSidebar() {
                     <div>
                         <h1 style={TextTitle}>Account Setting</h1>
                     </div>
-                    <div className='left-0'>
+                    <div>
                         {
                             menuItem.map((item, index) => (
-                                <div className="cursor-pointer link flex mt-[20px] " activeclassname="active">
+                                <div className="hover:bg-[#F2F7FF] rounded-[22px] w-[200px] p-1 pl-5  items-center cursor-pointer link flex mt-[10px]" activeclassname="active">
+
                                     {
                                         router.pathname === item.path ?
-                                            <div className='icon w-[30px]'>{item.icon2}</div>
+                                            <div className='icon w-[30px] '>{item.icon2}</div>
                                             :
-                                            <div className='icon w-[30px]'>{item.icon}</div>
+                                            <div className='icon w-[30px] '>{item.icon}</div>
                                     }
-                                    <div id={router.pathname === item.path ? 'Seting-menu-grad' : 'Seting-menu-grad-before'} className={`mt-[-4px] ml-[5px]`}>
+                                    <div id={router.pathname === item.path ? 'Seting-menu-grad' : 'Seting-menu-grad-before'} className={`mt-[0px] ml-[5px]`}>
                                         <Link href={item.path}>{item.name}</Link>
                                     </div>
 
@@ -104,3 +105,4 @@ function SetingSidebar() {
 }
 
 export default SetingSidebar
+

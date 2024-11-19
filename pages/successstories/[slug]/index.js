@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import AuthNavbar from '../../_components/layout/AuthNavbar'
+import Footer from '../../_components/layout/Footer'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
@@ -237,17 +238,24 @@ function index({ data }) {
                 )
         }
     }
+
     return (
         <>
             <AuthNavbar />
             <div className='w-full h-full grid place-items-center'>
+
                 {renderTabContent()}
                 <div id="footer-section" className="bg-[#FFF] z-10 border-t-[1px] border-t-[#DEDEDE] w-full mt-[150px]">
                     <GlobalFooter />
                 </div>
+
             </div>
+
+
+
             <ShareModal isOpen={isModalOpen} onClose={closeModal} />
         </>
     )
 }
+
 export default index

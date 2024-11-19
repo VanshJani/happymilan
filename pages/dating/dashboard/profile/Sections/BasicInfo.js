@@ -194,7 +194,7 @@ function BasicInfo() {
 
     return (
         <>
-            <div className={`space-y-[20px] w-full ${showForm ? "h-full" : "h-[440px]"} rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px]`}>
+            <div className={`space-y-[20px] w-full ${showForm ? "h-full" : "h-[357px]"} rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px]`}>
                 <div className=''>
                     <ul className='mt-2 h-full flex justify-between items-center'>
                         <li><p>Basic Info</p></li>
@@ -217,15 +217,7 @@ function BasicInfo() {
                             <div className='w-full h-[1px] bg-[#F1F1F1]'></div>
                             <div className='pt-0 pb-7'>
                                 <ul className='space-y-[40px]'>
-                                    <li style={{ width: "100%" }}>
-                                        <p style={FildsTitle}>Purpose</p>
-                                        <ReusableMultiSelect
-                                            options={options}
-                                            setSelectedValues={setSelectedInterests}
-                                        // initialSelected={initialSelected}
 
-                                        />
-                                    </li>
                                     <li>
                                         <div className='flex justify-between items-center space-x-[20px]'>
                                             <div style={{ width: "260px" }} className="the-input-container">
@@ -334,26 +326,7 @@ function BasicInfo() {
                             </div>
 
                             <div className='space-y-8'>
-                                <div>
-                                    <ul className='space-y-[5px]'>
-                                        <li>
-                                            <p style={FildsTitle}>Purpose</p>
-                                        </li>
-                                        <li>
-                                            <ul className='flex space-x-[15px]'>
-                                                {
-                                                    details?.datingData[0]?.interestedIn?.map((res, index) => {
-                                                        return (
-                                                            <li key={index} style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{res}</li>
 
-                                                        )
-                                                    })
-                                                }
-                                            </ul>
-
-                                        </li>
-                                    </ul>
-                                </div>
                                 <div>
                                     <div className=''>
                                         <ul className='flex justify-between'>
@@ -368,23 +341,7 @@ function BasicInfo() {
                                         </ul>
                                     </div>
                                 </div>
-                                <div>
-                                    <div className=''>
-                                        <ul className='space-y-[5px]'>
-                                            <li>
-                                                <p style={FildsTitle}>Language Spoken</p>
-                                            </li>
-                                            <li>
-                                                <ul className='flex space-x-[15px]'>
-                                                    <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Casual Dating"}</li>
-                                                    <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full bg-[#F2F2F2] text-[#000]'>{"Meet New Friends"}</li>
 
-                                                </ul>
-
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 <div>
                                     <div className=''>
                                         <ul className='flex justify-between'>
@@ -395,6 +352,23 @@ function BasicInfo() {
                                             <li className='space-y-[5px] w-[200px]'>
                                                 <p style={FildsTitle}>Ethnicity</p>
                                                 <h1 style={FiledsValue}>{capitalizeFirstLetter(details?.datingData?.[0]?.Ethnicity) || "NA"}</h1>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className=''>
+                                        <ul className='space-y-[5px]'>
+                                            <li>
+                                                <p style={FildsTitle}>Language Spoken</p>
+                                            </li>
+                                            <li>
+                                                <ul className='flex space-x-[15px]'>
+                                                    <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full border-[1px] border-[#DEDEDE] text-[#000]'>{"Casual Dating"}</li>
+                                                    <li style={FiledsValue2} className='p-[8px] pl-[10px] pr-[10px] rounded-full  border-[1px] border-[#DEDEDE] text-[#000]'>{"Meet New Friends"}</li>
+
+                                                </ul>
+
                                             </li>
                                         </ul>
                                     </div>

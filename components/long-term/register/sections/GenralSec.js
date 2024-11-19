@@ -86,7 +86,7 @@ function GenralSec({ formData, updateFormData, SetActiveTab }) {
                                 <div className='flex justify-between'>
                                     <div style={{ width: "300px" }} className="the-input-container">
                                         <span className='absolute right-[10px] text-[#AFAFAF]'>
-                                            CM
+                                            FT
                                         </span>
                                         <input type="text" id="height" name='height' onChange={handleInputChange} required />
                                         <label for="height" className="label">Height</label>

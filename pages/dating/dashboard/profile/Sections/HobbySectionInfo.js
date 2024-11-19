@@ -116,7 +116,7 @@ function HobbySectionInfo() {
                                     {
                                         details?.hobbies?.map((res, index) => {
                                             return (
-                                                <li key={index} className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]' style={HobbyValue}>{capitalizeFirstLetter(res)}</li>
+                                                <li key={index} className='p-[10px] pl-[15px] pr-[15px] rounded-full  border-[1px] border-[#DEDEDE] text-[#000]' style={HobbyValue}>{capitalizeFirstLetter(res)}</li>
 
                                             )
                                         })

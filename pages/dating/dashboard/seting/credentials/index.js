@@ -867,7 +867,7 @@ function Credentials() {
                     {/* Email */}
                     <div>
                         <div className="mt-[15px] xl:mt-[20px] flex  ">
-                            <h1 className="text-[15px] xl:text-[16px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Email</h1>
+                            <h1 className="text-[15px] xl:text-[17px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Email</h1>
                             <div onClick={handleClickOpen} className="cursor-pointer hover:bg-[#F3F8FF] p-[6px] rounded-full">
                                 <Image alt="edit" loading="lazy" className="" onClick={handleClickOpen} width={20} height={20} src="/assests/dashboard/icon/edit-details-icon.svg" />
                             </div>
@@ -875,16 +875,26 @@ function Credentials() {
                         <Modal
                             className="focus:outline-none"
                             BackdropProps={{ style: { opacity: 1 } }}
+                            sx={{ borderRadius: "18px" }}
                             open={open}
                             onClose={handleClose}
                         >
-                            <Box>
-                                <Typography
-                                    id="boxshadow"
-                                    className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[6px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
-                                >
-                                    {renderTabContent()}
-                                </Typography>
+                            <Box
+                                sx={{
+                                    borderRadius: "18px", // Add border radius
+                                    bgcolor: "background.paper", // Set background color
+                                    // height: "300px",
+                                    // width: "300px",
+                                }}
+                                className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[18px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
+
+                            >
+                                {/* <Typography
+                id="boxshadow"
+                className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[6px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
+              > */}
+                                {renderTabContent()}
+                                {/* </Typography> */}
                             </Box>
                         </Modal>
                         <div className="flex ">
@@ -900,7 +910,7 @@ function Credentials() {
                     <div>
                         {/* Password */}
                         <div className="mt-[20px] flex  ">
-                            <h1 className="text-[15px] xl:text-[16px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Password</h1>
+                            <h1 className="text-[15px] xl:text-[17px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Password</h1>
                             <div onClick={handleClickOpenModal} className="cursor-pointer hover:bg-[#F3F8FF] p-[6px] rounded-full">
                                 <Image alt="icon" loading="lazy" onClick={handleClickOpenModal} width={20} height={20} src="/assests/dashboard/icon/edit-details-icon.svg" />
                             </div>
@@ -914,7 +924,7 @@ function Credentials() {
                             <Box>
                                 <Typography
                                     id="boxshadow"
-                                    className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[6px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
+                                    className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[18px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
                                 >
                                     {renderTabContent2()}
                                 </Typography>
@@ -928,7 +938,7 @@ function Credentials() {
                     {/* Phone number */}
                     <div>
                         <div className="mt-[20px] flex  ">
-                            <h1 className="text-[15px] xl:text-[16px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Mobile Number</h1>
+                            <h1 className="text-[15px] xl:text-[17px] mb-[5px] w-[550px] lg:w-[620px] xl:w-[680px] font-medium">Mobile Number</h1>
                             <div onClick={handleClickShow} className="cursor-pointer hover:bg-[#F3F8FF] p-[6px] rounded-full">
                                 <Image alt="icon" loading="lazy" onClick={handleClickShow} width={20} height={20} src="/assests/dashboard/icon/edit-details-icon.svg" />
                             </div>
@@ -942,7 +952,7 @@ function Credentials() {
                             <Box>
                                 <Typography
                                     id="boxshadow"
-                                    className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[6px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
+                                    className="bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[18px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]"
                                 >
                                     {renderTabContent3()}
                                 </Typography>

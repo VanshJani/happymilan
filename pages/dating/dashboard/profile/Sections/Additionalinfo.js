@@ -127,7 +127,7 @@ function Additionalinfo() {
 
     return (
         <>
-            <div className={`space-y-[20px] w-full ${!showForm ? "h-[240px]" : "h-full"}  rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px] `}>
+            <div className={`space-y-[20px] w-full ${!showForm ? "h-[169px]" : "h-full"}  rounded-[10px] border-[1px] border-[#F1F1F1] pl-[20px] pr-[20px] pt-[10px] `}>
                 <div>
                     <ul className='mt-2 h-full flex justify-between items-center'>
                         <li><p>Professional Details</p></li>
@@ -177,13 +177,7 @@ function Additionalinfo() {
                                     </div>
                                 </li>
                             </ul>
-                            <div>
-                                <div className="the-input-container">
-                                    <input type="text" id="annualIncome" name='annualIncome' onChange={handleInputChange} required />
-                                    <label for="annualIncome" className="label">Annual Salary</label>
-                                    <div className="underline"></div>
-                                </div>
-                            </div>
+                            
                             <div className='grid place-items-end w-full mt-5'>
                                 <button onClick={UpdateData} className='w-[100px] h-[40px] rounded-[20px] bg-custom-gradient text-[#FFF] hover:opacity-75'>Update</button>
                             </div>
@@ -208,18 +202,7 @@ function Additionalinfo() {
                                     </ul>
                                 </div>
                             </div>
-                            <div>
-                                <div>
-                                    <ul className='space-y-[5px]'>
-                                        <li>
-                                            <p style={FildsTitle}>Annual Income</p>
-                                        </li>
-                                        <li>
-                                            <h1 style={FiledsValue}>{details?.datingData[0]?.annualIncome || "NA"}</h1>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            
                         </div>
                     </>}
             </div>
