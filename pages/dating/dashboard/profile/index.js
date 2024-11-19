@@ -5,7 +5,7 @@ import DatingLayout from '../../../../components/Dating/layout/DatingLayout'
 function index() {
     return (
         <>
-            <DatingLayout HideSection={true}>
+            <DatingLayout Section={"profile"} HideSection={true}>
                 <GeneralSection />
             </DatingLayout>
         </>

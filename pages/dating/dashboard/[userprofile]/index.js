@@ -7,7 +7,7 @@ function index() {
     const router = useRouter();
 
     return (
-        <DatingLayout>
+        <DatingLayout Section="userprofile" HideSection={true}>
             <Userprofile />
         </DatingLayout>
     )

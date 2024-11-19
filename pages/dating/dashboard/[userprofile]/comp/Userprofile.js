@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Avatar from 'react-avatar';
 import Image from 'next/image';
@@ -8,6 +8,7 @@ import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize';
 import { getFormattedDate } from '../../../../../utils/helpers/GetFormatedDate';
 import { GetDatingUserById } from '../../../../../store/dating-services/Redux-actions/home/DatingUsersActions';
 import UserProfileMenu from '../../../../../components/long-term/common/Model/UserPopover';
+import ViewProfile from '../../../../../components/common/Models/ViewProfile';
 
 
 function Userprofile() {
@@ -26,7 +27,7 @@ function Userprofile() {
         fontWeight: "400",
         lineHeight: "normal",
     };
-   
+
 
 
 
@@ -55,7 +56,15 @@ function Userprofile() {
         fontWeight: "600",
         lineHeight: "normal",
     }
-    
+
+
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
 
     const router = useRouter();
 
@@ -78,7 +87,7 @@ function Userprofile() {
                         <UserProfileMenu Privacy={true} res={data} />
                     </div>
                     <div className='w-full h-full flex justify-center'>
-                        <div className='cursor-pointer translate-y-10'>
+                        <div onClick={openModal} className='cursor-pointer translate-y-10'>
 
                             {data?.profilePic ? (
                                 <>
@@ -284,7 +293,26 @@ function Userprofile() {
                     </div>
                 </div>
             </div>
+
+
+            <ViewProfile Wsize={347} Hsize={450} isOpen={isModalOpen} onClose={closeModal}>
+                <div style={{ width: '347px', height: '450px', position: 'relative', borderRadius: "10px" }}>
+                    <Image
+                        // width={347}
+                        // height={450}
+                        style={{ borderRadius: "10px" }}
+                        layout="fill"  // Ensure the image fills the container
+                        objectFit='cover'  // Crop to fit without distortion
+                        alt='profile'
+                        src={data?.profilePic}
+                    // Ensure this points to a valid source
+                    />
+                </div>
+            </ViewProfile>
+
         </div >
+
+
 
     )
 }
