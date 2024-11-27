@@ -170,9 +170,6 @@ body {
   transition: 200ms
 }
 
-#req-sent {
-  background: #EDEDED;
-}
 
 #ignore-hover {
   fill: none;

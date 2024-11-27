@@ -18,6 +18,11 @@ const initialState = {
     otp: '',
     password: ''
   },
+  missingFields: {
+    loading: false,
+    data: null,
+    error: null
+  },
   formData: {
     // Initialize your form fields here
 
@@ -143,8 +148,9 @@ const initialState = {
       state: [],
       city: [],
       income: 0,
-      creative: [],
-      fun: [],
+      // creative: [],
+      // fun: [],
+      hobbies: [],
       diet: []
     },
     userProfile: {
@@ -312,6 +318,22 @@ export const FormSlice = createSlice({
     builder.addCase(updateURLs.fulfilled, (state, action) => {
       state.formData.upload.bufferdata = action.payload
     })
+
+    // For check missing fields from Register 
+
+    // builder.addCase(ShowMissingFields.pending, (state, action) => {
+    //   state.missingFields.loading = true;
+    // })
+    // builder.addCase(ShowMissingFields.fulfilled, (state, action) => {
+
+    //   state.missingFields.data = action.payload;
+    //   state.missingFields.loading = false;
+
+    // })
+    // builder.addCase(ShowMissingFields.rejected, (state, action) => {
+    //   state.missingFields.loading = false;
+    //     state.missingFields.error = action.payload;
+    // })
 
 
   }

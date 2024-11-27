@@ -2,18 +2,18 @@ import { Box, Divider, Stack } from
     '@mui/material'
 import React, { useEffect, useState } from 'react';
 import ChatElement from './ChatElement';
-import ProfileImage from '../../common/profile/ProfileImage';
+// import ProfileImage from '../../common/profile/ProfileImage';
+const DatingProfileImage = dynamic(() => import("../../../../pages/_components/common/profile/DatingProfileImage"));
+// import DatingProfileImage from "../../../../";
+
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAcceptedRequestData } from '../../../../store/actions/UsersAction';
-import { useDarkMode } from '../../../../ContextProvider/DarkModeContext';
+// import { getAcceptedRequestData } from '../../../../store/actions/UsersAction';
+import { getAcceptedRequestDatingData } from '../../../../store/dating-services/Redux-actions/home/DatingUsersActions';
+import dynamic from 'next/dynamic';
 
 const Chats = ({ toggleInnerDrawer, HandleWide }) => {
-
-
-  const { darkMode } = useDarkMode();
-
 
     const [token, settoken] = useState()
     const [Uname, SetUname] = useState();
@@ -73,13 +73,34 @@ const Chats = ({ toggleInnerDrawer, HandleWide }) => {
         lineHeight: "normal",
     }
 
+    // const dispatch = useDispatch();
+
+    // const [page, setpage] = useState(1);
+
+    // useEffect(() => {
+    //     dispatch(getAcceptedRequestData("listview", page))
+    // }, [])
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    // const [users, setUsers] = useState([]);
+
     const dispatch = useDispatch();
 
+    const { loading, users } = useSelector((state) => state?.datingusers?.Accepted)
+    console.log("🚀 ~ Chats ~ users:", users)
+
+    // Fetch users whenever currentPage changes
+
     const [page, setpage] = useState(1);
-    
+
+    // useEffect(() => {
+    //     dispatch(getAcceptedRequestData("listview", page));
+    // }, [])
     useEffect(() => {
-        dispatch(getAcceptedRequestData("listview", page))
-    }, [])
+
+        dispatch(getAcceptedRequestDatingData("listview", page))
+    }, [currentPage]);
 
 
 
@@ -92,7 +113,7 @@ const Chats = ({ toggleInnerDrawer, HandleWide }) => {
         <>
             <Box sx={{
                 position: "relative", width: 330,
-                backgroundColor: darkMode ? "#2B2D30" : "#FFF",
+                backgroundColor: "#FFF",
                 paddingLeft: "4px",
                 boxShadow: '0px 0px 2px rgba(0,0,0,0.25)'
             }}>
@@ -102,7 +123,7 @@ const Chats = ({ toggleInnerDrawer, HandleWide }) => {
                     <Stack direction={'row'} spacing={2} sx={{ paddingLeft: "10px", marginTop: "-90px" }}>
                         <Box>
 
-                            <ProfileImage size={47} />
+                            <DatingProfileImage size={47} />
 
                         </Box>
                         <Stack spacing={0} style={{ position: "relative", top: "2px" }}>
@@ -127,7 +148,7 @@ const Chats = ({ toggleInnerDrawer, HandleWide }) => {
 
                     <Divider className='pt-[0px] relative left-[-20px]' sx={{ width: "330px" }} />
                     {/* <div className='w-full h-[1px] bg-[#ECECEC]'></div> */}
-                    {FriendeLists?.acceptedUsers?.length > 0 ? <>
+                    { users?.data?.results?.length > 0 ? <>
                         <Stack p={1}>
                             <div className=''>
                                 <input
@@ -150,7 +171,7 @@ const Chats = ({ toggleInnerDrawer, HandleWide }) => {
 
 
 
-                                {FriendeLists?.acceptedUsers?.map((el, index) => {
+                                { users?.data?.results?.map((el, index) => {
                                     return <ChatElement
                                         key={index}
                                         toggleInnerDrawer={toggleInnerDrawer} {...el.friendList} />

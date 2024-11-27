@@ -18,6 +18,7 @@ const AcceptedUsersCard = () => {
     const dispatch = useDispatch();
 
     const { loading, users } = useSelector((state) => state?.datingusers?.Accepted)
+    // console.log("🚀 ~ AcceptedUsersCard ~ users:", users)
 
     // Fetch users whenever currentPage changes
 

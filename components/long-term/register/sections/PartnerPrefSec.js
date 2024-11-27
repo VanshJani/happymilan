@@ -4,6 +4,7 @@ import { cityOptions, CountryOptions, dietOptions, incomeOptions, statesOptions 
 import { updateFormData, updatePartnerPref } from '../../../../store/actions/registerUser';
 import { connect, useDispatch } from 'react-redux';
 import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle';
+import MultiSelect from '../../../../pages/alert';
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 
 
@@ -181,6 +182,9 @@ function PartnerPrefSec({ formData, updateFormData }) {
                                     isMulti
                                 />
 
+                            </li>
+                            <li>
+                                <MultiSelect Section={"partner"} formData={formData} updateFormData={updateFormData} />
                             </li>
                         </ul>
                     </div>

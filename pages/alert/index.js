@@ -3,7 +3,7 @@ const DynamicSelect = dynamic(() => import('react-select'), { ssr: false });
 import { LabelStyle2 } from '../../utils/options/styles/SelectBoxStyle';
 import dynamic from 'next/dynamic';
 
-const MultiSelect = ({ formData, updateFormData }) => {
+const MultiSelect = ({ Section, formData, updateFormData }) => {
 
     const options = [
         { value: 'reading', label: 'Reading' },
@@ -25,12 +25,25 @@ const MultiSelect = ({ formData, updateFormData }) => {
         const selectedValues = selectedOptions.map(option => option.value);
         setdatastore(selectedValues)
 
+
+        if(Section === "partner"){
+
+            updateFormData({
+                partnerpref: {
+                    ...formData.partnerpref,
+                    hobbies: selectedValues,
+                },
+            });
+
+        }else{
+
         updateFormData({
             hobby: {
                 ...formData.hobby,
                 hobbyval: selectedValues,
             },
         });
+    }
 
     }, [selectedOptions, setSelectedOptions])
 

@@ -369,7 +369,7 @@ function SampleUserProfile() {
                                                     <div className="w-[50%] ">
                                                         <h1
                                                             onClick={() => HandlePushUser(res._id)}
-                                                            className="2xl:text-[18px] xl:text-[15px] text-[10px] cursor-pointer text-[#000] dark:text-[#FFF] hover:opacity-75 duration-100 break-words"
+                                                            className="2xl:text-[18px] xl:text-[15px] text-[10px] cursor-pointer text-[#000] dark:text-[#EDEDED] hover:opacity-75 duration-100 break-words"
                                                             style={ProfileName}
                                                         >
                                                             {capitalizeFirstLetter(res.name)}
@@ -422,7 +422,7 @@ function SampleUserProfile() {
                                                     <div id="user-card">
                                                         <ul id="user-card-grid">
                                                             <li
-                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]"
                                                                 style={ListText}
                                                             >
                                                                 <Image
@@ -437,7 +437,7 @@ function SampleUserProfile() {
                                                             </li>
 
                                                             <li
-                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]"
                                                                 style={ListText}
                                                             >
                                                                 {res?.maritalStatus ?
@@ -456,7 +456,7 @@ function SampleUserProfile() {
                                                             </li>
 
                                                             <li
-                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]"
                                                                 style={ListText}
                                                             >
                                                                 {res?.religion ?
@@ -476,7 +476,7 @@ function SampleUserProfile() {
 
 
                                                             <li
-                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]"
                                                                 style={ListText}
                                                             >
                                                                 {res?.address ?
@@ -496,7 +496,7 @@ function SampleUserProfile() {
 
 
                                                             <li
-                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]"
                                                                 style={ListText}
                                                             >
                                                                 {res?.motherTongue ?
@@ -515,7 +515,7 @@ function SampleUserProfile() {
                                                             </li>
 
                                                             <li
-                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#FFF]"
+                                                                className="text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]"
                                                                 style={ListText}
                                                             >
                                                                 {res?.userProfessional ?

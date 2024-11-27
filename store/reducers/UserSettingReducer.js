@@ -1,4 +1,4 @@
-import { GET_PRIVACY_QUESTIONS, GET_PRIVACY_QUESTIONS_FAILURE, GET_PRIVACY_QUESTIONS_SUCCESS, HIDE_MY_PROFILE, HIDE_MY_PROFILE_CLOSEMODAL, HIDE_MY_PROFILE_FAILURE, HIDE_MY_PROFILE_SUCCESS, UPDATE_DISPLAY_NAME, UPDATE_DISPLAY_NAME_FAILURE, UPDATE_DISPLAY_NAME_SUCCESS, UPDATE_DISPLAY_STATUS } from "../type";
+import { GET_PRIVACY_QUESTIONS, GET_PRIVACY_QUESTIONS_FAILURE, GET_PRIVACY_QUESTIONS_SUCCESS, HIDE_MY_PROFILE, HIDE_MY_PROFILE_CLOSEMODAL, HIDE_MY_PROFILE_FAILURE, HIDE_MY_PROFILE_SUCCESS, SHOW_MISSING_FIELDS_REQUEST, SHOW_MISSING_FIELDS_SUCCESS, UPDATE_DISPLAY_NAME, UPDATE_DISPLAY_NAME_FAILURE, UPDATE_DISPLAY_NAME_SUCCESS, UPDATE_DISPLAY_STATUS } from "../type";
 
 const initialState = {
     loading: false,
@@ -19,6 +19,11 @@ const initialState = {
         NameChangeloading: false,
         error: null,
         status: ""
+    },
+    MissingFields: {
+        loading: false,
+        data: null,
+        error: null
     }
 
 };
@@ -131,6 +136,32 @@ const Userseting = (state = initialState, action) => {
                     // NameChangeloading: false,
                     status: ""
                     // error: action.payload
+                }
+            }
+        }
+        case SHOW_MISSING_FIELDS_REQUEST: {
+            return {
+                ...state,
+                MissingFields: {
+                    loading: true,
+                }
+            }
+        }
+        case SHOW_MISSING_FIELDS_SUCCESS: {
+            return {
+                ...state,
+                MissingFields: {
+                    loading: false,
+                    data: action.payload
+                }
+            }
+        }
+        case SHOW_MISSING_FIELDS_REQUEST: {
+            return {
+                ...state,
+                MissingFields: {
+                    loading: false,
+                    error: action.payload
                 }
             }
         }

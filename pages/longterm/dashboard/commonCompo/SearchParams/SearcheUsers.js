@@ -10,6 +10,7 @@ import ShareModal from '../../../../_components/Model/Models/ShareModal'
 import ProfileMenu from '../../../../_components/Model/popover/MenuPop'
 import BlockUserModal from "../../../../_components/Model/Models/BlockModal";
 import { useRouter } from 'next/router'
+import GridLikeButton from '../../../../_components/common/Buttons/LikeSections/GridLikeButton'
 
 
 function SearchUsers({ searchResults }) {
@@ -181,8 +182,11 @@ function SearchUsers({ searchResults }) {
                                             <p style={ListText} className='text-[14px]'>{user?.maritalStatus ? user.maritalStatus : "NA"}</p>
                                         </div>
 
-                                        <GridLikeUser RequestId={sentrequest[user?.id]}
-                                            HandleRequestModal={() => HandleRequestModal(user)} from={"GridProfile"} user={user} key={index} />
+                                        {/* <GridLikeUser RequestId={sentrequest[user?.id]}
+                                            HandleRequestModal={() => HandleRequestModal(user)} from={"GridProfile"} user={user} key={index} /> */}
+                                        <GridLikeButton userId={user._id || user?.id}
+                                            TheUsername={user?.name}
+                                            userdata={user} />
                                     </div>
                                 </>
                             )

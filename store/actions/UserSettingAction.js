@@ -1,5 +1,5 @@
 import { getCookie } from "cookies-next";
-import { GET_PRIVACY_QUESTIONS, GET_PRIVACY_QUESTIONS_FAILURE, GET_PRIVACY_QUESTIONS_SUCCESS, HIDE_MY_PROFILE, HIDE_MY_PROFILE_CLOSEMODAL, HIDE_MY_PROFILE_FAILURE, HIDE_MY_PROFILE_SUCCESS, UPDATE_DISPLAY_NAME, UPDATE_DISPLAY_NAME_FAILURE, UPDATE_DISPLAY_NAME_SUCCESS, UPDATE_DISPLAY_STATUS, UPDATE_PRIVACY_QUESTIONS, UPDATE_PRIVACY_QUESTIONS_FAILURE, UPDATE_PRIVACY_QUESTIONS_SUCCESS } from "../type"
+import { GET_PRIVACY_QUESTIONS, GET_PRIVACY_QUESTIONS_FAILURE, GET_PRIVACY_QUESTIONS_SUCCESS, HIDE_MY_PROFILE, HIDE_MY_PROFILE_CLOSEMODAL, HIDE_MY_PROFILE_FAILURE, HIDE_MY_PROFILE_SUCCESS, SHOW_MISSING_FIELDS_FAILURE, SHOW_MISSING_FIELDS_REQUEST, SHOW_MISSING_FIELDS_SUCCESS, UPDATE_DISPLAY_NAME, UPDATE_DISPLAY_NAME_FAILURE, UPDATE_DISPLAY_NAME_SUCCESS, UPDATE_DISPLAY_STATUS, UPDATE_PRIVACY_QUESTIONS, UPDATE_PRIVACY_QUESTIONS_FAILURE, UPDATE_PRIVACY_QUESTIONS_SUCCESS } from "../type"
 import { logoutuser } from "./UsersAction";
 
 export const Hidemyprofile = (credetials) => {
@@ -183,6 +183,45 @@ export const UpdateDisplayName = (SelectedDisplayName) => {
                     type: UPDATE_DISPLAY_NAME_FAILURE,
                     payload: error
                 })
+            });
+
+    }
+}
+
+export const MissingFields = () => {
+    return async (dispatch) => {
+
+        dispatch({
+            type: SHOW_MISSING_FIELDS_REQUEST
+        })
+
+        const axios = require('axios');
+        const token = getCookie("authtoken")
+
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/pending-fields`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
+
+        axios.request(config)
+            .then((response) => {
+                dispatch({
+                    type: SHOW_MISSING_FIELDS_SUCCESS,
+                    payload: response.data?.data
+                })
+                console.log(JSON.stringify(response.data?.data));
+            })
+            .catch((error) => {
+                dispatch({
+                    type: SHOW_MISSING_FIELDS_FAILURE,
+                    payload: response.data
+                })
+                console.log(error);
             });
 
     }

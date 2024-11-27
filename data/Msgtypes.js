@@ -189,6 +189,7 @@ const ReplyMsg = ({ el, menu }) => {
 const MediaMsg = ({ menu, userMessage, Outgoing, sendAt, Top, setTop, onDeleteMessage }) => {
 
 
+
     const getMessageTime = (sendAt) => {
         const timeDifference = Date.now() - sendAt;
         if (timeDifference < 3600000) {
@@ -253,7 +254,8 @@ const MediaMsg = ({ menu, userMessage, Outgoing, sendAt, Top, setTop, onDeleteMe
                                     onClick={handleImageClick}
                                     width={0}
                                     height={0}
-                                    src={userMessage.fileUrl}
+                                    src={userMessage?.fileUrl.split('?')[0]}
+                                    // style={{ cursor: "pointer", objectFit: "cover", height:"210px", width:"210px", borderRadius: '10px' }}
                                     style={{ cursor: "pointer", objectFit: "cover", maxHeight: 210, borderRadius: '10px' }}
                                     alt="Description"
                                     quality={45} // Adjust image quality (0-100)
@@ -292,7 +294,7 @@ const MediaMsg = ({ menu, userMessage, Outgoing, sendAt, Top, setTop, onDeleteMe
                                 <Image
                                     width={0}
                                     height={0}
-                                    src={userMessage.fileUrl}
+                                    src={userMessage?.fileUrl.split('?')[0]}
                                     sizes="max-height: 210px"
                                     style={{ objectFit: "cover", maxHeight: 210, borderRadius: '10px' }}
                                     alt="Description"

@@ -91,7 +91,7 @@ const ChatElement = ({ toggleInnerDrawer, isUserActive, id, _id, name, profilePi
 
             <Stack direction="row" alignItems='center' justifyContent='space-between'>
                 <Stack direction='row' spacing={0}>
-                    <div style={{ borderRadius: "40.5px" }} onClick={HandleOpenChat} className={`${userData?.id == selectedUser ? "bg-[#F4F9FF] dark:bg-[#444444]" : ""} z-100  hover:bg-[#F4F9FF] dark:hover:bg-[#444444] cursor-pointer p-[10px] rounded-[10px] w-[278px] flex space-x-[19px]  items-center`}>
+                    <div style={{ borderRadius: "40.5px" }} onClick={HandleOpenChat} className={`${userData?.id == selectedUser ? "bg-[#F4F9FF]" : ""} z-100  hover:bg-[#F4F9FF] cursor-pointer p-[10px] rounded-[10px] w-[278px] flex space-x-[19px]  items-center`}>
                         {profilePic ?
                             <StyledBadge
                                 overlap="circular"
@@ -121,8 +121,8 @@ const ChatElement = ({ toggleInnerDrawer, isUserActive, id, _id, name, profilePi
                             </StyledBadge>
                         }
                         <div>
-                            <h1 style={Username2} className='dark:text-[#FFF]'>{name} <span style={userStatus} className="text-[#A7A7A7] dark:text-[#FFF] ml-[5px]">1h ago</span></h1>
-                            <p style={Activity2} className="text-[12px] 2xl:text-[11px] xl:text-[10px] dark:text-[#FFF]"> Hi, I am busy now. Can I talk...</p>
+                            <h1 style={Username2}>{name} <span style={userStatus} className="text-[#A7A7A7] ml-[5px]">1h ago</span></h1>
+                            <p style={Activity2} className="text-[12px] 2xl:text-[11px] xl:text-[10px]"> Hi, I am busy now. Can I talk...</p>
                         </div>
                     </div>
                 </Stack>

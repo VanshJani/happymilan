@@ -12,6 +12,7 @@ import Head from "next/head";
 import "./global.css";
 import { ChatSettingsProvider } from "../ContextProvider/ChatSetingContext";
 import { UserActivityProvider } from "../ContextProvider/UserActivityContext";
+import { UserContext, UserProvider } from "../ContextProvider/ChatContext";
 
 
 
@@ -47,22 +48,24 @@ export default function MyApp({
         <SessionProvider>
           <DarkModeProvider>
             <SocketProvider>
-              <UsersConversationProvider>
-                <ChatSettingsProvider>
-                  <UserActivityProvider>
+              <UserProvider>
+                <UsersConversationProvider>
+                  <ChatSettingsProvider>
+                    <UserActivityProvider>
 
-                    {/* <DrawerProvider> */}
-                    <ThemeProvider>
+                      {/* <DrawerProvider> */}
+                      <ThemeProvider>
 
-                      {/* <Nextjsprogress height={2} color="#3742b6" /> */}
-                      {/* <Component {...pageProps} toggleDarkMode={toggleDarkMode} darkMode={darkMode}/> */}
+                        {/* <Nextjsprogress height={2} color="#3742b6" /> */}
+                        {/* <Component {...pageProps} toggleDarkMode={toggleDarkMode} darkMode={darkMode}/> */}
 
-                      <Component {...pageProps} />
-                    </ThemeProvider>
-                  </UserActivityProvider>
-                  {/* </DrawerProvider> */}
-                </ChatSettingsProvider>
-              </UsersConversationProvider>
+                        <Component {...pageProps} />
+                      </ThemeProvider>
+                    </UserActivityProvider>
+                    {/* </DrawerProvider> */}
+                  </ChatSettingsProvider>
+                </UsersConversationProvider>
+              </UserProvider>
             </SocketProvider>
           </DarkModeProvider>
         </SessionProvider>

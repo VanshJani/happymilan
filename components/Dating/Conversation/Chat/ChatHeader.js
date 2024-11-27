@@ -4,10 +4,9 @@ import React, { useContext, useState } from 'react';
 import { getCookie } from 'cookies-next';
 import { UserContext } from '../../../../ContextProvider/UsersConversationContext';
 import { useRouter } from 'next/router';
-import ReportModal from '../../Model/Models/ReportModal';
+import ReportModal from '../../../../pages/_components/Model/Models/ReportModal';
 import { useSocket } from '../../../../ContextProvider/SocketContext';
 import StyledBadge from '../../../../components/common/animation/StyleBadge';
-import { useDarkMode } from '../../../../ContextProvider/DarkModeContext';
 
 
 
@@ -105,9 +104,6 @@ const MessageOptions = ({ userData, HandleOpenProfile, OpenReportModal }) => {
 
 const Header = () => {
 
-    const { darkMode } = useDarkMode();
-
-
     const socket = useSocket();
 
     const router = useRouter();
@@ -183,7 +179,7 @@ const Header = () => {
 
     return (
         <>
-            <Box p={2} sx={{ width: '100%', backgroundColor: darkMode ? "#2B2D30" : '#FFF', boxShadow: '0px 0px 2px rgba(0,0,0,0.25)' }}>
+            <Box p={2} sx={{ width: '100%', backgroundColor: '#FFF', boxShadow: '0px 0px 2px rgba(0,0,0,0.25)' }}>
                 <Stack alignItems={'center'} direction='row' style={{ marginLeft: "5px" }} justifyContent={'space-between'}
                     sx={{ width: '100%', height: '100%' }}>
                     <Stack direction={'row'} spacing={2}>
@@ -238,7 +234,7 @@ const Header = () => {
                 </Stack>
 
             </Box>
-            <Divider className='mt-[0px] ' sx={{ backgroundColor: darkMode ? "#4E4949" :  "#e3e3e3" }} />
+            <Divider className='mt-[0px] bg-[#e3e3e3]' sx={{ backgroundColor: "#e3e3e3" }} />
 
 
             <ReportModal
