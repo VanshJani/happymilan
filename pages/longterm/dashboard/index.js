@@ -62,7 +62,7 @@ function index() {
         <div id='centerlized-content' className=' ml-[-5px] 2xl:mt-0 xl:mt-0 lg:mt-0 mt-[80px]'>
           <div className='xl:left-0 lg:left-[10px] relative 2xl:w-[720px] xl:w-[645px] lg:w-[600px] m-[10px] flex justify-between'>
 
-            <h1 className='text-[#000] dark:text-[#FFF] p-[5px] relative lg:left-[15px] 2xl:left-[40px] xl:left-[55px]'><span style={Text6} >{"New Matches"} </span></h1>
+            <h1 className='text-[#000] dark:text-[#FFF] p-[5px] relative lg:left-[15px] 2xl:left-[40px] xl:left-[55px]'><span style={Text6} onClick={()=>setIsModalOpen(true)}>{"New Matches"} </span></h1>
             <div className={`justify-center  w-[62px] h-[30px] rounded-[17.5px] border-[1px] ${darkMode ? "border-[#73757b]" : "border-[#F3F3F3]"} flex  relative right-[50px]`}>
 
               <div onClick={() => setListType(true)} style={{ cursor: "pointer", borderRadius: "17.5px 0PX 0px 17.5px" }} className={`w-[45px] ${darkMode ? "bg-[#141516] border-r-[#73757b]" : listType ? "border-r-[#F3F3F3] bg-[#F3F8FF]" : " hover:bg-[#F3F8FF] border-r-[#F3F3F3]"} grid place-items-center h-[28px] border-r-[1px] `}>

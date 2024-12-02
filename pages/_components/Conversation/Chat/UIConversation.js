@@ -37,12 +37,12 @@ function UIConversation({ UserDetails }) {
                 {/* Render safety tips or chat messages based on SafetyCheck */}
                 {(SafetyCheck?.data && SafetyCheck.data.length > 0 && SafetyCheck.data.some(item => !item.primaryConsent)) || SafetyCheck?.data.length === 0 ? (
                     // Render safety tips if any item in the array has primaryConsent as false or if the array is empty
-                    <Box className="bg-[#FFF] w-full h-full grid place-items-center">
+                    <Box className="bg-[#FFF] dark:bg-[#2B2D30] w-full h-full grid place-items-center">
                         <Safetytips UserDetails={UserDetails} />
                     </Box>
                 ) : (
                     // Render chat messages if all items in the array have primaryConsent as true
-                    <Box id="sidebarScroll" className='bg-[#FFF] scrollbar' width={"100%"} sx={{ flexGrow: 1, height: '100vh', overflowY: 'scroll' }}>
+                    <Box id="sidebarScroll" className='bg-[#FFF] dark:bg-[#2B2D30] scrollbar' width={"100%"} sx={{ flexGrow: 1, height: '100vh', overflowY: 'scroll' }}>
                         <Message menu={true} />
                     </Box>
                 )}

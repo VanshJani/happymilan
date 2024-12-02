@@ -160,7 +160,7 @@ function Comp({ formData, updateFormData }) {
                     {activebtn > 0 && (
                         <button
                             onClick={handleSubmit}
-                            className="text-[#FFF] rounded-[20px] w-[147px] h-[50px] bg-custom-gradient"
+                            className="text-[#FFF] rounded-[23px] w-[147px] h-[50px] bg-custom-gradient"
                         >
                             Start Explore
                         </button>

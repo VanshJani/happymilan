@@ -58,6 +58,7 @@ export const GetSearchUsersData = (searchData) => {
 
         axios.request(config)
             .then((response) => {
+            console.log("🚀 ~ .then ~ response:", response)
 
                 console.log(JSON.stringify(response.data));
                 dispatch({ type: GET_SEARCHUSERS_DATA_SUCCESS, payload: response.data.data })

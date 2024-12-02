@@ -142,8 +142,6 @@ function UploadImage() {
                                 </div>
                             </div>
 
-
-                            <button onClick={HandleUploadImage} className='w-[150px] h-[40px] bg-[black] text-[#FFF]'>Upload Image</button>
                         </>
 
                         :

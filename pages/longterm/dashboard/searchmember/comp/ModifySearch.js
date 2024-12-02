@@ -436,7 +436,7 @@ function ModifySearch({ state, updateSearchData, setFormOpen }) {
                                 </ul>
                             </div>
                             <div className='space-y-[10px]'>
-                                <p style={titleText}>Select Prefer Heights</p>
+                                <p style={titleText}>Select Prefer Heights (ft)</p>
                                 <ul className='space-x-[31px] flex justify-between'>
                                     <li>
                                         <input type='number' name='minHeight' value={Userage.minHeight} onChange={HanldeInputChange} placeholder='min' id='num-input' className='2xl:w-[110px] xl:w-[94px] w-[50px] pb-[10px] outline-none border-b-[1px] border-b-[#C0C0C0] focus:border-b-[#000] ' />

@@ -234,7 +234,7 @@ function ProfileSelection({ goToNextStep, formData, updateFormData, SetActiveTab
                             </li>
                         </ul>
                         <div>
-                            <button onClick={goToNextStep} className='w-[153px] h-[44px] bg-[#000] rounded-[22px] text-[#FFF] text-center'>Start Now
+                            <button onClick={goToNextStep} className='w-[153px] h-[44px] bg-[#000] rounded-[22px] text-[#FFF] text-center hover:opacity-70 duration-200'>Start Now
                                 <Image width={24} height={24} alt='next' src={"/assests/login/Arrow-reg.svg"} className='relative left-[8px] inline' />
                             </button>
                         </div>

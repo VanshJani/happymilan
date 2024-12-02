@@ -157,6 +157,7 @@ function GridphotoSec({ formData, updateFormData, }) {
     };
 
     const [SelectedGridImage, SetSelectedGridImage] = useState(null);
+    const [ItsSelected, SetitsSelected] = useState(false)
 
     const HandleGridImageClick = (index, items) => {
 
@@ -184,6 +185,8 @@ function GridphotoSec({ formData, updateFormData, }) {
                     }
                 });
 
+                SetitsSelected(true)
+
             }
         }
     };
@@ -194,7 +197,7 @@ function GridphotoSec({ formData, updateFormData, }) {
                     <div className="absolute mt-[-40px]">
                         {TheImages?.length > 0 ? <>  <p style={Text}>Select any photo as profile</p> </> : ""}
                     </div>
-                    <div className="flex flex-wrap gap-[30px] max-w-[647px] mx-auto">
+                    <div className={`flex flex-wrap gap-[30px] ${data?.images?.length >= 4 ? "lg:justify-between" : ""}  max-w-[647px] mx-auto`}>
                         {
                             data?.images?.length >= 5 ? "" : <>  <UploadContainer /></>
                         }
@@ -202,9 +205,9 @@ function GridphotoSec({ formData, updateFormData, }) {
                         {TheImages?.map((item, index) => {
                             return (
                                 <li key={index} className="flex-shrink-0 list-none">
-                                    <div className="w-[150px] h-[150px] lg:w-[115px] lg:h-[117px] rounded-[10px] relative">
+                                    <div className="w-[150px] h-[150px] lg:w-[135px] lg:h-[137px] rounded-[10px] relative">
                                         <div
-                                            className={`${SelectedGridImage === index ? "block" : "hidden"}  grid place-items-center  absolute  rounded-[8px]  w-[150px] h-[150px] lg:w-[115px] lg:h-[117px] bg-[#0F52BACC] `}
+                                            className={`${SelectedGridImage === index ? "block" : "hidden"}  grid place-items-center  absolute  rounded-[8px]  w-[150px] h-[150px] lg:w-[135px] lg:h-[137px] bg-[#0F52BACC] `}
                                         >
                                             <img
                                                 src="/assests/common/Select-Right.svg"
@@ -213,11 +216,11 @@ function GridphotoSec({ formData, updateFormData, }) {
                                         </div>
                                         <Image width={0} height={0} alt={index} src={item?.data}
                                             style={{ objectFit: "cover", width: "115px", height: "117px" }}
-                                            className=" w-[150px]  h-[150px] lg:w-[115px] lg:h-[117px] rounded-[10px]"
+                                            className=" w-[150px]  h-[150px] lg:w-[135px] lg:h-[137px] rounded-[10px]"
                                             id="photo-grid-item"
                                             onClick={() => HandleGridImageClick(index, item)}
                                         />
-                                        <div className="absolute top-[5px] right-[5px]">
+                                        <div className="absolute top-[5px] right-[25px]">
                                             <Image onClick={() => HandleRemove(item, index)} className="cursor-pointer" width={24} height={24} alt="delete" src={"/assests/login/Delete-icon.png"} />
                                         </div>
                                     </div>

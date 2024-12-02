@@ -541,7 +541,7 @@ function DatingNav() {
                                             <span>
                                                 {darkMode ? icons.setting.dark : icons.setting.light}
                                             </span>
-                                            <Link className="relative left-[5px]" href="/dating/dashboard/seting/credentials">Accounts</Link>
+                                            <Link className="relative left-[5px]" href="/dating/dashboard/seting/credentials">Account Seting</Link>
                                         </li>
                                         <li className="w-[230px] h-[34px] p-[10px] pl-[15px] hover:bg-[#F3F8FF] dark:hover:bg-[#18191a] rounded-[100px]  flex items-center space-x-[10px]">
 

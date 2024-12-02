@@ -158,7 +158,7 @@ function Searchprofile() {
 
                 <div className='flex flex-col mt-[-8px]'>
 
-                    {data?.map((res, Index) => {
+                    {data?.users?.map((res, Index) => {
                         return (
                             <>
 

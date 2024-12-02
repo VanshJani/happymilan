@@ -189,7 +189,7 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
         return (
             <>
                 <div className='w-[526px] h-[330px] bg-[#F5F5F5] dark:bg-[#242526] rounded-[18px]'>
-                    <div className='flex space-x-[20px]'>
+                    <div className='flex flex-wrap gap-3'>
                         {PreviewImage.map((res, index) => {
                             return (
                                 <>
@@ -233,7 +233,7 @@ function UploadImage({ formData, updateFormData, openUpload, handleCloseUpload }
                         })}
 
 
-                        <div className={`${userProfile?.images?.length > 0 ? "ml-4" : ""} cursor-pointer hover:bg-[#E7E7E7] duration-150 mt-[10px] h-[130px] w-[130px]  rounded-[10px] flex flex-col justify-center items-center dark:bg-[#303133]  bg-[#EBEBEB]`}>
+                        <div className={`${userProfile?.images?.length > 0 ? "ml-3" : ""} cursor-pointer hover:bg-[#E7E7E7] duration-150 mt-[10px] h-[130px] w-[130px]  rounded-[10px] flex flex-col justify-center items-center dark:bg-[#303133]  bg-[#EBEBEB]`}>
                             <div {...getRootProps()}>
                                 <Image alt='drag-drop' width={35} height={35} src='/loginassests/register-icons/Drag-Drop.svg' />
                             </div>

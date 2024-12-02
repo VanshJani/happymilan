@@ -6,7 +6,7 @@ import { addToShortlist, CreateLikeUser } from '../../../../store/actions/Geting
 import { FetchGriduserdata, Getlikeduserdata, GetrecentuserprofileData } from '../../../../store/actions/UsersAction';
 import { Dialog } from '@mui/material';
 
-function GridLikeUser({ theUserName, currentPage, from, user, RequestId, HandleRequestModal, RequestedStatus, userLikeDetails }) {
+function GridLikeUser({ theUserName, currentPage, from, user, userLikeDetails }) {
 
     const [isUserLiked, setIsUserLiked] = useState(false);
 

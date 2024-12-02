@@ -10,7 +10,7 @@ export const fetchshortlistUsers = (Pages) => async (dispatch, getState) => {
         const token = getCookie("authtoken");
         const LoginUserID = getCookie("userid")
 
-        const limit = Pages?.viewType === 'grid' ? 6 : 10;
+        const limit = Pages?.viewType === 'Gridview' ? 6 : 10;
 
         const config = {
             method: 'get',

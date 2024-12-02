@@ -419,7 +419,7 @@ function SideBar() {
                   </svg>
                 </>}
               <Link href="/longterm/dashboard/shortlists">
-                {notificatindot.newShortlists > 0 && (
+                {/* {notificatindot.newShortlists > 0 && (
                   <div className="relative left-[-8px]">
                     <span className="inline absolute flex h-2.5 w-2.5">
                       <span
@@ -432,7 +432,7 @@ function SideBar() {
                       ></span>
                     </span>
                   </div>
-                )}
+                )} */}
                 <h1
                   onClick={HandleGOTO}
                   style={Text3}

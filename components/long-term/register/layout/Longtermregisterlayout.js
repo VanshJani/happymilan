@@ -252,7 +252,7 @@ function Longtermregisterlayout({ slug, children }) {
                                                     <li className="">
                                                         <button
                                                             onClick={goToPrevStep}
-                                                            className="w-[97px] h-[44px] border-[1px] border-[#000] rounded-[22px]"
+                                                            className="w-[97px] h-[44px] border-[1px] border-[#000] rounded-[22px] hover:bg-[#EFF5FF] duration-200"
                                                         >
                                                             Back
                                                         </button>
@@ -260,7 +260,7 @@ function Longtermregisterlayout({ slug, children }) {
                                                     <li>
                                                         <button
                                                             onClick={goToNextStep}
-                                                            className="w-[153px] h-[44px] border-[1px] border-[#000] rounded-[22px] bg-[#000] text-[#FFF]"
+                                                            className="w-[153px] h-[44px] border-[1px] border-[#000] rounded-[22px] bg-[#000] text-[#FFF] hover:opacity-70 duration-200"
                                                         >
                                                             {"Continue"}
                                                             <Image
