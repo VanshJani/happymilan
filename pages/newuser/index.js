@@ -1,51 +1,88 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
-const ThirdSection = () => {
-  const sectionRef = useRef(null);
-  const [isFixed, setIsFixed] = useState(false);
+const DateTimeInput = ({ initialDate = '', initialTime = '', initialPeriod = 'AM' }) => {
+  const [date, setDate] = useState(initialDate);
+  const [time, setTime] = useState(initialTime);
+  const [period, setPeriod] = useState(initialPeriod);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsFixed(true);
-        } else {
-          setIsFixed(false);
-        }
-      },
-      { threshold: 0, rootMargin: '0px 0px -100% 0px' } // Trigger when the top reaches the viewport
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
+  const handlePeriodChange = (newPeriod) => {
+    setPeriod(newPeriod);
+  };
 
   return (
-    <div style={{ height: '200vh' }}>
-      <h1 className="text-center py-10">Scroll Down</h1>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '300px' }}>
+      {/* Date Input */}
+      <label>
+        <span style={{ marginRight: '10px' }}>Date of Birth</span>
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          style={{
+            padding: '8px',
+            width: '100%',
+            borderRadius: '4px',
+            border: '1px solid #ccc',
+          }}
+        />
+      </label>
 
-      {/* Third Section */}
-      <div
-        ref={sectionRef}
-        className={`${
-          isFixed ? 'fixed top-0 left-0 w-full bg-gray-800 text-white' : ''
-        } transition-all`}
-        style={{ height: '100vh' , backgroundColor:"black"}}
-      >
-        <h2 className="text-center py-20 grid place-items-center">I am the Third Section</h2>
-      </div>
+      {/* Time Input */}
+      <label>
+        <span style={{ marginRight: '10px' }}>Time of Birth</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            style={{
+              padding: '8px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+              width: '70%',
+            }}
+          />
 
-      {/* Placeholder content */}
-      <div style={{ height: '200vh' }}></div>
+          {/* AM/PM Toggle */}
+          <div
+            style={{
+              display: 'flex',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              border: '1px solid #ccc',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => handlePeriodChange('AM')}
+              style={{
+                backgroundColor: period === 'AM' ? 'purple' : '#f5f5f5',
+                color: period === 'AM' ? '#fff' : '#000',
+                padding: '8px 16px',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              AM
+            </button>
+            <button
+              type="button"
+              onClick={() => handlePeriodChange('PM')}
+              style={{
+                backgroundColor: period === 'PM' ? 'purple' : '#f5f5f5',
+                color: period === 'PM' ? '#fff' : '#000',
+                padding: '8px 16px',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              PM
+            </button>
+          </div>
+        </div>
+      </label>
     </div>
   );
 };
 
-export default ThirdSection;
+export default DateTimeInput;

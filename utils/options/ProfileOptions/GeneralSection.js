@@ -30,6 +30,12 @@ export const MaritalOptions = [
     { label: 'Married', value: 'married' },
 ]
 
+export const GenderOptions = [
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+    { label: 'Other', value: 'other' },
+]
+
 export const profileOptions = [
     { id: 1, label: 'My Self', value: "mySelf" },
     { id: 2, label: 'My Son', value: "mySon" },

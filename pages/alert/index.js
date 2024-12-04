@@ -73,7 +73,7 @@ const MultiSelect = ({ Section, formData, updateFormData }) => {
           components={{ MultiValueContainer }}
           styles={LabelStyle2}
           closeMenuOnSelect={false}
-          // menuPortalTarget={document.body} // Append to body to ensure it overlays
+        //   menuPortalTarget={document.body} // Append to body to ensure it overlays
         //   menuPosition='fixed' // Prevents issues with overflow
           menuPlacement='auto' // Positions the dropdown based on available space
         />

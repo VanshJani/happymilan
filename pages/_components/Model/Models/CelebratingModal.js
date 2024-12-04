@@ -167,7 +167,7 @@ function CelebratingModal ({ isOpen, onClose, title }) {
               </div>
               <div className='w-[50px]'>
                 <button onClick={handleNext}>
-                  <span className='hover:underline underline-offset-2 duration-150'>
+                  <span className='duration-150 text-[custom-gradient-color]'>
                     {currentContentIndex < ContentObj.length - 1 ? 'Next' : ''}
                   </span>
                 </button>
