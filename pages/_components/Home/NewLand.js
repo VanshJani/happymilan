@@ -703,19 +703,24 @@ function NewLand () {
               <li className='w-[70%]'>
                 <Accordion title='What is the difference between dating, long term, and social profiles?'>
                   <AccordingBodyList>
-                    <p>
-                      Dating profiles are geared toward users seeking casual or
-                      serious relationships.
-                      <br />
-                      Long Term profiles are for those looking for a lifelong
-                      partner. You can indicate your preference during the
-                      signup process or switch between them later in your
-                      profile settings.
-                      <br />
-                      Social Profiles are designed for those seeking friends,
-                      groups, and events. This feature helps you expand your
-                      social connections and build meaningful relationships.
-                    </p>
+                    <ul className='space-y-2'>
+                      <li>
+                        <b>Dating profiles </b> &nbsp; are geared toward users
+                        seeking casual or serious relationships.
+                      </li>
+                      <li>
+                        <b>Long Term profiles</b> &nbsp; are for those looking
+                        for a lifelong partner. You can indicate your preference
+                        during the signup process or switch between them later
+                        in your profile settings.
+                      </li>
+                      <li>
+                        <b>Social Profiles</b> &nbsp; are designed for those
+                        seeking friends, groups, and events. This feature helps
+                        you expand your social connections and build meaningful
+                        relationships.
+                      </li>
+                    </ul>
                   </AccordingBodyList>
                 </Accordion>
               </li>

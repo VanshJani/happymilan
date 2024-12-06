@@ -20,7 +20,10 @@ export const FAQ_Options = [
             <li>Step 3: Choose a password.</li>
             <li>
               Step 4: Select the registration type, either{' '}
-              <span className='text-[#0F52BA]'> “Marriage or Dating”</span>
+              <span className='text-[#0F52BA]'>
+                {' '}
+                “Long Term, Dating or Social"
+              </span>
             </li>
             <li className='mt-[30px]'>
               after selection of registration type , you’ll be redirecting to
@@ -297,18 +300,23 @@ export const FAQ_Options = [
           'What is the difference between dating, long term, and social profiles?',
         render: () => (
           <>
-            <p>
-              Dating profiles are geared toward users seeking casual or serious
-              relationships.
-              <br />
-              Long Term profiles are for those looking for a lifelong partner.
-              You can indicate your preference during the signup process or
-              switch between them later in your profile settings.
-              <br />
-              Social Profiles are designed for those seeking friends, groups,
-              and events. This feature helps you expand your social connections
-              and build meaningful relationships.
-            </p>
+            <ul className='space-y-2' >
+              <li>
+                <b>Dating profiles </b> &nbsp; are geared toward users seeking
+                casual or serious relationships.
+              </li>
+              <li>
+                <b>Long Term profiles</b> &nbsp; are for those looking for a
+                lifelong partner. You can indicate your preference during the
+                signup process or switch between them later in your profile
+                settings.
+              </li>
+              <li>
+                <b>Social Profiles</b> &nbsp; are designed for those seeking
+                friends, groups, and events. This feature helps you expand your
+                social connections and build meaningful relationships.
+              </li>
+            </ul>
           </>
         )
       }
