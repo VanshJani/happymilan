@@ -429,19 +429,13 @@ function UserProfile () {
                               RequestId={
                                 sentrequest[res?.user?._id || res?.user?.id]
                               }
+                              Requeststatus={res?.friendsDetails}
                               HandleRequestModal={() =>
                                 HandleRequestModal(res?.user)
                               }
                             />
                           </div>
                           <div className='relative top-[10px]'>
-                            {/* {likeloading ?
-                                                            <>
-                                                                <div className="animate-pulse w-[63px] h-[40px] bg-gray-200 rounded-[22px]"></div>
-                                                            </>
-                                                            :
-                                                            <> */}
-
                             <LikeUser
                               ActiveLike={ActiveLike}
                               setActiveLike={setActiveLike}

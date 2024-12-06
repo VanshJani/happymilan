@@ -1,71 +1,87 @@
-import { Dialog, DialogContent } from "@mui/material";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Cancelfriendrequest, getAcceptedRequestData } from "../../../../store/actions/UsersAction";
+import { Dialog, DialogContent } from '@mui/material'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import {
+  Cancelfriendrequest,
+  getAcceptedRequestData
+} from '../../../../store/actions/UsersAction'
 
-function CancelRequestModal({ isOpen, onClose, data, title }) {
-    if (!isOpen) return null;
+function CancelRequestModal ({ isOpen, onClose, data, title }) {
+  if (!isOpen) return null
 
+  const LogoutModalText = {
+    fontFamily: 'Poppins',
+    fontSize: '20px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: '30px'
+  }
 
-    const LogoutModalText = {
-        fontFamily: "Poppins",
-        fontSize: "20px",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "30px"
+  const dispatch = useDispatch()
+
+  // parag-side -- pending for check flow of unfriend
+
+  const HandleBlockUser = e => {
+    if (e.target.name == 1) {
+      dispatch(
+        Cancelfriendrequest(data?.currUser, data?.OtherUser, data?.status)
+      )
+
+      // data={{
+      //     currUser: accepteddata?._id || accepteddata?.id,
+      //     OtherUser: accepteddata?.lastInitiatorUser,
+      //     status: "rejected"
+      // }}
+
+      onClose()
+      setTimeout(() => {
+        dispatch(getAcceptedRequestData())
+      }, 800)
+    } else {
+      onClose()
     }
+  }
 
-    const dispatch = useDispatch();
-
-    // parag-side -- pending for check flow of unfriend 
-
-    const HandleBlockUser = (e) => {
-        if (e.target.name == 1) {
-
-            dispatch(Cancelfriendrequest(data?.currUser, data?.OtherUser, data?.status))
-
-            // data={{
-            //     currUser: accepteddata?._id || accepteddata?.id,
-            //     OtherUser: accepteddata?.lastInitiatorUser,
-            //     status: "rejected"
-            // }}
-
-            onClose();
-            setTimeout(() => {
-                dispatch(getAcceptedRequestData())
-            }, 800);
-
-        } else {
-            onClose();
-        }
-    }
-
-    return (
-        <>
-
-            <Dialog
-                open={isOpen}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                className=""
-                sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }}
+  return (
+    <>
+      <Dialog
+        open={isOpen}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+        className=''
+        sx={{ '& .MuiDialog-paper': { borderRadius: '18px' } }}
+      >
+        <DialogContent className='text-center w-[500px]  mt-[20px]'>
+          <div id='alert-dialog-description'>
+            <p style={LogoutModalText}>
+              Are you sure you want to Unfriend This User?
+            </p>
+          </div>
+        </DialogContent>
+        <div className='flex justify-evenly p-[20px] mb-[20px]'>
+          <div className='relative right-[-10px]'>
+            <button
+              onClick={HandleBlockUser}
+              name={1}
+              id='grad-button'
+              className='rounded-[23px] w-[122px] h-[50px]'
             >
-                <DialogContent className="text-center w-[500px]  mt-[20px]">
-                    <div id="alert-dialog-description">
-                        <p style={LogoutModalText}>Are you sure you want to Unfriend This User?</p>
-                    </div>
-                </DialogContent>
-                <div className="flex justify-evenly p-[20px] mb-[20px]">
-                    <div className="relative right-[-10px]">
-                        <button onClick={HandleBlockUser} name={1} id="grad-button" className="rounded-[23px] w-[122px] h-[50px]">Yes</button>
-                    </div>
-                    <div className="relative left-[-10px]">
-                        <button onClick={HandleBlockUser} name={0} className="border-[black] border-[1px]  hover:bg-[#EFF5FF] rounded-[23px] w-[122px] h-[50px]">No</button>
-                    </div>
-                </div>
-            </Dialog>
-        </>
-    );
+              Yes
+            </button>
+          </div>
+          <div className='relative left-[-10px]'>
+            <button
+              onClick={HandleBlockUser}
+              name={0}
+              className='border-[black] border-[1px]  hover:bg-[#EFF5FF] rounded-[23px] w-[122px] h-[50px]'
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </Dialog>
+    </>
+  )
 }
 
-export default CancelRequestModal;
+export default CancelRequestModal

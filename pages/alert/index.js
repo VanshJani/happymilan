@@ -73,15 +73,15 @@ const MultiSelect = ({ Section, formData, updateFormData }) => {
           components={{ MultiValueContainer }}
           styles={LabelStyle2}
           closeMenuOnSelect={false}
-        //   menuPortalTarget={document.body} // Append to body to ensure it overlays
-        //   menuPosition='fixed' // Prevents issues with overflow
+          //   menuPortalTarget={document.body} // Append to body to ensure it overlays
+          //   menuPosition='fixed' // Prevents issues with overflow
           menuPlacement='auto' // Positions the dropdown based on available space
         />
         <div className='selected-options mt-2 flex flex-wrap'>
           {selectedOptions.map(option => (
             <div
               key={option.value}
-              className='bg-gray-200 text-gray-700 rounded-full px-4 py-1 mr-2 mb-2 cursor-pointer'
+              className='bg-[#FFF] text-[black] rounded-full px-4 py-1 mr-2 mb-2 cursor-pointer border-[1px] border-[#DEDEDE]'
               onClick={() => handleRemoveOption(option)}
             >
               {option.label} <span className='ml-2'>&times;</span>

@@ -2,9 +2,12 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Dialog } from '@mui/material'
-import { addToShortlist } from '../../../../store/actions/GetingAlluser'
+import {
+  addToShortlist,
+  RemoveShortlist
+} from '../../../../store/actions/GetingAlluser'
 
-function ShortlistUser ({ UserId }) {
+function ShortlistUser ({ UserId, alreadyshortlist }) {
   const [shortlistedUser, SetshortlistedUser] = useState(false)
 
   const dispatch = useDispatch()
@@ -13,14 +16,24 @@ function ShortlistUser ({ UserId }) {
   const [shortlistText, setshortlistText] = useState()
 
   const HandleShortlist = () => {
-    SetshortlistedUser(!shortlistedUser)
-    dispatch(addToShortlist(UserId)) // Dispatch the action with the shortlist ID
+    if (alreadyshortlist !== null) {
+      dispatch(RemoveShortlist(alreadyshortlist?.id || alreadyshortlist?._id))
+      SetshortlistedUser(!shortlistedUser)
+      setshortlistText('Profile has been unshortlisted')
+      setopenShortlistModal(true)
+      setTimeout(() => {
+        setopenShortlistModal(false)
+      }, 800)
+    } else {
+      SetshortlistedUser(!shortlistedUser)
+      dispatch(addToShortlist(UserId)) // Dispatch the action with the shortlist ID
 
-    setshortlistText('Profile has been shortlisted')
-    setopenShortlistModal(true)
-    setTimeout(() => {
-      setopenShortlistModal(false)
-    }, 800)
+      setshortlistText('Profile has been shortlisted')
+      setopenShortlistModal(true)
+      setTimeout(() => {
+        setopenShortlistModal(false)
+      }, 800)
+    }
   }
 
   const Urlmodaltext = {
@@ -50,7 +63,8 @@ function ShortlistUser ({ UserId }) {
           width={15}
           height={14}
           src={
-            shortlistedUser || hovericon
+            shortlistedUser || hovericon 
+            // || alreadyshortlist !== null
               ? '/assests/Black/filled-star.svg'
               : '/assests/Black/Stars-2.svg'
           }

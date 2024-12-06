@@ -1,14 +1,21 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { UploadImages3, updateAddressData, updateEducationData, updateGeneralInfo, updateProffessionalData, updateURLs } from "../actions/registerUser";
-import { STATUSES } from "./MyProfile";
-import { ADD_NEW_SHORTLIST, MARK_SHORTLISTS_AS_SEEN } from "../actions/GetingAlluser";
-import { UPDATE_HOBBIES_VALUES, UPDATE_PARTNER_PREF } from "../type";
-import { getNameFromLocalStorage } from "../../utils/helpers/LocalStorage";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import {
+  UploadImages3,
+  updateAddressData,
+  updateEducationData,
+  updateGeneralInfo,
+  updateProffessionalData,
+  updateURLs
+} from '../actions/registerUser'
+import { STATUSES } from './MyProfile'
+import {
+  ADD_NEW_SHORTLIST,
+  MARK_SHORTLISTS_AS_SEEN
+} from '../actions/GetingAlluser'
+import { UPDATE_HOBBIES_VALUES, UPDATE_PARTNER_PREF } from '../type'
+import { getNameFromLocalStorage } from '../../utils/helpers/LocalStorage'
 
-
-const DefaultName = getNameFromLocalStorage("personal")
-
-
+const DefaultName = getNameFromLocalStorage('personal')
 
 const initialState = {
   newShortlists: 0,
@@ -27,77 +34,73 @@ const initialState = {
     // Initialize your form fields here
 
     userType: {
-      appUsesType: ""
+      appUsesType: ''
     },
     status: STATUSES.IDLE,
     general: {
       // appUsesType: "",
-      creatingProfileFor: "",
-      firstName: "",
-      lastName: "",
+      creatingProfileFor: '',
+      firstName: '',
+      lastName: '',
       // motherTongue: "",
-      maritalStatus: "",
-      gender: "",
-      dateOfBirth: "",
-      birthTime: "",
-      religion: "",
-      caste: "",
-      height: "",
-      weight: "",
+      maritalStatus: '',
+      gender: '',
+      dateOfBirth: '',
+      birthTime: '',
+      religion: '',
+      caste: '',
+      height: '',
+      weight: '',
       // currentcity: "",
       // countryofliving: "",
-      writeBoutYourSelf: "",
-
+      writeBoutYourSelf: ''
     },
     address: {
-      currentResidenceAddress: "",
-      currentCity: "",
-      currentCountry: "",
-      currentState: ""
+      currentResidenceAddress: '',
+      currentCity: '',
+      currentCountry: '',
+      currentState: ''
       // originResidenceAddress: "",
       // originCity: "",
       // originCountry: ""
     },
     contact: {
-      mobileCode: "",
-      mobileNumber: "",
-      homeCode: "",
-      homeMobileNumber: "",
+      mobileCode: '',
+      mobileNumber: '',
+      homeCode: '',
+      homeMobileNumber: ''
     },
     education: {
-
-      degree: "",
-      collage: "",
-      city: "",
-      state: "",
-      country: ""
+      degree: '',
+      collage: '',
+      city: '',
+      state: '',
+      country: ''
     },
     professional: {
-
-      jobTitle: "",
-      jobType: "",
-      companyName: "",
-      currentSalary: "",
-      workCity: "",
-      workCountry: "",
+      jobTitle: '',
+      jobType: '',
+      companyName: '',
+      currentSalary: '',
+      workCity: '',
+      workCountry: ''
       //currentDesignation: ""
-
     },
     allhobbies: {
       hobbies: [
         {
-          "category": "Creative",
-          "values": []
+          category: 'Creative',
+          values: []
         },
         {
-          "category": "Fun",
-          "values": []
+          category: 'Fun',
+          values: []
         },
         {
-          "category": "Fitness",
-          "values": []
+          category: 'Fitness',
+          values: []
         }
-      ],
+      ]
     },
     hobby: {
       hobbyval: []
@@ -108,41 +111,45 @@ const initialState = {
     },
     uploadStory: {
       imagesdata: {},
-      bufferdata: "",
-      CaptionText: "",
+      bufferdata: '',
+      CaptionText: ''
     },
     uploadChatImage: {
       imagesdata: {},
-      bufferdata: "",
-      CaptionText: "",
+      bufferdata: '',
+      CaptionText: ''
     },
     uploadChatVideo: {
       imagesdata: {},
-      bufferdata: "",
-      CaptionText: "",
+      bufferdata: '',
+      CaptionText: ''
     },
     UploadChatContent: {
-      ContentType: "",
+      ContentType: '',
       uploadChatVideo: {
         imagesdata: {},
-        bufferdata: "",
-        CaptionText: "",
+        bufferdata: '',
+        CaptionText: ''
       },
       uploadChatImage: {
         imagesdata: {},
-        bufferdata: "",
-        CaptionText: "",
-      },
+        bufferdata: '',
+        CaptionText: ''
+      }
     },
 
     partnerpref: {
       age: {
-        min: "",
-        max: ""
+        min: '',
+        max: ''
       },
       height: {
-        min: "",
-        max: ""
+        min: '',
+        max: ''
+      },
+      income2: {
+        min: '',
+        max: ''
       },
       country: [],
       state: [],
@@ -158,8 +165,8 @@ const initialState = {
       bufferdata: []
     },
     isFormValid: true
-  },
-};
+  }
+}
 
 export const ImagePreview = createAsyncThunk(
   'register/imagepreview',
@@ -167,8 +174,7 @@ export const ImagePreview = createAsyncThunk(
     // console.log(imgdata);
     console.log(imgdata)
   }
-);
-
+)
 
 export const formReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -177,26 +183,26 @@ export const formReducer = (state = initialState, action) => {
         ...state,
         formData: {
           ...state.formData,
-          ...action.payload,
-        },
-      };
+          ...action.payload
+        }
+      }
     case 'REMOVE_UPLOAD_DATA':
       return {
         ...state,
         UploadChatContent: {
-          ContentType: "",
+          ContentType: '',
           uploadChatVideo: {
             imagesdata: {},
-            bufferdata: "",
-            CaptionText: "",
+            bufferdata: '',
+            CaptionText: ''
           },
           uploadChatImage: {
             imagesdata: {},
-            bufferdata: "",
-            CaptionText: "",
+            bufferdata: '',
+            CaptionText: ''
           }
         }
-      };
+      }
     case UPDATE_HOBBIES_VALUES:
       return {
         ...state,
@@ -205,15 +211,21 @@ export const formReducer = (state = initialState, action) => {
           allhobbies: {
             ...state.formData.allhobbies,
             hobbies: state.formData.allhobbies.hobbies.map(hobby =>
-              hobby.category?.toLowerCase() === action.payload.category?.toLowerCase()
-                ? { ...hobby, values: [...new Set([...hobby.values, ...action.payload.values])] }
+              hobby.category?.toLowerCase() ===
+              action.payload.category?.toLowerCase()
+                ? {
+                    ...hobby,
+                    values: [
+                      ...new Set([...hobby.values, ...action.payload.values])
+                    ]
+                  }
                 : hobby
-            ),
+            )
           }
         }
-      };
+      }
     case UPDATE_PARTNER_PREF:
-      const { key, values } = action.payload;
+      const { key, values } = action.payload
 
       return {
         ...state,
@@ -223,103 +235,100 @@ export const formReducer = (state = initialState, action) => {
             ...state.formData.partnerpref,
             [key]: Array.isArray(state.formData.partnerpref[key])
               ? [...new Set([...state.formData.partnerpref[key], ...values])]
-              : values,
-          },
-        },
-      };
+              : values
+          }
+        }
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 export const FormSlice = createSlice({
-  name: "form",
+  name: 'form',
   initialState,
   reducers: {
     updateFormData: (state, action) => {
-      state.formData = { ...state.formData, ...action.payload };
+      state.formData = { ...state.formData, ...action.payload }
     },
     setFormValidation: (state, action) => {
-      state.isFormValid = action.payload;
+      state.isFormValid = action.payload
     },
-    setUploadUIVisibility(state, action) {
-      const { userId, isVisible } = action.payload;
-      state[userId] = isVisible;
-    },
-
+    setUploadUIVisibility (state, action) {
+      const { userId, isVisible } = action.payload
+      state[userId] = isVisible
+    }
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(updateGeneralInfo.pending, (state) => {
-        // Handle pending state if needed
-        state.formData.status = STATUSES.LOADING;
-
-      });
+  extraReducers: builder => {
+    builder.addCase(updateGeneralInfo.pending, state => {
+      // Handle pending state if needed
+      state.formData.status = STATUSES.LOADING
+    })
 
     builder.addCase(updateGeneralInfo.rejected, (state, action) => {
       // Handle success state if needed
-      state.formData.status = STATUSES.ERROR;
-    });
+      state.formData.status = STATUSES.ERROR
+    })
     builder.addCase(updateGeneralInfo.fulfilled, (state, action) => {
       // Handle success state if needed
       state.formData.general = {
         ...state.formData.general,
         ...action.payload
       }
-      state.formData.status = STATUSES.IDLE;
-    });
+      state.formData.status = STATUSES.IDLE
+    })
     builder.addCase(updateAddressData.pending, (state, action) => {
-      state.formData.status = STATUSES.LOADING;
-    });
+      state.formData.status = STATUSES.LOADING
+    })
     builder.addCase(updateAddressData.rejected, (state, action) => {
-      state.formData.status = STATUSES.ERROR;
-    });
+      state.formData.status = STATUSES.ERROR
+    })
     builder.addCase(updateAddressData.fulfilled, (state, action) => {
-      state.formData.status = STATUSES.IDLE;
-    });
+      state.formData.status = STATUSES.IDLE
+    })
     builder.addCase(updateEducationData.pending, (state, action) => {
-      state.formData.status = STATUSES.LOADING;
-    });
+      state.formData.status = STATUSES.LOADING
+    })
     builder.addCase(updateEducationData.rejected, (state, action) => {
-      state.formData.status = STATUSES.ERROR;
-    });
+      state.formData.status = STATUSES.ERROR
+    })
     builder.addCase(updateEducationData.fulfilled, (state, action) => {
-      state.formData.status = STATUSES.IDLE;
-    });
+      state.formData.status = STATUSES.IDLE
+    })
     builder.addCase(updateProffessionalData.pending, (state, action) => {
-      state.formData.status = STATUSES.LOADING;
-    });
+      state.formData.status = STATUSES.LOADING
+    })
     builder.addCase(updateProffessionalData.rejected, (state, action) => {
-      state.formData.status = STATUSES.ERROR;
-    });
+      state.formData.status = STATUSES.ERROR
+    })
     builder.addCase(updateProffessionalData.fulfilled, (state, action) => {
-      state.formData.status = STATUSES.IDLE;
-    });
+      state.formData.status = STATUSES.IDLE
+    })
     builder.addCase(UploadImages3.pending, (state, action) => {
-      state.formData.status = STATUSES.LOADING;
-    });
+      state.formData.status = STATUSES.LOADING
+    })
     builder.addCase(UploadImages3.rejected, (state, action) => {
-      state.formData.status = STATUSES.ERROR;
-    });
+      state.formData.status = STATUSES.ERROR
+    })
     builder.addCase(UploadImages3.fulfilled, (state, action) => {
-      state.formData.status = STATUSES.IDLE;
-    });
+      state.formData.status = STATUSES.IDLE
+    })
 
     builder.addCase(ImagePreview.fulfilled, (state, action) => {
       // Update the images array with the payload from the action
-      state.formData.upload.images = action.payload;
-    });
-    builder.addCase(ADD_NEW_SHORTLIST, (state) => {
-      state.newShortlists += 1;
+      state.formData.upload.images = action.payload
     })
-    builder.addCase(MARK_SHORTLISTS_AS_SEEN, (state) => {
-      state.newShortlists = 0;
-    });
+    builder.addCase(ADD_NEW_SHORTLIST, state => {
+      state.newShortlists += 1
+    })
+    builder.addCase(MARK_SHORTLISTS_AS_SEEN, state => {
+      state.newShortlists = 0
+    })
     builder.addCase(updateURLs.fulfilled, (state, action) => {
       state.formData.upload.bufferdata = action.payload
     })
 
-    // For check missing fields from Register 
+    // For check missing fields from Register
 
     // builder.addCase(ShowMissingFields.pending, (state, action) => {
     //   state.missingFields.loading = true;
@@ -334,12 +343,7 @@ export const FormSlice = createSlice({
     //   state.missingFields.loading = false;
     //     state.missingFields.error = action.payload;
     // })
-
-
   }
 })
 
-
-
-
-export const { setFormValidation, setUploadUIVisibility } = FormSlice.actions;
+export const { setFormValidation, setUploadUIVisibility } = FormSlice.actions

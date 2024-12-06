@@ -290,7 +290,7 @@ function index() {
             </ul>
           </div>
           <div className="w-[100%] h-[1px] bg-[#CCC] mt-[20px]"></div>
-          <div>
+          <div className="">
             <h1 style={Textstyle} className="pb-[20px] pt-[20px]">
               11. Governing Law
             </h1>
@@ -298,7 +298,6 @@ function index() {
               <li>
                 This Agreement is governed by the laws of the Republic of India.
               </li>
-
             </ul>
           </div>
           <div className="w-[100%] h-[1px] bg-[#CCC] mt-[20px]"></div>

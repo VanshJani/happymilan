@@ -4,14 +4,14 @@ import Accordion from "../../components/common/Features/Accordion";
 import GlobalFooter from "../_components/layout/GlobalFooter";
 
 function index() {
-  const TitleText = {
-    color: "#0F52BA",
-    fontFamily: "Poppins",
-    fontSize: "20px",
-    fontStyle: "normal",
-    fontWeight: "400",
-    lineHeight: "normal",
-  };
+  // const TitleText = {
+  //   color: "#0F52BA",
+  //   fontFamily: "Poppins",
+  //   fontSize: "20px",
+  //   fontStyle: "normal",
+  //   fontWeight: "400",
+  //   lineHeight: "normal",
+  // };
   const ContentText = {
     color: "#000",
     fontFamily: "Poppins",
@@ -21,12 +21,22 @@ function index() {
     lineHeight: "normal",
   };
 
+  const TitleText = {
+    color: '#000',
+    textAlign: 'center',
+    fontFamily: 'Poppins',
+    fontSize: '44px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: '70px' /* 159.091% */
+  }
+
   return (
     <>
       <AuthNavbar />
       <div className="lg:pt-[120px] pt-[100px] w-full h-full grid place-items-center">
         <div className="w-full lg:w-[750px]">
-          <div className="lg:pl-0 lg:pr-0 pl-[20px] pr-[20px] w-full  text-center lg:text-left ">
+          <div className="lg:pl-0 lg:pr-0 pl-[20px] pr-[20px] w-full space-y-5 text-center lg:text-left pb-4">
             <h1 style={TitleText}>Privacy Policy</h1>
             <p style={ContentText} className="mt-[10px]">
               Welcome to HappyMilan.com, a platform dedicated to fostering

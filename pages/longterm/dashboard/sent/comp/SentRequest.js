@@ -248,6 +248,7 @@ function SentRequest () {
                                 accepteddata={res}
                                 res={res?.friend}
                                 Section={'sent'}
+                                View={'ListView'}
                               />
                             </li>
                           </ul>

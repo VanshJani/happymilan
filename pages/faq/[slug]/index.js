@@ -1,88 +1,17 @@
+import { useRouter } from 'next/router'
+import AuthNavbar from '../../_components/layout/AuthNavbar'
 import React from 'react'
-import AuthNavbar from '../_components/layout/AuthNavbar'
-import Image from 'next/image'
-import CustomAccordion from '../../components/common/Features/Accordion'
-import GlobalFooter from '../_components/layout/GlobalFooter'
-import Link from 'next/link'
+import CustomAccordion from '../../../components/common/Features/Accordion'
+import GlobalFooter from '../../_components/layout/GlobalFooter'
+import styled from 'styled-components'
+import { FAQ_Options } from '../../../utils/Schema/FAQOptions'
 
 function index () {
-  const Options = [
-    {
-      id: 1,
-      title: 'General Query',
-      slug: 'general'
-    },
-    {
-      id: 2,
-      title: 'Profile',
-      slug: 'profile'
-    },
-    {
-      id: 3,
-      title: 'Payment',
-      slug: 'payment'
-    },
-    {
-      id: 4,
-      title: 'Plans',
-      slug: 'plans'
-    },
-    {
-      id: 5,
-      title: 'KYC',
-      slug: 'kyc'
-    },
-    {
-      id: 6,
-      title: 'Safety',
-      slug: 'safety'
-    },
-    {
-      id: 7,
-      title: 'Members',
-      slug: 'members'
-    },
-    {
-      id: 8,
-      title: 'Discounts & Offers',
-      slug: 'offers'
-    }
-  ]
+  const router = useRouter()
 
-  const QuestionCards = () => {
-    const CardContentText = {
-      // color: '#000',
-      fontFamily: 'Poppins',
-      fontSize: '16px',
-      fontStyle: 'normal',
-      fontWeight: '400',
-      lineHeight: 'normal'
-    }
+  const { slug } = router.query
 
-    return (
-      <>
-        <div className='grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5'>
-          {Options.map((options, index) => {
-            return (
-              <Link href={`/faq/${options?.slug}`}>
-                <div
-                  key={index}
-                  className='group hover:bg-[black] bg-[#FAFAFA] cursor-pointer duration-200 w-[227px] h-[84px] rounded-[24px] grid place-items-center '
-                >
-                  <h1
-                    style={CardContentText}
-                    className='text-[#000] group-hover:text-[#FFF] duration-200'
-                  >
-                    {options?.title}
-                  </h1>
-                </div>
-              </Link>
-            )
-          })}
-        </div>
-      </>
-    )
-  }
+  const CurrentSlugName = FAQ_Options?.find(options => options?.slug == slug)
 
   const PersonalSection = () => {
     const Text = {
@@ -190,7 +119,7 @@ function index () {
     lineHeight: 'normal'
   }
 
-  const Textstyle = {
+  const Textstyle2 = {
     color: '#000',
     textAlign: 'center',
     fontFamily: 'Poppins',
@@ -200,32 +129,109 @@ function index () {
     lineHeight: 'normal'
   }
 
-  const TitleText = {
+  const Textstyle = {
     color: '#000',
     textAlign: 'center',
     fontFamily: 'Poppins',
     fontSize: '44px',
     fontStyle: 'normal',
     fontWeight: '700',
-    lineHeight: '70px' /* 159.091% */
+    lineHeight: '70px'
   }
+
+  const slugText = {
+    textAlign: 'center',
+    fontFamily: 'Poppins',
+    fontSize: '18px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal'
+  }
+
+  const AccordingBodyList = styled.ul`
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  `
+
+  const RenderQuestionUI = () => {
+    const CurrentSlugName = FAQ_Options?.find(option => option.slug === slug)
+
+    return CurrentSlugName ? (
+      <div>
+        <ul className='space-y-4'>
+          {CurrentSlugName?.questions?.map((question, index) =>
+            question?.render ? (
+              <li>
+                <CustomAccordion key={index} title={question?.title}>
+                  <AccordingBodyList>{question?.render()}</AccordingBodyList>
+                </CustomAccordion>
+              </li>
+            ) : (
+              <li>
+                <CustomAccordion key={index} title={question?.title}>
+                  <AccordingBodyList>
+                    <p>{question?.answer}</p>
+                  </AccordingBodyList>
+                </CustomAccordion>
+              </li>
+            )
+          )}
+        </ul>
+      </div>
+    ) : (
+      <p>No data found</p>
+    )
+  }
+
   return (
     <>
       <AuthNavbar />
       <div className='w-full pt-[80px] lg:pt-[120px] mt-[37px] h-full lg:grid place-items-center pb-[80px]'>
-        <div className='space-y-2'>
-          <h1 style={TitleText}>How can we help you?</h1>
-          <p style={Textstyle}>Explore the below topics for FAQs</p>
+        <div className='space-y-[14px]'>
+          <h1 style={Textstyle}>Payment Related Queries</h1>
+          <ul className='flex space-x-2 items-center justify-center'>
+            <li>
+              <p
+                onClick={() => router.back()}
+                style={slugText}
+                className='text-[#000] hover:opacity-75 duration-200 cursor-pointer'
+              >
+                All Topics
+              </p>
+            </li>
+            <li>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+              >
+                <path
+                  d='M13.5004 12.0004L8.90039 7.40039L9.40039 6.90039L14.5004 12.0004L9.40039 17.1004L8.90039 16.6004L13.5004 12.0004Z'
+                  fill='#5F6368'
+                />
+              </svg>
+            </li>
+            <li>
+              <p style={slugText} className='text-[#9E9E9E]'>
+                {CurrentSlugName?.title || ''}
+              </p>
+            </li>
+          </ul>
         </div>
 
-        <div className='w-[80%] grid place-items-center mt-10'>
-          <QuestionCards />
+        <div className='mt-11 lg:w-full w-[90%] grid place-items-center '>
+          <div className='w-full lg:w-[964px]'>{RenderQuestionUI()}</div>
         </div>
-
         <div className='mt-16'>
           <div className='space-y-2'>
             <h1 style={TitleText2}>Still have questions?</h1>
-            <p style={Textstyle}>
+            <p style={Textstyle2}>
               Can’t find the answer you’re looking for? Please chat to our
               friendly team
             </p>
@@ -245,5 +251,3 @@ function index () {
 }
 
 export default index
-
-8866428582

@@ -6,12 +6,10 @@ import moment from 'moment-timezone'
 import { capitalizeFirstLetter } from '../../../../../../utils/form/Captitelize'
 import {
   GenderOptions,
-  heightoption,
   MaritalOptions,
   profileOptions,
   Religionoptions,
-  subcastOption,
-  weightoption
+  subcastOption
 } from '../../../../../../utils/options/ProfileOptions/GeneralSection'
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton'
 import { getFormattedTime } from '../../../../../../utils/helpers/getFormattedTime'

@@ -248,6 +248,7 @@ function GridUserProfile () {
                       userId={res?.user?.id || res?.user?._id}
                       TheUsername={res?.user?.name}
                       userdata={res?.user}
+                    //   Section={}
                     />
                   </div>
                 )

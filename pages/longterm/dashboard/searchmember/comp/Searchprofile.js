@@ -22,6 +22,8 @@ import ProfileMenu from '../../../../../components/long-term/common/Model/Profil
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import ShowMore from '../../../../_components/common/profile/UserBio'
 import LikeUser from '../../../../_components/common/Buttons/LikeUser'
+import ShortlistUser from '../../../../_components/common/Buttons/ShortlistUser'
+import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
 
 function Searchprofile () {
   const { darkMode, toggleDarkMode } = useDarkMode()
@@ -141,7 +143,7 @@ function Searchprofile () {
     <>
       <div>
         <div className='flex flex-col mt-[-8px]'>
-          {data?.users[0]?.paginatedResults?.map((res, Index) => {
+          {data?.[0]?.paginatedResults?.map((res, Index) => {
             return (
               <>
                 <div
@@ -243,7 +245,7 @@ function Searchprofile () {
                           </h1>
                         </div>
                         <div className='pr-[8px]'>
-                          <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
+                          {/* <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
                             <li className='cursor-pointer hover:bg-[#F2F7FF] items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]'>
                               <div>
                                 <Image
@@ -265,11 +267,9 @@ function Searchprofile () {
                             </li>
                             <li
                               className='cursor-pointer'
-                              onClick={() =>
-                                HandleShortlist(res.id || res?._id)
-                              }
-                            >
-                              <div className='cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]'>
+                              
+                            > */}
+                          {/* <div className='cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]'>
                                 <Image
                                   loading='lazy'
                                   width={15}
@@ -277,10 +277,28 @@ function Searchprofile () {
                                   alt='star'
                                   src={'/assests/Black/Stars-2.svg'}
                                 />
-                              </div>
+                              </div> */}
+
+                          {/* <ShortlistUser UserId={res.id || res?._id} />
                             </li>
                             <li>
                               <ProfileMenu res={res} />
+                            </li>
+                          </ul> */}
+
+                          <ul className='flex justify-evenly space-x-[15px] pr-[10px] pt-[10px]'>
+                            <li
+                              className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] flex space-x-[10px] top-[-8px] p-[5px] relative left-[5px]`}
+                            >
+                              <MatchScoreModal user={res} />
+                            </li>
+
+                            <li className='cursor-pointer'>
+                              <ShortlistUser UserId={res.id || res?._id} alreadyshortlist={res?.userShortListDetails || null}/>
+                            </li>
+                            <li>
+                              <ProfileMenu res={res} />
+                              {/* <ProfileMenu res={res} /> */}
                             </li>
                           </ul>
                         </div>
@@ -436,6 +454,7 @@ function Searchprofile () {
                           <div>
                             <SendRequestBtn
                               userdata={res?.name}
+                              Requeststatus={res?.friendsDetails}
                               RequestId={sentrequest[res?._id || res?.id]}
                               HandleRequestModal={() => HandleRequestModal(res)}
                             />

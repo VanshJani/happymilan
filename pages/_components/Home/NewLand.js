@@ -623,6 +623,7 @@ function NewLand () {
               <li className='w-[70%]'>
                 <Accordion title={'How do I create an account on HappyMilan?'}>
                   <AccordingBodyList>
+                    {' '}
                     <li>
                       Step 1: Click on{' '}
                       <span className='text-[#0F52BA]'> “Sign up.”</span>
@@ -639,7 +640,7 @@ function NewLand () {
                       Step 4: Select the registration type, either{' '}
                       <span className='text-[#0F52BA]'>
                         {' '}
-                        “Marriage or Dating”
+                        “Long Term, Dating or Social"
                       </span>
                     </li>
                     <li className='mt-[30px]'>
@@ -651,7 +652,6 @@ function NewLand () {
                       be able to give you perfect suggestion matches based on
                       your information.
                     </li>
-
                     <li className='mt-[21px]'>
                       Wish you’ll have great experience on HappyMilan.com
                     </li>
@@ -659,51 +659,130 @@ function NewLand () {
                 </Accordion>
               </li>
               <li className='w-[70%]'>
-                <Accordion title='Is HappyMilan for Long Term, Dating and Friendship?'>
-                  HappyMilan is a social networking website that caters to both
-                  categories: matrimony and dating. Users can select either
-                  option when registering
+                <Accordion title='Is happyMilan for matrimony, dating or social account purpose?'>
+                  HappyMilan is a social networking website that caters to
+                  multiple categories: long term, dating and social. Users can
+                  select either option when registering.
                 </Accordion>
               </li>
-              <li className='w-[70%] h-[64px] border-[1px] border-[#ECECEC] rounded-[18px] flex justify-between pl-[20px] pr-[20px] items-center'>
-                <p>What are top features of HappyMilan?</p>
-                <Image
-                  className={`opacity-50 transform origin-center transition duration-200 ease-out`}
-                  width={14}
-                  height={14}
-                  alt='plus'
-                  src={'/assests/animation/plus-img.png'}
-                />
+
+              <li className='w-[70%]'>
+                <Accordion title='How to verify my account?'>
+                  <AccordingBodyList>
+                    <p>
+                      Yes, you can verify your account by following these steps:
+                    </p>
+                    <ul className='space-y-2 pt-2 pb-2'>
+                      <li>
+                        <b>1.</b> Go to Account Settings: Access your account
+                        settings from your profile.
+                      </li>
+                      <li>
+                        <b>2.</b> Select KYC Details: Navigate to the KYC (Know
+                        Your Customer) section.
+                      </li>
+                      <li>
+                        <b>3.</b> Upload Your ID: Provide a clear photo of a
+                        government-issued ID, such as a passport, driver’s
+                        license, or national ID card.{' '}
+                      </li>
+                      <li>
+                        <b>4.</b> Photo Verification: Submit a recent selfie or
+                        use the in-app photo verification tool to match your
+                        photo with the ID provided.
+                      </li>
+                    </ul>
+
+                    <p>
+                      Your documents will be reviewed, and you’ll receive a
+                      notification once the verification process is complete.
+                    </p>
+                  </AccordingBodyList>
+                </Accordion>
               </li>
-              <li className='w-[70%] h-[64px] border-[1px] border-[#ECECEC] rounded-[18px] flex justify-between pl-[20px] pr-[20px] items-center'>
-                <p>How can I manage my profile?</p>
-                <Image
-                  className={`opacity-50 transform origin-center transition duration-200 ease-out`}
-                  width={14}
-                  height={14}
-                  alt='plus'
-                  src={'/assests/animation/plus-img.png'}
-                />
+              <li className='w-[70%]'>
+                <Accordion title='What is the difference between dating, long term, and social profiles?'>
+                  <AccordingBodyList>
+                    <p>
+                      Dating profiles are geared toward users seeking casual or
+                      serious relationships.
+                      <br />
+                      Long Term profiles are for those looking for a lifelong
+                      partner. You can indicate your preference during the
+                      signup process or switch between them later in your
+                      profile settings.
+                      <br />
+                      Social Profiles are designed for those seeking friends,
+                      groups, and events. This feature helps you expand your
+                      social connections and build meaningful relationships.
+                    </p>
+                  </AccordingBodyList>
+                </Accordion>
               </li>
-              <li className='w-[70%] h-[64px] border-[1px] border-[#ECECEC] rounded-[18px] flex justify-between pl-[20px] pr-[20px] items-center'>
-                <p>Can I cancel the membership?</p>
-                <Image
-                  className={`opacity-50 transform origin-center transition duration-200 ease-out`}
-                  width={14}
-                  height={14}
-                  alt='plus'
-                  src={'/assests/animation/plus-img.png'}
-                />
+
+              <li className='w-[70%]'>
+                <Accordion title='What payment methods do you accept?'>
+                  <AccordingBodyList>
+                    <p>We accept a wide range of payment methods, including:</p>
+                    <ul className='space-y-2 pt-2 pb-2 '>
+                      <li>
+                        <b>1.</b> Credit/Debit Cards (Visa, MasterCard, American
+                        Express)
+                      </li>
+                      <li>
+                        <b>2.</b> Digital Wallets (PayPal, Google Pay, Apple
+                        Pay)
+                      </li>
+                      <li>
+                        <b>3.</b> Net Banking and UPI (for users in supported
+                        regions)
+                      </li>
+                      <li>
+                        <b>4.</b> Mobile Payments (where available)
+                      </li>
+                    </ul>
+                  </AccordingBodyList>
+                </Accordion>
               </li>
-              <li className='w-[70%] h-[64px] border-[1px] border-[#ECECEC] rounded-[18px] flex justify-between pl-[20px] pr-[20px] items-center'>
-                <p>Can I delete my account?</p>
-                <Image
-                  className={`opacity-50 transform origin-center transition duration-200 ease-out`}
-                  width={14}
-                  height={14}
-                  alt='plus'
-                  src={'/assests/animation/plus-img.png'}
-                />
+
+              <li className='w-[70%]'>
+                <Accordion title='What types of membership plans are available?'>
+                  <AccordingBodyList>
+                    <p>
+                      We offer various membership plans to cater to different
+                      needs:
+                    </p>
+                    <ul className='space-y-2 pt-2 pb-2'>
+                      <li className='flex space-x-2'>
+                        <span>
+                          <b>Silver :</b>
+                        </span>
+                        <p>
+                          Includes Send message unto 10 profile | Send requests
+                          up to 10 profiles | Online support available explore.
+                        </p>
+                      </li>
+                      <li className='flex space-x-2'>
+                        <span>
+                          <b>Gold Plan: </b>
+                        </span>
+                        <p>
+                          includes Send message unto 20 profile | Send requests
+                          up to 20 profiles | Online support available.
+                        </p>
+                      </li>
+                      <li className='flex space-x-2'>
+                        <span>
+                          <b>Platinum Plan:</b>
+                        </span>
+                        <p>
+                          includes Send message unto 30 profile | Send requests
+                          up to 30 profiles | Online support available.
+                        </p>
+                      </li>
+                    </ul>
+                  </AccordingBodyList>
+                </Accordion>
               </li>
             </ul>
             <div className='pt-[65px] text-center'>

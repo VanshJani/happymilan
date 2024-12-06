@@ -11,7 +11,13 @@ import {
   UPDATE_DISPLAY_NAME,
   UPDATE_DISPLAY_NAME_FAILURE,
   UPDATE_DISPLAY_NAME_SUCCESS,
-  UPDATE_DISPLAY_STATUS
+  UPDATE_DISPLAY_STATUS,
+  UPDATE_EMAIL_FIRST_STEP_FALIURE,
+  UPDATE_EMAIL_FIRST_STEP_REQUEST,
+  UPDATE_EMAIL_FIRST_STEP_SUCCESS,
+  UPDATE_EMAIL_SECOND_STEP_FALIURE,
+  UPDATE_EMAIL_SECOND_STEP_REQUEST,
+  UPDATE_EMAIL_SECOND_STEP_SUCCESS
 } from '../type'
 
 const initialState = {
@@ -41,6 +47,7 @@ const initialState = {
   },
   UpdateEmail: {
     loading: false,
+    success: '',
     error: null,
     step: 0
   }
@@ -180,6 +187,61 @@ const Userseting = (state = initialState, action) => {
         }
       }
     }
+    case UPDATE_EMAIL_FIRST_STEP_REQUEST: {
+      return {
+        ...state,
+        UpdateEmail: {
+          loading: true
+        }
+      }
+    }
+    case UPDATE_EMAIL_FIRST_STEP_SUCCESS: {
+      return {
+        ...state,
+        UpdateEmail: {
+          loading: false,
+          step: 1,
+          success: action.payload
+        }
+      }
+    }
+    case UPDATE_EMAIL_FIRST_STEP_FALIURE: {
+      return {
+        ...state,
+        UpdateEmail: {
+          loading: false,
+          error: action.payload
+        }
+      }
+    }
+
+    case UPDATE_EMAIL_SECOND_STEP_REQUEST: {
+      return {
+        ...state,
+        UpdateEmail: {
+          loading: true
+        }
+      }
+    }
+    case UPDATE_EMAIL_SECOND_STEP_SUCCESS: {
+      return {
+        ...state,
+        UpdateEmail: {
+          loading: false,
+          step: 2,
+          success: action.payload
+        }
+      }
+    }
+    case UPDATE_EMAIL_SECOND_STEP_FALIURE: {
+      return {
+        ...state,
+        UpdateEmail: {
+          loading: false,
+          error: action.payload
+        }
+      }
+    }
 
     default:
       return state
@@ -187,3 +249,12 @@ const Userseting = (state = initialState, action) => {
 }
 
 export default Userseting
+
+// FOR UPDATE EMAIL
+
+// STEP 1 - /v1/user/auth/forgot-password  -> add Email
+// STEP 2 - /v1/user/auth/reset-password - > add  data = JSON.stringify({
+//           email: ChnagedEmail.currentEmail,
+//           newMail: ChnagedEmail.NewEmail,
+//           otp: otpNumber
+//         })

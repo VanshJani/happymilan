@@ -70,7 +70,7 @@ function index () {
               <div className='relative md:top-0 top-[50px] 2xl:w-[715px] xl:w-[635px] lg:w-[650px] md:w-[635px] w-full m-[10px] space-x-[0px] md:space-x-0 flex justify-between'>
                 <h1 className='p-[5px] relative 2xl:left-[40px] lg:left-[10px] xl:left-[55px]'>
                   <span className='md:text-[16px] text-[14px]' style={Text5}>
-                    {loading ? 0 : `${data?.users[0]?.paginatedResults?.length} `}
+                    {loading ? 0 : `${data?.[0]?.paginatedResults?.length} `}
                   </span>{' '}
                   <span
                     className='text-[12px] md:text-[16px] text-[#000] dark:text-[#FFF]'
