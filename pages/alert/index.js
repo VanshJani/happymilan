@@ -31,6 +31,18 @@ const MultiSelect = ({ Section, formData, updateFormData }) => {
           hobbies: selectedValues
         }
       })
+    } else if (Section === 'partnerProfile') {
+      //   updateFormData({
+      //     partnerpref: {
+      //       ...formData,
+      //       hobbies: selectedValues
+      //     }
+      //   })
+
+      updateFormData(prevvalue => ({
+        ...prevvalue,
+        hobbies: selectedValues
+      }))
     } else {
       updateFormData({
         hobby: {

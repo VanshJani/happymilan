@@ -189,17 +189,18 @@ export const ResetSteps = () => {
 }
 
 
-export const ResendOTP = () => {
+export const ResendOTP = (email) => {
     return async (dispatch) => {
         dispatch({
             type: RESEND_OTP
         })
 
         const axios = require('axios');
-        const email = getCookie("email")
+        // const email = getCookie("email")
         let data = JSON.stringify({
             "email": email
         });
+        console.log("🚀 ~ return ~ data:", data)
 
         let config = {
             method: 'post',

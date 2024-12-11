@@ -140,21 +140,21 @@ const initialState = {
 
     partnerpref: {
       age: {
-        min: '',
-        max: ''
+        min: 0,
+        max: 0
       },
       height: {
-        min: '',
-        max: ''
+        min: 0,
+        max: 0
       },
-      income2: {
-        min: '',
-        max: ''
+      income: {
+        min: 0,
+        max: 0
       },
       country: [],
       state: [],
       city: [],
-      income: 0,
+      // income: 0,
       // creative: [],
       // fun: [],
       hobbies: [],

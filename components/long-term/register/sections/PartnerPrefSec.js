@@ -14,6 +14,7 @@ import {
 import { connect, useDispatch } from 'react-redux'
 import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle'
 import MultiSelect from '../../../../pages/alert'
+import { Slider } from '@mui/material'
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 
 function PartnerPrefSec ({ formData, updateFormData }) {
@@ -35,8 +36,9 @@ function PartnerPrefSec ({ formData, updateFormData }) {
     lineHeight: 'normal'
   }
 
-
   const dispatch = useDispatch()
+
+  const [income, Setincome] = useState([0,100])
 
   const handleInputChange = event => {
     const name = event.target.name
@@ -83,8 +85,20 @@ function PartnerPrefSec ({ formData, updateFormData }) {
         }
       })
     } else if (name == 'income') {
+      //   updateFormData({
+      //     partnerpref: { ...formData.partnerpref, [name]: value }
+      //   })
+      Setincome(value)
+
       updateFormData({
-        partnerpref: { ...formData.partnerpref, [name]: value }
+        partnerpref: {
+          ...formData.partnerpref,
+          income: {
+            ...formData.partnerpref.income,
+            min: value[0],
+            max: value[1]
+          }
+        }
       })
     } else {
       const values = value?.map(item => item.value)
@@ -209,7 +223,7 @@ function PartnerPrefSec ({ formData, updateFormData }) {
                 />
               </li>
               <li className='flex justify-between'>
-                <DynamicSelect
+                {/* <DynamicSelect
                   className='w-[300px]'
                   placeholder='Select Prefer income'
                   styles={LabelStyle}
@@ -220,7 +234,42 @@ function PartnerPrefSec ({ formData, updateFormData }) {
                       target: { name: 'income', value: selectedOption?.value }
                     })
                   }
-                />
+                /> */}
+                <div className='w-[300px] pl-2'>
+                  <h1>
+                    {income[0]}-{income[1]} Lacs
+                  </h1>
+                  <Slider
+                    sx={{
+                      '& .MuiSlider-track': {
+                        backgroundImage:
+                          'linear-gradient(103deg, #0F52BA -25.03%, #BA0FA9 137.92%)',
+                        height: '2px'
+                      },
+                      '& .MuiSlider-rail': {
+                        height: '1px'
+                      },
+                      '& .MuiSlider-thumb': {
+                        backgroundImage:
+                          'linear-gradient(103deg, #0F52BA -25.03%, #BA0FA9 137.92%)',
+                        height: '16px',
+                        width: '16px',
+                        '&:hover': {
+                          boxShadow: 'none' // Removes hover shadow
+                        },
+                        '&:focus': {
+                          boxShadow: 'none' // Removes focus shadow
+                        },
+                        '&:active': {
+                          boxShadow: 'none' // Removes active shadow
+                        }
+                      }
+                    }}
+                    name='income'
+                    value={income} // Use values from Redux
+                    onChange={handleInputChange}
+                  />
+                </div>
 
                 <DynamicSelect
                   className='w-[300px]'

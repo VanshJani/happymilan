@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateSpamUserdata } from '../../../../store/reducers/SpamReportReducer'
 import CancelRequestModal from '../../../../pages/_components/Model/Models/CancelRequestModal'
 
-function ProfileMenu ({ Credentials, res, Section, accepteddata }) {
+function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
   const { darkMode } = useDarkMode()
 
   const Text3 = {

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import {
-  fetchPartnerPrefdata,
+//   fetchPartnerPrefdata,
   updateMyPartnerPrefdata
 } from '../../../../../../store/reducers/MyProfile'
 import {
@@ -20,9 +20,9 @@ const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 const PartnerPreferenceTab = ({ formData, updateFormData }) => {
   const { darkMode } = useDarkMode()
   const disptach = useDispatch()
-  useEffect(() => {
-    disptach(fetchPartnerPrefdata())
-  }, [])
+//   useEffect(() => {
+//     disptach(fetchPartnerPrefdata())
+//   }, [])
 
   const { loading, data } = useSelector(
     state => state.myprofile.profileData.PartnerPrefData
@@ -192,113 +192,82 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
       // Hide the vertical line behind the arrow
     })
   }
-  const customStyles2 = {
-    control: (provided, state) => ({
-      ...provided,
-      paddingRight: '10px',
-      paddingLeft: '0px',
-      width: '100px',
-      height: '50px',
-      borderRadius: '0px',
-      borderBottom: '1px solid #000',
-      borderColor: 'none',
-      borderWidth: '0',
-      borderStyle: 'none',
-      backgroundColor: darkMode ? '#141516' : '#FFF',
-      outline: 'none', // Remove outline
-      boxShadow: state.isFocused ? 'none' : provided.boxShadow, // Remove blue line on focus
-      borderColor: 'transparent' // Remove default border color
-    }),
 
-    indicatorSeparator: provided => ({
-      ...provided,
-      display: 'none',
-      paddingRight: '20px'
-      // Hide the vertical line behind the arrow
-    })
-  }
-
-  const [income, setincome] = useState([0, 30])
+  const [income, setincome] = useState([
+    data?.income?.min || 0,
+    data?.income?.max || 10
+  ])
   const [agevalue, setagevalue] = useState([0, 30])
   const [heightvalue, setheightvalue] = useState([0, 30])
+
+  const [PrefData, SetPrefData] = useState({
+    age: {
+      min: 0,
+      max: 0
+    },
+    height: {
+      min: 0,
+      max: 0
+    },
+    income: {
+      min: 0,
+      max: 0
+    },
+    country: [],
+    state: [],
+    city: [],
+    // income: 0,
+    // creative: [],
+    // fun: [],
+    hobbies: [],
+    diet: []
+  })
 
   const handleInputChange = event => {
     const name = event.target.name
     const value = event.target.value
 
     if (name == 'height') {
-      updateFormData({
-        partnerpref: {
-          ...formData.partnerpref,
-          height: {
-            ...formData.partnerpref.height,
-            min: value[0],
-            max: value[1]
-          }
+      SetPrefData(prevValue => ({
+        ...prevValue,
+        height: {
+          ...prevValue.PrefData?.height,
+          min: value[0],
+          max: value[1]
         }
-      })
+      }))
 
       setheightvalue(value)
-      // } else if (name == 'heightmax') {
-      //   updateFormData({
-      //     partnerpref: {
-      //       ...formData.partnerpref,
-      //       height: {
-      //         ...formData.partnerpref.height,
-      //         max: value
-      //       }
-      //     }
-      //   })
     } else if (name == 'age') {
-      updateFormData({
-        partnerpref: {
-          ...formData.partnerpref,
-          age: {
-            ...formData.partnerpref.age,
-            min: value[0],
-            max: value[1]
-          }
+      SetPrefData(prevValue => ({
+        ...prevValue,
+        age: {
+          ...prevValue.PrefData?.age,
+          min: value[0],
+          max: value[1]
         }
-      })
+      }))
 
       setagevalue(value)
-
-      //   updateFormData({
-      //     partnerpref: {
-      //       ...formData.partnerpref,
-      //       age: {
-      //         ...formData.partnerpref.age,
-      //         min: value
-      //       }
-      //     }
-      //   })
-      // } else if (name == 'agemax') {
-      //   updateFormData({
-      //     partnerpref: {
-      //       ...formData.partnerpref,
-      //       age: {
-      //         ...formData.partnerpref.age,
-      //         max: value
-      //       }
-      //     }
-      //   })
     } else if (name == 'income') {
-      updateFormData({
-        partnerpref: {
-          ...formData.partnerpref,
-          income2: {
-            ...formData.partnerpref.income2,
-            min: value[0],
-            max: value[1]
-          }
+      SetPrefData(prevValue => ({
+        ...prevValue,
+        income: {
+          ...prevValue.PrefData?.income,
+          min: value[0],
+          max: value[1]
         }
-      })
-      setincome(value)
+      }))
 
-      console.log('🚀 ~ handleInputChange ~ value:', value)
+      setincome(value)
     } else {
       const values = value?.map(item => item.value)
-      disptach(updatePartnerPref(name, values))
+      //   disptach(updatePartnerPref(name, values))
+
+      SetPrefData(prevvalue => ({
+        ...prevvalue,
+        [name]: values
+      }))
     }
   }
 
@@ -307,9 +276,11 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
     disptach(
       updateMyPartnerPrefdata({
         partnerPrefId: data?.id,
-        UpdatedDataforPartnerPrefdata: partnerpref
+        UpdatedDataforPartnerPrefdata: PrefData
       })
     )
+
+    console.log(PrefData)
   }
 
   return (
@@ -388,37 +359,7 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                           </h1>
                         </li>
                       </ul>
-                      {/* <div className='flex flex-col md:flex-row justify-center 2xl:items-center xl:items-center lg:gap-y-0  gap-y-[10px] gap-x-[60px]'>
-                        <div className='flex items-center space-x-[10px]'>
-                          <DynamicSelect
-                            styles={customStyles2}
-                            options={options}
-                            placeholder='min'
-                            onChange={selectedOption =>
-                              handleInputChange({
-                                target: {
-                                  name: 'agemin',
-                                  value: selectedOption?.value
-                                }
-                              })
-                            }
-                          />
-                          <h1 style={labelText}>To</h1>
-                          <DynamicSelect
-                            styles={customStyles2}
-                            options={options}
-                            placeholder='max'
-                            onChange={selectedOption =>
-                              handleInputChange({
-                                target: {
-                                  name: 'agemax',
-                                  value: selectedOption?.value
-                                }
-                              })
-                            }
-                          />
-                        </div>
-                      </div> */}
+
                       <div className='w-full lg:w-[200px]'>
                         <Slider
                           sx={{
@@ -470,37 +411,6 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                           </h1>
                         </li>
                       </ul>
-                      {/* <div className='flex flex-col md:flex-row justify-center 2xl:items-center xl:items-center lg:gap-y-0  gap-y-[10px] gap-x-[60px]'>
-                        <div className='flex items-center space-x-[10px]'>
-                          <DynamicSelect
-                            styles={customStyles2}
-                            options={options}
-                            placeholder='min'
-                            onChange={selectedOption =>
-                              handleInputChange({
-                                target: {
-                                  name: 'heightmin',
-                                  value: selectedOption?.value
-                                }
-                              })
-                            }
-                          />
-                          <h1 style={labelText}>To</h1>
-                          <DynamicSelect
-                            styles={customStyles2}
-                            options={options}
-                            placeholder='max'
-                            onChange={selectedOption =>
-                              handleInputChange({
-                                target: {
-                                  name: 'heightmax',
-                                  value: selectedOption?.value
-                                }
-                              })
-                            }
-                          />
-                        </div>
-                      </div> */}
 
                       <div className='w-full lg:w-[200px]'>
                         <Slider
@@ -610,20 +520,6 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                           </li>
                         </ul>
 
-                        {/* <DynamicSelect
-                          options={incomeOptions}
-                          placeholder='Select..'
-                          styles={customStyles}
-                          onChange={selectedOption =>
-                            handleInputChange({
-                              target: {
-                                name: 'income',
-                                value: selectedOption?.value
-                              }
-                            })
-                          }
-                          isSearchable={true}
-                        /> */}
                         <Slider
                           sx={{
                             '& .MuiSlider-track': {
@@ -678,9 +574,9 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                           Prefer Hobbies
                         </h1>
                         <MultiSelect
-                          formData={formData}
-                          Section={'partner'}
-                          updateFormData={updateFormData}
+                          formData={PrefData}
+                          Section={'partnerProfile'}
+                          updateFormData={SetPrefData}
                         />
                       </div>
                     </div>
@@ -746,7 +642,6 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                           )
                         })}
                       </ul>
-                      {/* <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{data?.state.map((val)=>{return })}</h1> */}
                     </div>
                     <div>
                       <p
@@ -755,7 +650,6 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                       >
                         Prefer Country
                       </p>
-                      {/* <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>India, Australia,USA</h1> */}
                       <ul className='flex'>
                         {data?.country.map(val => {
                           return (
@@ -782,7 +676,7 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                         style={Text5}
                         className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'
                       >
-                        {data?.income}
+                        {data?.income?.min} - {data?.income?.max} lacs
                       </h1>
                     </div>
 

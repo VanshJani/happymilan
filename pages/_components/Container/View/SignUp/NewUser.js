@@ -112,6 +112,7 @@ function NewUser({ SetOtpBoxActive }) {
     const OTPTab = React.memo(() => {
 
         const [Email, SetEmail] = useState("")
+        console.log("🚀 ~ OTPTab ~ Email:", Email)
 
         const { step, message, loading } = useSelector((state) => state?.signUp)
 
@@ -210,7 +211,7 @@ function NewUser({ SetOtpBoxActive }) {
 
                     <div>
                         {isCounting ? <p style={ResendText}>Resend in <span className='text-[#000]'>{countdown}&nbsp;Sec.</span></p> :
-                            <p style={ResendCode} className='cursor-pointer' onClick={startCountdown}>Resend Code</p>}
+                            <p style={ResendCode} className='cursor-pointer' onClick={() => startCountdown(Email)} >Resend Code</p>}
 
                     </div>
 

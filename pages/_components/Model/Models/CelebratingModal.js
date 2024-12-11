@@ -149,7 +149,7 @@ function CelebratingModal ({ isOpen, onClose, title }) {
             <div className='flex justify-between  w-full items-center pl-[30px] pr-[30px]'>
               <div className='w-[50px]'>
                 <button onClick={handlePrev}>
-                  <span className='hover:underline underline-offset-2 duration-150'>
+                  <span className=' duration-200 hover:text-[#8225AF] '>
                     {currentContentIndex > 0 ? 'Prev' : ''}
                   </span>
                 </button>
@@ -167,7 +167,7 @@ function CelebratingModal ({ isOpen, onClose, title }) {
               </div>
               <div className='w-[50px]'>
                 <button onClick={handleNext}>
-                  <span className='duration-150 text-[custom-gradient-color]'>
+                  <span className='duration-200 hover:text-[#8225AF] '>
                     {currentContentIndex < ContentObj.length - 1 ? 'Next' : ''}
                   </span>
                 </button>

@@ -6,8 +6,9 @@ import { useDarkMode } from '../../../../ContextProvider/DarkModeContext'
 import ReportModal from '../../../../pages/_components/Model/Models/ReportModal'
 import { updateSpamUserdata } from '../../../../store/reducers/SpamReportReducer'
 import { useDispatch, useSelector } from 'react-redux'
+import BlockUserModal from '../../../../pages/_components/Model/Models/BlockModal'
 
-function UserPopover ({ Privacy, res }) {
+function UserPopover ({ Privacy, res, accepteddata }) {
   const { darkMode } = useDarkMode()
 
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -87,6 +88,20 @@ function UserPopover ({ Privacy, res }) {
     }, 1000)
   }
 
+  // Block Modal Section -- start
+
+  const [blockprofile, setblockprofile] = useState(false)
+  const [isBlockModalOpen, setisBlockModalOpen] = useState(false)
+
+  const openBlockModal = () => {
+    setisBlockModalOpen(true)
+  }
+  const closeBlockModal = () => {
+    setisBlockModalOpen(false)
+  }
+
+  // Block Modal Section -- End
+
   // Report Modal Section - Start
   // Manages the opening and closing of the report modal, and updates spam user data upon reporting
 
@@ -133,7 +148,10 @@ function UserPopover ({ Privacy, res }) {
             // onClick={HandleOpenShareModal}
             className='w-full p-[5px]  hover:bg-[#F2F7FF]  cursor-pointer flex  items-center space-x-[12px] text-[14px] mt-[12px]'
           >
-            <div className=' ml-[20px] flex space-x-[24px]'>
+            <div
+              onClick={openBlockModal}
+              className=' ml-[20px] flex space-x-[24px]'
+            >
               <Image
                 loading='lazy'
                 alt='block-icon'
@@ -162,7 +180,7 @@ function UserPopover ({ Privacy, res }) {
               <p>Report this profile</p>
             </div>
           </li>
-          <li
+          {/* <li
             style={Text3}
             // onClick={HandleOpenShareModal}
             className='w-full p-[5px]  hover:bg-[#F2F7FF]  cursor-pointer flex  items-center space-x-[12px] text-[14px] mt-[12px]'
@@ -177,7 +195,7 @@ function UserPopover ({ Privacy, res }) {
               />{' '}
               <p>Unfriend</p>
             </div>
-          </li>
+          </li> */}
         </>
       )
     }
@@ -271,22 +289,7 @@ function UserPopover ({ Privacy, res }) {
                           <p>Copy URL</p>
                         </div>
                       </li>
-                      <li
-                        style={Text3}
-                        // onClick={HandleOpenShareModal}
-                        className='w-full p-[5px]  hover:bg-[#F2F7FF]  cursor-pointer flex  items-center space-x-[12px] text-[14px] mt-[12px]'
-                      >
-                        <div className=' ml-[20px] flex space-x-[24px]'>
-                          <Image
-                            loading='lazy'
-                            alt='Download'
-                            width={14}
-                            height={14}
-                            src='/assests/Black/Download3.svg'
-                          />
-                          <p>Download Profile</p>
-                        </div>
-                      </li>
+
                       {RenderOptions()}
                     </ul>
                   </div>
@@ -306,6 +309,19 @@ function UserPopover ({ Privacy, res }) {
         ReportData={CurrURL}
       />
 
+      {/* For block Modal  */}
+
+      <BlockUserModal
+        isOpen={isBlockModalOpen}
+        onClose={closeBlockModal}
+        data={{
+          currUser: accepteddata?._id || accepteddata?.id,
+          OtherUser: accepteddata?.lastInitiatorUser,
+          status: 'blocked'
+        }}
+      />
+
+      {/* For block Modal  */}
       <React.Fragment>
         <Dialog
           open={openURLModal}
