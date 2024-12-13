@@ -133,7 +133,7 @@ const GeneralTab = () => {
     control: (provided, state) => ({
       ...provided,
       //   paddingRight: '10px',
-      //   paddingLeft: '-5px',
+    //   paddingLeft: '-115px',
       width: '300px',
       height: '50px',
       borderRadius: '0px',
@@ -145,11 +145,10 @@ const GeneralTab = () => {
       outline: 'none', // Remove outline
       boxShadow: state.isFocused ? 'none' : provided.boxShadow, // Remove blue line on focus
       borderColor: 'transparent' // Remove default border color
-      //   borderColor: state.isFocused ? 'black' : provided.borderColor,
-      //   '&:hover': {
-      //     borderColor: darkMode ? '#787878' : 'black'
-      //   },
-      //   boxShadow: state.isFocused ? 'none' : provided.boxShadow // Add padding on the right side
+    }),
+    valueContainer: provided => ({
+      ...provided,
+      paddingLeft: '0px' // Remove padding inside the container
     }),
 
     indicatorSeparator: provided => ({
@@ -295,7 +294,7 @@ const GeneralTab = () => {
                       type='text'
                       placeholder='First Name'
                       disabled
-                      className='text-[14px] dark:text-[#FFF] dark:bg-[#141516] dark:border-b-[#787878] outline-none focus:border-b-[1px] focus:border-b-[black] h-[50px] w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px] border-b-[1px] border-b-[#000] pl-[10px]'
+                      className='text-[14px] dark:text-[#FFF] dark:bg-[#141516] dark:border-b-[#787878] outline-none focus:border-b-[1px] focus:border-b-[black] h-[50px] w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px] border-b-[1px] border-b-[#000]'
                     />
                   </div>
 
@@ -321,7 +320,7 @@ const GeneralTab = () => {
                       onChange={handleInputChange}
                       type='date'
                       placeholder='First Name'
-                      className='dark:text-[#FFF] dark:bg-[#141516] dark:border-b-[#787878] outline-none focus:border-b-[1px] focus:border-b-[black] h-[50px] w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px] border-b-[1px] border-b-[#000] pl-[10px]'
+                      className='dark:text-[#FFF] dark:bg-[#141516] dark:border-b-[#787878] outline-none focus:border-b-[1px] focus:border-b-[black] h-[50px] w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px] border-b-[1px] border-b-[#000]'
                     />
                   </div>
                   <div>
@@ -350,7 +349,7 @@ const GeneralTab = () => {
                       Religion
                     </h1>
                     <DynamicSelect
-                      className='h-[50px] w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px] flex justify-end'
+                      className='h-[50px] w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px] flex pl-[-50px] justify-end'
                       styles={customStyles}
                       options={Religionoptions}
                       defaultValue={selectValue}
@@ -396,30 +395,7 @@ const GeneralTab = () => {
                   </div>
                 </div>
                 <div className='pt-[20px] flex justify-between space-x-[20px]'>
-                  {/* <div className='flex justify-between w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px]'> */}
-                  {/* <div>
-                      <h1
-                        className='dark:text-[#FFF] text-[#000] pb-[10px]'
-                        style={labelText}
-                      >
-                        Height
-                      </h1>
-
-                      <DynamicSelect
-                        className='h-[50px] w-[100px] 2xl:w-[120px] xl:w-[120px] lg:w-[100px] flex justify-end'
-                        styles={customStyles}
-                        options={heightoption}
-                        placeholder={data?.height ? data.height : 'Select'}
-                        onChange={selectedOption =>
-                          handleInputChange({
-                            target: {
-                              name: 'height',
-                              value: selectedOption?.value
-                            }
-                          })
-                        }
-                      />
-                    </div> */}
+               
                   <div className='w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px]'>
                     <div>
                       <ul className='flex justify-between'>
@@ -482,21 +458,6 @@ const GeneralTab = () => {
                         <li>{userdata?.weight}</li>
                       </ul>
                     </div>
-
-                    {/* <DynamicSelect
-                      className='h-[50px] w-[100px] 2xl:w-[120px] xl:w-[120px] lg:w-[100px] flex justify-end'
-                      placeholder={data?.weight ? data.weight : 'Select'}
-                      styles={customStyles}
-                      options={weightoption}
-                      onChange={selectedOption =>
-                        handleInputChange({
-                          target: {
-                            name: 'weight',
-                            value: selectedOption?.value
-                          }
-                        })
-                      }
-                    /> */}
 
                     <Slider
                       sx={{

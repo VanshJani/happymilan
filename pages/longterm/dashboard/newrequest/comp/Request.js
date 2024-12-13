@@ -27,15 +27,6 @@ import Link from 'next/link'
 function Request () {
   const { data, loading } = useSelector(state => state.usersact.requestdata)
 
-  const HandleShortlist = id => {
-    dispatch(addToShortlist(id)) // Dispatch the action with the shortlist ID
-
-    setshortlistText('Profile has been shortlisted')
-    setopenShortlistModal(true)
-    setTimeout(() => {
-      setopenShortlistModal(false)
-    }, 800)
-  }
 
   const BoldText = {
     color: '#000',
@@ -88,24 +79,24 @@ function Request () {
   const dispatch = useDispatch()
   const HanldeAccept = res => {
     dispatch(acceptRequest('long-term', res))
-    setshortlistText('Shortlisted has been removed')
+    setshortlistText('Request accepted')
     setopenShortlistModal(true)
     setTimeout(() => {
       setopenShortlistModal(false)
       dispatch(getFriendsList())
-    }, 800)
+    }, 900)
   }
 
   const HanldeReject = res => {
     console.log('🚀 ~ HanldeReject ~ res:', res)
     dispatch(rejectRequest('long-term', res))
 
-    setshortlistText('Shortlisted has been removed')
+    setshortlistText('Request cancelled')
     setopenShortlistModal(true)
     setTimeout(() => {
       setopenShortlistModal(false)
       dispatch(getFriendsList())
-    }, 800)
+    }, 900)
   }
 
   if (loading) {

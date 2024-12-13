@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import {
-//   fetchPartnerPrefdata,
+  //   fetchPartnerPrefdata,
   updateMyPartnerPrefdata
 } from '../../../../../../store/reducers/MyProfile'
 import {
@@ -20,9 +20,9 @@ const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 const PartnerPreferenceTab = ({ formData, updateFormData }) => {
   const { darkMode } = useDarkMode()
   const disptach = useDispatch()
-//   useEffect(() => {
-//     disptach(fetchPartnerPrefdata())
-//   }, [])
+  //   useEffect(() => {
+  //     disptach(fetchPartnerPrefdata())
+  //   }, [])
 
   const { loading, data } = useSelector(
     state => state.myprofile.profileData.PartnerPrefData
@@ -165,7 +165,7 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
     // Add more diet options as needed
   ]
 
-  const { partnerpref } = useSelector(state => state.form?.formData)
+  //   const { partnerpref } = useSelector(state => state.form?.formData)
 
   const customStyles = {
     control: (provided, state) => ({
@@ -184,7 +184,10 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
       boxShadow: state.isFocused ? 'none' : provided.boxShadow, // Remove blue line on focus
       borderColor: 'transparent' // Remove default border color
     }),
-
+    valueContainer: provided => ({
+      ...provided,
+      paddingLeft: '0px' // Remove padding inside the container
+    }),
     indicatorSeparator: provided => ({
       ...provided,
       display: 'none',
@@ -287,7 +290,7 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
     <>
       <div
         className={`w-full ${
-          showForm ? 'h-[900px]' : 'h-[400px]'
+          showForm ? 'h-[800px]' : 'h-[400px]'
         } border-[1px] border-[#F1F1F1] rounded-[10px] space-y-[20px]`}
       >
         <div className='pt-[10px] grid place-items-center'>
@@ -504,10 +507,10 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                         />
                       </div>
                       <div>
-                        <ul className='flex justify-between'>
+                        <ul className='flex justify-between pb-[10px]'>
                           <li>
                             <h1
-                              className='text-[#000] pb-[10px]'
+                              className='text-[#000]'
                               style={labelText}
                             >
                               Prefer Income
@@ -581,8 +584,12 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                       </div>
                     </div>
                   </div>
-                  <div className='w-[90%] flex justify-end pb-[10px] mt-[10px]'>
-                    <SaveButton onClick={SubmitChanges}>Save</SaveButton>
+                  <div className='w-[90%] flex justify-center pb-[10px] mt-[10px]'>
+                    <SaveButton 
+                     className={
+                        'rounded-[100px] text-[white] w-[194px] h-[50px]'
+                      }
+                    onClick={SubmitChanges}>Save Changes</SaveButton>
                   </div>
                 </div>
               </>

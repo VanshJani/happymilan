@@ -622,7 +622,7 @@ function SampleUserProfile() {
                 >
                     <div
                         style={{ padding: "17px 19px 17px 20px" }}
-                        className="bg-[#333333] w-[249px] rounded-[100px] text-center grid place-items-center"
+                        className="bg-[#333333] w-[full] rounded-[100px] text-center grid place-items-center"
                     >
                         <div className="text-[14px]" style={Urlmodaltext}>
                             <span className="text-[#fff]"> {shortlistText}</span>

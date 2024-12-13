@@ -61,7 +61,10 @@ function EducationTab () {
       borderColor: 'transparent', // Remove default border color
       boxShadow: state.isFocused ? 'none' : provided.boxShadow // Add padding on the right side
     }),
-
+    valueContainer: provided => ({
+      ...provided,
+      paddingLeft: '0px' // Remove padding inside the container
+    }),
     indicatorSeparator: provided => ({
       ...provided,
       display: 'none',
@@ -307,7 +310,7 @@ function EducationTab () {
                         'rounded-[100px] text-[white] w-[194px] h-[50px]'
                       }
                     >
-                      Save
+                      Save Changes
                     </SaveButton>
                   </div>
                 </div>

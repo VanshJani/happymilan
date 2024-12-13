@@ -59,7 +59,7 @@ function ShareModal({ isOpen, onClose, data, }) {
                   {"Share with Friends"}
                 </h1>
               </div>
-              <div>
+              <div className="hover:bg-[#EFF5FF] duration-200 cursor-pointer w-[30px] h-[30px] grid place-items-center rounded-full">
                 <Image
                   width={24}
                   height={24}

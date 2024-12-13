@@ -105,9 +105,9 @@ function HobbiesTab ({ formData, updateFormData }) {
           <>
             <div className='space-y-[20px] flex flex-col items-center justify-center'>
               <div className='w-[90%]'>
-                <h1 className='font-semibold' style={Text1}>
+                {/* <h1 className='font-semibold' style={Text1}>
                   Hobby
-                </h1>
+                </h1> */}
                 <div className='w-full mt-[10px]'>
                   <MultiSelect
                     formData={formData}
@@ -120,7 +120,7 @@ function HobbiesTab ({ formData, updateFormData }) {
                   onClick={SubmitChanges}
                   className={'rounded-[100px] text-[white] w-[194px] h-[50px]'}
                 >
-                  Save
+                  Save Changes
                 </SaveButton>
               </div>
             </div>

@@ -90,28 +90,32 @@ function ProfileComplete () {
 
   return (
     <>
-      <div
-        className='bg-[#FFF] dark:bg-[#242526] 2xl:mt-[-30px] xl:mt-[-25px] w-[300px] 2xl:w-[300px] xl:w-[280px] h-[250px]'
-        style={Box}
-      >
-        <div className='w-full h-full grid place-items-center'>
-          <div className='flex transition-transform duration-500'>
-            <Swiper
-              pagination={{ clickable: true }}
-              modules={[Pagination]}
-              className='mySwiper  w-[300px] 2xl:w-[300px] xl:w-[280px] h-[219px] '
-            >
-              {data?.missingFields?.map((res, index) => {
-                return (
-                  <SwiperSlide key={index}>
-                    <MissingFieldsUI res={res} />
-                  </SwiperSlide>
-                )
-              })}
-            </Swiper>
+      {data?.missingFields.length > 1 ? (
+        <div
+          className='bg-[#FFF] dark:bg-[#242526] 2xl:mt-[-30px] xl:mt-[-25px] w-[300px] 2xl:w-[300px] xl:w-[280px] h-[250px]'
+          style={Box}
+        >
+          <div className='w-full h-full grid place-items-center'>
+            <div className='flex transition-transform duration-500'>
+              <Swiper
+                pagination={{ clickable: true }}
+                modules={[Pagination]}
+                className='mySwiper  w-[300px] 2xl:w-[300px] xl:w-[280px] h-[219px] '
+              >
+                {data?.missingFields?.map((res, index) => {
+                  return (
+                    <SwiperSlide key={index}>
+                      <MissingFieldsUI res={res} />
+                    </SwiperSlide>
+                  )
+                })}
+              </Swiper>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        ''
+      )}
     </>
   )
 }

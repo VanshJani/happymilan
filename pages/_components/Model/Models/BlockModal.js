@@ -71,7 +71,7 @@ function BlockModal({ isOpen, onClose, data, title }) {
             <button onClick={HandleBlockUser} name={1} id="grad-button" className="rounded-[23px] w-[122px] h-[50px]">Yes</button>
           </div>
           <div className="relative left-[-10px]">
-            <button onClick={HandleBlockUser} name={0} className="border-[black] border-[1px] rounded-[23px] w-[122px] h-[50px]">No</button>
+            <button onClick={HandleBlockUser} name={0} className="hover:bg-[#EFF5FF] duration-200 border-[black] border-[1px] rounded-[23px] w-[122px] h-[50px]">No</button>
           </div>
         </div>
       </Dialog>

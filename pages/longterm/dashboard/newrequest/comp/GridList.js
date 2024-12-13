@@ -202,7 +202,7 @@ function GridList() {
     const HanldeAccept = (res) => {
 
         dispatch(acceptRequest("long-term", res))
-        setshortlistText("Shortlisted has been removed")
+        setshortlistText("Request accepted")
         setopenShortlistModal(true)
         setTimeout(() => {
             setopenShortlistModal(false);
@@ -215,7 +215,7 @@ function GridList() {
     const HanldeReject = (res) => {
         dispatch(rejectRequest("long-term", res));
 
-        setshortlistText("Shortlisted has been removed")
+        setshortlistText("Request cancelled")
         setopenShortlistModal(true)
         setTimeout(() => {
             setopenShortlistModal(false);
