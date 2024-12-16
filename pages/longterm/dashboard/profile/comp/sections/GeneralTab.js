@@ -372,7 +372,7 @@ const GeneralTab = () => {
                       value={birthTime}
                       type='time'
                       placeholder='First Name'
-                      className='dark:text-[#FFF] dark:bg-[#141516] dark:border-[#787878] outline-none focus:border-[1px] focus:border-[black] h-[50px] w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px] border-[1px] border-[#e6e6e6] pl-[10px] rounded-[8px] '
+                      className='dark:text-[#FFF] dark:bg-[#141516] dark:border-b-[#787878] outline-none focus:border-b-[1px] focus:border-b-[black] h-[50px] w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px] border-b-[1px] border-b-[#000] pl-[10px]'
                     />
                   </div>
                 </div>
@@ -742,7 +742,10 @@ const GeneralTab = () => {
               </div>
             </div>
             <div className='text-center space-x-[21px]'>
-              <button onClick={handleClose} className='w-[125px] h-[49px] text-[14px] rounded-[24.5px] border-[1px] hover:bg-[#EFF5FF] duration-200 border-[black]'>
+              <button
+                onClick={handleClose}
+                className='w-[125px] h-[49px] text-[14px] rounded-[24.5px] border-[1px] hover:bg-[#EFF5FF] duration-200 border-[black]'
+              >
                 Not Now
               </button>
               <button
