@@ -106,63 +106,6 @@ function SentRequest () {
     []
   )
 
-  //   const dispatch = useDispatch()
-  //   const { userData, totalPages, status, loading } = useSelector(
-  //     state => state.getsentrequestdata
-  //   )
-
-  //   const [currentPage, setCurrentPage] = useState(1)
-  //   const [users, setUsers] = useState([]) // Store combined users here
-  //   const [loadingMore, setLoadingMore] = useState(false) // Track if loading more data
-
-  //   const observerRef = useRef(null) // Reference for the observer target
-
-  //   useEffect(() => {
-  //     if (userData) {
-  //       if (currentPage === 1) {
-  //         // On the first page, replace users
-  //         setUsers(userData)
-  //       } else {
-  //         // On subsequent pages, append users
-  //         setUsers(prevUsers => [...prevUsers, ...userData])
-  //       }
-  //       setLoadingMore(false) // Stop loading after data is appended
-  //     }
-  //   }, [userData, currentPage])
-
-  //   const loadMoreData = () => {
-  //     if (currentPage < totalPages && !loadingMore) {
-  //       setLoadingMore(true) // Start loading more
-  //       const nextPage = currentPage + 1
-  //       setCurrentPage(nextPage) // Increment the current page
-  //       // dispatch(userDatas({ page: nextPage })); // Fetch the next page
-  //       fetchFriends('ListView', { currentPage: nextPage })
-  //     }
-  //   }
-
-  //   // Intersection Observer to trigger loadMoreData
-  //   useEffect(() => {
-  //     if (observerRef.current) {
-  //       console.log('Observer Target:', observerRef.current)
-  //       const observer = new IntersectionObserver(
-  //         entries => {
-  //           if (entries[0].isIntersecting && !loadingMore) {
-  //             loadMoreData()
-  //           }
-  //         },
-  //         { threshold: 1.0 }
-  //       )
-
-  //       observer.observe(observerRef.current)
-
-  //       return () => observer.disconnect() // Cleanup observer
-  //     }
-  //   }, [observerRef, loadingMore, currentPage, totalPages])
-
-  //   useEffect(() => {
-  //     // Initial fetch
-  //     dispatch(fetchFriends('ListView', { currentPage: currentPage }))
-  //   }, [dispatch])
 
   const dispatch = useDispatch()
   const { userData, totalPages, loading } = useSelector(
@@ -170,32 +113,8 @@ function SentRequest () {
   )
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [users, setUsers] = useState([]) // Store all users in this state
-  const [loadingMore, setLoadingMore] = useState(false)
-  const observerRef = useRef(null)
-
+  const [users, setUsers] = useState(userData || []) // Store all users in this state
   // Update the users array when userData changes
-  useEffect(() => {
-    if (userData) {
-      console.log('🚀 ~ useEffect ~ userData:', userData)
-
-      setUsers(prevUsers =>
-        currentPage === 1
-          ? userData // For the first page, replace users with userData
-          : [
-              ...prevUsers,
-              ...userData.filter(
-                user =>
-                  !prevUsers.some(
-                    prev => (prev.id || prev?._id) === (user.id || user?._id)
-                  ) // Compare IDs for duplicates
-              )
-            ]
-      )
-
-      setLoadingMore(false) // Reset loading state after data fetch
-    }
-  }, [userData, currentPage])
 
   // Function to load more data when scrolling to bottom
   const loadMoreData = () => {
@@ -208,30 +127,11 @@ function SentRequest () {
   useEffect(() => {
     if (currentPage === 1) {
       dispatch(fetchFriends('ListView', { currentPage: 1 }))
-      console.log('First API call...')
     }
   }, [dispatch, currentPage])
 
-  // Handle infinite scroll
-  const HandleInfinitScroll = async () => {
-    // Check if we've reached the bottom of the page
-    try {
-      if (
-        window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight
-      ) {
-        loadMoreData() // Trigger load more data
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  
 
-  useEffect(() => {
-    // Debounce or throttle the scroll event listener to optimize performance
-    window.addEventListener('scroll', HandleInfinitScroll)
-    return () => window.removeEventListener('scroll', HandleInfinitScroll)
-  }, [])
 
   if (loading && currentPage == 1) {
     return (
@@ -245,7 +145,7 @@ function SentRequest () {
     <>
       <div className=''>
         <div className='flex flex-col'>
-          {users?.map((res, index) => {
+          {userData?.map((res, index) => {
             return (
               <>
                 <div

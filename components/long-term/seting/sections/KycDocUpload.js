@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 const DynamicSelect = dynamic(() => import("react-select"), { ssr: false });
 
 
-function KycDocUpload() {
+function KycDocUpload({Profile}) {
     const dispatch = useDispatch();
 
 
@@ -127,7 +127,8 @@ function KycDocUpload() {
     return (
         <>
 
-            <li className='flex space-x-[65px] items-center space-y-[9px]'>
+            <li className={`flex ${Profile ? "space-x-[30px]" : "space-x-[65px]"}  items-center space-y-[9px]`}>
+            {/* <li className='flex space-x-[65px] items-center space-y-[9px]'> */}
                 <div>
                     <DynamicSelect
                         className="w-[100%] h-[50px] xl:h-[50px]  mt-[10px]  text-[16px] placeholder:text-[black]"

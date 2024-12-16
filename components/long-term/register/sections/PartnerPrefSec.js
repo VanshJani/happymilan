@@ -12,7 +12,7 @@ import {
   updatePartnerPref
 } from '../../../../store/actions/registerUser'
 import { connect, useDispatch } from 'react-redux'
-import { LabelStyle } from '../../../../utils/options/styles/SelectBoxStyle'
+import { LabelStyle, LabelStyle2 } from '../../../../utils/options/styles/SelectBoxStyle'
 import MultiSelect from '../../../../pages/alert'
 import { Slider } from '@mui/material'
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
@@ -36,9 +36,22 @@ function PartnerPrefSec ({ formData, updateFormData }) {
     lineHeight: 'normal'
   }
 
+  const Hobbyoptions = [
+    { value: 'reading', label: 'Reading' },
+    { value: 'traveling', label: 'Traveling' },
+    { value: 'cooking', label: 'Cooking' },
+    { value: 'sports', label: 'Sports' },
+    { value: 'music', label: 'Music' },
+    { value: 'gaming', label: 'Gaming' },
+    { value: 'photography', label: 'Photography' },
+    { value: 'art', label: 'Art' },
+    { value: 'gardening', label: 'Gardening' },
+    { value: 'dancing', label: 'Dancing' }
+  ]
+
   const dispatch = useDispatch()
 
-  const [income, Setincome] = useState([0,100])
+  const [income, Setincome] = useState([0, 100])
 
   const handleInputChange = event => {
     const name = event.target.name
@@ -54,7 +67,14 @@ function PartnerPrefSec ({ formData, updateFormData }) {
           }
         }
       })
-    } else if (name == 'heightmax') {
+    } else if (name === "hobbies"){
+        updateFormData({
+            partnerpref: {
+              ...formData.partnerpref,
+              hobbies: value
+            }
+          })
+    }else if (name == 'heightmax') {
       updateFormData({
         partnerpref: {
           ...formData.partnerpref,
@@ -286,10 +306,28 @@ function PartnerPrefSec ({ formData, updateFormData }) {
                 />
               </li>
               <li>
-                <MultiSelect
+                {/* <MultiSelect
                   Section={'partner'}
                   formData={formData}
                   updateFormData={updateFormData}
+                /> */}
+                <DynamicSelect
+                  className='w-[630px]'
+                  placeholder='Select Prefer Diet'
+                  styles={LabelStyle2}
+                  options={Hobbyoptions}
+                //   styles={LabelStyle2}
+                  closeMenuOnSelect={false}
+                  //   menuPortalTarget={document.body} // Append to body to ensure it overlays
+                  //   menuPosition='fixed' // Prevents issues with overflow
+                  menuPlacement='auto' // Positions the dropdown based on available space
+                  onChange={selectedOption =>
+                    handleInputChange({
+                      target: { name: 'hobbies', value: selectedOption }
+                    })
+                  }
+                  isSearchable={true}
+                  isMulti
                 />
               </li>
             </ul>

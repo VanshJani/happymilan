@@ -131,12 +131,12 @@ function HobbiesTab ({ formData, updateFormData }) {
               <div className='grid place-items-center w-[90%] h-[1px] bg-[#F1F1F1]'></div>
             </div>
             <div className='relative left-8'>
-              <ul className='flex space-x-[15px]'>
+              <ul className='flex flex-wrap  gap-3'>
                 {data?.hobbies?.map((res, index) => {
                   return (
                     <li
                       key={index}
-                      className='p-[10px] pl-[15px] pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]'
+                      className='p-[10px] pl-[15px] inline-block pr-[15px] rounded-full bg-[#F2F2F2] text-[#000]'
                       style={HobbyValue}
                     >
                       {capitalizeFirstLetter(res)}

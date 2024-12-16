@@ -16,7 +16,9 @@ import { getFormattedTime } from '../../../../../../utils/helpers/getFormattedTi
 import { getFormattedDate } from '../../../../../../utils/helpers/GetFormatedDate'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDarkMode } from '../../../../../../ContextProvider/DarkModeContext'
-import { Slider } from '@mui/material'
+import { Box, Button, Slider } from '@mui/material'
+import CustomModal from '../../../../../../components/common/Models/CustomModals'
+import KycDocUpload from '../../../../../../components/long-term/seting/sections/KycDocUpload'
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 
 const GeneralTab = () => {
@@ -25,6 +27,11 @@ const GeneralTab = () => {
   const { darkMode, toggleDarkMode } = useDarkMode()
 
   const dispatch = useDispatch()
+
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   const [userdata, setuserdata] = useState({
     caste: data?.caste && data?.caste,
@@ -129,11 +136,37 @@ const GeneralTab = () => {
     fontFamily: 'Poppins'
   }
 
+  const InputTexts = {
+    color: '#858585',
+    fontFamily: 'Poppins',
+    // fontSize: '14px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal'
+  }
+
+  const InputText2 = {
+    color: '#000',
+    fontFamily: 'Poppins',
+    fontSize: '16px',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: 'normal'
+  }
+  const ModalTitle = {
+    color: '#000',
+    fontFamily: 'Poppins',
+    fontSize: '20px',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 'normal'
+  }
+
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
       //   paddingRight: '10px',
-    //   paddingLeft: '-115px',
+      //   paddingLeft: '-115px',
       width: '300px',
       height: '50px',
       borderRadius: '0px',
@@ -300,7 +333,10 @@ const GeneralTab = () => {
 
                   <div className='w-full h-full grid place-items-center'>
                     <div className='relative top-3'>
-                      <button className='border-[1px] border-[#8225AF] rounded-[23px] w-[278px] h-[50px]'>
+                      <button
+                        onClick={handleOpen}
+                        className='border-[1px] border-[#8225AF] hover:bg-[#EFF5FF] duration-200 rounded-[23px] w-[278px] h-[50px]'
+                      >
                         Change Name Request
                       </button>
                     </div>
@@ -395,7 +431,6 @@ const GeneralTab = () => {
                   </div>
                 </div>
                 <div className='pt-[20px] flex justify-between space-x-[20px]'>
-               
                   <div className='w-[280px] 2xl:w-[270px] xl:w-[235px] lg:w-[300px]'>
                     <div>
                       <ul className='flex justify-between'>
@@ -655,6 +690,77 @@ const GeneralTab = () => {
           </>
         )}
       </div>
+
+      <CustomModal
+        open={open}
+        onClose={handleClose}
+        // title='Change Name Request'
+      >
+        <div className='w-[595px]'>
+          <div className='space-y-12'>
+            <div className='relative left-[43px]'>
+              <h1 style={ModalTitle}>Change Name Request</h1>
+            </div>
+            <div className='space-y-7'>
+              <ul className='flex justify-evenly'>
+                <li>
+                  <div className='space-y-2'>
+                    <p
+                      className='relative left-1 text-[14px]'
+                      style={InputTexts}
+                    >
+                      New First Name
+                    </p>
+                    <span className='relative left-1 bottom-1'>-</span>
+                    <input className='pl-4 pt-1 pb-2 w-[232px] border-b-[1px] border-b-[black] outline-none' />
+                  </div>
+                </li>
+                <li>
+                  <div className='space-y-2'>
+                    <p
+                      className='relative left-1 text-[14px]'
+                      style={InputTexts}
+                    >
+                      New Last Name
+                    </p>
+                    <span className='relative left-1 bottom-1'>-</span>
+                    <input className='pl-4 pt-1 pb-2 w-[232px] border-b-[1px] border-b-[black] outline-none' />
+                  </div>
+                </li>
+              </ul>
+
+              <div className='space-y-7 relative left-[43px]'>
+                <div className='space-y-2'>
+                  <h1 style={InputText2}>Upload ID</h1>
+                  <p style={InputTexts} className='text-[12px]'>
+                    Please upload Government issued ID as per your new name
+                  </p>
+                </div>
+                <div className='relative'>
+                  <KycDocUpload Profile={true} />
+                </div>
+              </div>
+            </div>
+            <div className='text-center space-x-[21px]'>
+              <button onClick={handleClose} className='w-[125px] h-[49px] text-[14px] rounded-[24.5px] border-[1px] hover:bg-[#EFF5FF] duration-200 border-[black]'>
+                Not Now
+              </button>
+              <button
+                className='w-[125px] h-[49px] rounded-[24.5px] text-[14px]'
+                id='grad-button'
+              >
+                Send Request
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
+          <Button variant='contained' color='error' onClick={handleClose}>
+            Close
+          </Button>
+        </Box> */}
+      </CustomModal>
     </>
   )
 }

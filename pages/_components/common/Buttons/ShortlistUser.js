@@ -68,12 +68,12 @@ function ShortlistUser ({ UserId, alreadyshortlist }) {
   return (
     <>
       <div
-        className='mr-[6px]'
+        className='mr-[6px] '
         onMouseEnter={() => sethovericon(true)}
         onMouseLeave={() => sethovericon(false)}
       >
         {/* <div className='w-[25px] h-[25px] border-[1px] border-[black] grid place-items-center rounded-full  hover:bg-[#F2F7FF] dark:hover:bg-[#383838]'> */}
-
+<div>
         <Image
           loading='lazy'
           onClick={HandleShortlist}
@@ -88,6 +88,7 @@ function ShortlistUser ({ UserId, alreadyshortlist }) {
               : '/assests/Black/Stars-2.svg'
           }
         />
+        </div>
       </div>
       <React.Fragment>
         <Dialog
