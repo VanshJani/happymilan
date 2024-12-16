@@ -91,7 +91,7 @@ function ProfileComplete () {
 
   return (
     <>
-      {data?.missingFields.length > 1 ? (
+      {data?.length > 1 ? (
         <div
           className='bg-[#FFF] dark:bg-[#242526] 2xl:mt-[-30px] xl:mt-[-25px] w-[300px] 2xl:w-[300px] xl:w-[280px] h-[250px]'
           style={Box}
@@ -103,7 +103,7 @@ function ProfileComplete () {
                 modules={[Pagination]}
                 className='mySwiper  w-[300px] 2xl:w-[300px] xl:w-[280px] h-[219px] '
               >
-                {data?.missingFields?.map((res, index) => {
+                {data?.map((res, index) => {
                   return (
                     <SwiperSlide key={index}>
                       <MissingFieldsUI res={res} />

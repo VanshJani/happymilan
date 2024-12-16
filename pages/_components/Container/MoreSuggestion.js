@@ -123,7 +123,7 @@ function MoreSuggestion () {
   return (
     <div
       className={`${
-        ProfileData?.missingFields.length > 1 ? '' : ' relative top-[-25px]'
+        ProfileData?.length > 1 ? '' : ' relative top-[-25px]'
       } p-[20px] 2xl:w-[300px] xl:w-[280px] h-full bg-[#FFF] dark:bg-[#242526]`}
       style={RequestBox}
     >
