@@ -1,22 +1,41 @@
 import { getCookie } from 'cookies-next'
 import {
   ADD_SUCCESS_STORIES_IMAGES,
+  CREATE_LIKE_FAIL,
+  CREATE_LIKE_REQUEST,
+  CREATE_LIKE_SUCCESS,
+  DISLIKE_STORY_FAIL,
+  DISLIKE_STORY_REQUEST,
+  DISLIKE_STORY_SUCCESS,
+  FETCH_IS_LIKE_FAIL,
+  FETCH_IS_LIKE_REQUEST,
+  FETCH_IS_LIKE_SUCCESS,
   FETCH_SUCCESS_STORIES_FAILURE,
   FETCH_SUCCESS_STORIES_FAILURE_BY_ID,
   FETCH_SUCCESS_STORIES_REQUEST,
   FETCH_SUCCESS_STORIES_REQUEST_BY_ID,
   FETCH_SUCCESS_STORIES_SUCCESS,
   FETCH_SUCCESS_STORIES_SUCCESS_BY_ID,
+  GET_LIKES_FAIL,
+  GET_LIKES_REQUEST,
+  GET_LIKES_SUCCESS,
   GET_STORY_VIEWS_DETAILS,
   GET_STORY_VIEWS_DETAILS_FAILURE,
   GET_STORY_VIEWS_DETAILS_SUCCESS,
+  STORY_VIEW_FAIL,
+  STORY_VIEW_REQUEST,
+  STORY_VIEW_SUCCESS,
   SUCCESS_STORIES_FAILURE,
   SUCCESS_STORIES_REQUEST,
   SUCCESS_STORIES_SUCCESS,
+  TOTAL_READ_COUNT_FAIL,
+  TOTAL_READ_COUNT_REQUEST,
+  TOTAL_READ_COUNT_SUCCESS,
   VIEW_STORY_POST,
   VIEW_STORY_POST_FAILURE,
   VIEW_STORY_POST_SUCCESS
 } from '../type'
+import axios from 'axios'
 
 export const ViewstoryPost = Viewrdata => {
   return async dispatch => {
@@ -266,3 +285,328 @@ export const FetchSuccessStoriesByID = StoryID => {
       })
   }
 }
+
+// Action Creator
+export const readStory = storyId => {
+  return async (dispatch, getState) => {
+    try {
+      // Dispatching the loading action
+      dispatch({ type: STORY_VIEW_REQUEST })
+      const authToken = getCookie('authtoken')
+      const ViewerID = getCookie('userid')
+
+      // Preparing the request data
+      const data = JSON.stringify({
+        storyId: storyId,
+        viewerId: ViewerID // Replace this with dynamic viewerId if required
+      })
+
+      // Axios configuration
+      const config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/success-story-View/create-view`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}` // Use dynamic token if required
+        },
+        data: data
+      }
+
+      // API request
+      const response = await axios.request(config)
+
+      // Dispatch success action with response data
+      dispatch({
+        type: STORY_VIEW_SUCCESS,
+        payload: response.data
+      })
+
+      console.log('Story viewed successfully:', response.data)
+    } catch (error) {
+      console.error('Error while viewing story:', error)
+
+      // Dispatch fail action with error message
+      dispatch({
+        type: STORY_VIEW_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      })
+    }
+  }
+}
+
+// Action Creator
+export const getTotalReadCounts = storyId => {
+  return async dispatch => {
+    try {
+      // Dispatch loading action
+      dispatch({ type: TOTAL_READ_COUNT_REQUEST })
+
+      const authToken = getCookie('authtoken')
+
+      // Axios configuration
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/success-story-View/paginated-all/${storyId}`,
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      }
+
+      // API request
+      const response = await axios.request(config)
+
+      // Dispatch success action with data
+      dispatch({
+        type: TOTAL_READ_COUNT_SUCCESS,
+        payload: response.data?.data?.totalResults
+      })
+
+      //   console.log('Total Read Counts:', response.data?.data.results)
+    } catch (error) {
+      console.error('Error fetching total read counts:', error)
+
+      // Dispatch fail action with error message
+      dispatch({
+        type: TOTAL_READ_COUNT_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      })
+    }
+  }
+}
+
+// Action Creator for Check Is Like
+export const FetchIsLike = storyId => {
+  return async dispatch => {
+    try {
+      // Dispatch loading state
+      dispatch({ type: FETCH_IS_LIKE_REQUEST })
+
+      const authToken = getCookie('authtoken')
+
+      // Axios Configuration
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/story-Like/get-like-story/${storyId}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`
+        }
+      }
+
+      // API Request
+      const response = await axios.request(config)
+
+      // Dispatch success action with response data
+      dispatch({
+        type: FETCH_IS_LIKE_SUCCESS,
+        payload: {
+          isLike: response?.data?.data[0]?.isLike || false,
+          LikeID: response?.data?.data[0]?.id
+        }
+      })
+
+      console.log('Is Like Fetched Successfully:', response.data)
+    } catch (error) {
+      console.error('Error Fetching Is Like:', error)
+
+      // Dispatch fail action with error message
+      dispatch({
+        type: FETCH_IS_LIKE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      })
+    }
+  }
+}
+
+// Action Creator for Getting Tota Likes Count
+
+export const getTotalLikes = storyId => {
+  return async dispatch => {
+    try {
+      // Dispatch loading state
+      dispatch({ type: GET_LIKES_REQUEST })
+
+      const authToken = getCookie('authtoken')
+
+      // Axios Configuration
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/story-Like/get-likes-paginated/${storyId}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`
+        }
+      }
+
+      // API Request
+      const response = await axios.request(config)
+
+      // Dispatch success action with response data
+      dispatch({
+        type: GET_LIKES_SUCCESS,
+        payload: response.data?.data?.totalResults
+      })
+
+      console.log('Total Likes Fetched Successfully:', response.data)
+    } catch (error) {
+      console.error('Error Fetching Total Likes:', error)
+
+      // Dispatch fail action with error message
+      dispatch({
+        type: GET_LIKES_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      })
+    }
+  }
+}
+
+// Action Creator for Creating Like
+export const createLike = (storyId, isLike = true) => {
+  return async dispatch => {
+    try {
+      // Dispatch loading state
+      dispatch({ type: CREATE_LIKE_REQUEST })
+
+      const authToken = getCookie('authtoken')
+
+      // Prepare payload
+      const data = JSON.stringify({
+        storyId: storyId,
+        isLike: isLike
+      })
+
+      // Axios Configuration
+      const config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/story-Like/create-like`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`
+        },
+        data: data
+      }
+
+      // API Request
+      const response = await axios.request(config)
+
+      // Dispatch success action with response data
+      dispatch({
+        type: CREATE_LIKE_SUCCESS
+        // payload: response.data
+      })
+
+      dispatch(getTotalLikes(storyId))
+      dispatch(FetchIsLike(storyId))
+
+      console.log('Like Created Successfully:', response.data)
+    } catch (error) {
+      console.error('Error Creating Like:', error)
+
+      // Dispatch fail action with error message
+      dispatch({
+        type: CREATE_LIKE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      })
+    }
+  }
+}
+
+// Action Creator for Creating Like
+export const DislikeStory = (storyId, LikeID, isLike = false) => {
+  return async dispatch => {
+    try {
+      // Dispatch loading state
+      dispatch({ type: DISLIKE_STORY_REQUEST })
+
+      const authToken = getCookie('authtoken')
+
+      // Prepare payload
+      const data = JSON.stringify({
+        storyId: storyId,
+        isLike: isLike
+      })
+
+      // Axios Configuration
+      const config = {
+        method: 'put',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/story-Like/update-like/${LikeID}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`
+        },
+        data: data
+      }
+
+      // API Request
+      const response = await axios.request(config)
+
+      // Dispatch success action with response data
+      dispatch({
+        type: DISLIKE_STORY_SUCCESS
+        // payload: response.data
+      })
+
+      dispatch(getTotalLikes(storyId))
+      dispatch(FetchIsLike(storyId))
+
+      console.log('Like Created Successfully:', response.data)
+    } catch (error) {
+      console.error('Error Creating Like:', error)
+
+      // Dispatch fail action with error message
+      dispatch({
+        type: DISLIKE_STORY_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+      })
+    }
+  }
+}
+
+// const axios = require('axios');
+// let data = JSON.stringify({
+//   "storyId": "671b60590c041f6c403f2842",
+//   "isLike": false
+// });
+
+// let config = {
+//   method: 'put',
+//   maxBodyLength: Infinity,
+//   url: 'https://stag.mntech.website/api/v1/user/story-Like/update-like/676015c4cefe85a671db485b',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NzU4NmFiMTVhOGRiMmE0ZGI1YWIyMGMiLCJpYXQiOjE3MzM4NDc4OTcsImV4cCI6MTczNjQzOTg5N30.4WOFIzFe9TXBHTTjBe3k3b12usW-tGJvLZWrmRhAg7M'
+//   },
+//   data : data
+// };
+
+// axios.request(config)
+// .then((response) => {
+//   console.log(JSON.stringify(response.data));
+// })
+// .catch((error) => {
+//   console.log(error);
+// });

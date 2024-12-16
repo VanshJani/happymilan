@@ -8,6 +8,7 @@ import Accordion from '../../../components/common/Features/Accordion'
 import GlobalFooter from '../layout/GlobalFooter'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 function NewLand () {
   const [isVisible, setIsVisible] = useState(false)
@@ -34,6 +35,11 @@ function NewLand () {
       top: 0,
       behavior: 'smooth'
     })
+  }
+
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
   }
 
   const GradientTextLi = styled.li`
@@ -526,7 +532,20 @@ function NewLand () {
                   </li>
                 </ul>
               </div>
-              <div>
+              <motion.div
+                variants={variants}
+                initial='hidden'
+                animate='visible'
+                transition={{
+                  delay: 1,
+                  duration: 0.8,
+                  ease: 'easeInOut'
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.5
+                }}
+              >
                 <Image
                   width={0}
                   height={0}
@@ -535,7 +554,7 @@ function NewLand () {
                   src={'/heroSec/assests/chat-img-1.svg'}
                   className='2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px]'
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
 

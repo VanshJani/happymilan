@@ -24,9 +24,9 @@ function ProfileImagesViewer ({ Privacy, Section, details }) {
     if (Section === 'long-term' && error != null) {
       toast.error(error)
 
-    //   setTimeout(() => {
+      //   setTimeout(() => {
 
-    // }, timeout);
+      // }, timeout);
     }
   }, [error])
 
@@ -88,20 +88,37 @@ function ProfileImagesViewer ({ Privacy, Section, details }) {
           <Swiper
             pagination={{ clickable: true }}
             modules={[Pagination]}
-            className='mySwiper 2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px] rounded-[10px]'
+            className='mySwiper relative 2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px] rounded-[10px]'
           >
             {details?.userProfilePic?.map((res, index) => (
               <SwiperSlide key={index}>
-                <Image
-                  loading='lazy'
-                  onClick={handleOpen}
-                  style={{ objectFit: 'cover' }}
-                  width={300}
-                  height={381}
-                  className='2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px]'
-                  alt='image'
-                  src={res?.url}
-                />
+                <div 
+                 onClick={handleOpen}
+                className='w-full h-full relative group cursor-pointer'>
+                  {/* SVG container */}
+                  <div className='absolute top-0 left-0 w-full h-full cursor-pointer hidden duration-200 group-hover:grid place-items-center'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      viewBox='0 0 24 24'
+                      fill='currentColor'
+                      className='size-6 w-11 h-11 text-black z-10'
+                    >
+                      <path d='M6 3a3 3 0 0 0-3 3v1.5a.75.75 0 0 0 1.5 0V6A1.5 1.5 0 0 1 6 4.5h1.5a.75.75 0 0 0 0-1.5H6ZM16.5 3a.75.75 0 0 0 0 1.5H18A1.5 1.5 0 0 1 19.5 6v1.5a.75.75 0 0 0 1.5 0V6a3 3 0 0 0-3-3h-1.5ZM12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM4.5 16.5a.75.75 0 0 0-1.5 0V18a3 3 0 0 0 3 3h1.5a.75.75 0 0 0 0-1.5H6A1.5 1.5 0 0 1 4.5 18v-1.5ZM21 16.5a.75.75 0 0 0-1.5 0V18a1.5 1.5 0 0 1-1.5 1.5h-1.5a.75.75 0 0 0 0 1.5H18a3 3 0 0 0 3-3v-1.5Z' />
+                    </svg>
+                  </div>
+
+                  {/* Image */}
+                  <Image
+                    loading='lazy'
+                    onClick={handleOpen}
+                    style={{ objectFit: 'cover' }}
+                    width={300}
+                    height={381}
+                    className='2xl:w-[300px] xl:w-[250px] 2xl:h-[381px] xl:h-[350px] cursor-pointer duration-200 group-hover:opacity-80'
+                    alt='image'
+                    src={res?.url}
+                  />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>

@@ -88,7 +88,6 @@ function Request () {
   }
 
   const HanldeReject = res => {
-    console.log('🚀 ~ HanldeReject ~ res:', res)
     dispatch(rejectRequest('long-term', res))
 
     setshortlistText('Request cancelled')

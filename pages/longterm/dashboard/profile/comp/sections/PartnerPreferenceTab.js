@@ -3,12 +3,10 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import {
-  //   fetchPartnerPrefdata,
   updateMyPartnerPrefdata
 } from '../../../../../../store/reducers/MyProfile'
 import {
   updateFormData,
-  updatePartnerPref
 } from '../../../../../../store/actions/registerUser'
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton'
 import MultiSelect from '../../../../../alert'
@@ -20,9 +18,6 @@ const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 const PartnerPreferenceTab = ({ formData, updateFormData }) => {
   const { darkMode } = useDarkMode()
   const disptach = useDispatch()
-  //   useEffect(() => {
-  //     disptach(fetchPartnerPrefdata())
-  //   }, [])
 
   const { loading, data } = useSelector(
     state => state.myprofile.profileData.PartnerPrefData

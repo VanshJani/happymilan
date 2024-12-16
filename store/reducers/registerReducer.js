@@ -13,9 +13,6 @@ import {
   MARK_SHORTLISTS_AS_SEEN
 } from '../actions/GetingAlluser'
 import { UPDATE_HOBBIES_VALUES, UPDATE_PARTNER_PREF } from '../type'
-import { getNameFromLocalStorage } from '../../utils/helpers/LocalStorage'
-
-const DefaultName = getNameFromLocalStorage('personal')
 
 const initialState = {
   newShortlists: 0,
@@ -31,18 +28,14 @@ const initialState = {
     error: null
   },
   formData: {
-    // Initialize your form fields here
-
     userType: {
       appUsesType: ''
     },
     status: STATUSES.IDLE,
     general: {
-      // appUsesType: "",
       creatingProfileFor: '',
       firstName: '',
       lastName: '',
-      // motherTongue: "",
       maritalStatus: '',
       gender: '',
       dateOfBirth: '',
@@ -51,8 +44,6 @@ const initialState = {
       caste: '',
       height: '',
       weight: '',
-      // currentcity: "",
-      // countryofliving: "",
       writeBoutYourSelf: ''
     },
     address: {
@@ -60,9 +51,6 @@ const initialState = {
       currentCity: '',
       currentCountry: '',
       currentState: ''
-      // originResidenceAddress: "",
-      // originCity: "",
-      // originCountry: ""
     },
     contact: {
       mobileCode: '',
@@ -84,7 +72,6 @@ const initialState = {
       currentSalary: '',
       workCity: '',
       workCountry: ''
-      //currentDesignation: ""
     },
     allhobbies: {
       hobbies: [
@@ -154,9 +141,6 @@ const initialState = {
       country: [],
       state: [],
       city: [],
-      // income: 0,
-      // creative: [],
-      // fun: [],
       hobbies: [],
       diet: []
     },
@@ -170,10 +154,7 @@ const initialState = {
 
 export const ImagePreview = createAsyncThunk(
   'register/imagepreview',
-  async (imgdata, thunkAPI) => {
-    // console.log(imgdata);
-    console.log(imgdata)
-  }
+  async (imgdata, thunkAPI) => {}
 )
 
 export const formReducer = (state = initialState, action) => {
@@ -327,22 +308,6 @@ export const FormSlice = createSlice({
     builder.addCase(updateURLs.fulfilled, (state, action) => {
       state.formData.upload.bufferdata = action.payload
     })
-
-    // For check missing fields from Register
-
-    // builder.addCase(ShowMissingFields.pending, (state, action) => {
-    //   state.missingFields.loading = true;
-    // })
-    // builder.addCase(ShowMissingFields.fulfilled, (state, action) => {
-
-    //   state.missingFields.data = action.payload;
-    //   state.missingFields.loading = false;
-
-    // })
-    // builder.addCase(ShowMissingFields.rejected, (state, action) => {
-    //   state.missingFields.loading = false;
-    //     state.missingFields.error = action.payload;
-    // })
   }
 })
 

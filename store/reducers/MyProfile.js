@@ -32,7 +32,7 @@ export const updateMyProfileData = createAsyncThunk(
 
         if (response.ok) {
           const result = await response.json()
-          // console.log("UPDATE :",result.userData.name)
+
           localStorage.setItem('userName', result.userData.name)
           setCookie('userName', result.userData.name)
           return result.data
@@ -115,7 +115,7 @@ export const updateMyAddressData = createAsyncThunk(
 
       if (response.ok) {
         const result = await response.json()
-        console.log('address data', result.data)
+
         return result.data
       } else if (response.status === 401) {
         throw new Error('Unauthorized')
@@ -171,16 +171,6 @@ export const updateMyProfessionalData = createAsyncThunk(
 export const updateMyPartnerPrefdata = createAsyncThunk(
   'myProfile/updatePartnerPrefdata',
   async ({ partnerPrefId, UpdatedDataforPartnerPrefdata }, thunkAPI) => {
-    console.log(
-      '🚀 ~ UpdatedDataforPartnerPrefdata:',
-      UpdatedDataforPartnerPrefdata
-    )
-
-    // UpdatedDataforPartnerPrefdata
-    // const partnerpref = {
-    //   partnerpref: UpdatedDataforPartnerPrefdata
-    // }
-    // console.log("🚀 ~ partnerpref:", partnerpref)
     try {
       const token = getCookie('authtoken')
 
@@ -216,16 +206,12 @@ export const updateMyPartnerPrefdata = createAsyncThunk(
   }
 )
 
-// url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/update-user`,
-
 export const updateMyHobbies = createAsyncThunk(
   'register/updatemyhobbies',
   async (hobbyinfo, thunkAPI) => {
-    // { data, hobbyval: hobby?.hobbyval }
     const { data, hobbies } = hobbyinfo
 
     const hobbydata = {
-      // ...data,
       hobbies: hobbies
     }
     try {
@@ -349,8 +335,6 @@ const MyPofileData = createSlice({
       .addCase(fetchMyProfileData.fulfilled, (state, action) => {
         state.status = STATUSES.IDLE
         state.data = action.payload.userData
-        // addressData,
-        // educationData,
         state.profileData = {
           ...state.profileData,
           adressData: {
@@ -389,48 +373,11 @@ const MyPofileData = createSlice({
       })
       .addCase(updateMyProfileData.fulfilled, (state, action) => {
         state.status = STATUSES.IDLE
-        console.log('action :', action.payload)
       })
       .addCase(updateMyProfileData.rejected, (state, action) => {
         state.status = STATUSES.ERROR
         state.error = action.error.message
       })
-      .addCase(FetchMyEducationData.pending, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          EducationData: {
-            ...state.profileData.EducationData,
-            loading: STATUSES.LOADING,
-            data: null,
-            error: null
-          }
-        }
-      }))
-      .addCase(FetchMyEducationData.fulfilled, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          EducationData: {
-            ...state.profileData.EducationData,
-            loading: STATUSES.IDLE,
-            data: action.payload,
-            error: null
-          }
-        }
-      }))
-      .addCase(FetchMyEducationData.rejected, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          EducationData: {
-            ...state.profileData.EducationData,
-            loading: STATUSES.ERROR,
-            data: null,
-            error: action.payload
-          }
-        }
-      }))
       .addCase(updateMyEducationData.pending, (state, action) => ({
         ...state,
         profileData: {
@@ -461,43 +408,6 @@ const MyPofileData = createSlice({
           EducationData: {
             ...state.profileData.EducationData,
             loading: STATUSES.ERROR,
-            error: action.payload
-          }
-        }
-      }))
-
-      .addCase(fetchproffessionalData.pending, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          ProfessionalData: {
-            ...state.profileData.ProfessionalData,
-            loading: STATUSES.LOADING,
-            data: null,
-            error: null
-          }
-        }
-      }))
-      .addCase(fetchproffessionalData.fulfilled, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          ProfessionalData: {
-            ...state.profileData.ProfessionalData,
-            loading: STATUSES.IDLE,
-            data: action.payload,
-            error: null
-          }
-        }
-      }))
-      .addCase(fetchproffessionalData.rejected, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          ProfessionalData: {
-            ...state.profileData.ProfessionalData,
-            loading: STATUSES.ERROR,
-            data: null,
             error: action.payload
           }
         }
@@ -561,42 +471,6 @@ const MyPofileData = createSlice({
           }
         }
       }))
-      .addCase(fetchPartnerPrefdata.pending, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          PartnerPrefData: {
-            ...state.profileData.PartnerPrefData,
-            loading: STATUSES.LOADING,
-            data: null,
-            error: null
-          }
-        }
-      }))
-      .addCase(fetchPartnerPrefdata.fulfilled, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          PartnerPrefData: {
-            ...state.profileData.PartnerPrefData,
-            loading: STATUSES.IDLE,
-            data: action.payload,
-            error: null
-          }
-        }
-      }))
-      .addCase(fetchPartnerPrefdata.rejected, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          PartnerPrefData: {
-            ...state.profileData.PartnerPrefData,
-            loading: STATUSES.ERROR,
-            data: null,
-            error: action.payload
-          }
-        }
-      }))
       .addCase(updateMyPartnerPrefdata.pending, (state, action) => ({
         ...state,
         profileData: {
@@ -627,42 +501,6 @@ const MyPofileData = createSlice({
           ...state.profileData,
           PartnerPrefData: {
             ...state.profileData.PartnerPrefData,
-            loading: STATUSES.ERROR,
-            data: null,
-            error: action.payload
-          }
-        }
-      }))
-      .addCase(fetchMyhoobies.pending, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          HobbiesData: {
-            ...state.profileData.HobbiesData,
-            loading: STATUSES.LOADING,
-            data: null,
-            error: null
-          }
-        }
-      }))
-      .addCase(fetchMyhoobies.fulfilled, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          HobbiesData: {
-            ...state.profileData.HobbiesData,
-            loading: STATUSES.IDLE,
-            data: action.payload,
-            error: null
-          }
-        }
-      }))
-      .addCase(fetchMyhoobies.rejected, (state, action) => ({
-        ...state,
-        profileData: {
-          ...state.profileData,
-          HobbiesData: {
-            ...state.profileData.HobbiesData,
             loading: STATUSES.ERROR,
             data: null,
             error: action.payload
@@ -716,47 +554,6 @@ const MyPofileData = createSlice({
       }))
   }
 })
-
-export const fetchMyhoobies = createAsyncThunk(
-  'myProfile/fetchmyhobbies',
-  async () => {
-    try {
-      const token = getCookie('authtoken')
-
-      if (token) {
-        const myHeaders = new Headers()
-        myHeaders.append('Authorization', `Bearer ${token}`)
-
-        const requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
-        }
-
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/me`,
-          requestOptions
-        )
-
-        if (response.ok) {
-          const result = await response.json()
-
-          return result.data?.user?.hobbies
-        } else if (response.status === 401) {
-          throw new Error('Unauthorized')
-        } else {
-          console.error('API request failed:', response.statusText)
-          throw new Error('API request failed')
-        }
-      } else {
-        throw new Error('Token not found')
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error)
-      throw error
-    }
-  }
-)
 
 export const fetchMyProfileData = createAsyncThunk(
   'myProfile/fetchData',
@@ -836,135 +633,7 @@ export const fetchTotalLikes = createAsyncThunk(
 
         if (response.ok) {
           const result = await response.json()
-          console.log(result.data)
           return result.data.totalResults
-        } else if (response.status === 401) {
-          throw new Error('Unauthorized')
-        } else {
-          console.error('API request failed:', response.statusText)
-          throw new Error('API request failed')
-        }
-      } else {
-        throw new Error('Token not found')
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error)
-      throw error
-    }
-  }
-)
-
-//MyProfile - Education Tab
-
-export const FetchMyEducationData = createAsyncThunk(
-  'myProfile/FetchMyEducationData',
-  async () => {
-    try {
-      const token = getCookie('authtoken')
-      const CurrentUserID = getCookie('userid')
-
-      if (token) {
-        const myHeaders = new Headers()
-        myHeaders.append('Authorization', `Bearer ${token}`)
-
-        const requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
-        }
-
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/v1/user/userEducation/${CurrentUserID}`,
-          requestOptions
-        )
-
-        if (response.ok) {
-          const result = await response.json()
-          return result.data
-        } else if (response.status === 401) {
-          throw new Error('Unauthorized')
-        } else {
-          console.error('API request failed:', response.statusText)
-          throw new Error('API request failed')
-        }
-      } else {
-        throw new Error('Token not found')
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error)
-      throw error
-    }
-  }
-)
-
-//MyProfile - Professional Tab
-
-export const fetchproffessionalData = createAsyncThunk(
-  'myProfile/ProfessionalTab',
-  async () => {
-    try {
-      const token = getCookie('authtoken')
-      const CurrentUserID = getCookie('userid')
-
-      if (token) {
-        const myHeaders = new Headers()
-        myHeaders.append('Authorization', `Bearer ${token}`)
-
-        const requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
-        }
-
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/v1/user/userProfessionalDetail/getbyid/${CurrentUserID}`,
-          requestOptions
-        )
-
-        if (response.ok) {
-          const result = await response.json()
-          return result.data
-        } else if (response.status === 401) {
-          throw new Error('Unauthorized')
-        } else {
-          console.error('API request failed:', response.statusText)
-          throw new Error('API request failed')
-        }
-      } else {
-        throw new Error('Token not found')
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error)
-      throw error
-    }
-  }
-)
-
-export const fetchPartnerPrefdata = createAsyncThunk(
-  'myProfile/PartnerprefData',
-  async (partnerId, thunkAPI) => {
-    try {
-      const token = getCookie('authtoken')
-      const CurrentUserID = getCookie('userid')
-
-      if (token) {
-        const myHeaders = new Headers()
-        myHeaders.append('Authorization', `Bearer ${token}`)
-
-        const requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          redirect: 'follow'
-        }
-
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/v1/user/partner/getByUser/${CurrentUserID}`,
-          requestOptions
-        )
-
-        if (response.ok) {
-          const result = await response.json()
-          return result.data
         } else if (response.status === 401) {
           throw new Error('Unauthorized')
         } else {

@@ -6,7 +6,6 @@ export const SafetyConsentAction = (ReceiverID) => {
     return async (dispatch) => {
         dispatch({ type: FETCH_SAFETY_CONSENT_REQUEST })
         const axios = require('axios');
-        // const currentuserId = getCookie("userid")
         const token = getCookie("authtoken")
 
         let config = {

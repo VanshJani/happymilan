@@ -64,7 +64,6 @@ const Comp1 = ({ handleNextClick, SetSelectedText, onClose }) => {
 
   // "\"reason\" must be one of [just-dont-like-it, its-spam, nudity-or-sexual-activity, bullying-or-harassment, scam-or-fraud]"
   const spamUserData = useSelector(state => state.Spamuser.SpamUserdata)
-  console.log('🚀 ~ Comp1 ~ spamUserData:', spamUserData)
 
   const handleSelectReport = e => {
     const value = e.target.value

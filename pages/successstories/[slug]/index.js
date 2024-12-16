@@ -7,7 +7,12 @@ import dynamic from 'next/dynamic'
 import GlobalFooter from '../../_components/layout/GlobalFooter'
 import ViewStorySec from '../addstories/comp/ViewStorySec'
 import { useDispatch } from 'react-redux'
-import { FetchSuccessStoriesByID } from '../../../store/actions/UserStoryAction'
+import {
+  FetchIsLike,
+  FetchSuccessStoriesByID,
+  getTotalLikes,
+  getTotalReadCounts
+} from '../../../store/actions/UserStoryAction'
 
 const ShareModal = dynamic(() =>
   import('../../_components/Model/Models/ShareModal')
@@ -22,6 +27,9 @@ function index () {
 
   useEffect(() => {
     dispatch(FetchSuccessStoriesByID(slug))
+    dispatch(getTotalReadCounts(slug))
+    dispatch(getTotalLikes(slug))
+    dispatch(FetchIsLike(slug))
   }, [])
 
   return (
@@ -37,7 +45,6 @@ function index () {
           <GlobalFooter />
         </div>
       </div>
-
     </>
   )
 }

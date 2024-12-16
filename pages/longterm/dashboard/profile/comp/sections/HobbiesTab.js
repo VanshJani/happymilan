@@ -4,19 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import {
   updateFormData,
-  updateHobbies,
-  updatehobbiesData
 } from '../../../../../../store/actions/registerUser'
 import {
-  fetchMyhoobies,
   updateMyHobbies
 } from '../../../../../../store/reducers/MyProfile'
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton'
-import ReusableMultiSelect from '../../../../../../components/Dating/register/sections/MusltiSelectDating'
 import MultiSelect from '../../../../../alert'
 import { capitalizeFirstLetter } from '../../../../../../utils/form/Captitelize'
 
-const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 
 function HobbiesTab ({ formData, updateFormData }) {
   const Text2 = {

@@ -1,8 +1,14 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { readStory } from '../../../../store/actions/UserStoryAction'
 
-function StoryBox ({ data }) {
+function StoryBox () {
+
+    const { loading, data, error } = useSelector(
+        state => state.storyviews.storydata
+      )
   const router = useRouter()
 
   const Text = {
@@ -26,6 +32,13 @@ function StoryBox ({ data }) {
     fontStyle: 'normal',
     fontWeight: '700'
     // lineHeight: '70px'
+  }
+
+  const dispatch = useDispatch()
+
+  const HandleViewStory = res => {
+    router.push(`/successstories/${res?._id}`)
+    dispatch(readStory(res?._id))
   }
 
   return (
@@ -59,7 +72,7 @@ function StoryBox ({ data }) {
               return (
                 <div
                   key={index}
-                  onClick={()=>router.push(`/successstories/${res?._id}`)}
+                  onClick={() => HandleViewStory(res)}
                   className='group cursor-pointer 
                   2xl:w-[270px] 2xl:h-[328px] 
                   xl:w-[280px] xl:h-[338px] 
@@ -85,13 +98,16 @@ function StoryBox ({ data }) {
                       <li style={Text} className='text-[16px]'>
                         Read Story of
                       </li>
-                      <li style={Text} className='
+                      <li
+                        style={Text}
+                        className='
                       2xl:text-[24px]
                       xl:text-[24px]
                       lg:text-[20px]
                       md:text-[20px]
                       text-[20px]
-                      '>
+                      '
+                      >
                         {res?.title}{' '}
                       </li>
                     </ul>

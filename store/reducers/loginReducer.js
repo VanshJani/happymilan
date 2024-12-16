@@ -1,34 +1,34 @@
 // store/slices/authSlice.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { getCookie, setCookie } from 'cookies-next';
-// import { useSocket } from '../../ContextProvider/SocketContext';
-import { io } from 'socket.io-client';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { getCookie, setCookie } from 'cookies-next'
+import { io } from 'socket.io-client'
 
 // Define an async thunk to handle the login request
-export const loginAsync = createAsyncThunk('/dashboard/myprofile', async (credentials) => {
+export const loginAsync = createAsyncThunk(
+  '/dashboard/myprofile',
+  async credentials => {
+    const deviceToken = getCookie('fcmToken')
+    const UserCredentials = {
+      email: credentials.email,
+      password: credentials.password,
+      deviceToken: deviceToken
+    }
 
-  const deviceToken = getCookie("fcmToken")
-  const UserCredentials = {
-    "email": credentials.email,
-    "password": credentials.password,
-    "deviceToken": deviceToken
-
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/login`,
+      UserCredentials
+    )
+    return response.data
   }
-
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/login`, UserCredentials);
-
-  console.log("🚀 ~ loginAsync ~ response:", response)
-  return response.data;
-  //  return console.log(response.data)
-});
+)
 
 // Create the authentication slice
 
 const STATUSES = Object.freeze({
-  IDLE: "idle",
-  ERROR: "error",
-  LOADING: "loading"
+  IDLE: 'idle',
+  ERROR: 'error',
+  LOADING: 'loading'
 })
 
 const loginAuth = createSlice({
@@ -41,80 +41,60 @@ const loginAuth = createSlice({
     handleError: null,
     userId: null,
     ResetPassword: {
-      email: "",
-      otp: "",
-      password: ""
+      email: '',
+      otp: '',
+      password: ''
     }
   },
   reducers: {
-    resetError(state) {
-      state.error = null;
-    },
+    resetError (state) {
+      state.error = null
+    }
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(loginAsync.pending, (state) => {
-        state.status = STATUSES.LOADING;
+      .addCase(loginAsync.pending, state => {
+        state.status = STATUSES.LOADING
         state.handleError = null
-        state.error = null; // Clear any previous errors
+        state.error = null // Clear any previous errors
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
-        state.status = STATUSES.IDLE;
+        state.status = STATUSES.IDLE
         state.handleError = null
 
-        const data = action.payload.data;
+        const data = action.payload.data
 
         // Store user data in state
-        state.user = data.user.name;
-        state.userId = data.user.id;
+        state.user = data.user.name
+        state.userId = data.user.id
 
         // Set cookies and local storage data (consider moving this logic outside of the reducer)
-        setCookiesAndLocalStorage(data);
-        SocketConnect(data);
-
-
+        setCookiesAndLocalStorage(data)
+        SocketConnect(data)
 
         // You might want to reset the error state upon successful login
-        state.error = null;
+        state.error = null
       })
       .addCase(loginAsync.rejected, (state, action) => {
-        console.log("🚀 ~ .addCase ~ action:", action)
-        console.log("🚀 ~ .addCase ~ state:", state)
-        state.status = STATUSES.ERROR;
+        state.status = STATUSES.ERROR
         state.handleError = STATUSES.ERROR
         // Provide more descriptive error messages based on different rejection reasons
-        state.error = "Incorrect email or password."
+        state.error = 'Incorrect email or password.'
         // || "Authentication Error: Please check your email and password and try again.";
-      });
+      })
+  }
+})
 
-  },
-
-
-});
-
-
-function SocketConnect(data) {
-  // const socket = useSocket();
-
-
+function SocketConnect (data) {
   const socket = io.connect(`${process.env.NEXT_PUBLIC_SOCKET_AUTH_URL}`, {
     path: '/api/socket.io',
     query: { token: data.tokens.refresh.token }
-  });
-
-  socket.on('connect', () => {
-    console.log('Connected to socket');
-  });
-
-  socket?.on("onlineUser", (data) => {
-    console.log("Data from socket : ", data)
   })
-  socket?.emit("userActive")
+  socket?.emit('userActive')
 }
 
-function setCookiesAndLocalStorage(data) {
-
-  localStorage.setItem("personal", JSON.stringify(data?.user))
+function setCookiesAndLocalStorage (data) {
+  localStorage.setItem('personal', JSON.stringify(data?.user))
   const objectData = {
     userid: data.user.id,
     token: data.tokens.access.token,
@@ -125,30 +105,29 @@ function setCookiesAndLocalStorage(data) {
     tokens: data.tokens
   }
 
-  localStorage.setItem("authdata", JSON.stringify(objectData));
+  localStorage.setItem('authdata', JSON.stringify(objectData))
 
-  setCookie('userid', data.user.id, { secure: true });
+  setCookie('userid', data.user.id, { secure: true })
 
   setCookie('UserProfile', data.user?.appUsesType || 'marriage', {
     path: '/',
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Strict',
-  });
+    sameSite: 'Strict'
+  })
 
-  localStorage.setItem("token", data.tokens.access.token);
-  localStorage.setItem("refoken", data.tokens.refresh.token);
-  localStorage.setItem('user', data.user.email, { secure: true });
-  localStorage.setItem('email', data.user.email);
+  localStorage.setItem('token', data.tokens.access.token)
+  localStorage.setItem('refoken', data.tokens.refresh.token)
+  localStorage.setItem('user', data.user.email, { secure: true })
+  localStorage.setItem('email', data.user.email)
   localStorage.setItem('mobilenumber', data.user.mobileNumber)
-  localStorage.setItem('flName', `${data.user.firstName} ${data.user.lastName}`);
-  setCookie('jwtToken', data.tokens.access.token, { secure: true });
-  setCookie('authtoken', data.tokens.refresh.token, { secure: true });
-  setCookie('email', data.user.email, { secure: true });
-  setCookie('userName', data.user.name, { secure: true });
-  setCookie('data', JSON.stringify(data.tokens), { secure: true });
-
+  localStorage.setItem('flName', `${data.user.firstName} ${data.user.lastName}`)
+  setCookie('jwtToken', data.tokens.access.token, { secure: true })
+  setCookie('authtoken', data.tokens.refresh.token, { secure: true })
+  setCookie('email', data.user.email, { secure: true })
+  setCookie('userName', data.user.name, { secure: true })
+  setCookie('data', JSON.stringify(data.tokens), { secure: true })
 }
 
-export default loginAuth.reducer;
+export default loginAuth.reducer
 // Export the login action
-export const { login, resetError } = loginAuth.actions;
+export const { login, resetError } = loginAuth.actions

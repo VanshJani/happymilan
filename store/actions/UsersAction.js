@@ -86,7 +86,6 @@ export const sendRequest = (View, requestData) => {
       friend: requestData,
       user: currentUser
     })
-    console.log('🚀 ~ return ~ data:', data)
 
     let url
     if (View === null || View === '' || View === undefined) {
@@ -106,7 +105,6 @@ export const sendRequest = (View, requestData) => {
       },
       data: data
     }
-    console.log('🚀 ~ return ~ config.url:', config.url)
 
     axios
       .request(config)
@@ -145,7 +143,6 @@ export const getFriendsList = () => {
     }
 
     const response = await axios.request(config)
-    console.log('🚀 ~ return ~ response:', response)
 
     response?.data?.data?.results.forEach(async element => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/${element.id}`
@@ -396,7 +393,6 @@ export const getPartnerpreferenceFailure = error => ({
 })
 
 export const getAcceptedRequestData = (viewType, pages) => {
-  console.log('🚀 ~ getAcceptedRequestData ~ pages:', pages)
   return async dispatch => {
     dispatch({ type: GET_ACCEPTED_REQUEST_DATA })
 
@@ -419,7 +415,6 @@ export const getAcceptedRequestData = (viewType, pages) => {
       }
 
       const response = await axios(config)
-      console.log('🚀 ~ return ~ response:', response.data.data)
 
       dispatch({
         type: GET_ACCEPTED_REQUEST_DATA_SUCCESS,
@@ -463,8 +458,7 @@ export const GetNotifications = () => {
       }
 
       const response = await axios(config)
-      console.log('🚀 ~ return ~ response:', response.data.data)
-
+   
       dispatch({
         type: GET_REQUEST_DATA_SUCCESS,
         payload: {
@@ -1069,7 +1063,6 @@ export const Getlikeduserdata = () => {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      // url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/like/get-like/${userId}`,
       url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/like/getlike/${userId}?limit=50`,
       headers: {
         Authorization: `Bearer ${token}`
@@ -1080,8 +1073,6 @@ export const Getlikeduserdata = () => {
     axios
       .request(config)
       .then(response => {
-        console.log('🚀 ~ .then ~ response:', response)
-
         dispatch({
           type: LIKED_USERS_PROFILE_DATA_SUCCESS,
           payload: response.data.data
@@ -1213,8 +1204,6 @@ export const Getallstatus = () => {
     axios
       .request(config)
       .then(response => {
-        console.log('🚀 ~ .then ~ response:', response)
-
         const mystory = response.data.data.filter(
           item => item.userId.id == currentUser
         )
@@ -1308,8 +1297,6 @@ export const GetMatchScore = MatchID => {
 export const SetAsProfileImage = createAsyncThunk(
   '/dating/profile/profileupdate',
   async (data, thunkAPI) => {
-    console.log('🚀 ~ data:', data)
-
     try {
       const authToken = getCookie('authtoken')
 

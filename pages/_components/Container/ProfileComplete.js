@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper'
+import { useRouter } from 'next/router'
 
 function ProfileComplete () {
   const { darkMode, toggleDarkMode } = useDarkMode()
@@ -32,6 +33,8 @@ function ProfileComplete () {
   const { data, loading, error } = useSelector(
     state => state.userseting.MissingFields
   )
+
+  const router = useRouter();
 
   const MissingFieldsUI = ({ res }) => {
     return (
@@ -76,7 +79,7 @@ function ProfileComplete () {
             <button
               id={darkMode ? 'Gradient-btn-2' : ''}
               style={Text3}
-              onClick={() => console.log(data)}
+              onClick={() => router.push(res?.redirect)}
               className={`${
                 darkMode ? '' : 'border-[1px] border-[#8225AF]'
               } cursor-pointer hover:bg-[#F3F8FF] text-[14px] 2xl:w-[158px] 2xl:h-[44px] xl:w-[150px] xl:h-[44px]   rounded-[22px]  dark:bg-[#141516] dark:text-[#FFF] text-[black]`}

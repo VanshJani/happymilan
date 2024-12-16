@@ -1,8 +1,13 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ShareModal from '../../../_components/Model/Models/ShareModal'
+import {
+  createLike,
+  DislikeStory,
+  getTotalLikes
+} from '../../../../store/actions/UserStoryAction'
 
 function ViewStorySec () {
   const router = useRouter()
@@ -10,6 +15,10 @@ function ViewStorySec () {
   const { loading, data, error } = useSelector(
     state => state.storyviews.successstoryByID
   )
+
+  const { reads } = useSelector(state => state.storyviews.storyReadcount)
+  const { totalLike } = useSelector(state => state.storyviews?.storyLikecount)
+  const { isLike, likeID } = useSelector(state => state.storyviews?.IsLike)
 
   const TitleText = {
     color: '#000',
@@ -64,15 +73,46 @@ function ViewStorySec () {
 
   const [Liked, SetLiked] = useState(false)
 
+  const [btnMessage, SetbtnMessage] = useState(isLike ? 'Liked' : 'Give Heart')
+  const [showThankYou, setShowThankYou] = useState(false)
+
+  const dispatch = useDispatch()
+  //   {Liked ? 'Thank You!' : 'Give Heart'}
+
+  //   const HandleLiked = () => {
+  //     SetLiked(true)
+  //     if (isLike) {
+  //       dispatch(DislikeStory(data?.id, likeID))
+  //       SetbtnMessage('Give Heart')
+  //     } else {
+  //       dispatch(createLike(data?.id))
+  //       SetbtnMessage('Thank You!')
+  //       SetLiked(true)
+  //     }
+  //     setTimeout(() => {
+  //       SetLiked(false)
+  //       if (!Liked) {
+  //         SetbtnMessage('Liked')
+  //       }
+  //     }, 2000)
+  //   }
+
   const HandleLiked = () => {
-    SetLiked(true)
+    if (isLike) {
+      // If already liked, call Dislike API
+      dispatch(DislikeStory(data?.id, likeID))
+      SetbtnMessage('Give Heart')
+    } else {
+      // If not liked, call Like API
+      dispatch(createLike(data?.id))
+      setShowThankYou(true) // Show Thank You message
 
-    setTimeout(() => {
-      SetLiked(false)
-    }, 2000)
+      setTimeout(() => {
+        setShowThankYou(false)
+        SetbtnMessage('Liked')
+      }, 2000)
+    }
   }
-
-  const [openURLModal, setOpenURLModal] = React.useState(false)
 
   const [CurrURL, SetCurURL] = useState('')
 
@@ -89,7 +129,6 @@ function ViewStorySec () {
   const closeModal = () => {
     setIsModalOpen(false)
   }
-
 
   return (
     <>
@@ -160,26 +199,27 @@ function ViewStorySec () {
                 <ul className='flex space-x-[50px] items-center'>
                   <li>
                     <p style={Text2}>
-                      0 <span className='text-[#929292]'>Reads</span>
+                      {reads || 0} <span className='text-[#929292]'>Reads</span>
                     </p>
                   </li>
                   <li>
                     <p style={Text2}>
-                      0 <span className='text-[#929292]'>Hearts</span>
+                      {totalLike || 0}{' '}
+                      <span className='text-[#929292]'>Hearts</span>
                     </p>
                   </li>
                   <li>
                     <button
                       onClick={HandleLiked}
-                      id={!Liked ? 'StoryLikeHover' : ''}
+                      id={!isLike ? 'StoryLikeHover' : ''}
                       className={`w-[150px] h-[40px]  ${
-                        Liked
+                        isLike
                           ? 'bg-[#EDEAEA] border-[1px] border-[#EDEAEA]'
                           : 'border-[1px] border-[#8225AF] flex justify-evenly items-center '
                       }  rounded-[20px]`}
                     >
-                      {Liked ? 'Thank You!' : 'Give Heart'}
-                      {!Liked ? (
+                      {showThankYou ? 'Thank You!' : btnMessage}
+                      {!isLike ? (
                         <svg
                           width='18'
                           height='16'
@@ -219,7 +259,12 @@ function ViewStorySec () {
               <div className='h-[1px] w-full bg-[#E9E9E9]'></div>
               <div className='flex justify-between w-full'>
                 <p style={Text4}>More Stories</p>
-                <p style={Text3} className='text-[#CECECE] hover:text-[#000] duration-200 cursor-pointer'>View All Stories</p>
+                <p
+                  style={Text3}
+                  className='text-[#CECECE] hover:text-[#000] duration-200 cursor-pointer'
+                >
+                  View All Stories
+                </p>
               </div>
               <ul className='flex justify-between w-full'>
                 <li>

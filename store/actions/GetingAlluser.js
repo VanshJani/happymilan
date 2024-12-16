@@ -75,7 +75,6 @@ export const CreateLikeUser = (user) => {
 }
 
 export const UnlikeTheUser = (Postdata) => {
-  console.log("🚀 ~ UnlikeTheUser ~ Postdata:", Postdata)
   return async (dispatch) => {
 
 
@@ -125,44 +124,6 @@ export const removeRequest = (userId) => ({
   type: REMOVE_REQUEST,
   payload: userId,
 });
-
-
-
-export const fetchallusersPagination = (CurrentPage) => async (dispatch) => {
-  dispatch({ type: FETCH_ALL_USERS_PAGINATED_REQUEST });
-
-  try {
-    const token = getCookie("authtoken")
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/v1/user/user/getUserByGender?page=${CurrentPage}&limit=6`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const data = response?.data?.data
-   
-
-    dispatch({
-      type: FETCH_ALL_USERS_PAGINATED_SUCCESS,
-      // payload: response?.data?.data,
-      payload: {
-        userData: data?.users,
-        totalPages: data?.totalPages,
-        currentPage: data?.currentPage,
-        // limit: data?.limit,
-      }
-    });
-  } catch (error) {
-    dispatch({
-      type: FETCH_ALL_USERS_PAGINATED_FAILURE,
-      payload: error.message,
-    });
-  }
-};
-
 
 
 //Add Shortlist 

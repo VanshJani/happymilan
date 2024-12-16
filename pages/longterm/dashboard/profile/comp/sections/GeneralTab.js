@@ -45,7 +45,6 @@ const GeneralTab = () => {
     weight: data?.weight,
     height: data?.height
   })
-  console.log('🚀 ~ GeneralTab ~ userdata:', userdata)
 
   const handleUpdateGenProfile = () => {
     dispatch(updateMyProfileData(userdata))
@@ -742,10 +741,7 @@ const GeneralTab = () => {
               </div>
             </div>
             <div className='text-center space-x-[21px]'>
-              <button
-                onClick={handleClose}
-                className='w-[125px] h-[49px] text-[14px] rounded-[24.5px] border-[1px] hover:bg-[#EFF5FF] duration-200 border-[black]'
-              >
+              <button onClick={handleClose} className='w-[125px] h-[49px] text-[14px] rounded-[24.5px] border-[1px] hover:bg-[#EFF5FF] duration-200 border-[black]'>
                 Not Now
               </button>
               <button
