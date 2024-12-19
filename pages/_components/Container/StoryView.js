@@ -6,7 +6,6 @@ import {
   FetchSuccessStories,
   readStory
 } from '../../../store/actions/UserStoryAction'
-import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 
 function StoryView () {
@@ -26,13 +25,9 @@ function StoryView () {
 
   const dispatch = useDispatch()
 
-  const { ref, inView } = useInView()
-
   useEffect(() => {
-    if (inView) {
-      dispatch(FetchSuccessStories())
-    }
-  }, [inView])
+    dispatch(FetchSuccessStories())
+  }, [])
 
   const HandleViewStory = res => {
     router.push(`/successstories/${res?._id}`)
@@ -55,10 +50,7 @@ function StoryView () {
 
   return (
     <>
-      <div
-        ref={ref}
-        className='relative 2xl:w-[715px] xl:w-[635px]  xl:w-[615px] m-[10px] flex justify-between'
-      >
+      <div className='relative 2xl:w-[715px] xl:w-[635px]  xl:w-[615px] m-[10px] flex justify-between'>
         <h1 className='p-[5px] relative 2xl:left-[40px] xl:left-[55px]'>
           <span
             style={Text2}

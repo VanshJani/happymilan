@@ -5,7 +5,6 @@ import shuffledata from 'lodash/shuffle'
 import ProfileMenu from '../../../components/long-term/common/Model/ProfileMenu'
 import MatchScoreModal from '../Model/Models/MatchScoreModal'
 import ProfileSkeletonLoader from '../../../components/common/animation/GridSkeleton'
-import { useInView } from 'react-intersection-observer'
 import GridprofileLayout from '../../../components/ui/dashboard/Profile/GridProfile/GridprofileLayout'
 
 function RecentlyView () {
@@ -18,13 +17,9 @@ function RecentlyView () {
     lineHeight: 'normal'
   }
 
-  const { ref, inView } = useInView()
-
   useEffect(() => {
-    if (inView) {
-      dispatch(GetrecentuserprofileData())
-    }
-  }, [inView])
+    dispatch(GetrecentuserprofileData())
+  }, [])
 
   // Get the data and loading state from the store
   const { data, loading } = useSelector(state => state.usersact.recentusersdata)
@@ -41,7 +36,7 @@ function RecentlyView () {
 
   return (
     <>
-      <div ref={ref} className='grid place-items-start translate-x-10'>
+      <div className='grid place-items-start translate-x-10'>
         <div className='relative '>
           {data?.length > 0 ? (
             <h1
