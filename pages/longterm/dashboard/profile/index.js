@@ -3,13 +3,10 @@
 import React from 'react'
 import dynamic from 'next/dynamic';
 import Layout from '../../Layout';
-import { useSelector } from 'react-redux';
 const Profile = dynamic(() => import('./comp/Profile'));
 
 function index() {
 
-
-  const { data, status, totalLikes } = useSelector((state) => state.myprofile);
 
   return (
     <>

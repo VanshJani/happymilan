@@ -137,8 +137,9 @@ body {
 }
 
 #DarkPagination:hover {
-  background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%);
-  border: none;
+  /* background: linear-gradient(103deg, var(--gradient-color-1) -25.03%, var(--gradient-color-2) 137.92%); */
+  background-color: #21212f;
+  border: 1px solid white;
   color: white;
 }
 
@@ -1113,3 +1114,5 @@ body::-webkit-scrollbar {
   fill: #FFF;
   transition: fill 0.3s ease;
 }
+
+/* #StoryLikeHover  */

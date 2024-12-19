@@ -8,7 +8,6 @@ import { Pagination } from 'swiper'
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 import UserprofileSkeleton from '../../../../../components/common/shader/UserprofileSkeleton'
-import Link from 'next/link'
 import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
 import { fetchFriends } from '../../../../../store/matrimoney-services/slices/UserSentRequestPagination'
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'
@@ -19,6 +18,9 @@ import { useDarkMode } from '../../../../../ContextProvider/DarkModeContext'
 import ShowMore from '../../../../_components/common/profile/UserBio'
 
 import styles from '../../../../../styles/styles.module.css'
+import LoadMoreComp from '../../../../../components/common/animation/LoadMore'
+
+import { motion } from 'framer-motion'
 
 function SentRequest () {
   const { darkMode } = useDarkMode()
@@ -106,6 +108,10 @@ function SentRequest () {
     []
   )
 
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  }
 
   const dispatch = useDispatch()
   const { userData, totalPages, loading } = useSelector(
@@ -113,25 +119,36 @@ function SentRequest () {
   )
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [users, setUsers] = useState(userData || []) // Store all users in this state
+  const [users, setUsers] = useState([]) // Store all users in this state
   // Update the users array when userData changes
 
   // Function to load more data when scrolling to bottom
   const loadMoreData = () => {
-    const nextPage = currentPage + 1
-    setCurrentPage(nextPage) // Update page number
-    dispatch(fetchFriends('ListView', { currentPage: nextPage })) // Dispatch to fetch new data
+    if (currentPage < totalPages) {
+      if (loading) return // Prevent multiple API calls when loading
+
+      const nextPage = currentPage + 1 // Increment page number
+
+      // Dispatch to fetch new data
+      dispatch(fetchFriends('ListView', { currentPage: nextPage }))
+      setCurrentPage(nextPage)
+    }
   }
 
   // Initial data fetch
   useEffect(() => {
-    if (currentPage === 1) {
-      dispatch(fetchFriends('ListView', { currentPage: 1 }))
+    dispatch(fetchFriends('ListView', { currentPage: 1 }))
+  }, [])
+
+  useEffect(() => {
+    if (userData.length > 0) {
+      if (currentPage == 1) {
+        setUsers(userData)
+      } else {
+        setUsers([...users, ...userData])
+      }
     }
-  }, [dispatch, currentPage])
-
-  
-
+  }, [userData])
 
   if (loading && currentPage == 1) {
     return (
@@ -145,10 +162,19 @@ function SentRequest () {
     <>
       <div className=''>
         <div className='flex flex-col'>
-          {userData?.map((res, index) => {
+          {users?.map((res, index) => {
             return (
               <>
-                <div
+                <motion.div
+                  variants={variants}
+                  initial='hidden'
+                  animate='visible'
+                  transition={{
+                    delay: index * 0.1,
+                    ease: 'easeInOut',
+                    duration: 0.5
+                  }}
+                  viewport={{ amount: 0 }}
                   key={index}
                   className='relative 2xl:left-[40px] xl:left-[55px] lg:left-[10px] left-[40px]'
                 >
@@ -438,14 +464,18 @@ function SentRequest () {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </>
             )
           })}
         </div>
-
-        {loading && <p>Loading...</p>}
-        {/* Add observer at the bottom of the list */}
+        {currentPage < totalPages ? (
+          <div className='w-full text-center'>
+            <LoadMoreComp LoadMore={loadMoreData} />
+          </div>
+        ) : (
+          ''
+        )}
       </div>
 
       <ProfileDataNotFound ProfileData={userData} />

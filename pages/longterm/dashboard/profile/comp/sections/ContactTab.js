@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton'
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 

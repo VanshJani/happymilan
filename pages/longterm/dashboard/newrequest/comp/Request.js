@@ -16,7 +16,6 @@ import {
   rejectRequest
 } from '../../../../../store/actions/UsersAction'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToShortlist } from '../../../../../store/actions/GetingAlluser'
 import MatchScoreModal from '../../../../_components/Model/Models/MatchScoreModal'
 import ShowMore from '../../../../_components/common/profile/UserBio'
 import ProfileMenu from '../../../../../components/long-term/common/Model/ProfileMenu'

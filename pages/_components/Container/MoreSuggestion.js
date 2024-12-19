@@ -8,6 +8,7 @@ import { sendRequest } from '../../../store/actions/UsersAction'
 import Link from 'next/link'
 import Avatar from 'react-avatar'
 import { capitalizeFirstLetter } from '../../../utils/form/Captitelize'
+import { motion } from 'framer-motion'
 
 function MoreSuggestion () {
   const dispatch = useDispatch()
@@ -120,6 +121,11 @@ function MoreSuggestion () {
     boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
   }
 
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  }
+
   return (
     <div
       className={`${
@@ -179,7 +185,18 @@ function MoreSuggestion () {
                 ))
               : data?.data?.[0]?.paginatedResults?.map((res, index) => (
                   <li key={res._id}>
-                    <div className='flex justify-between items-center'>
+                    <motion.div
+                      variants={variants}
+                      initial='hidden'
+                      animate='visible'
+                      transition={{
+                        delay: 0.25,
+                        ease: 'easeInOut',
+                        duration: 0.5
+                      }}
+                      viewport={{ amount: 0 }}
+                      className='flex justify-between items-center'
+                    >
                       <div className='flex space-x-[20px]'>
                         <div>
                           {res?.profilePic ? (
@@ -246,7 +263,7 @@ function MoreSuggestion () {
                         user={res}
                         RequestStatus={res?.friendsDetails}
                       />
-                    </div>
+                    </motion.div>
                   </li>
                 ))}
           </ul>

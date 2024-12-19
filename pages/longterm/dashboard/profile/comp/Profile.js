@@ -9,7 +9,6 @@ import {
 } from '../../../../../store/reducers/MyProfile'
 import { getCookie } from 'cookies-next'
 import Avatar from 'react-avatar'
-import SkeletonProfile from './SKeletonProfile'
 const AddressTab = dynamic(() => import('./sections/AddressTab'))
 const EducationTab = dynamic(() => import('./sections/EducationTab'))
 const ContactTab = dynamic(() => import('./sections/ContactTab'))
@@ -27,6 +26,7 @@ import calculateAge from '../../../../../utils/helpers/CalculateAge'
 import ViewProfile from '../../../../../components/common/Models/ViewProfile'
 import { GetProfilesCount } from '../../../../../store/matrimoney-services/actions/GetProfileCountsAction'
 import UserProfileMenu from '../../../../../components/long-term/common/Model/UserPopover'
+import SkeletonProfile from '../../../../../components/common/animation/ProfileSkeleton'
 
 function Profile () {
   const { darkMode, toggleDarkMode } = useDarkMode()
@@ -183,7 +183,7 @@ function Profile () {
                           alt='userProfile'
                           width={184}
                           height={184}
-                          className=' rounded-[50%] mt-[5px] lg:mt-0 w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[184px] lg:h-[184px] 2xl:w-[184px] 2xl:h-[184px] xl:w-[160px] xl:h-[160px]'
+                          className=' group-hover:opacity-95 duration-300 rounded-[50%] mt-[5px] lg:mt-0 w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[184px] lg:h-[184px] 2xl:w-[184px] 2xl:h-[184px] xl:w-[160px] xl:h-[160px]'
                           src={data.profilePic}
                           style={{ objectFit: 'cover' }}
                         />

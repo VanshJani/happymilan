@@ -4,6 +4,7 @@ import axios from 'axios'
 
 // Thunk for fetching friends Pending--v2
 export const fetchFriends = (View, Pages) => async (dispatch, getState) => {
+  console.log("🚀 ~ fetchFriends ~ Pages:", Pages)
   dispatch(fetchFriendsRequest())
 
   try {

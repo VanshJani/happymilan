@@ -1,59 +1,67 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+
+// Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserById } from '../../../../../store/actions/GetingUserById'
-import SkeletonProfileSec from './SkeletonProfileSec'
-import { Dialog, Popover } from '@mui/material'
-import moment from 'moment'
+
+// UI Components
+import { Dialog } from '@mui/material'
+import Avatar from 'react-avatar'
+
+// Custom Components
 import RegisterAlertModal from '../../../../_components/Model/Models/RegisterAlertModal'
-// import GridLikeUser from '../../../../_components/common/Buttons/GridLikeUser'
-import calculateAge from '../../../../../utils/helpers/CalculateAge'
-import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
+import SkeletonProfile from '../../../../../components/common/animation/ProfileSkeleton'
 import ContactTab from './tabs/ContactTab'
 import LocationTab from './tabs/LocationTab'
 import Notfound from '../../../../../components/common/Error/Notfound'
-import Avatar from 'react-avatar'
 import ViewProfile from '../../../../../components/common/Models/ViewProfile'
 import UserProfileMenu from '../../../../../components/long-term/common/Model/UserPopover'
 import GridLikeButton from '../../../../_components/common/Buttons/LikeSections/GridLikeButton'
 
+// Utilities
+import moment from 'moment'
+import calculateAge from '../../../../../utils/helpers/CalculateAge'
+import { capitalizeFirstLetter } from '../../../../../utils/form/Captitelize'
+
 function Userprofile ({ params, toggleDrawer }) {
-  const Username = {
-    color: '#000',
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    lineHeight: 'normal'
-  }
+  const ProfileStyle = useMemo(() => ({
+    Username: {
+      color: '#000',
+      fontFamily: 'Poppins',
+      fontStyle: 'normal',
+      fontWeight: '600',
+      lineHeight: 'normal'
+    },
 
-  const Text2 = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
-  }
-  const Text4 = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: '24px'
-  }
-  const Text5 = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '505',
-    lineHeight: 'normal'
-  }
+    Text2: {
+      fontFamily: 'Poppins',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      lineHeight: 'normal'
+    },
+    Text4: {
+      fontFamily: 'Poppins',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      lineHeight: '24px'
+    },
+    Text5: {
+      fontFamily: 'Poppins',
+      fontStyle: 'normal',
+      fontWeight: '505',
+      lineHeight: 'normal'
+    },
 
-  const Urlmodaltext = {
-    color: '#000',
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
-  }
-
+    Urlmodaltext: {
+      color: '#000',
+      fontFamily: 'Poppins',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      lineHeight: 'normal'
+    }
+  }))
   const upgradeDone = true
 
   const GeneralTab = ({ data }) => {
@@ -65,7 +73,7 @@ function Userprofile ({ params, toggleDrawer }) {
           <div className='pt-[10px] grid place-items-center'>
             <ul className='w-[90%] flex justify-between items-center m-[10px]'>
               <li>
-                <h1 style={Text2} className='text-[16px]'>
+                <h1 style={ProfileStyle?.Text2} className='text-[16px]'>
                   {'General Information'}
                 </h1>
               </li>
@@ -81,13 +89,13 @@ function Userprofile ({ params, toggleDrawer }) {
             <div className='w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]'>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Date of Birth
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px] xl:text-[14px] text-[14px]'
                 >
                   {data?.dateOfBirth
@@ -97,13 +105,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Birth of Time
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px] xl:text-[14px] text-[14px]'
                 >
                   {data?.birthTime
@@ -113,13 +121,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Religion
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px] xl:text-[14px] text-[14px]'
                 >
                   {data && data.religion
@@ -129,13 +137,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Caste/Sub Caste
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px] xl:text-[14px] text-[14px]'
                 >
                   {data && data?.caste
@@ -153,13 +161,13 @@ function Userprofile ({ params, toggleDrawer }) {
             <div className='w-[90%] relative top-[-15px] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]'>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Current City
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px] xl:text-[14px] text-[14px]'
                 >
                   {data && data.address?.currentCity
@@ -169,13 +177,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Country of Living
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px] xl:text-[14px] text-[14px]'
                 >
                   {data && data.address?.currentCountry
@@ -203,7 +211,7 @@ function Userprofile ({ params, toggleDrawer }) {
           <div className='pt-[10px] grid place-items-center'>
             <ul className='w-[90%] flex justify-between items-center m-[10px]'>
               <li>
-                <h1 style={Text2} className='text-[16px]'>
+                <h1 style={ProfileStyle?.Text2} className='text-[16px]'>
                   Address Details
                 </h1>
               </li>
@@ -229,7 +237,7 @@ function Userprofile ({ params, toggleDrawer }) {
           <ul className='w-[90%] flex justify-between items-center m-[10px]'>
             <li>
               <h1
-                style={Text2}
+                style={ProfileStyle?.Text2}
                 className='2xl:text-[16px] xl:text-[16px] lg:text-[16px] md:text-[16px] text-[14px]'
               >
                 Contact Details
@@ -255,7 +263,7 @@ function Userprofile ({ params, toggleDrawer }) {
           <div className='pt-[10px] grid place-items-center'>
             <ul className='w-[90%] flex justify-between items-center m-[10px]'>
               <li>
-                <h1 style={Text2} className='text-[16px]'>
+                <h1 style={ProfileStyle?.Text2} className='text-[16px]'>
                   {'Education Details'}
                 </h1>
               </li>
@@ -271,13 +279,13 @@ function Userprofile ({ params, toggleDrawer }) {
             <div className='w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]'>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Degree
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userEducation?.degree
@@ -287,13 +295,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   College/University
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userEducation?.collage
@@ -303,13 +311,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   City
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userEducation?.city
@@ -319,13 +327,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   State
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userEducation?.state
@@ -335,13 +343,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Country
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userEducation?.country
@@ -362,7 +370,7 @@ function Userprofile ({ params, toggleDrawer }) {
           <div className='pt-[10px] grid place-items-center'>
             <ul className='w-[90%] flex justify-between items-center m-[10px]'>
               <li>
-                <h1 style={Text2} className='text-[16px]'>
+                <h1 style={ProfileStyle?.Text2} className='text-[16px]'>
                   Professional Details
                 </h1>
               </li>
@@ -376,13 +384,13 @@ function Userprofile ({ params, toggleDrawer }) {
             <div className='w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]'>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Current Designation
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   Software Designer
@@ -390,13 +398,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Job Type
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userProfessional?.jobType
@@ -407,13 +415,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Company Name
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userProfessional?.companyName
@@ -423,13 +431,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Annual Salary
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   INR{' '}
@@ -441,13 +449,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Work in City
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userProfessional?.workCity
@@ -457,13 +465,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Work in Country
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userProfessional?.workCountry
@@ -494,7 +502,7 @@ function Userprofile ({ params, toggleDrawer }) {
           <div className='pt-[10px] grid place-items-center'>
             <ul className='w-[90%] flex justify-between items-center m-[10px]'>
               <li>
-                <h1 style={Text2} className='text-[16px]'>
+                <h1 style={ProfileStyle?.Text2} className='text-[16px]'>
                   Hobbies and Interests
                 </h1>
               </li>
@@ -532,7 +540,7 @@ function Userprofile ({ params, toggleDrawer }) {
           <div className='pt-[10px] grid place-items-center'>
             <ul className='w-[90%] flex justify-between items-center m-[10px]'>
               <li>
-                <h1 style={Text2} className='text-[16px]'>
+                <h1 style={ProfileStyle?.Text2} className='text-[16px]'>
                   Partner Preference
                 </h1>
               </li>
@@ -546,13 +554,13 @@ function Userprofile ({ params, toggleDrawer }) {
             <div className='w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]'>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Age
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userPartner?.age
@@ -566,13 +574,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Prefer Height
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userPartner?.height
@@ -588,13 +596,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Prefer City State
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userPartner?.city
@@ -606,13 +614,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Prefer Country
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userPartner?.country
@@ -622,13 +630,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Prefer Income
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   INR{' '}
@@ -639,13 +647,13 @@ function Userprofile ({ params, toggleDrawer }) {
               </div>
               <div>
                 <p
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                   className='2xl:text-[14px] xl:text-[12px] text-[12px]'
                 >
                   Prefer Diet
                 </p>
                 <h1
-                  style={Text5}
+                  style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   {data && data.userPartner?.diet
@@ -715,7 +723,7 @@ function Userprofile ({ params, toggleDrawer }) {
   const closeModal = () => setIsModalOpen(false)
 
   if (loading === true) {
-    return <SkeletonProfileSec />
+    return <SkeletonProfile />
   }
 
   if (error !== '') {
@@ -753,7 +761,7 @@ function Userprofile ({ params, toggleDrawer }) {
 
               <div className='pb-[10px] pt-[15px]'>
                 <h1
-                  style={Username}
+                  style={ProfileStyle?.Username}
                   className='text-[18px] md:text-[20px] lg:text-[20px] xl:text-[20px] 2xl:text-[24px]'
                 >
                   {user?.name || 'Rohan Patel'}
@@ -766,7 +774,7 @@ function Userprofile ({ params, toggleDrawer }) {
                   <li>
                     <div className='flex items-center space-x-[10px]'>
                       <h1
-                        style={Text2}
+                        style={ProfileStyle?.Text2}
                         className='lg:text-[12px] md:text-[12px] text-[11px]'
                       >
                         {capitalizeFirstLetter(user?.gender) || 'NA'},{' '}
@@ -784,10 +792,12 @@ function Userprofile ({ params, toggleDrawer }) {
                         src='/assests/dashboard/icon/bag-icon.svg'
                       />
                       <h1
-                        style={Text2}
+                        style={ProfileStyle?.Text2}
                         className='lg:text-[12px] md:text-[12px] text-[11px]'
                       >
-                        {capitalizeFirstLetter(user?.userProfessional?.jobTitle) || 'NA'}
+                        {capitalizeFirstLetter(
+                          user?.userProfessional?.jobTitle
+                        ) || 'NA'}
                       </h1>
                     </div>
                   </li>
@@ -801,7 +811,7 @@ function Userprofile ({ params, toggleDrawer }) {
                         src='/assests/dashboard/icon/location-icon.svg'
                       />
                       <h1
-                        style={Text2}
+                        style={ProfileStyle?.Text2}
                         className='lg:text-[12px] md:text-[12px] text-[11px]'
                       >
                         {capitalizeFirstLetter(user?.address?.currentCity) ||
@@ -815,12 +825,6 @@ function Userprofile ({ params, toggleDrawer }) {
                 </ul>
               </div>
               <div className='pt-5 pb-5'>
-                {/* <GridLikeUser
-                  toggleDrawer={toggleDrawer}
-                  from={'UserProfile'}
-                  user={user}
-                  theid={user?._id}
-                /> */}
                 <GridLikeButton
                   userId={user?._id || user?.id}
                   TheUsername={user?.name}
@@ -830,7 +834,7 @@ function Userprofile ({ params, toggleDrawer }) {
               <div className='text-center pt-[10px]'>
                 <p
                   className='text-[12px] lg:text-[14px] md:text-[14px] 2xl:text-[14px] xl:text-[12px]'
-                  style={Text2}
+                  style={ProfileStyle?.Text2}
                 >
                   {capitalizeFirstLetter(user?.writeBoutYourSelf) || 'NA'}
                 </p>
@@ -980,7 +984,7 @@ function Userprofile ({ params, toggleDrawer }) {
                     />
                   </svg>
                   <p
-                    style={Text4}
+                    style={ProfileStyle?.Text4}
                     className='text-[14px] 2xl:text-[14px] xl:text-[13px]'
                   >
                     Partner Preference
@@ -1046,7 +1050,7 @@ function Userprofile ({ params, toggleDrawer }) {
             style={{ padding: '17px 19px 17px 20px' }}
             className='bg-[#333333] w-[249px] rounded-[100px] text-center grid place-items-center'
           >
-            <div className='text-[14px]' style={Urlmodaltext}>
+            <div className='text-[14px]' style={ProfileStyle?.Urlmodaltext}>
               <span className='text-[#fff]'> {shortlistText}</span>
             </div>
           </div>

@@ -54,7 +54,7 @@ const AddressTab = () => {
     control: (provided, state) => ({
       ...provided,
       paddingRight: '10px',
-    //   paddingLeft: '8px',
+      //   paddingLeft: '8px',
       width: '300px',
       height: '50px',
       borderRadius: '0px',
@@ -63,10 +63,6 @@ const AddressTab = () => {
       borderWidth: '0',
       borderStyle: 'none',
       backgroundColor: darkMode ? '#141516' : '#FFF',
-      //   borderColor: state.isFocused ? 'black' : provided.borderColor,
-      //   '&:hover': {
-      //     borderColor: darkMode ? '#787878' : 'black'
-      //   },
       outline: 'none', // Remove outline
       boxShadow: state.isFocused ? 'none' : provided.boxShadow, // Remove blue line on focus
       borderColor: 'transparent' // Remove default border color
@@ -176,17 +172,6 @@ const AddressTab = () => {
             </li>
           </ul>
         </div>
-        {/* {
-                    loading == "loading" ?
-                        <>
-                            <div className='w-full h-full grid place-items-center'>
-                                <div>
-                                    <Image loading="lazy" alt="loader" width={25} height={25} className='animate-spin inline relative left-[0px]' src='/assests/animation/gradient-loader.svg' />
-                                </div>
-                            </div>
-                        </> :
-                        <> */}
-
         {showForm ? (
           <>
             <div className=' flex flex-col justify-center items-center'>
@@ -372,8 +357,6 @@ const AddressTab = () => {
             </div>
           </>
         )}
-        {/* </>
-                } */}
       </div>
     </>
   )

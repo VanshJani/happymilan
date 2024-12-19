@@ -268,3 +268,9 @@ export const FetchMoreSuggestiondata = (page) => {
     }
   }
 }
+
+// Redux action to save the current index
+export const setCurrentSlideIndex = (index) => ({
+  type: "SET_CURRENT_SLIDE_INDEX",
+  payload: index,
+});

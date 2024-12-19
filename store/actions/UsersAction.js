@@ -955,6 +955,8 @@ export const GetrecentuserprofileData = () => {
   return async dispatch => {
     dispatch({ type: GET_RECENT_USERPROFILE_DATA })
 
+    console.log("Calingg.......")
+
     const axios = require('axios')
     const authToken = getCookie('authtoken')
     const currentUserId = getCookie('userid')

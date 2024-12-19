@@ -10,9 +10,16 @@ import {
   REMOVE_REQUEST,
   FETCH_ALL_USERS_PAGINATED_REQUEST,
   FETCH_ALL_USERS_PAGINATED_SUCCESS,
-  FETCH_ALL_USERS_PAGINATED_FAILURE,
-} from '../actions/GetingAlluser';
-import { GET_INFINIT_SCROLL_USER_FAILURE, GET_INFINIT_SCROLL_USER_REQUEST, GET_INFINIT_SCROLL_USER_SUCCESS, GET_MORESUGGESTION_USERS_FAILURE, GET_MORESUGGESTION_USERS_REQUEST, GET_MORESUGGESTION_USERS_SUCCESS } from '../type';
+  FETCH_ALL_USERS_PAGINATED_FAILURE
+} from '../actions/GetingAlluser'
+import {
+  GET_INFINIT_SCROLL_USER_FAILURE,
+  GET_INFINIT_SCROLL_USER_REQUEST,
+  GET_INFINIT_SCROLL_USER_SUCCESS,
+  GET_MORESUGGESTION_USERS_FAILURE,
+  GET_MORESUGGESTION_USERS_REQUEST,
+  GET_MORESUGGESTION_USERS_SUCCESS
+} from '../type'
 
 const initialState = {
   users: [],
@@ -24,21 +31,24 @@ const initialState = {
     userData: [],
     totalPages: 0,
     currentPage: 0,
-    limit: 0,
+    limit: 0
   },
   Ifinit: {
     data: [],
     page: 1,
     loading: false,
-    error: ""
+    error: ''
   },
   MoreSuggestion: {
     data: [],
     page: 1,
     loading: false,
-    error: ""
+    error: ''
+  },
+  CurrentSlide: {
+    currentSlide: 0
   }
-};
+}
 
 const allUsersReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -46,21 +56,21 @@ const allUsersReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        error: null,
-      };
+        error: null
+      }
     case FETCH_ALL_USERS_SUCCESS:
       return {
         ...state,
         loading: false,
-        users: action.payload,
-      };
+        users: action.payload
+      }
 
     case FETCH_ALL_USERS_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload,
-      };
+        error: action.payload
+      }
     case FETCH_ALL_USERS_PAGINATED_REQUEST:
       return {
         ...state,
@@ -75,26 +85,25 @@ const allUsersReducer = (state = initialState, action) => {
         Paginated: {
           ...state.Paginated,
           userData: action.payload.userData, // Append new users to existing list
-          totalPages: action.payload.totalPages,   // Update total pages
+          totalPages: action.payload.totalPages, // Update total pages
           currentPage: action.payload.currentPage, // Update current page
-          limit: action.payload.limit,             // Set limit per page
-          loading: false,                          // Set loading false after success
+          limit: action.payload.limit, // Set limit per page
+          loading: false // Set loading false after success
         }
-      };
+      }
     case FETCH_ALL_USERS_PAGINATED_FAILURE:
       return {
         ...state,
         Paginated: {
           ...state.Paginated,
           loading: false
-
         }
       }
     case GET_INFINIT_SCROLL_USER_REQUEST: {
       return {
         ...state,
         Ifinit: {
-          loading: true,
+          loading: true
         }
       }
     }
@@ -112,7 +121,7 @@ const allUsersReducer = (state = initialState, action) => {
         ...state,
         Ifinit: {
           loading: false,
-          error: "Something Went Wrong.."
+          error: 'Something Went Wrong..'
         }
       }
     }
@@ -120,7 +129,7 @@ const allUsersReducer = (state = initialState, action) => {
       return {
         ...state,
         MoreSuggestion: {
-          loading: true,
+          loading: true
         }
       }
     }
@@ -138,7 +147,7 @@ const allUsersReducer = (state = initialState, action) => {
         ...state,
         MoreSuggestion: {
           loading: false,
-          error: "Something Went Wrong"
+          error: 'Something Went Wrong'
         }
       }
     }
@@ -146,36 +155,43 @@ const allUsersReducer = (state = initialState, action) => {
     case ADD_TO_SHORTLIST:
       // Logic to add user to shortlist
       return {
-        ...state,
+        ...state
         // Update state with new shortlisted user
-      };
+      }
     case LIKE_USER:
       // Logic to like a user
       return {
-        ...state,
+        ...state
         // Update state with user liked
-      };
+      }
     case UNLIKE_USER:
       // Logic to unlike a user
       return {
-        ...state,
+        ...state
         // Update state with user unliked
-      };
+      }
     case SEND_REQUEST:
       // Logic to send a request to a user
       return {
-        ...state,
+        ...state
         // Update state with user request sent
-      };
+      }
     case REMOVE_REQUEST:
       // Logic to remove a request sent to a user
       return {
-        ...state,
+        ...state
         // Update state with request removed
-      };
+      }
+    case 'SET_CURRENT_SLIDE_INDEX':
+      return {
+        ...state,
+        CurrentSlide: {
+          currentSlide: action.payload
+        }
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default allUsersReducer;
+export default allUsersReducer

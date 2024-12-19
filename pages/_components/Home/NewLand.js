@@ -295,7 +295,7 @@ function NewLand () {
             </div>
           </div>
           <div className=''>
-            <div className='flex justify-center lg:justify-between pr-[0px] 2xl:pl-[200px] xl:pl-[160px]'>
+            <div className='flex justify-center lg:justify-between pr-[0px] 2xl:pl-[200px] xl:pl-[160px] lg:pl-[100px]'>
               <div className='mt-[20px]'>
                 <ul className='w-full space-y-[23px]'>
                   <li style={GradientText}>{activeProfile?.title}</li>
