@@ -744,21 +744,36 @@ function Userprofile ({ params, toggleDrawer }) {
             <UserProfileMenu Privacy={false} res={user} />
 
             <div className='grid place-items-center mt-[50px]'>
-              {user?.profilePic ? (
-                <Image
-                  loading='lazy'
-                  onClick={openModal}
-                  alt='img'
-                  style={{ objectFit: 'cover' }}
-                  width={184}
-                  height={184}
-                  className='rounded-[50%] mt-[5px] lg:mt-0 w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[184px] lg:h-[184px] 2xl:w-[184px] 2xl:h-[184px] xl:w-[160px] xl:h-[160px]'
-                  src={user?.profilePic}
-                />
-              ) : (
-                <Avatar name={user?.name} round size='184' />
-              )}
+              <div
+                onClick={openModal}
+                className='group relative w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[184px] lg:h-[184px] 2xl:w-[184px] 2xl:h-[184px] xl:w-[160px] xl:h-[160px] cursor-pointer'
+              >
+                <div className='absolute top-0 left-0 w-full h-full cursor-pointer hidden duration-300 group-hover:grid place-items-center'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='currentColor'
+                    className='size-6 w-11 h-11 text-white z-10'
+                  >
+                    <path d='M6 3a3 3 0 0 0-3 3v1.5a.75.75 0 0 0 1.5 0V6A1.5 1.5 0 0 1 6 4.5h1.5a.75.75 0 0 0 0-1.5H6ZM16.5 3a.75.75 0 0 0 0 1.5H18A1.5 1.5 0 0 1 19.5 6v1.5a.75.75 0 0 0 1.5 0V6a3 3 0 0 0-3-3h-1.5ZM12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM4.5 16.5a.75.75 0 0 0-1.5 0V18a3 3 0 0 0 3 3h1.5a.75.75 0 0 0 0-1.5H6A1.5 1.5 0 0 1 4.5 18v-1.5ZM21 16.5a.75.75 0 0 0-1.5 0V18a1.5 1.5 0 0 1-1.5 1.5h-1.5a.75.75 0 0 0 0 1.5H18a3 3 0 0 0 3-3v-1.5Z' />
+                  </svg>
+                </div>
 
+                {user?.profilePic ? (
+                  <Image
+                    loading='lazy'
+                    // onClick={openModal}
+                    alt='img'
+                    style={{ objectFit: 'cover' }}
+                    width={184}
+                    height={184}
+                    className='rounded-[50%] mt-[5px] lg:mt-0 w-[80px] h-[80px] md:w-[100px] md:h-[100px] lg:w-[184px] lg:h-[184px] 2xl:w-[184px] 2xl:h-[184px] xl:w-[160px] xl:h-[160px]'
+                    src={user?.profilePic}
+                  />
+                ) : (
+                  <Avatar name={user?.name} round size='184' />
+                )}
+              </div>
               <div className='pb-[10px] pt-[15px]'>
                 <h1
                   style={ProfileStyle?.Username}
