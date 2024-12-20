@@ -549,7 +549,7 @@ function DatingNav() {
                                                 {darkMode ? icons["menu-lock"].dark : icons["menu-lock"].light}
                                             </span>
 
-                                            <Link className="relative left-[5px]" href="/dating/dashboard/seting/privacy">Privacy Seting</Link>
+                                            <Link className="relative left-[5px]" href="/dating/dashboard/seting/privacy">Privacy Setting</Link>
                                         </li>
 
 
