@@ -36,7 +36,7 @@ function RecentlyView () {
 
   return (
     <>
-      <div className='grid place-items-start translate-x-10'>
+      <div className='w-full grid place-items-start translate-x-10'>
         <div className='relative '>
           {data?.length > 0 ? (
             <h1

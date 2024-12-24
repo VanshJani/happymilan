@@ -11,6 +11,7 @@ import { updateSpamUserdata } from '../../../../store/reducers/SpamReportReducer
 import CancelRequestModal from '../../../../pages/_components/Model/Models/CancelRequestModal'
 
 function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
+  console.log('🚀 ~ ProfileMenu ~ res:', res)
   const { darkMode } = useDarkMode()
 
   const Text3 = {
@@ -123,6 +124,15 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
 
   const closeModal = () => {
     setIsModalOpen(false)
+  }
+
+  const HandleCopyMemberID = () => {
+    setOpenURLModal(true)
+    navigator.clipboard.writeText(res?.userUniqueId)
+    handleClose()
+    setTimeout(() => {
+      setOpenURLModal(false)
+    }, 1000)
   }
 
   const handleCopyURL = () => {
@@ -268,7 +278,6 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
   }
 
   const NewRequestSection = () => {
-
     const [isCancelModalOpen, setisCancelModalOpen] = useState(false)
 
     const closeCancelModal = () => {
@@ -435,6 +444,26 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
                   <p>Copy URL</p>
                 </div>
               </li>
+              {res?.userUniqueId ? (
+                <li
+                  onClick={HandleCopyMemberID}
+                  style={Text3}
+                  className='cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]'
+                >
+                  <div className=' ml-[20px] flex space-x-[24px]'>
+                    <Image
+                      loading='lazy'
+                      alt='icon'
+                      width={16}
+                      height={12}
+                      src='/assests/dashboard/icon/member-id-icon.svg'
+                    />{' '}
+                    <p>Copy ID : {res?.userUniqueId}</p>
+                  </div>
+                </li>
+              ) : (
+                ''
+              )}
               {renderSection()}
             </ul>
           </div>

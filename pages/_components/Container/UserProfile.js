@@ -144,9 +144,11 @@ function SampleUserProfile () {
   const [isReportModalOpen, setisReportModalOpen] = useState(false)
   const [isBlockModalOpen, setisBlockModalOpen] = useState(false)
   const [Data, setData] = useState('')
+  const [BlockData, SetBlockData] = useState('')
 
   const openModal = e => {
     setIsModalOpen(true)
+    setData(res)
   }
 
   const closeModal = () => {
@@ -162,7 +164,9 @@ function SampleUserProfile () {
     setisRegisterModalOpen(false)
   }
 
-  const openBlockModal = () => {
+  const openBlockModal = e => {
+    console.log('🚀 ~ openBlockModal ~ e:', e)
+    SetBlockData(e)
     setisBlockModalOpen(true)
   }
   const closeBlockModal = () => {
@@ -308,7 +312,6 @@ function SampleUserProfile () {
             }}
             onSlideChange={handleSlideChange}
             initialSlide={CurrentSlide}
-            
           >
             {users?.map((res, index) => {
               return (
@@ -704,7 +707,11 @@ function SampleUserProfile () {
         ReportData={CurrURL}
       />
 
-      <BlockUserModal isOpen={isBlockModalOpen} onClose={closeBlockModal} />
+      <BlockUserModal
+        data={BlockData}
+        isOpen={isBlockModalOpen}
+        onClose={closeBlockModal}
+      />
       <React.Fragment>
         <Dialog
           open={openShortlistModal}

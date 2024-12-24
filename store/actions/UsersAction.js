@@ -458,7 +458,7 @@ export const GetNotifications = () => {
       }
 
       const response = await axios(config)
-   
+
       dispatch({
         type: GET_REQUEST_DATA_SUCCESS,
         payload: {
@@ -636,28 +636,37 @@ export const FetchUserDataById = async userId => {
 }
 
 export const Sentblockrequest = (requestData, OtherUserId) => {
+  console.log("🚀 ~ Sentblockrequest ~ requestData:", requestData)
   return async dispatch => {
     dispatch({ type: SENT_BLOCK_REQUEST })
 
     const axios = require('axios')
+    const UserID = getCookie('userid')
 
     const token = getCookie('authtoken')
     let data = JSON.stringify({
-      user: OtherUserId,
-      request: requestData,
-      status: 'blocked'
+      //   user: OtherUserId,
+      //   request: requestData,
+      //   status: 'blocked'
+      friend: requestData?.InitiatorUser,
+      user: UserID
     })
+    console.log("🚀 ~ Sentblockrequest ~ data:", data)
 
     let config = {
-      method: 'PUT',
+      method: 'post',
       maxBodyLength: Infinity,
-      url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/respond-friend-req`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/block-user`,
+      //   url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/friend/respond-friend-req`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
       data: data
     }
+
+    // "friend":"66fe3c190d3ee34aa01c35e0",
+    // "user" : "66fe3a550d3ee34aa01c358d"
 
     axios
       .request(config)
@@ -955,7 +964,7 @@ export const GetrecentuserprofileData = () => {
   return async dispatch => {
     dispatch({ type: GET_RECENT_USERPROFILE_DATA })
 
-    console.log("Calingg.......")
+    console.log('Calingg.......')
 
     const axios = require('axios')
     const authToken = getCookie('authtoken')
