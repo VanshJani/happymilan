@@ -301,7 +301,7 @@ const ContactTab = () => {
                         style={SectionStyle?.Text5}
                         className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'
                       >
-                        {data.email || 'NA'}
+                        {data?.email || 'NA'}
                       </h1>
                     </li>
                     <li>
