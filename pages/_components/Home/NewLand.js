@@ -203,6 +203,33 @@ function NewLand () {
     }
   ]
 
+  const ChatIcons = [
+    {
+      id: 1,
+      icon: '/heroSec/icon/emoji-icon.svg',
+      content: 'Emoji',
+      alt: 'emoji'
+    },
+    {
+      id: 2,
+      icon: '/heroSec/icon/img-icon.svg',
+      content: 'Image',
+      alt: 'image'
+    },
+    {
+      id: 3,
+      icon: '/heroSec/icon/mic-icon.svg',
+      content: 'Audio',
+      alt: 'audio'
+    },
+    {
+      id: 4,
+      icon: '/heroSec/icon/video-call-icon.svg',
+      content: 'Video',
+      alt: 'video'
+    }
+  ]
+
   const [activeProfile, setActiveProfile] = useState(profilesData[0]) // Start with the first profile
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -448,70 +475,29 @@ function NewLand () {
                   relationships
                 </p>
                 <ul className='flex space-x-[70px]'>
-                  <li className='space-y-[8px] flex flex-col justify-center items-center'>
-                    <Image
-                      width={0}
-                      height={0}
-                      alt='emoji'
-                      src={'/heroSec/icon/emoji-icon.svg'}
-                      loading='lazy'
-                      className='w-[30px] h-[30px]'
-                    />
-                    <p
-                      className='text-[14px] text-center text-[#000]'
-                      style={Text3}
-                    >
-                      Emoji
-                    </p>
-                  </li>
-                  <li className='space-y-[8px] flex flex-col justify-center items-center'>
-                    <Image
-                      width={0}
-                      height={0}
-                      alt='img'
-                      src={'/heroSec/icon/img-icon.svg'}
-                      loading='lazy'
-                      className='w-[30px] h-[30px]'
-                    />
-                    <p
-                      className='text-[14px] text-center text-[#000]'
-                      style={Text3}
-                    >
-                      Image
-                    </p>
-                  </li>
-                  <li className='space-y-[8px] flex flex-col justify-center items-center'>
-                    <Image
-                      width={0}
-                      height={0}
-                      alt='mic'
-                      src={'/heroSec/icon/mic-icon.svg'}
-                      loading='lazy'
-                      className='w-[30px] h-[30px]'
-                    />
-                    <p
-                      className='text-[14px] text-center text-[#000]'
-                      style={Text3}
-                    >
-                      Audio
-                    </p>
-                  </li>
-                  <li className='space-y-[8px] flex flex-col justify-center items-center'>
-                    <Image
-                      width={0}
-                      height={0}
-                      alt='video-call'
-                      src={'/heroSec/icon/video-call-icon.svg'}
-                      loading='lazy'
-                      className='w-[30px] h-[30px]'
-                    />
-                    <p
-                      className='text-[14px] text-center text-[#000]'
-                      style={Text3}
-                    >
-                      Video
-                    </p>
-                  </li>
+                  {ChatIcons?.map((item, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className='space-y-[8px] flex flex-col justify-center items-center'
+                      >
+                        <Image
+                          width={0}
+                          height={0}
+                          alt={item?.alt}
+                          src={item?.icon}
+                          loading='lazy'
+                          className='w-[30px] h-[30px]'
+                        />
+                        <p
+                          className='text-[14px] text-center text-[#000]'
+                          style={Text3}
+                        >
+                          {item?.content}
+                        </p>
+                      </li>
+                    )
+                  })}
                 </ul>
                 <ul className='flex space-x-[25px]'>
                   <li>
@@ -945,7 +931,6 @@ function NewLand () {
                   </ul>
                 </div>
                 <div className='relative top-[30px]'>
-                  {/* <Image width={0} height={0} alt='app' loading='lazy' src={"/heroSec/assests/.svg"} className='w-[160.043px] h-[auto]' /> */}
                   <Image
                     width={0}
                     height={0}

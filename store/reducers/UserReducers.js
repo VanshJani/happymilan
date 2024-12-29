@@ -124,7 +124,8 @@ const initialState = {
   },
   blockuserdata: {
     data: null,
-    blockusersdata: null
+    blockusersdata: null,
+    loading: false
   },
   cancelrequestdata: {
     data: null
@@ -502,24 +503,30 @@ const userReducer = (state = initialState, action) => {
     case GET_BLOCK_USERDATA: {
       return {
         ...state,
-        loading: true,
-        error: null
+        blockuserdata: {
+          loading: true,
+          error: null
+        }
       }
     }
     case GET_BLOCK_USERDATA_SUCCESS: {
       return {
         ...state,
-        loading: false,
-        blockedusersdata: action.payload,
-        error: null
+        blockuserdata: {
+          loading: false,
+          data: action.payload,
+          error: null
+        }
       }
     }
     case GET_BLOCK_USERDATA_FAILURE: {
       return {
         ...state,
-        loading: false,
-        blockedusersdata: null,
-        error: action.payload
+        blockuserdata: {
+          loading: false,
+          blockedusersdata: null,
+          error: action.payload
+        }
       }
     }
     case SENT_BLOCK_REQUEST: {

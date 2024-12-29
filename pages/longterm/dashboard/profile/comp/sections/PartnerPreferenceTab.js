@@ -2,12 +2,8 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
-import {
-  updateMyPartnerPrefdata
-} from '../../../../../../store/reducers/MyProfile'
-import {
-  updateFormData,
-} from '../../../../../../store/actions/registerUser'
+import { updateMyPartnerPrefdata } from '../../../../../../store/reducers/MyProfile'
+import { updateFormData } from '../../../../../../store/actions/registerUser'
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton'
 import MultiSelect from '../../../../../alert'
 import { useDarkMode } from '../../../../../../ContextProvider/DarkModeContext'
@@ -59,29 +55,6 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
     fontWeight: '400',
     lineHeight: 'normal'
   }
-
-  const options = [
-    { value: 1, label: '1' },
-    { value: 2, label: '2' },
-    { value: 3, label: '3' },
-    { value: 4, label: '4' },
-    { value: 5, label: '5' },
-    { value: 6, label: '6' },
-    { value: 7, label: '7' },
-    { value: 8, label: '8' },
-    { value: 9, label: '9' },
-    { value: 10, label: '10' },
-    { value: 11, label: '11' },
-    { value: 12, label: '12' },
-    { value: 13, label: '13' },
-    { value: 14, label: '14' },
-    { value: 15, label: '15' },
-    { value: 16, label: '16' },
-    { value: 17, label: '17' },
-    { value: 18, label: '18' },
-    { value: 19, label: '19' },
-    { value: 20, label: '20' }
-  ]
 
   const Country = [
     { value: 'india', label: 'India' },
@@ -198,6 +171,25 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
   const [agevalue, setagevalue] = useState([0, 30])
   const [heightvalue, setheightvalue] = useState([0, 30])
 
+  const [selectedStates, setSelectedStates] = useState([])
+  const [selectedCountry, setSelectedCountry] = useState([])
+
+  // Convert backend data to react-select format
+  useEffect(() => {
+    if (data?.state && Array.isArray(data?.state)) {
+      const formattedData = data?.state.map(value =>
+        states.find(option => option.value === value)
+      )
+      setSelectedStates(formattedData.filter(Boolean)) // Ensure valid matches
+    }
+    if (data?.country && Array.isArray(data?.country)) {
+      const formattedData = data?.country.map(value =>
+        Country.find(option => option.value === value)
+      )
+      setSelectedCountry(formattedData.filter(Boolean)) // Ensure valid matches
+    }
+  }, [data])
+
   const [PrefData, SetPrefData] = useState({
     age: {
       min: 0,
@@ -211,8 +203,8 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
       min: 0,
       max: 0
     },
-    country: [],
-    state: [],
+    country: selectedCountry,
+    state: selectedStates,
     city: [],
     // income: 0,
     // creative: [],
@@ -258,6 +250,30 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
       }))
 
       setincome(value)
+    } else if (name == 'state') {
+      setSelectedStates(value)
+
+      // If you need to send this data back to the backend
+      const backendData = value.map(option => option.value)
+
+      SetPrefData(prevValue => ({
+        ...prevValue,
+        state: backendData
+      }))
+
+      // setSelectedStates(values)
+    } else if (name == 'country') {
+      setSelectedCountry(value)
+
+      // If you need to send this data back to the backend
+      const backendData = value.map(option => option.value)
+
+      SetPrefData(prevValue => ({
+        ...prevValue,
+        country: backendData
+      }))
+
+      // setSelectedStates(values)
     } else {
       const values = value?.map(item => item.value)
       //   disptach(updatePartnerPref(name, values))
@@ -277,8 +293,6 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
         UpdatedDataforPartnerPrefdata: PrefData
       })
     )
-
-    console.log(PrefData)
   }
 
   return (
@@ -456,6 +470,7 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                           options={Country}
                           placeholder='Select..'
                           styles={customStyles}
+                          value={selectedCountry}
                           onChange={selectedOption =>
                             handleInputChange({
                               target: { name: 'country', value: selectedOption }
@@ -474,6 +489,7 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                           options={states}
                           placeholder='Select..'
                           styles={customStyles}
+                          value={selectedStates}
                           onChange={selectedOption =>
                             handleInputChange({
                               target: { name: 'state', value: selectedOption }
@@ -504,10 +520,7 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                       <div>
                         <ul className='flex justify-between pb-[10px]'>
                           <li>
-                            <h1
-                              className='text-[#000]'
-                              style={labelText}
-                            >
+                            <h1 className='text-[#000]' style={labelText}>
                               Prefer Income
                             </h1>
                           </li>
@@ -580,11 +593,14 @@ const PartnerPreferenceTab = ({ formData, updateFormData }) => {
                     </div>
                   </div>
                   <div className='w-[90%] flex justify-center pb-[10px] mt-[10px]'>
-                    <SaveButton 
-                     className={
+                    <SaveButton
+                      className={
                         'rounded-[100px] text-[white] w-[194px] h-[50px]'
                       }
-                    onClick={SubmitChanges}>Save Changes</SaveButton>
+                      onClick={SubmitChanges}
+                    >
+                      Save Changes
+                    </SaveButton>
                   </div>
                 </div>
               </>

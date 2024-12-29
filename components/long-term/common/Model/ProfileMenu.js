@@ -10,8 +10,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateSpamUserdata } from '../../../../store/reducers/SpamReportReducer'
 import CancelRequestModal from '../../../../pages/_components/Model/Models/CancelRequestModal'
 
-function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
-  console.log('🚀 ~ ProfileMenu ~ res:', res)
+function ProfileMenu ({
+  View,
+  Credentials,
+  res,
+  Section,
+  accepteddata,
+  blockprofile,
+  Blockdata
+}) {
   const { darkMode } = useDarkMode()
 
   const Text3 = {
@@ -35,13 +42,15 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
 
   // Block Modal Section -- start
 
-  const [blockprofile, setblockprofile] = useState(false)
+  // const [blockprofile, setblockprofile] = useState(false)
   const [isBlockModalOpen, setisBlockModalOpen] = useState(false)
 
   const openBlockModal = () => {
     setisBlockModalOpen(true)
+    setAnchorEl(null)
   }
   const closeBlockModal = () => {
+    setAnchorEl(null)
     setisBlockModalOpen(false)
   }
 
@@ -93,7 +102,7 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
 
     // Remove "/sent" from the URL if it exists
     const newUrl = currentUrl.replace(
-      /\/(sent|accepted|cancelled|deleted|newrequest|recentlyviewed|shortlists)/g,
+      /\/(sent|accepted|cancelled|deleted|newrequest|recentlyviewed|shortlists|blocked)/g,
       ''
     )
 
@@ -110,6 +119,7 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
   const id = open ? 'simple-popover' : undefined
 
   const [openURLModal, setOpenURLModal] = React.useState(false)
+  const [URLText, SetURLText] = useState('')
 
   const HandleOpenShareModal = () => {
     openModal()
@@ -128,19 +138,23 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
 
   const HandleCopyMemberID = () => {
     setOpenURLModal(true)
+    SetURLText('User ID has been copied')
     navigator.clipboard.writeText(res?.userUniqueId)
     handleClose()
     setTimeout(() => {
       setOpenURLModal(false)
+      SetURLText('')
     }, 1000)
   }
 
   const handleCopyURL = () => {
     setOpenURLModal(true)
+    SetURLText('URL has been copied')
     navigator.clipboard.writeText(CurrURL)
     handleClose()
     setTimeout(() => {
       setOpenURLModal(false)
+      SetURLText('')
     }, 1000)
   }
 
@@ -153,10 +167,6 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
     const HandleUnfriend = () => {
       setisCancelModalOpen(true)
       console.log('acdata = ', accepteddata)
-      // console.log("acdata2 = ", {
-      //     currUser: accepteddata?.id,
-      //     OtherUser: accepteddata.user?._id == accepteddata?.lastInitiatorUser ? accepteddata?.friend?._id : accepteddata?.lastInitiatorUser
-      // })
     }
     return (
       <>
@@ -209,45 +219,6 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
     return (
       <>
         <li
-          style={Text3}
-          onClick={() => openBlockModal(UserData)}
-          className=' cursor-pointer hover:bg-[#F2F7FF] w-full p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]'
-        >
-          <div className=' ml-[20px] flex space-x-[24px]'>
-            {blockprofile ? (
-              <>
-                <svg
-                  width='14'
-                  height='14'
-                  viewBox='0 0 14 14'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    id='Vector'
-                    d='M7 14C6.03167 14 5.12167 13.8162 4.27 13.4488C3.41833 13.0813 2.6775 12.5825 2.0475 11.9525C1.4175 11.3225 0.91875 10.5817 0.55125 9.73C0.18375 8.87833 0 7.96833 0 7C0 6.03167 0.18375 5.12167 0.55125 4.27C0.91875 3.41833 1.4175 2.6775 2.0475 2.0475C2.6775 1.4175 3.41833 0.91875 4.27 0.55125C5.12167 0.18375 6.03167 0 7 0C7.96833 0 8.87833 0.18375 9.73 0.55125C10.5817 0.91875 11.3225 1.4175 11.9525 2.0475C12.5825 2.6775 13.0813 3.41833 13.4488 4.27C13.8162 5.12167 14 6.03167 14 7C14 7.96833 13.8162 8.87833 13.4488 9.73C13.0813 10.5817 12.5825 11.3225 11.9525 11.9525C11.3225 12.5825 10.5817 13.0813 9.73 13.4488C8.87833 13.8162 7.96833 14 7 14ZM7 12.95C8.66104 12.95 10.068 12.3736 11.2208 11.2208C12.3736 10.068 12.95 8.66104 12.95 7C12.95 6.29228 12.8275 5.61076 12.5825 4.95546C12.3375 4.30015 11.9933 3.70417 11.55 3.1675L3.1675 11.55C3.6925 12.005 4.28454 12.3521 4.94363 12.5913C5.60272 12.8304 6.28818 12.95 7 12.95ZM2.4675 10.8325L10.8325 2.4675C10.2958 2.0125 9.69985 1.6625 9.04454 1.4175C8.38924 1.1725 7.70772 1.05 7 1.05C5.33896 1.05 3.93203 1.6264 2.77921 2.77921C1.6264 3.93203 1.05 5.33896 1.05 7C1.05 7.71182 1.17833 8.39727 1.435 9.05637C1.69167 9.71546 2.03583 10.3075 2.4675 10.8325Z'
-                    fill='red'
-                  />
-                </svg>
-                <p className='text-[red]'>
-                  Unblock {UserData?.name ? UserData?.name : ''}
-                </p>{' '}
-              </>
-            ) : (
-              <>
-                <Image
-                  loading='lazy'
-                  alt='icon'
-                  width={14}
-                  height={14}
-                  src='/assests/dashboard/icon/block-icon.svg'
-                />
-                <p>Block {UserData?.name ? UserData?.name : ''}</p>{' '}
-              </>
-            )}{' '}
-          </div>
-        </li>
-        <li
           onClick={HandleUnfriend}
           style={Text3}
           className='cursor-pointer  w-full hover:bg-[#F2F7FF] p-[5px] space-x-[24px] flex  items-center space-x-[12px] text-[14px]'
@@ -277,21 +248,7 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
     )
   }
 
-  const NewRequestSection = () => {
-    const [isCancelModalOpen, setisCancelModalOpen] = useState(false)
-
-    const closeCancelModal = () => {
-      setisCancelModalOpen(false)
-    }
-    // const HandleUnfriend = () => {
-    //   setisCancelModalOpen(true)
-    //   console.log('acdata = ', accepteddata)
-    //   console.log('acdata2 = ', {
-    //     currUser: accepteddata?.id,
-    //     OtherUser: accepteddata?.lastInitiatorUser
-    //   })
-    // }
-
+  const BlockedSection = () => {
     return (
       <>
         <li
@@ -315,9 +272,7 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
                     fill='red'
                   />
                 </svg>
-                <p className='text-[red]'>
-                  Unblock {UserData?.name ? UserData?.name : ''}
-                </p>{' '}
+                <p className='text-[red]'>Unblock</p>{' '}
               </>
             ) : (
               <>
@@ -343,8 +298,7 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
         return <SecntSection />
       case 'accepted':
         return <AcceptedSection />
-      case 'newrequest':
-        return <NewRequestSection />
+
       default:
         return ''
     }
@@ -464,6 +418,7 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
               ) : (
                 ''
               )}
+              <BlockedSection />
               {renderSection()}
             </ul>
           </div>
@@ -472,16 +427,28 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
 
       {/* All Models */}
       <ShareModal isOpen={isModalOpen} onClose={closeModal} data={CurrURL} />
-      <BlockUserModal
-        isOpen={isBlockModalOpen}
-        onClose={closeBlockModal}
-        data={{
-          currUser: accepteddata?._id || accepteddata?.id,
-          OtherUser: accepteddata?.lastInitiatorUser,
-          status: 'blocked'
-        }}
-      />
 
+      {blockprofile ? (
+        <BlockUserModal
+          title={'Unblock'}
+          data={Blockdata}
+          blockprofile={blockprofile}
+          isOpen={isBlockModalOpen}
+          onClose={closeBlockModal}
+        />
+      ) : (
+        <BlockUserModal
+          isOpen={isBlockModalOpen}
+          onClose={closeBlockModal}
+          blockprofile={blockprofile}
+          data={{
+            currUser: accepteddata?._id || accepteddata?.id,
+            OtherUser: accepteddata?.lastInitiatorUser,
+            status: 'blocked'
+          }}
+          title={'block'}
+        />
+      )}
       <ReportModal
         title={'helo'}
         isOpen={isReportModalOpen}
@@ -509,7 +476,7 @@ function ProfileMenu ({ View, Credentials, res, Section, accepteddata }) {
             className='bg-[#333333] w-[249px] rounded-[100px] text-center grid place-items-center'
           >
             <div className='text-[14px]' style={Urlmodaltext}>
-              <spa className='text-[#fff]'> URL has been copied</spa>
+              <spa className='text-[#fff]'>{URLText}</spa>
             </div>
           </div>
         </Dialog>

@@ -128,48 +128,14 @@ function GridUserProfile () {
                           </li>
                         </li>
                         <li>
-                          <ProfileMenu res={res?.user} Section={'Shortlist'} />
+                          <ProfileMenu
+                            res={res?.user}
+                            Section={'Shortlist'}
+                            accepteddata={res?.user}
+                          />
                         </li>
                       </ul>
                     </div>
-                    {/* <div className='flex justify-between pt-[10px]'>
-                      <ul className='pl-[10px] flex space-x-[10px]'>
-                        <li>
-                          <Image
-                            alt='icon-1'
-                            width={17}
-                            height={14}
-                            src='/assests/Black/Couple2.svg'
-                          />
-                        </li>
-                        <li
-                          className='text-[10px]'
-                          style={profileStyles?.Text4}
-                        >
-                          You & Her{' '}
-                        </li>
-                      </ul>
-                      <ul className='pr-[10px] flex space-x-[30px]'>
-                        <li
-                          className='cursor-pointer'
-                          onClick={() => HandleRemoveShortlist(res)}
-                        >
-                          <div className='cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]'>
-                            <Image
-                              loading='lazy'
-                              width={15}
-                              height={14}
-                              alt='star'
-                              src={'/assests/Black/filled-star.svg'}
-                            />
-                          </div>
-                        </li>
-                        <li>
-                          <ProfileMenu res={res?.user} Section={'Shortlist'} />
-                        </li>
-                      </ul>
-                    </div> */}
-
                     <div className='flex justify-center'>
                       <Link
                         className='w-[100px] h-[100px] rounded-[50%]'
@@ -248,7 +214,7 @@ function GridUserProfile () {
                       userId={res?.user?.id || res?.user?._id}
                       TheUsername={res?.user?.name}
                       userdata={res?.user}
-                    //   Section={}
+                      //   Section={}
                     />
                   </div>
                 )

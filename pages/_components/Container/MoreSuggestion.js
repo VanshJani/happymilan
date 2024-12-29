@@ -13,9 +13,11 @@ import { motion } from 'framer-motion'
 function MoreSuggestion () {
   const dispatch = useDispatch()
   const { darkMode } = useDarkMode()
-  const { data: ProfileData, error } = useSelector(
-    state => state.userseting.MissingFields
-  )
+  const {
+    data: ProfileData,
+    status,
+    error
+  } = useSelector(state => state.userseting.MissingFields)
 
   const { data, loading } = useSelector(state => state.alluser?.MoreSuggestion)
   const [sentrequest, setsentRequest] = useState({})
@@ -117,7 +119,7 @@ function MoreSuggestion () {
   }
 
   const RequestBox = {
-    borderRadius: '10px',
+    borderRadius: '18px',
     boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
   }
 
@@ -129,157 +131,163 @@ function MoreSuggestion () {
   return (
     <div
       className={`${
-        ProfileData?.length > 1 ? '' : ' relative top-[-25px]'
-      } p-[20px] 2xl:w-[300px] xl:w-[280px] h-full bg-[#FFF] dark:bg-[#242526]`}
+        status?.message == 'All required fields are filled' &&
+        ' relative top-[-25px]'
+      } 2xl:w-[300px] xl:w-[280px] h-full bg-[#FFF] dark:bg-[#242526]`}
       style={RequestBox}
     >
-      <h1 style={Text8} className='text-[#000] dark:text-[#FFF]'>
-        More Suggestion
-      </h1>
-      <div className='pt-[25px]'>
-        <div>
-          <ul className='flex flex-col space-y-[22px]'>
-            {loading
-              ? [1, 2, 3].map((res, index) => (
-                  <li key={index}>
-                    <div className='flex justify-between items-center'>
-                      <div className='flex space-x-[20px]'>
-                        <div>
-                          <Skeleton
-                            variant='circular'
-                            animation='wave'
-                            className='rounded-[50%] animate-pulse'
-                            style={{
-                              height: '42px',
-                              width: '40px',
-                              borderRadius: '50%',
-                              objectFit: 'cover'
-                            }}
-                            width={42}
-                            height={42}
-                            alt='request-1'
-                          />
-                        </div>
-                        <div className='space-y-[2px]'>
-                          <Skeleton
-                            variant='h3'
-                            className='w-[100px] h-[20px]'
-                            style={Text7}
-                          >
-                            <span>Rohan Patel</span>
-                          </Skeleton>
-                          <Skeleton
-                            variant='h4'
-                            className='h-[18px]'
-                            style={Text7}
-                          />
-                          <Skeleton
-                            variant='h4'
-                            className='h-[15.5px]'
-                            style={Text7}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                ))
-              : data?.data?.[0]?.paginatedResults?.map((res, index) => (
-                  <li key={res._id}>
-                    <motion.div
-                      variants={variants}
-                      initial='hidden'
-                      animate='visible'
-                      transition={{
-                        delay: 0.25,
-                        ease: 'easeInOut',
-                        duration: 0.5
-                      }}
-                      viewport={{ amount: 0 }}
-                      className='flex justify-between items-center'
-                    >
-                      <div className='flex space-x-[20px]'>
-                        <div>
-                          {res?.profilePic ? (
-                            <Link href={`/longterm/dashboard/${res._id}`}>
-                              <Image
-                                quality={40}
-                                loading='lazy'
-                                className='rounded-[50%] hover:opacity-90 duration-100'
-                                style={{
-                                  height: '42px',
-                                  width: '40px',
-                                  borderRadius: '50%',
-                                  objectFit: 'cover'
-                                }}
-                                width={42}
-                                height={42}
-                                alt='request-1'
-                                src={res.profilePic}
-                              />
-                            </Link>
-                          ) : (
-                            <Avatar name={res?.name} round size='42' />
-                          )}
-                        </div>
-                        <div>
-                          <Link href={`/longterm/dashboard/${res._id}`}>
-                            <h1
-                              className='text-[#000] dark:text-[#FFF] hover:opacity-75 duration-100'
+      <div className='p-[20px] h-[300px] relative top-1'>
+        <h1 style={Text8} className='text-[#000] dark:text-[#FFF]'>
+          More Suggestion
+        </h1>
+        <div className='pt-[25px]'>
+          <div>
+            <ul className='flex flex-col space-y-[22px]'>
+              {loading
+                ? [1, 2, 3].map((res, index) => (
+                    <li key={index}>
+                      <div className='flex justify-between items-center'>
+                        <div className='flex space-x-[20px]'>
+                          <div>
+                            <Skeleton
+                              variant='circular'
+                              animation='wave'
+                              className='rounded-[50%] animate-pulse'
+                              style={{
+                                height: '42px',
+                                width: '40px',
+                                borderRadius: '50%',
+                                objectFit: 'cover'
+                              }}
+                              width={42}
+                              height={42}
+                              alt='request-1'
+                            />
+                          </div>
+                          <div className='space-y-[2px]'>
+                            <Skeleton
+                              variant='h3'
+                              className='w-[100px] h-[20px]'
                               style={Text7}
                             >
-                              {capitalizeFirstLetter(res.name)}
-                            </h1>
-                          </Link>
-                          <h1
-                            className='text-[#000] dark:text-[#FFF]'
-                            style={Text8}
-                          >
-                            {res?.gender === 'male'
-                              ? 'M'
-                              : res?.gender === 'female'
-                              ? 'F'
-                              : 'NA'}
-                            , 29,{' '}
-                            {capitalizeFirstLetter(
-                              res?.userProfessional?.jobTitle
-                            ) || 'NA'}
-                          </h1>
-                          <h1
-                            className='text-[#AEAEAE] dark:text-[#FFF]'
-                            style={Text8}
-                          >
-                            {capitalizeFirstLetter(res?.address?.currentCity) ||
-                              'NA'}
-                            ,{' '}
-                            {capitalizeFirstLetter(
-                              res?.address?.currentCountry
-                            ) || 'NA'}
-                          </h1>
+                              <span>Rohan Patel</span>
+                            </Skeleton>
+                            <Skeleton
+                              variant='h4'
+                              className='h-[18px]'
+                              style={Text7}
+                            />
+                            <Skeleton
+                              variant='h4'
+                              className='h-[15.5px]'
+                              style={Text7}
+                            />
+                          </div>
                         </div>
                       </div>
-                      <LikeUserBtn
-                        requestId={sentrequest[res?._id]}
-                        handleRequestModal={() => handleRequestModal(res)}
-                        user={res}
-                        RequestStatus={res?.friendsDetails}
-                      />
-                    </motion.div>
-                  </li>
-                ))}
-          </ul>
+                    </li>
+                  ))
+                : data?.data?.[0]?.paginatedResults?.map((res, index) => (
+                    <li key={res._id}>
+                      <motion.div
+                        variants={variants}
+                        initial='hidden'
+                        animate='visible'
+                        transition={{
+                          delay: 0.25,
+                          ease: 'easeInOut',
+                          duration: 0.5
+                        }}
+                        viewport={{ amount: 0 }}
+                        className='flex justify-between items-center'
+                      >
+                        <div className='flex space-x-[20px]'>
+                          <div>
+                            {res?.profilePic ? (
+                              <Link href={`/longterm/dashboard/${res._id}`}>
+                                <Image
+                                  quality={40}
+                                  loading='lazy'
+                                  className='rounded-[50%] hover:opacity-90 duration-100'
+                                  style={{
+                                    height: '42px',
+                                    width: '40px',
+                                    borderRadius: '50%',
+                                    objectFit: 'cover'
+                                  }}
+                                  width={42}
+                                  height={42}
+                                  alt='request-1'
+                                  src={res.profilePic}
+                                />
+                              </Link>
+                            ) : (
+                              <Avatar name={res?.name} round size='42' />
+                            )}
+                          </div>
+                          <div>
+                            <Link href={`/longterm/dashboard/${res._id}`}>
+                              <h1
+                                className='text-[#000] dark:text-[#FFF] hover:opacity-75 duration-100'
+                                style={Text7}
+                              >
+                                {capitalizeFirstLetter(res.name)}
+                              </h1>
+                            </Link>
+                            <h1
+                              className='text-[#000] dark:text-[#FFF]'
+                              style={Text8}
+                            >
+                              {res?.gender === 'male'
+                                ? 'M'
+                                : res?.gender === 'female'
+                                ? 'F'
+                                : 'NA'}
+                              , 29,{' '}
+                              {capitalizeFirstLetter(
+                                res?.userProfessional?.jobTitle
+                              ) || 'NA'}
+                            </h1>
+                            <h1
+                              className='text-[#AEAEAE] dark:text-[#FFF]'
+                              style={Text8}
+                            >
+                              {capitalizeFirstLetter(
+                                res?.address?.currentCity
+                              ) || 'NA'}
+                              ,{' '}
+                              {capitalizeFirstLetter(
+                                res?.address?.currentCountry
+                              ) || 'NA'}
+                            </h1>
+                          </div>
+                        </div>
+                        <LikeUserBtn
+                          requestId={sentrequest[res?._id]}
+                          handleRequestModal={() => handleRequestModal(res)}
+                          user={res}
+                          RequestStatus={res?.friendsDetails}
+                        />
+                      </motion.div>
+                    </li>
+                  ))}
+            </ul>
+          </div>
         </div>
-        <div>
-          <button
-            id={darkMode ? 'Gradient-btn-2' : ''}
-            onClick={handleLoadMoreUsers}
-            disabled={loading}
-            className={`${
-              darkMode ? '' : 'border-[1px] border-[#8225AF]'
-            } hover:bg-[#F3F8FF] mt-[20px] w-[100%] h-[40px] rounded-[22px] text-[#000] dark:text-[#FFF]`}
-          >
-            {loading ? 'Loading...' : 'Load More'}
-          </button>
-        </div>
+      </div>
+      <div className='w-[300px]  grid place-items-center'>
+        <button
+          id={darkMode ? 'Gradient-btn-2' : ''}
+          onClick={handleLoadMoreUsers}
+          disabled={loading}
+          className={`${
+            darkMode
+              ? 'border-t-[1px] border-t-[#EAEAEA]'
+              : 'border-t-[1px] border-t-[#EAEAEA]'
+          } hover:bg-[#F3F8FF] mt-[20px] w-[100%] h-[50px]  text-[#000] dark:text-[#FFF]`}
+        >
+          {loading ? 'Loading...' : 'Load More'}
+        </button>
       </div>
 
       <React.Fragment>

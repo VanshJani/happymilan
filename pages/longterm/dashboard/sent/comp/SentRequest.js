@@ -75,7 +75,7 @@ function SentRequest () {
       },
 
       Box: {
-        borderRadius: '10px',
+        borderRadius: '18px',
         background: '#FFF',
         boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
       },
@@ -292,7 +292,7 @@ function SentRequest () {
                             </li>
                             <li>
                               <ProfileMenu
-                                accepteddata={res}
+                                accepteddata={res?.friend}
                                 res={res?.friend}
                                 Section={'sent'}
                                 View={'ListView'}

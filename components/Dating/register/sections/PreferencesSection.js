@@ -177,6 +177,7 @@ function PreferencesSection({ datingForm, updateDatingFormData }) {
                                             options={CityOptions}
                                             setSelectedValues={setSelectedInterests}
                                         // initialSelected={initialSelected}
+                                        placeholder='select prefer location'
                                         />
                                     </div>
                                 </div>

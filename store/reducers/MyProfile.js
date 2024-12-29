@@ -35,7 +35,8 @@ export const updateMyProfileData = createAsyncThunk(
 
           localStorage.setItem('userName', result.userData.name)
           setCookie('userName', result.userData.name)
-          return result.data
+          console.log('Updated Data :', result)
+          return result?.userData
         } else if (response.status === 401) {
           throw new Error('Unauthorized')
         } else {
@@ -295,6 +296,11 @@ const initialState = {
   totalLikes: 0,
   error: null,
   profileData: {
+    generalData: {
+      loading: false,
+      data: null,
+      error: null
+    },
     adressData: {
       loading: false,
       data: null,
@@ -372,6 +378,7 @@ const MyPofileData = createSlice({
         state.status = STATUSES.LOADING
       })
       .addCase(updateMyProfileData.fulfilled, (state, action) => {
+        state.data = action.payload
         state.status = STATUSES.IDLE
       })
       .addCase(updateMyProfileData.rejected, (state, action) => {

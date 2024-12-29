@@ -636,7 +636,7 @@ export const FetchUserDataById = async userId => {
 }
 
 export const Sentblockrequest = (requestData, OtherUserId) => {
-  console.log("🚀 ~ Sentblockrequest ~ requestData:", requestData)
+  console.log('🚀 ~ Sentblockrequest ~ requestData:', requestData)
   return async dispatch => {
     dispatch({ type: SENT_BLOCK_REQUEST })
 
@@ -648,10 +648,10 @@ export const Sentblockrequest = (requestData, OtherUserId) => {
       //   user: OtherUserId,
       //   request: requestData,
       //   status: 'blocked'
-      friend: requestData?.InitiatorUser,
+      friend: requestData?.friend,
       user: UserID
     })
-    console.log("🚀 ~ Sentblockrequest ~ data:", data)
+    console.log('🚀 ~ Sentblockrequest ~ data:', data)
 
     let config = {
       method: 'post',
@@ -726,6 +726,10 @@ export const Cancelfriendrequest = (requestData, curUser, status) => {
           type: CANCEL_FRIEND_REQUEST_SUCCESS,
           payload: response.data
         })
+
+        if (status == 'removed') {
+          dispatch(getblockuserdata())
+        }
       })
       .catch(error => {
         console.log(error)

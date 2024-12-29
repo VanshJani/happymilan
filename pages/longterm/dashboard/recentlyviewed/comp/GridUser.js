@@ -25,6 +25,7 @@ function GridUser () {
                       <ProfileMenu
                         res={user?.viewerId}
                         Section={'recentview'}
+                        accepteddata={user?.viewerId}
                       />
                     </>
                   ),

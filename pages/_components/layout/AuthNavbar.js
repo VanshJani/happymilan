@@ -75,6 +75,22 @@ function CommonNavbar ({ background }) {
     lineHeight: 'normal' /* 122.222% */
   }
 
+  const LogoutModalText = {
+    fontFamily: 'Poppins',
+    fontSize: '20px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: '30px'
+  }
+
+  const Text4 = {
+    fontFamily: 'Poppins',
+    fontSize: '14px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal'
+  }
+
   const [openLogoutModal, setOpenLogoutModal] = React.useState(false)
 
   const dispatch = useDispatch()
@@ -94,22 +110,6 @@ function CommonNavbar ({ background }) {
       dispatch(logoutuser())
       router.push('/login')
     }
-  }
-
-  const LogoutModalText = {
-    fontFamily: 'Poppins',
-    fontSize: '20px',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: '30px'
-  }
-
-  const Text4 = {
-    fontFamily: 'Poppins',
-    fontSize: '14px',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
   }
 
   const [openNav, setOpenNav] = React.useState(false)
@@ -394,7 +394,10 @@ function CommonNavbar ({ background }) {
               <div className='pt-[20px] w-[278px] h-[296px]' style={BoxSdow2}>
                 <div className='flex flex-col justify-evenly h-full pl-[24px] pr-[24px]'>
                   <div className='mt-[-10px] space-y-[10px]'>
-                    <div className='w-[60px] h-[60px] rounded-full hover:opacity-80 duration-200 cursor-pointer' onClick={()=>router.push("/longterm/dashboard/profile")}>
+                    <div
+                      className='w-[60px] h-[60px] rounded-full hover:opacity-80 duration-200 cursor-pointer'
+                      onClick={() => router.push('/longterm/dashboard/profile')}
+                    >
                       <ProfileImage size={60} />
                     </div>
                     <ul className='relative left-[5px] space-y-[5px]'>

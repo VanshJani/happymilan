@@ -43,6 +43,7 @@ const initialState = {
   MissingFields: {
     loading: false,
     data: null,
+    status: null,
     error: null
   },
   UpdateEmail: {
@@ -174,7 +175,8 @@ const Userseting = (state = initialState, action) => {
         ...state,
         MissingFields: {
           loading: false,
-          data: action.payload
+          data: action.payload?.data,
+          status: action?.payload?.status
         }
       }
     }

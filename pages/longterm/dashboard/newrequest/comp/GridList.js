@@ -109,7 +109,7 @@ function GridList () {
                           </li>
                         </li>
                         <li>
-                          <ProfileMenu res={res?.user} Section={'recentview'} />
+                          <ProfileMenu res={res?.user} Section={'recentview'} accepteddata={res?.user}/>
                         </li>
                       </ul>
                     </div>

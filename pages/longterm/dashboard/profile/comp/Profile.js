@@ -633,7 +633,26 @@ function Profile () {
           ) : (
             <>
               <div className='bg-[#FFF] w-full h-full grid place-items-center rounded-[10px]'>
-                <h1>Profile Not Found</h1>
+                <ul className='w-full flex flex-col h-full items-center justify-center space-y-10'>
+                  <li>
+                    <h1>Profile Not Found</h1>
+                  </li>
+                  <li
+                    onClick={handleOpen}
+                    className='cursor-pointer w-[38px] h-[38px] grid place-items-center bg-[#ffffff] hover:bg-[#F2F7FF] rounded-full'
+                  >
+                    <Image
+                      alt='editIcon'
+                      width={18}
+                      height={18}
+                      src={
+                        darkMode
+                          ? '/assests/dashboard/icon/edit-details-icon-white.svg'
+                          : '/assests/dashboard/icon/edit-details-icon.svg'
+                      }
+                    />
+                  </li>
+                </ul>
               </div>
             </>
           )}

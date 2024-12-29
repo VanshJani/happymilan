@@ -26,7 +26,7 @@ function GridprofileLayout ({ user, index, showButton, children }) {
   }
 
   const ProfileCard = {
-    borderRadius: '10px',
+    borderRadius: '18px',
     background: darkMode ? '#242526' : '#FFF',
     boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
   }
@@ -50,7 +50,7 @@ function GridprofileLayout ({ user, index, showButton, children }) {
         viewport={{ amount: 0 }}
         key={user.id}
         style={ProfileCard}
-        className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'
+        className='inline-block lg:flex flex-col space-y-[10px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[18px]'
       >
         <div className='mt-2 flex justify-between pt-[10px]'>
           <ul className='pl-[10px] flex space-x-[10px]'>

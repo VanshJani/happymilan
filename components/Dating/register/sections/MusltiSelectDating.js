@@ -5,7 +5,7 @@ import { LabelStyle3 } from '../../../../utils/options/styles/SelectBoxStyle'; /
 
 const ReusableMultiSelect = ({
     options,             // Pass in the options dynamically
-    placeholder = "Select your options",  // Default placeholder
+    placeholder,  // Default placeholder
     styles = LabelStyle3,
     setSelectedValues// Custom styles or default styles
 }) => {
@@ -42,7 +42,7 @@ const ReusableMultiSelect = ({
                 isMulti
                 value={selectedOptions}
                 onChange={handleSelectChange}
-                placeholder={placeholder}
+                placeholder={placeholder || "Select your option"}
                 components={{ MultiValueContainer }}
                 styles={styles}
                 closeMenuOnSelect={false}

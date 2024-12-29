@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { Pagination } from 'swiper'
-import { Navigation } from 'swiper'
+import { Pagination, Navigation } from 'swiper'
 import Image from 'next/image'
 import { Dialog } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,36 +13,38 @@ import {
   userDatas
 } from '../../../store/actions/GetingAlluser'
 import {
-  Getlikeduserdata,
   Postrecentuserprofile,
   sendRequest
 } from '../../../store/actions/UsersAction'
-import UserprofileSkeleton from '../../../components/common/shader/UserprofileSkeleton'
 import { useRouter } from 'next/router'
-import LikeUser from '../common/Buttons/LikeUser'
-import SendRequestBtn from '../common/Buttons/SendRequestBtn'
-import { useDarkMode } from '../../../ContextProvider/DarkModeContext'
 import dynamic from 'next/dynamic'
+import { useDarkMode } from '../../../ContextProvider/DarkModeContext'
 import { capitalizeFirstLetter } from '../../../utils/form/Captitelize'
-// import ProfileMenu from "../../../components/long-term/common/Model/ProfileMenu";
 
-// Dynamically imported components
-const ShareModal = dynamic(() => import('../Model/Models/ShareModal'), {
-  ssr: false
-})
+// Dynamically imported components to improve initial load
 const RegisterAlertModal = dynamic(
   () => import('../Model/Models/RegisterAlertModal'),
   { ssr: false }
 )
-const ReportModal = dynamic(() => import('../Model/Models/ReportModal'), {
+
+const LikeUser = dynamic(() => import('../common/Buttons/LikeUser'), {
   ssr: false
 })
-const ProfileMenu = dynamic(() => import('../Model/popover/MenuPop'), {
-  ssr: false
-})
-const BlockUserModal = dynamic(() => import('../Model/Models/BlockModal'), {
-  ssr: false
-})
+
+const SendRequestBtn = dynamic(
+  () => import('../common/Buttons/SendRequestBtn'),
+  { ssr: false }
+)
+
+const UserprofileSkeleton = dynamic(
+  () => import('../../../components/common/shader/UserprofileSkeleton'),
+  { ssr: false }
+)
+
+const ProfileMenu = dynamic(
+  () => import('../../../components/long-term/common/Model/ProfileMenu'),
+  { ssr: false }
+)
 const MatchScoreModal = dynamic(
   () => import('../Model/Models/MatchScoreModal'),
   { ssr: false }
@@ -53,108 +54,122 @@ const ShowMore = dynamic(() => import('../common/profile/UserBio'), {
 })
 
 function SampleUserProfile () {
-  const { data, loading } = useSelector(state => state?.alluser.Ifinit)
-
-  const { CurrentSlide } = useSelector(state => state?.alluser.CurrentSlide)
+  // Profile styles (memoized for performance)
+  const ProfileStyle = useMemo(
+    () => ({
+      UserName: {
+        fontFamily: 'Poppins',
+        fontWeight: '600',
+        fontStyle: 'normal',
+        lineHeight: 'normal'
+      },
+      statusText: {
+        fontFamily: 'Poppins',
+        fontWeight: '400',
+        fontStyle: 'normal',
+        lineHeight: '12px'
+      },
+      ListText: {
+        fontFamily: 'Poppins',
+        fontWeight: '400',
+        fontStyle: 'normal',
+        lineHeight: '24px'
+      },
+      Box: {
+        borderRadius: '18px',
+        boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
+      },
+      Urlmodaltext: {
+        color: '#000',
+        fontFamily: 'Poppins',
+        fontWeight: '400',
+        lineHeight: 'normal',
+        fontStyle: 'normal'
+      }
+    }),
+    []
+  )
   const dispatch = useDispatch()
-
-  const [currentPage, setCurrentPage] = useState(1)
-  const [users, setUsers] = useState([]) // Store combined users here
-  const [loadingMore, setLoadingMore] = useState(false) // Track if loading more data
+  const router = useRouter()
   const swiperRef = useRef(null) // Reference to Swiper instance
+
+  // State selectors
+  const { data = {}, loading } = useSelector(
+    state => state?.alluser?.Ifinit || {}
+  )
+  const { CurrentSlide } = useSelector(
+    state => state?.alluser?.CurrentSlide || {}
+  )
+  const { darkMode } = useDarkMode()
+  const likeloading = useSelector(
+    state => state?.usersact?.LikedUsersData?.likeloading
+  )
+  const thedata = useSelector(state => state?.myprofile)
+
+  // Local state
+  const [currentPage, setCurrentPage] = useState(1)
+  const [users, setUsers] = useState([])
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [ActiveLike, setActiveLike] = useState(false)
+  const [sentrequest, setsentRequest] = useState({})
+  const [isRegisterModalOpen, setisRegisterModalOpen] = useState(false)
+  const [Data, setData] = useState('')
+  const [openShortlistModal, setopenShortlistModal] = useState(false)
+  const [shortlistText, setshortlistText] = useState('')
 
   const totalPages = data?.data?.[0]?.totalPages || 1
 
-  // Load initial data (first page) when the component mounts
+  // Load initial data
   useEffect(() => {
-    dispatch(userDatas({ page: 1 })) // Load the first page on mount
+    dispatch(userDatas({ page: 1 }))
   }, [dispatch])
 
-  // Update the users list when userData changes
+  // Update users list when `data` changes
   useEffect(() => {
     if (data?.data?.[0]?.paginatedResults) {
-      if (currentPage === 1) {
-        // On the first page, replace users
-        setUsers(data?.data[0].paginatedResults)
-      } else {
-        // On subsequent pages, append users
-        setUsers(prevUsers => [...prevUsers, ...data.data[0].paginatedResults])
-      }
-      setLoadingMore(false) // Stop loading after data is appended
+      setUsers(prevUsers =>
+        currentPage === 1
+          ? data.data[0].paginatedResults
+          : [...prevUsers, ...data.data[0].paginatedResults]
+      )
+      setLoadingMore(false)
     }
   }, [data, currentPage])
 
-  // Function to load more data when the user reaches the 9th card
-  const loadMoreData = () => {
-    if (currentPage < totalPages && !loadingMore) {
-      setLoadingMore(true) // Start loading more
-      const nextPage = currentPage + 1
-      setCurrentPage(nextPage) // Increment the current page
-      dispatch(userDatas({ page: nextPage })) // Fetch the next page
-    }
-  }
-
-  // Handle slide change event to check if we need to load more data
+  // Handle slide change to load more data
   const handleSlideChange = () => {
-    const swiperInstance = swiperRef.current.swiper
-    const activeIndex = swiperInstance.realIndex
+    const swiperInstance = swiperRef.current?.swiper
+    const activeIndex = swiperInstance?.realIndex || 0
 
     dispatch(setCurrentSlideIndex(activeIndex))
 
-    // If the user is on the 9th slide (0-based index), load more data
     if (activeIndex === users.length - 2) {
       loadMoreData()
     }
   }
 
-  const { darkMode } = useDarkMode()
-  const [ActiveLike, setActiveLike] = useState(false)
-
-  const ProfileName = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    lineHeight: 'normal'
-  }
-  const statusText = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: '12px'
+  // Load more data
+  const loadMoreData = () => {
+    if (currentPage < totalPages && !loadingMore) {
+      setLoadingMore(true)
+      const nextPage = currentPage + 1
+      setCurrentPage(nextPage)
+      dispatch(userDatas({ page: nextPage }))
+    }
   }
 
-  const ListText = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: '24px' /* 171.429% */
-  }
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.keyCode === 37) swiperRef.current?.swiper.slidePrev()
+      if (event.keyCode === 39) swiperRef.current?.swiper.slideNext()
+    }
 
-  const Box = {
-    borderRadius: '10px',
-    boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
-  }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
-  const [sentrequest, setsentRequest] = useState({})
-  const [CurrURL, SetCurURL] = useState('')
-  const [UserID, SetUserID] = useState('')
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isRegisterModalOpen, setisRegisterModalOpen] = useState(false)
-  const [isReportModalOpen, setisReportModalOpen] = useState(false)
-  const [isBlockModalOpen, setisBlockModalOpen] = useState(false)
-  const [Data, setData] = useState('')
-  const [BlockData, SetBlockData] = useState('')
-
-  const openModal = e => {
-    setIsModalOpen(true)
-    setData(res)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
-  }
-
+  // Handle modal open/close
   const OpenRegisterModal = res => {
     setData(res)
     setisRegisterModalOpen(true)
@@ -164,94 +179,33 @@ function SampleUserProfile () {
     setisRegisterModalOpen(false)
   }
 
-  const openBlockModal = e => {
-    console.log('🚀 ~ openBlockModal ~ e:', e)
-    SetBlockData(e)
-    setisBlockModalOpen(true)
-  }
-  const closeBlockModal = () => {
-    setisBlockModalOpen(false)
-  }
-
-  const OpenReportModal = () => {
-    setisReportModalOpen(true)
-  }
-
-  const CloseReportModal = () => {
-    setisReportModalOpen(false)
-  }
-
-  const Urlmodaltext = {
-    color: '#000',
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
-  }
-
-  const likeloading = useSelector(
-    state => state.usersact.LikedUsersData.likeloading
-  )
-
-  useEffect(() => {
-    dispatch(Getlikeduserdata())
-  }, [])
-
-  useEffect(() => {
-    const handleKeyDown = event => {
-      // Check if the left arrow key is pressed
-      if (event.keyCode === 37) {
-        swiperRef.current.swiper.slidePrev()
-      }
-      // Check if the right arrow key is pressed
-      else if (event.keyCode === 39) {
-        swiperRef.current.swiper.slideNext()
-      }
-    }
-
-    // Add event listener for keydown
-    document.addEventListener('keydown', handleKeyDown)
-
-    // Remove event listener when component is unmounted
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [])
-
-  const [openShortlistModal, setopenShortlistModal] = React.useState(false)
-
-  const [shortlistText, setshortlistText] = useState()
-
+  // Handle shortlist
   const HandleShortlist = id => {
-    dispatch(addToShortlist(id)) // Dispatch the action with the shortlist ID
-
+    dispatch(addToShortlist(id))
     setshortlistText('Profile has been shortlisted')
     setopenShortlistModal(true)
-    setTimeout(() => {
-      setopenShortlistModal(false)
-    }, 800)
 
-    swiperRef.current.swiper.slideNext()
+    setTimeout(() => setopenShortlistModal(false), 800)
+    swiperRef.current?.swiper.slideNext()
   }
 
-  const thedata = useSelector(state => state.myprofile)
-
+  // Handle send request
   const HandleRequestModal = res => {
     if (thedata?.data?.userProfileCompleted) {
-      dispatch(sendRequest('long-term', res._id || res?.id))
+      const userId = res?._id || res?.id
+      dispatch(sendRequest('long-term', userId))
 
-      setsentRequest(prevState => ({
-        ...prevState,
-        [res._id]: !prevState[res._id] // Update the sentRequests state for the specific user ID
+      setsentRequest(prev => ({
+        ...prev,
+        [userId]: !prev[userId]
       }))
 
-      if (!sentrequest[res._id]) {
-        setshortlistText(`You sent a request to ${res?.name}`)
-        setopenShortlistModal(true)
-      } else {
-        setshortlistText('Request Removed..')
-        setopenShortlistModal(true)
-      }
+      setshortlistText(
+        !sentrequest[userId]
+          ? `You sent a request to ${res?.name}`
+          : 'Request Removed..'
+      )
+      setopenShortlistModal(true)
 
       setTimeout(() => {
         setopenShortlistModal(false)
@@ -262,22 +216,13 @@ function SampleUserProfile () {
     }
   }
 
-  const imageFoundText = {
-    color: '#B3CBF1',
-    textAlign: 'center',
-    fontFamily: 'Poppins',
-    fontSize: '12px',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    lineHeight: 'normal'
-  }
-
-  const router = useRouter()
+  // Handle push to user dashboard
   const HandlePushUser = res => {
     router.push(`/longterm/dashboard/${res}`)
     dispatch(Postrecentuserprofile(res))
   }
 
+  // Loading skeleton
   if (currentPage === 1 && loading && users.length === 0) {
     return <UserprofileSkeleton />
   }
@@ -318,19 +263,19 @@ function SampleUserProfile () {
                 <SwiperSlide key={index} className=''>
                   <div className=''>
                     <div
-                      style={Box}
+                      style={ProfileStyle?.Box}
                       className={`dark:bg-[#242526] relative left-[-4px]  xl:left-[-3px] 2xl:left-[-3px]  flex m-[10px] 2xl:w-[631px] 2xl:h-[294px] xl:w-[540px] xl:h-[284px] lg:h-[270px] lg:w-[530px] md:w-[400px] bg-[#FFF]`}
                     >
                       <div className='w-[350px] 2xl:w-[350px] xl:w-[350px] lg:w-[250px] md:w-[300px]'>
                         <div className='p-[15px] w-full '>
-                          {res.userProfilePic &&
-                          res.userProfilePic.length > 0 ? (
+                          {res?.userProfilePic &&
+                          res?.userProfilePic.length > 0 ? (
                             <Swiper
                               pagination={{ clickable: true }}
                               modules={[Pagination]}
                               className='mySwiper relative 2xl:w-[197px] xl:w-[187px] lg:w-[170px] w-[185px] h-[260px]'
                             >
-                              {res.userProfilePic
+                              {res?.userProfilePic
                                 .slice(0, 3)
                                 .map((Imageres, theindex) => (
                                   <SwiperSlide key={theindex}>
@@ -345,7 +290,7 @@ function SampleUserProfile () {
                                         objectFit: 'cover'
                                       }}
                                       className='2xl:w-[197px] 2xl:h-[258px] xl:w-[197px] xl:h-[258px] lg:w-[180px] lg:h-[240px] w-[180px] h-[240px]'
-                                      src={Imageres.url}
+                                      src={Imageres?.url}
                                       loading='lazy'
                                       quality={45}
                                     />
@@ -376,7 +321,10 @@ function SampleUserProfile () {
                                       '/assests/dashboard/icon/NotFound-img.svg'
                                     }
                                   />
-                                  <h1 className='inline' style={imageFoundText}>
+                                  <h1
+                                    className='inline'
+                                    style={ProfileStyle?.imageFoundText}
+                                  >
                                     No Image
                                   </h1>
                                 </div>
@@ -389,14 +337,14 @@ function SampleUserProfile () {
                         <div className='flex justify-between'>
                           <div className='w-[50%] '>
                             <h1
-                              onClick={() => HandlePushUser(res._id)}
+                              onClick={() => HandlePushUser(res?._id)}
                               className='2xl:text-[18px] xl:text-[15px] text-[10px] cursor-pointer text-[#000] dark:text-[#EDEDED] hover:opacity-75 duration-100 break-words'
-                              style={ProfileName}
+                              style={ProfileStyle?.UserName}
                             >
-                              {capitalizeFirstLetter(res.name)}
+                              {capitalizeFirstLetter(res?.name)}
                             </h1>
                             <h1
-                              style={statusText}
+                              style={ProfileStyle?.statusText}
                               className='text-[#17C270] break-words'
                             >
                               {res?.isUserActive ? (
@@ -421,7 +369,7 @@ function SampleUserProfile () {
 
                               <li
                                 className='cursor-pointer'
-                                onClick={() => HandleShortlist(res._id)}
+                                onClick={() => HandleShortlist(res?._id)}
                               >
                                 <div className='cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838] p-[5px] rounded-[50%] relative top-[-5px]'>
                                   <Image
@@ -435,14 +383,10 @@ function SampleUserProfile () {
                               </li>
                               <li>
                                 <ProfileMenu
-                                  SetUserID={SetUserID}
-                                  SetCurURL={SetCurURL}
-                                  openBlockModal={openBlockModal}
-                                  OpenReportModal={OpenReportModal}
-                                  openModal={openModal}
                                   res={res}
+                                  blockprofile={false}
+                                  accepteddata={res}
                                 />
-                                {/* <ProfileMenu res={res} /> */}
                               </li>
                             </ul>
                           </div>
@@ -452,7 +396,7 @@ function SampleUserProfile () {
                             <ul id='user-card-grid'>
                               <li
                                 className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]'
-                                style={ListText}
+                                style={ProfileStyle?.ListText}
                               >
                                 <Image
                                   loading='lazy'
@@ -471,7 +415,7 @@ function SampleUserProfile () {
 
                               <li
                                 className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]'
-                                style={ListText}
+                                style={ProfileStyle?.ListText}
                               >
                                 {res?.maritalStatus ? (
                                   <>
@@ -487,9 +431,9 @@ function SampleUserProfile () {
                                       }
                                       className='inline pr-[5px]'
                                     />
-                                    {res.maritalStatus
-                                      ? capitalizeFirstLetter(res.maritalStatus)
-                                      : 'NA , NA'}
+                                    {capitalizeFirstLetter(
+                                      res?.maritalStatus
+                                    ) || 'NA , NA'}
                                   </>
                                 ) : (
                                   ''
@@ -498,7 +442,7 @@ function SampleUserProfile () {
 
                               <li
                                 className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]'
-                                style={ListText}
+                                style={ProfileStyle?.ListText}
                               >
                                 {res?.religion ? (
                                   <>
@@ -528,7 +472,7 @@ function SampleUserProfile () {
 
                               <li
                                 className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]'
-                                style={ListText}
+                                style={ProfileStyle?.ListText}
                               >
                                 {res?.address ? (
                                   <>
@@ -544,28 +488,20 @@ function SampleUserProfile () {
                                       }
                                       className='inline pr-[5px]'
                                     />
-                                    {`${
-                                      res.address
-                                        ? capitalizeFirstLetter(
-                                            res.address.currentCity
-                                          )
-                                        : 'NA'
-                                    } , ${
-                                      res.address
-                                        ? capitalizeFirstLetter(
-                                            res.address.currentCountry
-                                          )
-                                        : 'NA'
-                                    }`}
+                                    {capitalizeFirstLetter(
+                                      res?.address?.currentCity || 'NA'
+                                    )}
+                                    ,{' '}
+                                    {capitalizeFirstLetter(
+                                      res?.address?.currentCountry || 'NA'
+                                    )}
                                   </>
-                                ) : (
-                                  ''
-                                )}
+                                ) : null}
                               </li>
 
                               <li
                                 className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]'
-                                style={ListText}
+                                style={ProfileStyle?.ListText}
                               >
                                 {res?.motherTongue ? (
                                   <>
@@ -581,22 +517,15 @@ function SampleUserProfile () {
                                       }
                                       className='inline pr-[5px]'
                                     />
-                                    {`${
-                                      res.motherTongue
-                                        ? capitalizeFirstLetter(
-                                            res.motherTongue
-                                          )
-                                        : 'NA , NA'
-                                    }  `}
+                                    {capitalizeFirstLetter(res?.motherTongue) ||
+                                      'NA , NA'}
                                   </>
-                                ) : (
-                                  ''
-                                )}
+                                ) : null}
                               </li>
 
                               <li
                                 className='text-[14px] 2xl:text-[14px] xl:text-[13px] text-[#000] dark:text-[#EDEDED]'
-                                style={ListText}
+                                style={ProfileStyle?.ListText}
                               >
                                 {res?.userProfessional ? (
                                   <>
@@ -612,15 +541,11 @@ function SampleUserProfile () {
                                       }
                                       className='inline pr-[5px]'
                                     />
-                                    {res.userProfessional
-                                      ? capitalizeFirstLetter(
-                                          res.userProfessional.jobTitle
-                                        )
-                                      : 'NA , NA'}
+                                    {capitalizeFirstLetter(
+                                      res?.userProfessional.jobTitle
+                                    ) || 'NA , NA'}
                                   </>
-                                ) : (
-                                  ''
-                                )}
+                                ) : null}
                               </li>
                             </ul>
                           </div>
@@ -639,7 +564,7 @@ function SampleUserProfile () {
                               <SendRequestBtn
                                 userdata={res?.name}
                                 Requeststatus={res?.friendsDetails}
-                                RequestId={sentrequest[res._id]}
+                                RequestId={sentrequest[res?._id]}
                                 HandleRequestModal={() =>
                                   HandleRequestModal(res)
                                 }
@@ -655,7 +580,7 @@ function SampleUserProfile () {
                                   <LikeUser
                                     ActiveLike={ActiveLike}
                                     setActiveLike={setActiveLike}
-                                    userId={res._id}
+                                    userId={res?._id}
                                     TheUsername={res?.name}
                                     userdata={res}
                                   />
@@ -689,29 +614,13 @@ function SampleUserProfile () {
           </div>
         </div>
       </div>
-      <ShareModal
-        UserID={UserID}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        data={CurrURL}
-      />
+
       <RegisterAlertModal
         title={Data}
         isOpen={isRegisterModalOpen}
         onClose={CloseRegisterModal}
       />
-      <ReportModal
-        title={'helo'}
-        isOpen={isReportModalOpen}
-        onClose={CloseReportModal}
-        ReportData={CurrURL}
-      />
 
-      <BlockUserModal
-        data={BlockData}
-        isOpen={isBlockModalOpen}
-        onClose={closeBlockModal}
-      />
       <React.Fragment>
         <Dialog
           open={openShortlistModal}
@@ -731,7 +640,7 @@ function SampleUserProfile () {
             style={{ padding: '17px 19px 17px 20px' }}
             className='bg-[#333333] w-[full] rounded-[100px] text-center grid place-items-center'
           >
-            <div className='text-[14px]' style={Urlmodaltext}>
+            <div className='text-[14px]' style={ProfileStyle?.Urlmodaltext}>
               <span className='text-[#fff]'> {shortlistText}</span>
             </div>
           </div>

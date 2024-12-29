@@ -57,7 +57,7 @@ function Searchprofile () {
   }
 
   const Box = {
-    borderRadius: '10px',
+    borderRadius: '18px',
     boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
   }
 
@@ -245,47 +245,6 @@ function Searchprofile () {
                           </h1>
                         </div>
                         <div className='pr-[8px]'>
-                          {/* <ul className='flex justify-evenly space-x-[10px] pr-[10px] pt-[10px]'>
-                            <li className='cursor-pointer hover:bg-[#F2F7FF] items-center rounded-[17px] p-[10px] flex space-x-[10px] top-[-12px] relative left-[5px]'>
-                              <div>
-                                <Image
-                                  loading='lazy'
-                                  alt='couple-icon'
-                                  width={17}
-                                  height={14}
-                                  src='/assests/Black/Couple2.svg'
-                                />
-                              </div>
-                              <div className=''>
-                                <span
-                                  className='relative top-[-2px] text-[10px] text-[#000] dark:text-[#FFF]'
-                                  style={Text4}
-                                >
-                                  Match Score
-                                </span>
-                              </div>
-                            </li>
-                            <li
-                              className='cursor-pointer'
-                              
-                            > */}
-                          {/* <div className='cursor-pointer hover:bg-[#F2F7FF] p-[5px] rounded-[50%] relative top-[-5px]'>
-                                <Image
-                                  loading='lazy'
-                                  width={15}
-                                  height={14}
-                                  alt='star'
-                                  src={'/assests/Black/Stars-2.svg'}
-                                />
-                              </div> */}
-
-                          {/* <ShortlistUser UserId={res.id || res?._id} />
-                            </li>
-                            <li>
-                              <ProfileMenu res={res} />
-                            </li>
-                          </ul> */}
-
                           <ul className='flex justify-evenly space-x-[15px] pr-[10px] pt-[10px]'>
                             <li
                               className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] flex space-x-[10px] top-[-8px] p-[5px] relative left-[5px]`}
@@ -294,11 +253,15 @@ function Searchprofile () {
                             </li>
 
                             <li className='cursor-pointer'>
-                              <ShortlistUser UserId={res.id || res?._id} alreadyshortlist={res?.userShortListDetails || null}/>
+                              <ShortlistUser
+                                UserId={res.id || res?._id}
+                                alreadyshortlist={
+                                  res?.userShortListDetails || null
+                                }
+                              />
                             </li>
                             <li>
-                              <ProfileMenu res={res} />
-                              {/* <ProfileMenu res={res} /> */}
+                              <ProfileMenu res={res} accepteddata={res} />
                             </li>
                           </ul>
                         </div>

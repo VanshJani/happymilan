@@ -220,7 +220,10 @@ export const MissingFields = () => {
       .then(response => {
         dispatch({
           type: SHOW_MISSING_FIELDS_SUCCESS,
-          payload: response?.data?.data
+          payload: {
+            data: response?.data?.data,
+            status: response?.data
+          }
         })
         console.log(JSON.stringify(response?.data?.data))
       })

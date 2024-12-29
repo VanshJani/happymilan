@@ -12,7 +12,10 @@ import {
   updatePartnerPref
 } from '../../../../store/actions/registerUser'
 import { connect, useDispatch } from 'react-redux'
-import { LabelStyle, LabelStyle2 } from '../../../../utils/options/styles/SelectBoxStyle'
+import {
+  LabelStyle,
+  LabelStyle2
+} from '../../../../utils/options/styles/SelectBoxStyle'
 import MultiSelect from '../../../../pages/alert'
 import { Slider } from '@mui/material'
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
@@ -56,6 +59,7 @@ function PartnerPrefSec ({ formData, updateFormData }) {
   const handleInputChange = event => {
     const name = event.target.name
     const value = event.target.value
+    console.log('🚀 ~ handleInputChange ~ value:', value)
 
     if (name == 'heightmin') {
       updateFormData({
@@ -67,14 +71,17 @@ function PartnerPrefSec ({ formData, updateFormData }) {
           }
         }
       })
-    } else if (name === "hobbies"){
-        updateFormData({
-            partnerpref: {
-              ...formData.partnerpref,
-              hobbies: value
-            }
-          })
-    }else if (name == 'heightmax') {
+    } else if (name === 'hobbies') {
+      console.log(value)
+
+      const valuesOnly = value.map(item => item.value)
+      updateFormData({
+        partnerpref: {
+          ...formData.partnerpref,
+          hobbies: valuesOnly
+        }
+      })
+    } else if (name == 'heightmax') {
       updateFormData({
         partnerpref: {
           ...formData.partnerpref,
@@ -316,7 +323,7 @@ function PartnerPrefSec ({ formData, updateFormData }) {
                   placeholder='Select Prefer Diet'
                   styles={LabelStyle2}
                   options={Hobbyoptions}
-                //   styles={LabelStyle2}
+                  //   styles={LabelStyle2}
                   closeMenuOnSelect={false}
                   //   menuPortalTarget={document.body} // Append to body to ensure it overlays
                   //   menuPosition='fixed' // Prevents issues with overflow

@@ -69,7 +69,7 @@ function CanceledProfile () {
     },
 
     Box: {
-      borderRadius: '10px',
+      borderRadius: '18px',
       background: '#FFF',
       boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
     }
@@ -194,6 +194,11 @@ function CanceledProfile () {
                                     : res?.user
                                 }
                                 Section={'cancel'}
+                                accepteddata={
+                                  res?.user.id == isauthuserID
+                                    ? res?.friend
+                                    : res?.user
+                                }
                               />
                             </li>
                           </ul>

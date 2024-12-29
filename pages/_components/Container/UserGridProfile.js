@@ -52,15 +52,8 @@ function UserGridProfile () {
                       children={{
                         ProfileMenu: () => (
                           <>
-                            {/* <ProfileMenu
-                              Sections={'Grid'}
-                              SetCurURL={SetCurURL}
-                              openBlockModal={openBlockModal}
-                              OpenReportModal={OpenReportModal}
-                              openModal={openModal}
-                              res={user}
-                            /> */}
-                            <ProfileMenu res={user} Section={'Grid'} />
+                          
+                            <ProfileMenu res={user} Section={'Grid'} accepteddata={user}/>
                           </>
                         ),
                         MatchScoreModal: () => (

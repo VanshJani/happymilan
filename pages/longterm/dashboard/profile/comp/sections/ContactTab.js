@@ -1,51 +1,61 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import SaveButton from '../../../../../../components/common/Buttons/SaveButton'
+import { useSelector } from 'react-redux'
+import { Tooltip } from '@mui/material'
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 
-const ContactTab = ({ data }) => {
-  const Text2 = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
-  }
+const ContactTab = () => {
+  const { data, status, totalLikes } = useSelector(state => state.myprofile)
 
-  const Text5 = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '505',
-    lineHeight: 'normal'
-  }
+  const SectionStyle = useMemo(
+    () => ({
+      Text2: {
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: '400',
+        lineHeight: 'normal'
+      },
+
+      Text5: {
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: '505',
+        lineHeight: 'normal'
+      },
+      labelText: {
+        fontFamily: 'Poppins',
+        fontSize: '12px',
+        fontStyle: 'normal',
+        fontWeight: '400',
+        lineHeight: 'normal'
+      }
+    }),
+    []
+  )
 
   const [showForm, setShowForm] = useState(false)
 
   const handleEditClick = () => {
     setShowForm(!showForm)
   }
-  const labelText = {
-    fontFamily: 'Poppins',
-    fontSize: '12px',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
-  }
 
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
       paddingRight: '10px',
-    //   paddingLeft: '8px',
+      //   paddingLeft: '8px',
       width: '300px',
       height: '50px',
-      borderRadius: '8px',
-      border: '1px solid #e6e6e6',
-      borderColor: state.isFocused ? 'black' : provided.borderColor,
-      '&:hover': {
-        borderColor: 'black'
-      },
-      boxShadow: state.isFocused ? 'none' : provided.boxShadow // Add padding on the right side
+      borderRadius: '0px',
+      borderBottom: '1px solid #000',
+      borderColor: 'none',
+      borderWidth: '0',
+      borderStyle: 'none',
+      boxShadow: state.isFocused ? 'none' : provided.boxShadow, // Add padding on the right side
+      outline: 'none', // Remove outline
+      borderColor: 'transparent' // Remove default border color
     }),
     valueContainer: provided => ({
       ...provided,
@@ -60,13 +70,15 @@ const ContactTab = ({ data }) => {
   }
 
   const options = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' }
+    { value: '+91', label: '+91' },
+    { value: '+92', label: '+92' },
+    { value: '+93', label: '+93' }
   ]
 
   const [formdata, setformdata] = useState({
-    email: data?.email && data.email
+    email: data?.email && data.email,
+    mobileNumber: data?.mobileNumber,
+    homeMobileNumber: data?.homeMobileNumber
   })
 
   const [ShowPhoneNumber, SetShowPhoneNumber] = useState(null)
@@ -77,7 +89,7 @@ const ContactTab = ({ data }) => {
 
   useEffect(() => {
     if (data?.mobileNumber) {
-      phoneNumber = data?.mobileNumber.toString()
+      phoneNumber = data?.homeMobileNumber.toString()
 
       // Insert a space after the country code (e.g., "91")
       phoneNumber = phoneNumber.replace(/^(\d{2})/, '$1 ')
@@ -98,18 +110,27 @@ const ContactTab = ({ data }) => {
     }
   }, [])
 
+  const handleChange = e => {
+    const { name, value } = e.target
+
+    setformdata(() => ({
+      ...formdata,
+      [name]: value
+    }))
+  }
+
   return (
     <>
       <div
-        className={`w-full h-[270px] lg:h-${
-          showForm ? '[450px]' : '[369px]'
+        className={`w-full h-[270px] ${
+          showForm ? 'lg:h-[450px]' : 'lg:h-[369px]'
         }  border-[1px] border-[#F1F1F1] rounded-[10px] 2xl:space-y-[20px] xl:space-y-[20px] lg:space-y-[20px] md:space-y-[20px] space-y-[10px]`}
       >
         <div className='pt-[10px] grid place-items-center'>
           <ul className='w-[90%] flex justify-between items-center m-[10px]'>
             <li>
               <h1
-                style={Text2}
+                style={SectionStyle?.Text2}
                 className='dark:text-[#FFF]  2xl:text-[16px] xl:text-[16px] lg:text-[16px] md:text-[16px] text-[14px]'
               >
                 {showForm ? 'Modify Contact Details' : 'Contact Details'}
@@ -143,7 +164,10 @@ const ContactTab = ({ data }) => {
           <>
             <div className='flex flex-col items-center justify-center'>
               <div className='w-[90%]'>
-                <h1 className='text-[#000] pb-[10px]' style={labelText}>
+                <h1
+                  className='text-[#000] pb-[10px]'
+                  style={SectionStyle?.labelText}
+                >
                   Mobile Number
                 </h1>
                 <div className='flex justify-between'>
@@ -151,20 +175,26 @@ const ContactTab = ({ data }) => {
                     <DynamicSelect
                       className='h-[50px] w-[280px] 2xl:w-[170px] xl:w-[135px] lg:w-[200px] flex justify-end'
                       styles={customStyles}
+                      placeholder='+91'
                       options={options}
                     />
                   </div>
                   <div>
                     <input
-                      name='firstname'
+                      name='mobileNumber'
                       type='text'
-                      className='outline-none focus:border-[1px] focus:border-[black] h-[50px] w-[280px] 2xl:w-[350px] xl:w-[300px] lg:w-[300px] border-[1px] border-[#e6e6e6] pl-[10px] rounded-[8px] '
+                      value={formdata?.mobileNumber}
+                      onChange={handleChange}
+                      className='outline-none border-b-[1px] h-[50px] w-[280px] 2xl:w-[350px] xl:w-[300px] lg:w-[300px]  border-b-[#000] pl-[10px]'
                     />
                   </div>
                 </div>
               </div>
               <div className='w-[90%] pt-[20px]'>
-                <h1 className='text-[#000] pb-[10px]' style={labelText}>
+                <h1
+                  className='text-[#000] pb-[10px]'
+                  style={SectionStyle?.labelText}
+                >
                   Home Number
                 </h1>
                 <div className='flex justify-between'>
@@ -172,35 +202,52 @@ const ContactTab = ({ data }) => {
                     <DynamicSelect
                       className='h-[50px] w-[280px] 2xl:w-[170px] xl:w-[135px] lg:w-[200px] flex justify-end'
                       styles={customStyles}
+                      placeholder='+91'
                       options={options}
                     />
                   </div>
                   <div>
                     <input
-                      name='firstname'
+                      name='homeMobileNumber'
                       type='text'
-                      className='outline-none focus:border-[1px] focus:border-[black] h-[50px] w-[280px] 2xl:w-[350px] xl:w-[300px] lg:w-[300px] border-[1px] border-[#e6e6e6] pl-[10px] rounded-[8px] '
+                      value={formdata?.homeMobileNumber}
+                      onChange={handleChange}
+                      className='outline-none border-b-[1px] h-[50px] w-[280px] 2xl:w-[350px] xl:w-[300px] lg:w-[300px]  border-b-[#000] pl-[10px]'
                     />
                   </div>
                 </div>
               </div>
               <div className='w-[90%] pt-[20px]'>
-                <h1 className='text-[#000] pb-[10px]' style={labelText}>
+                <h1
+                  className='text-[#000] pb-[10px]'
+                  style={SectionStyle?.labelText}
+                >
                   Email Address
                 </h1>
-                <div>
+                <div className='relative'>
                   <input
                     name='Enter Email Address'
                     type='text'
-                    value={formdata.email}
+                    value={formdata?.email}
                     placeholder='First Name'
-                    className='outline-none focus:border-[1px] focus:border-[black] h-[50px] w-full border-[1px] border-[#e6e6e6] pl-[10px] rounded-[8px] '
+                    className='outline-none border-b-[1px] border-b-[black] h-[50px] w-full  '
                   />
+                  <Tooltip title='Verified' placement='top' color='white'>
+                    <img
+                      className='absolute top-5 right-5'
+                      src='/assests/dashboard/seting/Verified-icon.svg'
+                      alt='Verified Icon'
+                    />
+                  </Tooltip>
                 </div>
               </div>
 
-              <div className='w-[90%] flex justify-end pb-[10px] mt-[20px]'>
-                <SaveButton>Save</SaveButton>
+              <div className='w-[90%] flex justify-center pb-[10px] mt-[20px]'>
+                <SaveButton
+                  className={'rounded-[100px] text-[white] w-[194px] h-[50px]'}
+                >
+                  Save Changes
+                </SaveButton>
               </div>
             </div>
           </>
@@ -213,47 +260,60 @@ const ContactTab = ({ data }) => {
               <div className='w-[90%] m-[12px] grid grid-cols-2 grid-rows-2 gap-[32px]'>
                 <div>
                   <p
-                    style={Text2}
+                    style={SectionStyle?.Text2}
                     className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'
                   >
                     Mobile Number
                   </p>
-                  {/* <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>+{data?.mobileNumber ? data.mobileNumber : 'NA'}</h1> */}
+                  {/* <h1 style={SectionStyle?.Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>+{data?.mobileNumber ? data.mobileNumber : 'NA'}</h1> */}
                   <h1
-                    style={Text5}
+                    style={SectionStyle?.Text5}
                     className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'
                   >
-                    +{ShowPhoneNumber ? ShowPhoneNumber : 'NA'}
+                    +{ShowPhoneNumber || 'NA'}
                   </h1>
                 </div>
                 <div>
                   <p
-                    style={Text2}
+                    style={SectionStyle?.Text2}
                     className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'
                   >
                     Home Number
                   </p>
-                  {/* <h1 style={Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{data?.homeMobileNumber ? data.homeMobileNumber : "NA"}</h1> */}
+                  {/* <h1 style={SectionStyle?.Text5} className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'>{data?.homeMobileNumber ? data.homeMobileNumber : "NA"}</h1> */}
                   <h1
-                    style={Text5}
+                    style={SectionStyle?.Text5}
                     className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'
                   >
-                    +{showMobileNumber ? showMobileNumber : 'NA'}
+                    +{showMobileNumber || 'NA'}
                   </h1>
                 </div>
-                <div className='col-span-2'>
+                <div className='relative col-span-2'>
                   <p
-                    style={Text2}
+                    style={SectionStyle?.Text2}
                     className='dark:text-[#FFF] 2xl:text-[14px] xl:text-[12px] text-[12px]'
                   >
                     Email Address
                   </p>
-                  <h1
-                    style={Text5}
-                    className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'
-                  >
-                    {data?.email ? data.email : 'NA'}
-                  </h1>
+                  <ul className='flex items-center space-x-2'>
+                    <li>
+                      <h1
+                        style={SectionStyle?.Text5}
+                        className='dark:text-[#FFF] 2xl:text-[16px]  xl:text-[14px] text-[14px]'
+                      >
+                        {data.email || 'NA'}
+                      </h1>
+                    </li>
+                    <li>
+                      <Tooltip title='Verified' placement='top' color='white'>
+                        <img
+                          className=''
+                          src='/assests/dashboard/seting/Verified-icon.svg'
+                          alt='Verified Icon'
+                        />
+                      </Tooltip>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

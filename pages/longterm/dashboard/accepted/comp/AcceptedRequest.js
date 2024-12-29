@@ -47,7 +47,7 @@ function AcceptedRequest () {
       lineHeight: '24px' /* 171.429% */
     },
     Box: {
-      borderRadius: '10px',
+      borderRadius: '18px',
       background: darkMode ? '#242526' : '#FFF',
       boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
     }

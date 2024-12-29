@@ -207,7 +207,7 @@ function GridphotoSec({ formData, updateFormData, }) {
                                 <li key={index} className="flex-shrink-0 list-none">
                                     <div className="w-[150px] h-[150px] lg:w-[135px] lg:h-[137px] rounded-[10px] relative">
                                         <div
-                                            className={`${SelectedGridImage === index ? "block" : "hidden"}  grid place-items-center  absolute  rounded-[8px]  w-[150px] h-[150px] lg:w-[135px] lg:h-[137px] bg-[#0F52BACC] `}
+                                            className={`${SelectedGridImage === index ? "block" : "hidden"}  grid place-items-center  absolute  rounded-[8px]  w-[150px] h-[150px] lg:w-[115px] lg:h-[117px] bg-[#0F52BACC] `}
                                         >
                                             <img
                                                 src="/assests/common/Select-Right.svg"

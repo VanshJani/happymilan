@@ -84,140 +84,6 @@ function GridList () {
             <>
               {userData?.map((res, index) => {
                 return (
-                  //   <motion.div
-                  //     variants={variants}
-                  //     initial='hidden'
-                  //     animate='visible'
-                  //     transition={{
-                  //       delay: index * 0.25,
-                  //       ease: 'easeInOut',
-                  //       duration: 0.5
-                  //     }}
-                  //     viewport={{ amount: 0 }}
-                  //     key={index}
-                  //     style={profileStyles?.ProfileCard}
-                  //     className='inline-block lg:flex flex-col space-y-[8px]  2xl:w-[192px] w-[180px] xl:w-[170px] h-[327px] bg-[#FFF] rounded-[10px]'
-                  //   >
-                  //     <div className='mt-2 flex justify-between pt-[10px]'>
-                  //       <ul className='pl-[10px] flex space-x-[10px]'>
-                  //         <li
-                  //           className={`cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838]  items-center rounded-[17px] p-[5px] flex space-x-[10px] top-[-8px] relative left-[4px]`}
-                  //         >
-                  //           <MatchScoreModal user={res?.friend} />
-                  //         </li>
-                  //       </ul>
-                  //       <ul className='pr-[10px] flex space-x-[30px]'>
-                  //         <li>
-                  //           <ShortlistUser
-                  //             UserId={res?.friend?.id || res?.friend?._id}
-                  //           />
-                  //         </li>
-                  //         <li>
-                  //           <ProfileMenu res={res?.friend} Section={'sent'} />
-                  //         </li>
-                  //       </ul>
-                  //     </div>
-                  //     <div className='flex justify-center'>
-                  //       <Link
-                  //         className='w-[100px] h-[100px] rounded-[50%]'
-                  //         href={`/longterm/dashboard/${res?.friend?._id}`}
-                  //       >
-                  //         <div className='w-[100px] h-[100px] rounded-[50%] flex justify-center hover:opacity-80'>
-                  //           {res?.friend?.profilePic ? (
-                  //             <>
-                  //               <Link
-                  //                 href={`/longterm/dashboard/${
-                  //                   res?.friend?.id || res?.friend?._id
-                  //                 }`}
-                  //               >
-                  //                 <Image
-                  //                   quality={45}
-                  //                   loading='lazy'
-                  //                   alt='profile-pic'
-                  //                   width={100}
-                  //                   height={100}
-                  //                   style={{ objectFit: 'cover' }}
-                  //                   className='hover:opacity-70 duration-150 w-[100px] h-[100px] rounded-[50%]'
-                  //                   src={res?.friend?.profilePic}
-                  //                 />
-                  //               </Link>
-                  //             </>
-                  //           ) : (
-                  //             <>
-                  //               <Link
-                  //                 href={`/longterm/dashboard/${
-                  //                   res?.friend?.id || res?.friend?._id
-                  //                 }`}
-                  //               >
-                  //                 <Avatar
-                  //                   name={res?.friend?.name}
-                  //                   round
-                  //                   size='100'
-                  //                   className='hover:opacity-70 duration-150'
-                  //                 />
-                  //               </Link>
-                  //             </>
-                  //           )}
-                  //         </div>
-                  //       </Link>
-                  //     </div>
-                  //     <div className='text-center'>
-                  //       <h1
-                  //         style={profileStyles?.ProfileName}
-                  //         className='text-[18px]'
-                  //       >
-                  //         {capitalizeFirstLetter(res?.friend?.name)}
-                  //       </h1>
-                  //       <p
-                  //         style={profileStyles?.ListText}
-                  //         className='text-[14px]'
-                  //       >
-                  //         32, 5’3”
-                  //       </p>
-                  //       <p
-                  //         style={profileStyles?.ListText}
-                  //         className='text-[14px]'
-                  //       >
-                  //         {' '}
-                  //         {capitalizeFirstLetter(res?.friend?.religion) ||
-                  //           'NA'},{' '}
-                  //         {capitalizeFirstLetter(res?.friend?.caste) || 'NA'}
-                  //       </p>
-                  //       <p
-                  //         style={profileStyles?.ListText}
-                  //         className='text-[14px]'
-                  //       >
-                  //         {capitalizeFirstLetter(res?.friend?.maritalStatus) ||
-                  //           'NA'}
-                  //       </p>
-                  //     </div>
-
-                  //   <div className='grid place-items-center space-y-[14px]'>
-                  //     <div>
-                  //       <div className='w-[148px] bg-[#EEEEEE] h-[1px]'></div>
-                  //     </div>
-
-                  //     <ul className='flex space-x-[10px]'>
-                  //       <li>
-                  //         <h1
-                  //           className={`${styles.BoldText} text-[#000] dark:text-[#FFF] text-[16px] 2xl:text-[16px] xl:text-[14px]`}
-                  //         >
-                  //           Sent
-                  //         </h1>
-                  //       </li>
-                  //       <li>
-                  //         <Image
-                  //           loading='lazy'
-                  //           alt='accepted'
-                  //           width={23}
-                  //           height={23}
-                  //           src='/assests/dashboard/icon/accepted-right.svg'
-                  //         />
-                  //       </li>
-                  //     </ul>
-                  //   </div>
-                  //   </motion.div>
-
                   <GridprofileLayout
                     user={res?.friend}
                     index={index}
@@ -225,7 +91,7 @@ function GridList () {
                     children={{
                       ProfileMenu: () => (
                         <>
-                          <ProfileMenu res={res?.friend} Section={'sent'} />
+                          <ProfileMenu res={res?.friend} Section={'sent'} accepteddata={res?.friend} />
                         </>
                       ),
                       MatchScoreModal: () => (

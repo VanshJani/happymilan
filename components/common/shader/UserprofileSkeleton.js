@@ -5,7 +5,7 @@ import React from "react";
 function UserprofileSkeleton() {
 
   const Box = {
-    borderRadius: "10px",
+    borderRadius: "18px",
     boxShadow: "0px 0px 14px 0px rgba(0, 0, 0, 0.07)",
   };
 

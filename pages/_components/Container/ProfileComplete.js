@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDarkMode } from '../../../ContextProvider/DarkModeContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { MissingFields } from '../../../store/actions/UserSettingAction'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/css'
-import 'swiper/css/pagination'
-import { Pagination } from 'swiper'
 import { useRouter } from 'next/router'
+import { useSwipeable } from 'react-swipeable'
 
 function ProfileComplete () {
   const { darkMode, toggleDarkMode } = useDarkMode()
@@ -20,7 +17,7 @@ function ProfileComplete () {
     lineHeight: 'normal'
   }
   const Box = {
-    borderRadius: '10px',
+    borderRadius: '18px',
     boxShadow: '0px 0px 14px 0px rgba(0, 0, 0, 0.07)'
   }
 
@@ -30,11 +27,32 @@ function ProfileComplete () {
     dispatch(MissingFields())
   }, [])
 
-  const { data, loading, error } = useSelector(
+  const { data, status, loading, error } = useSelector(
     state => state.userseting.MissingFields
   )
 
-  const router = useRouter();
+  const router = useRouter()
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const handleSwipe = direction => {
+    if (direction === 'LEFT') {
+      setCurrentIndex(prevIndex =>
+        prevIndex === data.length - 1 ? 0 : prevIndex + 1
+      )
+    } else if (direction === 'RIGHT') {
+      setCurrentIndex(prevIndex =>
+        prevIndex === 0 ? data.length - 1 : prevIndex - 1
+      )
+    }
+  }
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleSwipe('LEFT'),
+    onSwipedRight: () => handleSwipe('RIGHT'),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true // Enables swipe support on desktop
+  })
 
   const MissingFieldsUI = ({ res }) => {
     return (
@@ -67,58 +85,74 @@ function ProfileComplete () {
               </defs>
             </svg>
           </div>
-          <div>
+          <div className='h-[50px]'>
             <p
               style={Text3}
-              className='dark:text-[#FFF] 2xl:pb-[10px] xl:pb-[15px] text-center text-[14px] w-[207px]'
+              className='dark:text-[#FFF] 2xl:pb-[10px] xl:pb-[15px] text-center text-[14px] w-[207px] select-none'
             >
-              Complete Your {res?.category} for Better Matches
+              Add your &nbsp;
+              {res?.category}&nbsp; for Better Matches
             </p>
           </div>
-          <div>
-            <button
-              id={darkMode ? 'Gradient-btn-2' : ''}
-              style={Text3}
-              onClick={() => router.push(res?.redirect)}
-              className={`${
-                darkMode ? '' : 'border-[1px] border-[#8225AF]'
-              } cursor-pointer hover:bg-[#F3F8FF] text-[14px] 2xl:w-[158px] 2xl:h-[44px] xl:w-[150px] xl:h-[44px]   rounded-[22px]  dark:bg-[#141516] dark:text-[#FFF] text-[black]`}
+
+          <div className='flex justify-center gap-2 mt-4'>
+            {data?.map((_, index) => (
+              <span
+                key={index}
+                className={`w-3 h-3 rounded-full  ${
+                  index === currentIndex
+                    ? 'bg-custom-gradient'
+                    : 'bg-gray-300 cursor-pointer'
+                }`}
+                onClick={() => setCurrentIndex(index)}
+              ></span>
+            ))}
+          </div>
+
+          <div className='hover:bg-[#F3F8FF] relative top-[19px] cursor-pointer text-center h-[50px] w-[300px] border-t-[#EAEAEA] border-t-[1px] grid place-items-center '>
+            <div
+              onClick={() =>
+                router.push({
+                  pathname: res?.redirect,
+                  query: { from: 'dashboard' }
+                })
+              }
+              className='w-full h-full grid place-items-center relative top-0'
             >
-              Add Details
-            </button>
+              <p>Add Details</p>
+            </div>
           </div>
         </div>
       </>
     )
   }
 
+  if (loading) {
+    return null
+  }
   return (
     <>
-      {data?.length > 1 ? (
+      {status?.message != 'All required fields are filled' && (
         <div
-          className='bg-[#FFF] dark:bg-[#242526] 2xl:mt-[-30px] xl:mt-[-25px] w-[300px] 2xl:w-[300px] xl:w-[280px] h-[250px]'
+          className='flex justify-center overflow-hidden items-center dark:bg-[#242526] 2xl:mt-[-30px] xl:mt-[-25px] h-[219px] w-[300px] bg-white border rounded-[18px] shadow-md'
           style={Box}
         >
           <div className='w-full h-full grid place-items-center'>
             <div className='flex transition-transform duration-500'>
-              <Swiper
-                pagination={{ clickable: true }}
-                modules={[Pagination]}
-                className='mySwiper  w-[300px] 2xl:w-[300px] xl:w-[280px] h-[219px] '
+              <div
+                {...handlers}
+                className='flex justify-center w-[300px] 2xl:w-[300px] xl:w-[280px] h-[219px] '
               >
-                {data?.map((res, index) => {
-                  return (
-                    <SwiperSlide key={index}>
-                      <MissingFieldsUI res={res} />
-                    </SwiperSlide>
-                  )
-                })}
-              </Swiper>
+                <MissingFieldsUI
+                  res={data?.[currentIndex]}
+                  currentIndex={currentIndex}
+                  setCurrentIndex={setCurrentIndex}
+                  data={data}
+                />
+              </div>
             </div>
           </div>
         </div>
-      ) : (
-        ''
       )}
     </>
   )
