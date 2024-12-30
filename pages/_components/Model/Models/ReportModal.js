@@ -33,15 +33,16 @@ const Comp1 = ({ handleNextClick }) => {
         },
         {
           id: 2,
-          answer: 'Sharing explicit or graphic content.'
+          answer: 'The profile includes explicit or graphic content.'
         },
         {
           id: 3,
-          answer: 'Posting hate speech or discriminatory remarks.'
+          answer: 'The profile contains hate speech or discriminatory remarks.'
         },
         {
           id: 4,
-          answer: 'Violating platform guidelines (e.g., nudity, violence).'
+          answer:
+            'The profile violates platform guidelines (e.g., nudity, violence).'
         }
       ]
     },
@@ -55,15 +56,15 @@ const Comp1 = ({ handleNextClick }) => {
         },
         {
           id: 2,
-          answer: 'Targeting or insulting me or others repeatedly.'
+          answer: 'Repeatedly targeting or insulting me or others.'
         },
         {
           id: 3,
-          answer: 'Encouraging harmful behavior or actions.'
+          answer: 'Making unwelcome advances or inappropriate comments.'
         },
         {
           id: 4,
-          answer: 'Making unwelcome advances or inappropriate comments.'
+          answer: 'Encouraging harmful behavior or actions.'
         }
       ]
     },
@@ -81,57 +82,81 @@ const Comp1 = ({ handleNextClick }) => {
         },
         {
           id: 3,
-          answer: 'Creating a profile to deceive others.'
+          answer: 'Creating a profile to deceive or mislead others.'
         },
         {
           id: 4,
-          answer: 'Misrepresenting their identity or credentials.'
+          answer: 'Misrepresenting identity, qualifications, or background.'
         }
       ]
     },
     {
       id: 3,
-      question: 'Spam or promotional content',
+      question: 'Spam or promotional activity',
       answers: [
         {
           id: 1,
-          answer: 'Posting irrelevant or repeated promotional links.'
+          answer: 'Sending repeated unsolicited messages.'
         },
         {
           id: 2,
-          answer: 'Sending unsolicited messages or advertisements.'
+          answer: 'Posting links to irrelevant or promotional content.'
         },
         {
           id: 3,
-          answer: 'Flooding the platform with spam content.'
+          answer: 'Flooding the platform with spam profiles.'
         }
       ]
     },
     {
       id: 4,
-      question: 'Scams or fraudulent activity',
+      question: 'Scams or fraudulent behavior',
       answers: [
         {
           id: 1,
-          answer: 'Attempting to obtain sensitive personal information.'
+          answer: 'Requesting money under false pretenses.'
         },
         {
           id: 2,
-          answer: 'Offering fake services or products.'
+          answer: 'Promoting fake services or schemes.'
         },
         {
           id: 3,
-          answer: 'Promoting get-rich-quick schemes or phishing attempts.'
+          answer: 'Attempting to gather sensitive personal information.'
         },
         {
           id: 4,
-          answer: 'Requesting money under false pretenses.'
+          answer: 'Claiming false relationships or connections.'
         }
       ]
     },
     {
       id: 5,
-      question: 'Others'
+      question: 'Inappropriate relationship intent',
+      answers: [
+        {
+          id: 1,
+          answer: 'Seeking relationships that violate platform policies.'
+        },
+        {
+          id: 2,
+          answer: 'Displaying behavior inappropriate for a matrimony site.'
+        },
+        {
+          id: 3,
+          answer: 'Expressing intentions incompatible with marriage.'
+        }
+      ]
+    },
+    {
+      id: 6,
+      question: 'Others',
+      answers: [
+        {
+          id: 1,
+          answer: 'Otheroption'
+        }
+      ]
     }
   ]
 
@@ -237,15 +262,16 @@ const Comp2 = ({ handleNextClick, SelectedQuestion }) => {
         },
         {
           id: 2,
-          answer: 'Sharing explicit or graphic content.'
+          answer: 'The profile includes explicit or graphic content.'
         },
         {
           id: 3,
-          answer: 'Posting hate speech or discriminatory remarks.'
+          answer: 'The profile contains hate speech or discriminatory remarks.'
         },
         {
           id: 4,
-          answer: 'Violating platform guidelines (e.g., nudity, violence).'
+          answer:
+            'The profile violates platform guidelines (e.g., nudity, violence).'
         }
       ]
     },
@@ -259,15 +285,15 @@ const Comp2 = ({ handleNextClick, SelectedQuestion }) => {
         },
         {
           id: 2,
-          answer: 'Targeting or insulting me or others repeatedly.'
+          answer: 'Repeatedly targeting or insulting me or others.'
         },
         {
           id: 3,
-          answer: 'Encouraging harmful behavior or actions.'
+          answer: 'Making unwelcome advances or inappropriate comments.'
         },
         {
           id: 4,
-          answer: 'Making unwelcome advances or inappropriate comments.'
+          answer: 'Encouraging harmful behavior or actions.'
         }
       ]
     },
@@ -285,56 +311,74 @@ const Comp2 = ({ handleNextClick, SelectedQuestion }) => {
         },
         {
           id: 3,
-          answer: 'Creating a profile to deceive others.'
+          answer: 'Creating a profile to deceive or mislead others.'
         },
         {
           id: 4,
-          answer: 'Misrepresenting their identity or credentials.'
+          answer: 'Misrepresenting identity, qualifications, or background.'
         }
       ]
     },
     {
       id: 3,
-      question: 'Spam or promotional content',
+      question: 'Spam or promotional activity',
       answers: [
         {
           id: 1,
-          answer: 'Posting irrelevant or repeated promotional links.'
+          answer: 'Sending repeated unsolicited messages.'
         },
         {
           id: 2,
-          answer: 'Sending unsolicited messages or advertisements.'
+          answer: 'Posting links to irrelevant or promotional content.'
         },
         {
           id: 3,
-          answer: 'Flooding the platform with spam content.'
+          answer: 'Flooding the platform with spam profiles.'
         }
       ]
     },
     {
       id: 4,
-      question: 'Scams or fraudulent activity',
+      question: 'Scams or fraudulent behavior',
       answers: [
         {
           id: 1,
-          answer: 'Attempting to obtain sensitive personal information.'
+          answer: 'Requesting money under false pretenses.'
         },
         {
           id: 2,
-          answer: 'Offering fake services or products.'
+          answer: 'Promoting fake services or schemes.'
         },
         {
           id: 3,
-          answer: 'Promoting get-rich-quick schemes or phishing attempts.'
+          answer: 'Attempting to gather sensitive personal information.'
         },
         {
           id: 4,
-          answer: 'Requesting money under false pretenses.'
+          answer: 'Claiming false relationships or connections.'
         }
       ]
     },
     {
       id: 5,
+      question: 'Inappropriate relationship intent',
+      answers: [
+        {
+          id: 1,
+          answer: 'Seeking relationships that violate platform policies.'
+        },
+        {
+          id: 2,
+          answer: 'Displaying behavior inappropriate for a matrimony site.'
+        },
+        {
+          id: 3,
+          answer: 'Expressing intentions incompatible with marriage.'
+        }
+      ]
+    },
+    {
+      id: 6,
       question: 'Others',
       answers: [
         {

@@ -207,10 +207,10 @@ function Longtermregisterlayout ({ slug, children }) {
           console.log('Unknown slug:', slug)
           break
       }
-      
+
       setTimeout(() => {
-        router.push("/longterm/dashboard")
-      }, 1000);
+        router.push('/longterm/dashboard')
+      }, 1000)
     } else {
       setIsNext(true) // Set flag to true when moving forward
       if (activeTab < steps.length - 1) {
@@ -237,6 +237,8 @@ function Longtermregisterlayout ({ slug, children }) {
       router.push(`/longterm/register/${steps[activeTab - 1].slug}`)
     }
   }
+
+  const { from } = router.query
 
   if (activeTab === 0) {
     return <ProfileSelection goToNextStep={goToNextStep} />
@@ -400,6 +402,9 @@ function Longtermregisterlayout ({ slug, children }) {
                           <li className=''>
                             <button
                               onClick={goToPrevStep}
+                              style={{
+                                display: from === 'dashboard' ? 'none' : ''
+                              }}
                               className='w-[97px] h-[44px] border-[1px] border-[#000] rounded-[22px] hover:bg-[#EFF5FF] duration-200'
                             >
                               Back
