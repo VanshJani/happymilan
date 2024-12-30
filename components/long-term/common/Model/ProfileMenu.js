@@ -85,7 +85,7 @@ function ProfileMenu ({
     dispatch(
       updateSpamUserdata({
         ...spamUserData,
-        spamUserId: res?.id,
+        spamUserId: res?.id || res?._id,
         UserName: res?.firstName + ' ' + res?.lastName
       })
     )

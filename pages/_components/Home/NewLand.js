@@ -203,33 +203,6 @@ function NewLand () {
     }
   ]
 
-  const ChatIcons = [
-    {
-      id: 1,
-      icon: '/heroSec/icon/emoji-icon.svg',
-      content: 'Emoji',
-      alt: 'emoji'
-    },
-    {
-      id: 2,
-      icon: '/heroSec/icon/img-icon.svg',
-      content: 'Image',
-      alt: 'image'
-    },
-    {
-      id: 3,
-      icon: '/heroSec/icon/mic-icon.svg',
-      content: 'Audio',
-      alt: 'audio'
-    },
-    {
-      id: 4,
-      icon: '/heroSec/icon/video-call-icon.svg',
-      content: 'Video',
-      alt: 'video'
-    }
-  ]
-
   const [activeProfile, setActiveProfile] = useState(profilesData[0]) // Start with the first profile
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -296,8 +269,8 @@ function NewLand () {
       <div className='mt-[100px] w-full h-full bg-[#FFF]'>
         <div className='space-y-[40px] 2xl:space-y-[40px] xl:space-y-[20px]'>
           <div className='space-y-[55px] 2xl:space-y-[55px] xl:space-y-[45px]'>
-            <h1 className='text-black text-center font-poppins font-bold leading-[50px] 2xl:text-[54px] xl:text-[40px] text-[40px]'>
-              Single App, Multiple Choices.{' '}
+            <h1 className='text-black text-center font-poppins font-bold leading-[50px] 2xl:text-[54px] xl:text-[40px] text-[40px] '>
+              Single App, Multiple Choices.
             </h1>
             <div>
               <ul className='flex justify-center space-x-[20px]'>
@@ -307,7 +280,7 @@ function NewLand () {
                       <button
                         onClick={() => handleProfileChange(index)}
                         name={profile?.name}
-                        className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] w-[134px] h-[50px] 2xl:text-[16px] xl:text-[14px] text-[16px]  rounded-[32px]  border-[1px] border-[#000] ${
+                        className={`text-center font-poppins font-normal leading-normal 2xl:w-[134px] 2xl:h-[50px] xl:w-[120px] xl:h-[40px] sm:w-[134px] sm:h-[50px] w-[100px] h-[37px] 2xl:text-[16px] xl:text-[14px] sm:text-[16px] text-[14px] rounded-[32px]  border-[1px] border-[#000] ${
                           index == currentIndex
                             ? 'bg-[#000] text-[#FFF]'
                             : ' text-[#000] bg-[#FFF] hover:bg-[#EFF5FF] hover:text-[#000]'
@@ -323,7 +296,7 @@ function NewLand () {
           </div>
           <div className=''>
             <div className='flex justify-center lg:justify-between pr-[0px] 2xl:pl-[200px] xl:pl-[160px] lg:pl-[100px]'>
-              <div className='mt-[20px]'>
+              <div className='mt-[20px] mb-[30px] lg:mb-[0px]'>
                 <ul className='w-full space-y-[23px]'>
                   <li style={GradientText}>{activeProfile?.title}</li>
                   <li className='w-[483px]' style={ContentText}>
@@ -363,13 +336,13 @@ function NewLand () {
                 <div className=''>
                   <ul className='space-y-[26px]'>
                     <li
-                      className='w-[400px] 2xl:text-[54px] xl:text-[40px] text-[40px]'
+                      className='w-[250px] sm:w-[400px] 2xl:text-[54px] xl:text-[40px] text-[40px]'
                       style={Text1}
                     >
                       India’s <br /> Most Secured Social Site
                     </li>
                     <li
-                      className='w-[468px] text-[18px] text-[#FFF]'
+                      className=' w-[250px] sm:w-[468px] text-[18px] text-[#FFF]'
                       style={Text3}
                     >
                       Connect with your chosen profiles and build stronger
@@ -475,29 +448,70 @@ function NewLand () {
                   relationships
                 </p>
                 <ul className='flex space-x-[70px]'>
-                  {ChatIcons?.map((item, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className='space-y-[8px] flex flex-col justify-center items-center'
-                      >
-                        <Image
-                          width={0}
-                          height={0}
-                          alt={item?.alt}
-                          src={item?.icon}
-                          loading='lazy'
-                          className='w-[30px] h-[30px]'
-                        />
-                        <p
-                          className='text-[14px] text-center text-[#000]'
-                          style={Text3}
-                        >
-                          {item?.content}
-                        </p>
-                      </li>
-                    )
-                  })}
+                  <li className='space-y-[8px] flex flex-col justify-center items-center'>
+                    <Image
+                      width={0}
+                      height={0}
+                      alt='emoji'
+                      src={'/heroSec/icon/emoji-icon.svg'}
+                      loading='lazy'
+                      className='w-[30px] h-[30px]'
+                    />
+                    <p
+                      className='text-[14px] text-center text-[#000]'
+                      style={Text3}
+                    >
+                      Emoji
+                    </p>
+                  </li>
+                  <li className='space-y-[8px] flex flex-col justify-center items-center'>
+                    <Image
+                      width={0}
+                      height={0}
+                      alt='img'
+                      src={'/heroSec/icon/img-icon.svg'}
+                      loading='lazy'
+                      className='w-[30px] h-[30px]'
+                    />
+                    <p
+                      className='text-[14px] text-center text-[#000]'
+                      style={Text3}
+                    >
+                      Image
+                    </p>
+                  </li>
+                  <li className='space-y-[8px] flex flex-col justify-center items-center'>
+                    <Image
+                      width={0}
+                      height={0}
+                      alt='mic'
+                      src={'/heroSec/icon/mic-icon.svg'}
+                      loading='lazy'
+                      className='w-[30px] h-[30px]'
+                    />
+                    <p
+                      className='text-[14px] text-center text-[#000]'
+                      style={Text3}
+                    >
+                      Audio
+                    </p>
+                  </li>
+                  <li className='space-y-[8px] flex flex-col justify-center items-center'>
+                    <Image
+                      width={0}
+                      height={0}
+                      alt='video-call'
+                      src={'/heroSec/icon/video-call-icon.svg'}
+                      loading='lazy'
+                      className='w-[30px] h-[30px]'
+                    />
+                    <p
+                      className='text-[14px] text-center text-[#000]'
+                      style={Text3}
+                    >
+                      Video
+                    </p>
+                  </li>
                 </ul>
                 <ul className='flex space-x-[25px]'>
                   <li>
@@ -931,6 +945,7 @@ function NewLand () {
                   </ul>
                 </div>
                 <div className='relative top-[30px]'>
+                  {/* <Image width={0} height={0} alt='app' loading='lazy' src={"/heroSec/assests/.svg"} className='w-[160.043px] h-[auto]' /> */}
                   <Image
                     width={0}
                     height={0}

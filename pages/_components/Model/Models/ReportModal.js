@@ -1,178 +1,212 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import dynamic from 'next/dynamic'
 import { updateSpamUserdata } from '../../../../store/reducers/SpamReportReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { PostSpamUser } from '../../../../store/actions/SpamuserAction'
-import { Modal } from '@mui/material'
-const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
+import { Box, Modal } from '@mui/material'
 
-const Comp1 = ({ handleNextClick, SetSelectedText, onClose }) => {
+const Comp1 = ({ handleNextClick }) => {
   const dispatch = useDispatch()
 
   const TitleText = {
     fontFamily: 'Poppins',
     fontStyle: 'normal',
-    fontWeight: '500',
+    fontWeight: '600',
     lineHeight: 'normal'
   }
 
   const Heading = {
-    color: '#000',
     fontFamily: 'Poppins',
-    fontSize: '20px',
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: 'normal'
   }
 
-  const customStyles = {
-    control: (provided, state) => ({
-      ...provided,
-      paddingRight: '10px',
-      paddingLeft: '8px',
-      width: '500px',
-      height: '50px',
-      borderRadius: '23px', // Add padding on the right side
-      border: '1px solid #e6e6e6',
-      borderColor: state.isFocused ? 'black' : provided.borderColor,
-      '&:hover': {
-        borderColor: 'black'
-      },
-      boxShadow: state.isFocused ? 'none' : provided.boxShadow
-    }),
-    indicatorSeparator: provided => ({
-      ...provided,
-      display: 'none',
-      paddingRight: '20px'
-      // Hide the vertical line behind the arrow
-    })
-  }
-
-  const reportReasons = [
-    { value: 'scam-or-fraud', label: 'Scam or Fraud' },
-    { value: 'its-spam', label: 'Spam or Scam' },
-    { value: 'harassment_bullying', label: 'Harassment or Bullying' },
-    { value: 'impersonation', label: 'Impersonation' },
-    { value: 'privacy_violation', label: 'Privacy Violation' },
-    { value: 'misinformation_fake_news', label: 'Misinformation or Fake News' },
-    { value: 'violence_threats', label: 'Violence or Threats' },
-    { value: 'copyright_infringement', label: 'Copyright Infringement' },
-    { value: 'other', label: 'Other' }
-    // Add more reasons as needed
+  const ReportQuestions = [
+    {
+      id: 0,
+      question: 'Inappropriate content',
+      answers: [
+        {
+          id: 1,
+          answer: 'The profile contains offensive or abusive language.'
+        },
+        {
+          id: 2,
+          answer: 'Sharing explicit or graphic content.'
+        },
+        {
+          id: 3,
+          answer: 'Posting hate speech or discriminatory remarks.'
+        },
+        {
+          id: 4,
+          answer: 'Violating platform guidelines (e.g., nudity, violence).'
+        }
+      ]
+    },
+    {
+      id: 1,
+      question: 'Harassment or bullying',
+      answers: [
+        {
+          id: 1,
+          answer: 'Sending threatening or abusive messages.'
+        },
+        {
+          id: 2,
+          answer: 'Targeting or insulting me or others repeatedly.'
+        },
+        {
+          id: 3,
+          answer: 'Encouraging harmful behavior or actions.'
+        },
+        {
+          id: 4,
+          answer: 'Making unwelcome advances or inappropriate comments.'
+        }
+      ]
+    },
+    {
+      id: 2,
+      question: 'Fake or misleading profile',
+      answers: [
+        {
+          id: 1,
+          answer: 'Impersonating another person or entity.'
+        },
+        {
+          id: 2,
+          answer: 'Using fake photos or information.'
+        },
+        {
+          id: 3,
+          answer: 'Creating a profile to deceive others.'
+        },
+        {
+          id: 4,
+          answer: 'Misrepresenting their identity or credentials.'
+        }
+      ]
+    },
+    {
+      id: 3,
+      question: 'Spam or promotional content',
+      answers: [
+        {
+          id: 1,
+          answer: 'Posting irrelevant or repeated promotional links.'
+        },
+        {
+          id: 2,
+          answer: 'Sending unsolicited messages or advertisements.'
+        },
+        {
+          id: 3,
+          answer: 'Flooding the platform with spam content.'
+        }
+      ]
+    },
+    {
+      id: 4,
+      question: 'Scams or fraudulent activity',
+      answers: [
+        {
+          id: 1,
+          answer: 'Attempting to obtain sensitive personal information.'
+        },
+        {
+          id: 2,
+          answer: 'Offering fake services or products.'
+        },
+        {
+          id: 3,
+          answer: 'Promoting get-rich-quick schemes or phishing attempts.'
+        },
+        {
+          id: 4,
+          answer: 'Requesting money under false pretenses.'
+        }
+      ]
+    },
+    {
+      id: 5,
+      question: 'Others'
+    }
   ]
 
   // "\"reason\" must be one of [just-dont-like-it, its-spam, nudity-or-sexual-activity, bullying-or-harassment, scam-or-fraud]"
   const spamUserData = useSelector(state => state.Spamuser.SpamUserdata)
 
-  const handleSelectReport = e => {
-    const value = e.target.value
+  const HandleSelectQuestion = item => {
+    handleNextClick(item)
     dispatch(
       updateSpamUserdata({
         ...spamUserData,
-        reason: value?.value
+        reason: item?.question
       })
     )
   }
 
   return (
     <>
-      <div
-        className={`relative  bg-white rounded-lg shadow-lg p-6 w-[588px] md:h-[80%] ${
-          spamUserData?.reason === 'other' ? 'lg:h-[380px]' : 'lg:h-[341px]'
-        }`}
-      >
-        <div className='flex justify-between items-center'>
-          <div className='text-center w-full'>
-            <h1 style={Heading}>Report</h1>
-          </div>
-          <div>
-            <div className='hover:bg-[#EFF5FF] w-[30px] h-[30px] rounded-full grid place-items-center'>
-              <Image
-                width={24}
-                height={24}
-                alt='close-icon'
-                className='cursor-pointer'
-                onClick={onClose}
-                loading='lazy'
-                src='/assests/social/close.svg'
-              />
-            </div>
-          </div>
+      <div className='space-y-5 mt-5'>
+        <div className='text-center space-y-[10px]'>
+          <p style={TitleText} className='text-[16px]'>
+            Why are you reporting this?
+          </p>
+          <p style={Heading} className='text-[14px] text-[#8F8F8F]'>
+            Your identity will remain anonymous to the reported user.
+          </p>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '30px'
-          }}
-        >
-          <div
-            style={{ width: '90%', height: '1px', backgroundColor: '#EDEDED' }}
-          ></div>
-        </div>
-
-        <div className='grid place-items-center space-y-[50px]'>
-          <div className='w-full space-y-[10px]'>
-            <div className='relative left-[30px] mt-[30px]'>
-              <h1 style={TitleText} className='text-[16px] text-[#000]'>
-                Please select the problems
-              </h1>
-            </div>
-            <div className='w-full grid place-items-center'>
-              <DynamicSelect
-                className='h-[50px] w-[500px] flex justify-end'
-                styles={customStyles}
-                options={reportReasons}
-                onChange={selectedOption =>
-                  handleSelectReport({
-                    target: { name: 'reason', value: selectedOption }
-                  })
-                }
-              />
-            </div>
-
-            <div
-              style={{
-                display: spamUserData?.reason === 'other' ? '' : 'none'
-              }}
-              className={`grid place-items-center`}
-            >
-              <textarea
-                placeholder='Write a Reason (Optional)'
-                style={{
-                  resize: 'none',
-                  outline: 'none',
-                  paddingTop: '10px',
-                  paddingLeft: '20px',
-                  fontSize: '14px',
-                  width: '500px',
-                  height: '50px',
-                  borderRadius: '10px',
-                  border: '1px solid #e6e6e6'
-                }}
-              />
-            </div>
-          </div>
-
-          <div>
-            <button
-              onClick={handleNextClick}
-              id={!spamUserData?.reason ? 'DisableBTN' : 'grad-button'}
-              disabled={!spamUserData?.reason}
-              className=' w-[500px] h-[50px] rounded-[23px]'
-            >
-              Continue
-            </button>
-          </div>
+        <div className='flex justify-center'>
+          <ul className='w-[95%]'>
+            {ReportQuestions?.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  className=' border-t-[1px] border-t-[#EDEDED] border-b-[1px] border-b-[#EDEDED]'
+                >
+                  <div className='w-full pt-4 pb-4'>
+                    <ul className='flex justify-between w-full'>
+                      <li
+                        onClick={() => HandleSelectQuestion(item)}
+                        style={Heading}
+                        className='text-[16px] hover:opacity-75 duration-200 cursor-pointer'
+                      >
+                        {item?.question}
+                      </li>
+                      <li
+                        onClick={() => HandleSelectQuestion(item)}
+                        className='hover:bg-[#EFF5FF] w-[24px] h-[24px] rounded-full cursor-pointer duration-200'
+                      >
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          width='24'
+                          height='24'
+                          viewBox='0 0 24 24'
+                          fill='none'
+                        >
+                          <path
+                            d='M13.2924 12L8.69238 7.4L9.40013 6.69225L14.7079 12L9.40013 17.3077L8.69238 16.6L13.2924 12Z'
+                            fill='#5F6368'
+                          />
+                        </svg>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
         </div>
       </div>
     </>
   )
 }
 
-const Comp2 = ({ handleNextClick, isSelctedText, onClose }) => {
+const Comp2 = ({ handleNextClick, SelectedQuestion }) => {
   const TitleText = {
     fontFamily: 'Poppins',
     fontStyle: 'normal',
@@ -180,208 +214,275 @@ const Comp2 = ({ handleNextClick, isSelctedText, onClose }) => {
     lineHeight: 'normal'
   }
 
-  const ListText = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
-  }
-
   const Heading = {
     color: '#000',
     fontFamily: 'Poppins',
-    fontSize: '20px',
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: 'normal'
   }
 
-  return (
-    <>
-      <div
-        className={`relative z-10 bg-white rounded-lg shadow-lg p-6 w-[588px] md:h-[80%] lg:h-[370px] `}
-      >
-        <div className='flex justify-between items-center'>
-          <div className='text-center w-full'>
-            <h1 style={Heading}>Report</h1>
-          </div>
-          <div className=''>
-            <div className='hover:bg-[#EFF5FF] w-[30px] h-[30px] rounded-full grid place-items-center'>
-              <Image
-                width={24}
-                height={24}
-                alt='close-icon'
-                className='cursor-pointer'
-                onClick={onClose}
-                loading='lazy'
-                src='/assests/social/close.svg'
-              />
-            </div>
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '30px'
-          }}
-        >
-          <div
-            style={{ width: '90%', height: '1px', backgroundColor: '#EDEDED' }}
-          ></div>
-        </div>
-
-        <div className='grid place-items-center space-y-[50px]'>
-          <div className='w-full space-y-[10px]'>
-            <div className=' grid place-items-center '>
-              <div className='w-[500px] space-y-[20px] pl-[10px]'>
-                <div className='mt-[20px]'>
-                  <h1 style={TitleText} className='text-[16px] text-[#000]'>
-                    {isSelctedText}
-                  </h1>
-                </div>
-                <div style={ListText} className='text-[14px] space-y-[20px]'>
-                  <h1>We don't allow things such as:</h1>
-                  <ul className='list-disc pl-[25px] space-y-[10px]'>
-                    <li>
-                      Encouraging people to engage with content under false
-                      pretences
-                    </li>
-                    <li>
-                      Directing people away from HappyMilan through the
-                      misleading use of links
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <button
-              onClick={handleNextClick}
-              id='grad-button'
-              className=' w-[500px] h-[50px]  rounded-[23px]'
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
-const Comp3 = ({ handleNextClick, onClose }) => {
-  const TitleText = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    lineHeight: 'normal'
-  }
-
-  const ListText = {
-    fontFamily: 'Poppins',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
-  }
-
-  const Heading = {
-    color: '#000',
-    fontFamily: 'Poppins',
-    fontSize: '20px',
-    fontStyle: 'normal',
-    fontWeight: '400',
-    lineHeight: 'normal'
-  }
+  const dispatch = useDispatch()
 
   const spamUserData = useSelector(state => state.Spamuser.SpamUserdata)
 
+  const ReportQuestions = [
+    {
+      id: 0,
+      question: 'Inappropriate content',
+      answers: [
+        {
+          id: 1,
+          answer: 'The profile contains offensive or abusive language.'
+        },
+        {
+          id: 2,
+          answer: 'Sharing explicit or graphic content.'
+        },
+        {
+          id: 3,
+          answer: 'Posting hate speech or discriminatory remarks.'
+        },
+        {
+          id: 4,
+          answer: 'Violating platform guidelines (e.g., nudity, violence).'
+        }
+      ]
+    },
+    {
+      id: 1,
+      question: 'Harassment or bullying',
+      answers: [
+        {
+          id: 1,
+          answer: 'Sending threatening or abusive messages.'
+        },
+        {
+          id: 2,
+          answer: 'Targeting or insulting me or others repeatedly.'
+        },
+        {
+          id: 3,
+          answer: 'Encouraging harmful behavior or actions.'
+        },
+        {
+          id: 4,
+          answer: 'Making unwelcome advances or inappropriate comments.'
+        }
+      ]
+    },
+    {
+      id: 2,
+      question: 'Fake or misleading profile',
+      answers: [
+        {
+          id: 1,
+          answer: 'Impersonating another person or entity.'
+        },
+        {
+          id: 2,
+          answer: 'Using fake photos or information.'
+        },
+        {
+          id: 3,
+          answer: 'Creating a profile to deceive others.'
+        },
+        {
+          id: 4,
+          answer: 'Misrepresenting their identity or credentials.'
+        }
+      ]
+    },
+    {
+      id: 3,
+      question: 'Spam or promotional content',
+      answers: [
+        {
+          id: 1,
+          answer: 'Posting irrelevant or repeated promotional links.'
+        },
+        {
+          id: 2,
+          answer: 'Sending unsolicited messages or advertisements.'
+        },
+        {
+          id: 3,
+          answer: 'Flooding the platform with spam content.'
+        }
+      ]
+    },
+    {
+      id: 4,
+      question: 'Scams or fraudulent activity',
+      answers: [
+        {
+          id: 1,
+          answer: 'Attempting to obtain sensitive personal information.'
+        },
+        {
+          id: 2,
+          answer: 'Offering fake services or products.'
+        },
+        {
+          id: 3,
+          answer: 'Promoting get-rich-quick schemes or phishing attempts.'
+        },
+        {
+          id: 4,
+          answer: 'Requesting money under false pretenses.'
+        }
+      ]
+    },
+    {
+      id: 5,
+      question: 'Others',
+      answers: [
+        {
+          id: 1,
+          answer: 'Otheroption'
+        }
+      ]
+    }
+  ]
+
+  const handleChangeInput = e => {
+    const { value } = e.target
+    dispatch(
+      updateSpamUserdata({
+        ...spamUserData,
+        remark: value
+      })
+    )
+  }
+
+  const HandleSelectAnswer = item => {
+    handleNextClick(item)
+    dispatch(
+      updateSpamUserdata({
+        ...spamUserData,
+        remark: item?.answer
+      })
+    )
+  }
+
   return (
     <>
-      <div
-        className={`relative z-10 bg-white rounded-lg shadow-lg p-6 w-[588px] md:h-[80%] lg:h-[438px]`}
-      >
-        <div className='flex justify-between items-center'>
-          <div className='text-center w-full'>
-            <h1 style={Heading}>Thanks for letting us know</h1>
-          </div>
-          <div className=''>
-            <div className='hover:bg-[#EFF5FF] w-[30px] h-[30px] rounded-full grid place-items-center'>
-              <Image
-                width={24}
-                height={24}
-                alt='close-icon'
-                className='cursor-pointer'
-                loading='lazy'
-                onClick={onClose}
-                src='/assests/social/close.svg'
-              />
-            </div>
-          </div>
+      <div className='space-y-5 mt-5'>
+        <div className='text-center'>
+          <p style={TitleText} className='text-[16px]'>
+            Hows is it {spamUserData?.reason}?
+          </p>
         </div>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '30px'
-          }}
-        >
-          <div
-            style={{ width: '90%', height: '1px', backgroundColor: '#EDEDED' }}
-          ></div>
+        <div className='flex justify-center'>
+          <ul className='w-[95%]'>
+            {ReportQuestions?.[SelectedQuestion]?.answers.map((item, index) => {
+              return (
+                <>
+                  {item?.answer != 'Otheroption' ? (
+                    <li
+                      key={index}
+                      className=' border-t-[1px] border-t-[#EDEDED] border-b-[1px] border-b-[#EDEDED]'
+                    >
+                      <div className='w-full pt-4 pb-4'>
+                        <ul className='flex justify-between w-full'>
+                          <li
+                            onClick={() => HandleSelectAnswer(item)}
+                            style={Heading}
+                            className='text-[16px] hover:opacity-75 duration-200 cursor-pointer'
+                          >
+                            {item?.answer}
+                          </li>
+                          <li
+                            onClick={() => HandleSelectAnswer(item)}
+                            className='hover:bg-[#EFF5FF] w-[24px] h-[24px] rounded-full cursor-pointer duration-200'
+                          >
+                            <svg
+                              xmlns='http://www.w3.org/2000/svg'
+                              width='24'
+                              height='24'
+                              viewBox='0 0 24 24'
+                              fill='none'
+                            >
+                              <path
+                                d='M13.2924 12L8.69238 7.4L9.40013 6.69225L14.7079 12L9.40013 17.3077L8.69238 16.6L13.2924 12Z'
+                                fill='#5F6368'
+                              />
+                            </svg>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  ) : (
+                    <li className='w-full flex justify-center'>
+                      <ul className='w-full space-y-2'>
+                        <li className='text-center'>
+                          <input
+                            className='w-[95%] border-[1px] border-[#000] h-[40px] rounded-[10px] pl-2'
+                            placeholder='Explain your reason...'
+                            onChange={handleChangeInput}
+                          />
+                        </li>
+                        <li className='text-center'>
+                          <button
+                            id='grad-button'
+                            className='w-[140px] h-[45px] rounded-[100px]'
+                            onClick={() => handleNextClick()}
+                          >
+                            Continue
+                          </button>
+                        </li>
+                      </ul>
+                    </li>
+                  )}
+                </>
+              )
+            })}
+          </ul>
         </div>
+      </div>
+    </>
+  )
+}
 
-        <div className='grid place-items-center space-y-[50px]'>
-          <div className='w-full space-y-[10px]'>
-            <div className=' grid place-items-center '>
-              <div className='w-[500px] space-y-[20px] pl-[10px]'>
-                <div className='w-[500px] text-center mt-[20px]'>
-                  <h1 style={ListText} className='text-[14px] text-[#A3A3A3]'>
-                    We’ll use this information to improve our process. We may
-                    also use it to find and remove more spam.
-                  </h1>
-                </div>
-                <div
-                  style={ListText}
-                  className='text-[14px] space-y-[20px] text-center'
-                >
-                  <h1 style={TitleText} className='text-[14px]'>
-                    One More Step You Can Take
-                  </h1>
-                </div>
-                <div className='grid place-items-center'>
-                  <Image
-                    width={34}
-                    height={34}
-                    loading='lazy'
-                    src={'/assests/dashboard/icon/Block-not-found.svg'}
-                  />
-                </div>
-                <div className='text-center'>
-                  <h1 style={ListText} className='text-[14px]'>
-                    Block {spamUserData?.UserName} Profile
-                  </h1>
-                  <h1 style={ListText} className='text-[12px] text-[#A3A3A3]'>
-                    You won’t able to see or contact each other
-                  </h1>
-                </div>
-              </div>
-            </div>
-          </div>
+const Comp3 = ({ handleNextClick }) => {
+  const TitleText = {
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: 'normal'
+  }
 
-          <div>
-            <button
-              onClick={handleNextClick}
-              id='grad-button'
-              className='w-[500px] h-[50px]  rounded-[23px]'
-            >
-              Submit
-            </button>
-          </div>
+  const ListText = {
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal'
+  }
+  return (
+    <>
+      <div className='w-full grid place-items-center'>
+        <div className='w-full'>
+          <ul className='w-full space-y-8 text-center'>
+            <li>
+              <p style={TitleText} className='text-[16px]'>
+                Thank you for your report.
+              </p>
+            </li>
+            <li>
+              <p style={ListText} className='text-[14px]'>
+                We’ll review it soon to help keep our community safe.
+              </p>
+            </li>
+            <li>
+              <button
+                id='grad-button'
+                className='w-[131px] h-[50px] rounded-[100px]'
+                onClick={handleNextClick}
+              >
+                Okay
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </>
@@ -396,9 +497,10 @@ function ReportModal ({ isOpen, onClose }) {
 
   const [iscurrentPage, SetiscurrentPage] = useState(0)
 
-  const [isSelctedText, SetSelectedText] = useState('')
+  const [SelectedQuestion, SetSelectedQuestion] = useState()
 
-  const handleNextClick = () => {
+  const handleNextClick = item => {
+    SetSelectedQuestion(item?.id)
     if (iscurrentPage >= 2) {
       onClose()
       dispatch(PostSpamUser(spamUserData))
@@ -407,22 +509,20 @@ function ReportModal ({ isOpen, onClose }) {
     }
   }
 
+  const HandlePrev = () => {
+    SetiscurrentPage(iscurrentPage - 1)
+  }
+
   const renderTabContent = () => {
     switch (iscurrentPage) {
       case 0:
-        return (
-          <Comp1
-            handleNextClick={handleNextClick}
-            onClose={onClose}
-            SetSelectedText={SetSelectedText}
-          />
-        )
+        return <Comp1 handleNextClick={handleNextClick} onClose={onClose} />
       case 1:
         return (
           <Comp2
+            SelectedQuestion={SelectedQuestion}
             handleNextClick={handleNextClick}
             onClose={onClose}
-            isSelctedText={isSelctedText}
           />
         )
       case 2:
@@ -432,10 +532,17 @@ function ReportModal ({ isOpen, onClose }) {
     }
   }
 
+  const Heading = {
+    color: '#000',
+    fontFamily: 'Poppins',
+    fontSize: '20px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 'normal'
+  }
+
   return (
     <>
-      {/* <div className="absolute inset-0 flex items-center justify-center z-50">
-        <div className="fixed inset-0 bg-black opacity-50"></div> */}
       <Modal
         open={isOpen}
         onClose={onClose}
@@ -446,7 +553,73 @@ function ReportModal ({ isOpen, onClose }) {
         }}
         sx={{ display: 'grid', placeItems: 'center' }}
       >
-        {renderTabContent()}
+        <Box sx={{ outline: 'none' }}>
+          <div
+            className={`relative  bg-white rounded-lg shadow-lg p-6 ${
+              iscurrentPage > 1 ? 'w-[343px]' : 'w-[588px]'
+            } md:h-[80%]`}
+          >
+            <div className={`${iscurrentPage === 2 ? 'hidden' : ''}`}>
+              <div className='flex justify-between items-center'>
+                <div>
+                  <div
+                    onClick={HandlePrev}
+                    className={`${
+                      iscurrentPage === 1 ? '' : 'hidden'
+                    } hover:bg-[#EFF5FF]  w-[30px] h-[30px] rounded-full grid place-items-center`}
+                  >
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='30'
+                      height='30'
+                      viewBox='0 0 34 34'
+                      fill='none'
+                    >
+                      <path
+                        d='M9.80513 17.7083L18.0109 25.9141L17.0002 26.9167L7.0835 17L17.0002 7.08333L18.0109 8.08591L9.80513 16.2917H26.9168V17.7083H9.80513Z'
+                        fill='black'
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className='text-center w-full'>
+                  <h1 style={Heading}>Report</h1>
+                </div>
+                <div>
+                  <div className='hover:bg-[#EFF5FF] w-[30px] h-[30px] rounded-full grid place-items-center'>
+                    <Image
+                      width={24}
+                      height={24}
+                      alt='close-icon'
+                      className='cursor-pointer'
+                      onClick={onClose}
+                      loading='lazy'
+                      src='/assests/social/close.svg'
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: '30px'
+                }}
+              >
+                <div
+                  style={{
+                    width: '95%',
+                    height: '1px',
+                    backgroundColor: '#EDEDED'
+                  }}
+                ></div>
+              </div>
+            </div>
+
+            {renderTabContent()}
+          </div>
+        </Box>
       </Modal>
     </>
   )
