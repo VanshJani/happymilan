@@ -7,6 +7,8 @@ export function middleware (request) {
 
   const protectedRoutes = ['/longterm/dashboard', '/dating/dashboard']
 
+  const { pathname } = request.nextUrl
+
   // Detect mobile user-agent
   const userAgent = request.headers.get('user-agent') || ''
   const isMobile = /Android|iPhone|iPad|iPod/i.test(userAgent)
@@ -19,7 +21,9 @@ export function middleware (request) {
       )
     }
     if (/iPhone|iPad|iPod/i.test(userAgent)) {
-      return NextResponse.redirect('https://apps.apple.com/us/app/example-app/')
+      return NextResponse.redirect(
+        'https://apps.apple.com/us/app/example-app/id123456789'
+      )
     }
   }
 
