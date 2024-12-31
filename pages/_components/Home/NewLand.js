@@ -57,7 +57,7 @@ function NewLand () {
 
   const GradientText = {
     fontFamily: 'Poppins',
-    fontSize: '44px',
+    
     fontStyle: 'normal',
     fontWeight: '700',
     lineHeight: '70px' /* 159.091% */,
@@ -82,7 +82,7 @@ function NewLand () {
   const ContentText = {
     color: '#000',
     fontFamily: 'Poppins',
-    fontSize: '18px',
+    fontSize:'18px',
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: 'normal'
@@ -121,7 +121,7 @@ function NewLand () {
     fontFamily: 'Poppins',
     fontStyle: 'normal',
     fontWeight: '700',
-    lineHeight: '70px' /* 109.375% */
+    
   }
 
   const MonthPlan = {
@@ -268,12 +268,12 @@ function NewLand () {
       </div>
       <div className='mt-[100px] w-full h-full bg-[#FFF]'>
         <div className='space-y-[40px] 2xl:space-y-[40px] xl:space-y-[20px]'>
-          <div className='space-y-[55px] 2xl:space-y-[55px] xl:space-y-[45px]'>
-            <h1 className='text-black text-center font-poppins font-bold leading-[50px] 2xl:text-[54px] xl:text-[40px] text-[40px] '>
+          <div className='2xl:space-y-[55px] sm:space-y-[45px] space-y-[30px]'>
+            <h1 className='text-black text-center font-poppins font-bold leading-[50px] 2xl:text-[54px] sm:text-[40px] text-[34px] '>
               Single App, Multiple Choices.
             </h1>
             <div>
-              <ul className='flex justify-center space-x-[20px]'>
+              <ul className='flex justify-center space-x-[15px] sm:space-x-[20px]'>
                 {profilesData.map((profile, index) => {
                   return (
                     <li>
@@ -295,11 +295,11 @@ function NewLand () {
             </div>
           </div>
           <div className=''>
-            <div className='flex justify-center lg:justify-between pr-[0px] 2xl:pl-[200px] xl:pl-[160px] lg:pl-[100px]'>
-              <div className='mt-[20px] mb-[30px] lg:mb-[0px]'>
+            <div className='flex justify-center lg:justify-between pr-[0px] 2xl:pl-[200px] xl:pl-[160px] sm:pl-[50px] pl-[0px]'>
+              <div className='mt-[5px] sm:mt-[20px] mb-[30px] lg:mb-[0px]'>
                 <ul className='w-full space-y-[23px]'>
-                  <li style={GradientText}>{activeProfile?.title}</li>
-                  <li className='w-[483px]' style={ContentText}>
+                  <li className='text-[34px] sm:text-[44px]' style={GradientText}>{activeProfile?.title}</li>
+                  <li className= 'w-[300px] sm:w-[483px] ' style={ContentText}>
                     {activeProfile?.content}
                   </li>
                   <li className='space-x-[25px]'>
@@ -331,18 +331,18 @@ function NewLand () {
                 />
               </div>
             </div>
-            <div style={Bgcolor} className='w-[100%] h-[553px]'>
-              <div className='flex justify-center lg:justify-evenly items-center pt-[115px]'>
+            <div style={Bgcolor} className='w-[100%]  lg:h-[553px] px-[20px] md:px-[0px] pb-[30px] lg:pb-[0px]'>
+              <div className='grid lg:flex justify-center lg:justify-evenly items-center  pt-[30px] lg:pt-[115px]'>
                 <div className=''>
-                  <ul className='space-y-[26px]'>
+                  <ul className='space-y-[20px] lg:space-y-[26px] '>
                     <li
-                      className='w-[250px] sm:w-[400px] 2xl:text-[54px] xl:text-[40px] text-[40px]'
+                      className='w-[315px] sm:w-[400px] 2xl:text-[54px] sm:text-[40px] text-[44px] ml-[0px] sm:ml-[45px]'
                       style={Text1}
                     >
                       India’s <br /> Most Secured Social Site
                     </li>
                     <li
-                      className=' w-[250px] sm:w-[468px] text-[18px] text-[#FFF]'
+                      className=' w-[315px] sm:w-[468px] text-[18px] text-[#FFF] ml-[0px] sm:ml-[45px]'
                       style={Text3}
                     >
                       Connect with your chosen profiles and build stronger
@@ -350,9 +350,9 @@ function NewLand () {
                     </li>
                   </ul>
                 </div>
-                <div className='hidden lg:block'>
-                  <ul className='space-y-[60px]'>
-                    <li className='flex space-x-[63px]'>
+                <div className='mt-[30px] lg:mt-[0px] ml-[0px] sm:ml-[45px]'>
+                  <ul className='space-y-[30px] lg:space-y-[60px]'>
+                    <li className='flex space-x-[40px]  md:space-x-[63px] place-items-center'>
                       <div>
                         <Image
                           width={0}
@@ -360,17 +360,17 @@ function NewLand () {
                           alt='privacy'
                           loading='lazy'
                           src={'/heroSec/icon/icon-1.svg'}
-                          className='w-[33.827px] h-[38px]'
+                          className='w-[21.364px] md:w-[33.827px] h-[24px] md:h-[38px]'
                         />
                       </div>
                       <div
                         style={List}
-                        className='2xl:text-[28px] xl:text-[22px] text-[24px]'
+                        className='2xl:text-[28px] xl:text-[22px] md:text-[24px] text-[22px]'
                       >
                         100% Privacy
                       </div>
                     </li>
-                    <li className='flex space-x-[63px]'>
+                    <li className='flex space-x-[40px] md:space-x-[63px] place-items-center'>
                       <div>
                         <Image
                           width={0}
@@ -378,7 +378,7 @@ function NewLand () {
                           alt='privacy'
                           loading='lazy'
                           src={'/heroSec/icon/icon-3.svg'}
-                          className='w-[33.827px] h-[38px]'
+                          className='w-[21.364px] md:w-[33.827px] h-[24px] md:h-[38px]'
                         />
                       </div>
                       <div
@@ -388,7 +388,7 @@ function NewLand () {
                         Zero Fake Profiles
                       </div>
                     </li>
-                    <li className='flex space-x-[63px]'>
+                    <li className='flex space-x-[40px] md:space-x-[63px] place-items-center'>
                       <div>
                         <Image
                           width={0}
@@ -396,7 +396,7 @@ function NewLand () {
                           alt='privacy'
                           loading='lazy'
                           src={'/heroSec/icon/icon-2.svg'}
-                          className='w-[33.827px] h-[38px]'
+                          className='w-[21.364px] md:w-[33.827px] h-[24px] md:h-[38px]'
                         />
                       </div>
                       <div
@@ -406,7 +406,7 @@ function NewLand () {
                         Fully Secured
                       </div>
                     </li>
-                    <li className='flex space-x-[63px]'>
+                    <li className='flex space-x-[40px] md:space-x-[63px] place-items-center'>
                       <div>
                         <Image
                           width={0}
@@ -414,7 +414,7 @@ function NewLand () {
                           alt='privacy'
                           loading='lazy'
                           src={'/heroSec/icon/icon-4.svg'}
-                          className='w-[33.827px] h-[38px]'
+                          className='w-[21.364px] md:w-[33.827px] h-[24px] md:h-[38px]'
                         />
                       </div>
                       <div
@@ -429,25 +429,33 @@ function NewLand () {
               </div>
             </div>
           </div>
-
-          <div className='w-full h-full pb-[20px] pt-[80px]'>
-            <div className='flex lg:flex-row  flex-col-reverse  w-full justify-evenly items-center'>
-              <div className='ml-[40px] w-[400px] space-y-[40px]'>
+          {/* flex-col-reverse  */}
+          <div className='w-full h-full lg:pb-[20px] pt-[0px] lg:pt-[80px] px-[20px] md:px-[0px]'>
+            <div className='md:flex md:flex-row   w-full grid  justify-center md:justify-evenly items-center'>
+              <div className=' w-full sm:w-[400px] space-y-[30px] lg:space-y-[40px]'>
                 <h1
                   id='gradient-Text-style'
                   style={GradientText2}
-                  className='2xl:text-[54px] xl:text-[45px] lg:text-[40px]'
+                  className='2xl:text-[54px] xl:text-[45px] lg:text-[40px] text-[44px]'
                 >
                   Chat anytime you want
                 </h1>
                 <p
                   style={Text3}
-                  className='text-[#000] 2xl:text-[18px] xl:text-[16px] lg:text-[18px] text-[18px]'
+                  className='text-[#000] 2xl:text-[18px] xl:text-[16px] text-[18px] '
                 >
                   Connect with your chosen profiles and build stronger
                   relationships
                 </p>
-                <ul className='flex space-x-[70px]'>
+                <Image
+                  width={0}
+                  height={0}
+                  alt='chat-ui'
+                  loading='lazy'
+                  src={'/heroSec/assests/chat-img-1.svg'}
+                  className='md:hidden flex justify-center 2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px] mt-[-100px]'
+                />
+                <ul className='flex space-x-[50px] sm:space-x-[70px]'>
                   <li className='space-y-[8px] flex flex-col justify-center items-center'>
                     <Image
                       width={0}
@@ -513,7 +521,7 @@ function NewLand () {
                     </p>
                   </li>
                 </ul>
-                <ul className='flex space-x-[25px]'>
+                <ul className='flex space-x-[20px] lg:space-x-[25px]'>
                   <li>
                     <button
                       onClick={GotoLogin}
@@ -552,27 +560,27 @@ function NewLand () {
                   alt='chat-ui'
                   loading='lazy'
                   src={'/heroSec/assests/chat-img-1.svg'}
-                  className='2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px]'
+                  className='hidden md:block 2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px]'
                 />
               </motion.div>
             </div>
           </div>
 
-          <div className='bg-[#FDF8FF] pt-[50px] w-full h-[774px] flex flex-col justify-evenly items-center'>
+          <div className='bg-[#FDF8FF] pt-[0px] lg:pt-[50px] w-full h-[774px] flex flex-col justify-evenly items-center px-[15px] md:px-[0px]'>
             <div className='text-center space-y-[12px]'>
               <h1
-                className='2xl:text-[50px] xl:text-[50px] lg:text-[40px] text-[20px]'
+                className='2xl:text-[50px] xl:text-[50px] md:text-[40px] text-[34px] md:leading-[70px]'
                 style={TitleText3}
               >
                 We offered most affordable plans
               </h1>
-              <p className='text-[18px] text-[#000]' style={Text3}>
+              <p className='text-[14px] md:text-[18px] text-[#000]' style={Text3}>
                 Connect with your chosen profiles and build stronger
                 relationships
               </p>
             </div>
             <div className='w-[80%] text-center space-y-[90px]'>
-              <ul className='flex justify-evenly w-full'>
+              <ul className='md:flex justify-evenly w-full'>
                 <li>
                   <div>
                     <h1 style={MonthPlan}>One Month Plan</h1>
@@ -584,7 +592,7 @@ function NewLand () {
                     </ul>
                   </div>
                 </li>
-                <li className='w-[1px] h-[72px] bg-[#ADADAD]'></li>
+                <li className='w-[100%] md:w-[1px] h-[0.5px] md:h-[72px] mt-[20px] md:mt-[0px] mb-[20px] md:mb-[0px] bg-[#ADADAD]'></li>
                 <li>
                   <div>
                     <h1 style={MonthPlan}>Two Month Plan</h1>
@@ -596,7 +604,7 @@ function NewLand () {
                     </ul>
                   </div>
                 </li>
-                <li className='w-[1px] h-[72px] bg-[#ADADAD]'></li>
+                <li className='w-[100%] md:w-[1px] h-[0.5px] md:h-[72px] mt-[20px] md:mt-[0px] mb-[20px] md:mb-[0px] bg-[#ADADAD]'></li>
                 <li>
                   <div>
                     <h1 style={MonthPlan}>Three Month Plan</h1>
@@ -632,15 +640,15 @@ function NewLand () {
             </div>
           </div>
 
-          <div className='border-b-[1px] border-b-[#E9E9E9] pb-[60px]'>
+          <div className='border-b-[1px] border-b-[#E9E9E9] pb-[60px] px-[15px] md:px-[0px]'>
             <div className='text-center'>
-              <h1 className='2xl:text-[50px] xl:text-[40px] lg:text-[40px] text-[20px] text-black font-poppins  font-bold leading-[70px]'>
+              <h1 className='2xl:text-[50px] xl:text-[40px] lg:text-[40px] text-[34px] text-black font-poppins  font-bold leading-[50px] lg:leading-[70px]'>
                 Frequently Asked Questions
               </h1>
             </div>
-            <ul className='flex flex-col items-center space-y-[13px] mt-[80px]'>
-              <li className='w-[70%]'>
-                <Accordion title={'How do I create an account on HappyMilan?'}>
+            <ul className='flex flex-col items-center space-y-[13px] mt-[40px] md:mt-[80px]'>
+              <li className='w-[100%] lg:w-[70%] text-[11px] sm:text-[13px] md:text-[15px] lg:text-[full]'>
+                <Accordion  title={'How do I create an account on HappyMilan?'}>
                   <AccordingBodyList>
                     {' '}
                     <li>
@@ -677,15 +685,15 @@ function NewLand () {
                   </AccordingBodyList>
                 </Accordion>
               </li>
-              <li className='w-[70%]'>
-                <Accordion title='Is happyMilan for matrimony, dating or social account purpose?'>
+              <li className='w-[100%] lg:w-[70%] text-[11px] sm:text-[13px] md:text-[15px] lg:text-[full]'>
+                <Accordion  title='Is happyMilan for matrimony, dating or social account purpose?'>
                   HappyMilan is a social networking website that caters to
                   multiple categories: long term, dating and social. Users can
                   select either option when registering.
                 </Accordion>
               </li>
 
-              <li className='w-[70%]'>
+              <li className='w-[100%] lg:w-[70%] text-[11px] sm:text-[13px] md:text-[15px] lg:text-[full]'>
                 <Accordion title='How to verify my account?'>
                   <AccordingBodyList>
                     <p>
@@ -719,7 +727,7 @@ function NewLand () {
                   </AccordingBodyList>
                 </Accordion>
               </li>
-              <li className='w-[70%]'>
+              <li className='w-[100%] lg:w-[70%] text-[11px] sm:text-[13px] md:text-[15px] lg:text-[full]'>
                 <Accordion title='What is the difference between dating, long term, and social profiles?'>
                   <AccordingBodyList>
                     <ul className='space-y-2'>
@@ -744,7 +752,7 @@ function NewLand () {
                 </Accordion>
               </li>
 
-              <li className='w-[70%]'>
+              <li className='w-[100%] lg:w-[70%] text-[11px] sm:text-[13px] md:text-[15px] lg:text-[full]'>
                 <Accordion title='What payment methods do you accept?'>
                   <AccordingBodyList>
                     <p>We accept a wide range of payment methods, including:</p>
@@ -769,7 +777,7 @@ function NewLand () {
                 </Accordion>
               </li>
 
-              <li className='w-[70%]'>
+              <li className='w-[100%] lg:w-[70%] text-[11px] sm:text-[13px] md:text-[15px] lg:text-[full]'>
                 <Accordion title='What types of membership plans are available?'>
                   <AccordingBodyList>
                     <p>
@@ -818,13 +826,13 @@ function NewLand () {
               </button>
             </div>
           </div>
-          <div className='space-y-[80px]'>
-            <div className='text-center pt-[80px]'>
-              <h1 className='2xl:text-[50px] xl:text-[40px] lg:text-[40px] text-[20px] text-black font-poppins  font-bold leading-[70px]'>
-                Discover more apps
+          <div className='md:space-y-[80px]'>
+            <div className='text-center pt-[0px] md:pt-[80px]'>
+              <h1 className='2xl:text-[50px] xl:text-[40px] lg:text-[40px] md:text-[20px] text-[28px] text-black font-poppins  font-bold leading-[70px]'>
+                Discover more appss
               </h1>
             </div>
-            <ul className='flex flex-col justify-center items-center space-y-5 lg:space-y-0 lg:flex-row lg:justify-evenly '>
+            <ul className='flex flex-col justify-center items-center space-y-5 lg:space-y-0 lg:flex-row lg:justify-evenly mt-[20px] md:mt-[0px] '>
               <li className='cursor-pointer 2xl:w-[335px] 2xl:h-[335px] xl:w-[290px] xl:h-[290px] w-[323px] h-[323px] border-[1px]  border-[#E1E1E1] hover:border-[#8225AF] rounded-[24px] pl-[40px]'>
                 <div className='flex flex-col justify-evenly w-full h-full'>
                   <div>
@@ -903,14 +911,14 @@ function NewLand () {
             </ul>
           </div>
 
-          <div className='w-full h-full pt-[100px]'>
+          <div className='w-full h-full pt-[10px] md:pt-[100px]'>
             <div className='w-full h-[229px] bg-[#FDF8FF]'>
-              <div className='flex justify-between items-center pr-[100px] pl-[100px]'>
-                <div className=' space-y-[37px]'>
-                  <p className='text-[24px] text-[#000]' style={Text3}>
+              <div className='flex justify-center lg:justify-between items-center p-[40px] lg:p-[0px] lg:pr-[100px] lg:pl-[100px]'>
+                <div className='  space-y-[37px]'>
+                  <p className='text-[18px] lg:text-[24px] text-[#000]' style={Text3}>
                     Your gateway to the limitless potentials, Download App
                   </p>
-                  <ul className='flex space-x-[40px]'>
+                  <ul className='flex justify-center lg:justify-start space-x-[40px]'>
                     <li>
                       <Link
                         href={'https://play.google.com/store/apps?hl=en_IN'}
@@ -944,7 +952,7 @@ function NewLand () {
                     </li>
                   </ul>
                 </div>
-                <div className='relative top-[30px]'>
+                <div className='relative top-[30px] hidden lg:block'>
                   {/* <Image width={0} height={0} alt='app' loading='lazy' src={"/heroSec/assests/.svg"} className='w-[160.043px] h-[auto]' /> */}
                   <Image
                     width={0}
