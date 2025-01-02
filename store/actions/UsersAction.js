@@ -75,6 +75,7 @@ import {
 import { GET_REQUEST, GET_REQUEST_SUCCESS, GET_REQUEST_FAILURE } from '../type'
 import { fetchMyProfileData } from '../reducers/MyProfile'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { fetchFriends } from '../matrimoney-services/slices/UserSentRequestPagination'
 
 export const sendRequest = (View, requestData) => {
   return async dispatch => {
@@ -729,6 +730,9 @@ export const Cancelfriendrequest = (requestData, curUser, status) => {
 
         if (status == 'removed') {
           dispatch(getblockuserdata())
+        }
+        if (status == 'rejected') {
+          dispatch(fetchFriends('ListView', { currentPage: 1 }))
         }
       })
       .catch(error => {

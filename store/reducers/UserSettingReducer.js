@@ -6,6 +6,7 @@ import {
   HIDE_MY_PROFILE_CLOSEMODAL,
   HIDE_MY_PROFILE_FAILURE,
   HIDE_MY_PROFILE_SUCCESS,
+  RESET_USER_CRED,
   SHOW_MISSING_FIELDS_REQUEST,
   SHOW_MISSING_FIELDS_SUCCESS,
   UPDATE_DISPLAY_NAME,
@@ -17,7 +18,10 @@ import {
   UPDATE_EMAIL_FIRST_STEP_SUCCESS,
   UPDATE_EMAIL_SECOND_STEP_FALIURE,
   UPDATE_EMAIL_SECOND_STEP_REQUEST,
-  UPDATE_EMAIL_SECOND_STEP_SUCCESS
+  UPDATE_EMAIL_SECOND_STEP_SUCCESS,
+  UPDATE_USER_PASSWORD_FALIURE,
+  UPDATE_USER_PASSWORD_REQUEST,
+  UPDATE_USER_PASSWORD_SUCCESS
 } from '../type'
 
 const initialState = {
@@ -49,6 +53,12 @@ const initialState = {
   UpdateEmail: {
     loading: false,
     success: '',
+    error: null,
+    step: 0
+  },
+  UpdateUserPassword: {
+    loading: false,
+    success: null,
     error: null,
     step: 0
   }
@@ -241,6 +251,46 @@ const Userseting = (state = initialState, action) => {
         UpdateEmail: {
           loading: false,
           error: action.payload
+        }
+      }
+    }
+    case UPDATE_USER_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        UpdateUserPassword: {
+          loading: true
+        }
+      }
+    }
+    case UPDATE_USER_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        UpdateUserPassword: {
+          loading: false,
+          step: 1,
+          success: 'Password Change Sucessfully !'
+        }
+      }
+    }
+    case UPDATE_USER_PASSWORD_FALIURE: {
+      return {
+        ...state,
+        UpdateUserPassword: {
+          loading: false,
+          step: 0,
+          success: null,
+          error: action.payload
+        }
+      }
+    }
+    case RESET_USER_CRED: {
+      return {
+        ...state,
+        UpdateUserPassword: {
+          loading: false,
+          success: null,
+          error: null,
+          step: 1
         }
       }
     }

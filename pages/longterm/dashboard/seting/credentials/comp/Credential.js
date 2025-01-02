@@ -3,14 +3,21 @@ import React, { useEffect, useRef, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import Image from 'next/image'
-import { Box } from '@mui/material'
+import { Box, Tooltip } from '@mui/material'
 import useOtpResend from '../../../../../../utils/helpers/ResendCode'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import PasswordUpdateModal from '../../../../../../components/long-term/seting/Credentials/PasswordUpdateModal'
+import { RESET_PASSWORD_STEP } from '../../../../../../store/type'
+import { maskPhoneNumber } from '../../../../../../utils/helpers/MaskPhonenumber'
 
 function Credentials () {
   const [open, setOpen] = React.useState(false)
 
-  const { data, status, totalLikes } = useSelector(state => state.myprofile)
+  const {
+    data: userprofile,
+    status,
+    totalLikes
+  } = useSelector(state => state.myprofile)
 
   const [activeTab, setActiveTab] = useState(1)
 
@@ -69,7 +76,7 @@ function Credentials () {
         // const userData = JSON.parse(localStorageData);
 
         // Extract the user email from the userData object
-        // const userEmail = userData?.user;
+        // const userEmail = useruserprofile?.user;
         SetChangedEmail(prev => ({
           ...prev,
           currentEmail: localStorageData
@@ -110,7 +117,7 @@ function Credentials () {
         const axios = require('axios')
         let bodydata = JSON.stringify({
           // email: ChnagedEmail.currentEmail
-          email: ChnagedEmail.currentEmail || data?.email
+          email: ChnagedEmail.currentEmail || userprofile?.email
         })
 
         let config = {
@@ -141,7 +148,7 @@ function Credentials () {
 
         const axios = require('axios')
         let bodydata = JSON.stringify({
-          email: ChnagedEmail.currentEmail || data?.email,
+          email: ChnagedEmail.currentEmail || userprofile?.email,
           newMail: ChnagedEmail.NewEmail,
           otp: otpNumber
         })
@@ -191,7 +198,7 @@ function Credentials () {
             <input
               className='h-[37px] lg:h-[43px] xl:h-[50px] mt-[1%] w-full hover:border-[black]  border-[1px] border-[#E6E6E6] rounded-[8px] px-[15px] outline-none text-[12px] lg:text-[14px]  xl:text-[16px] placeholder:text-[black]'
               // placeholder="jit*****@gmail.com"
-              value={Email || data?.email}
+              value={Email || userprofile?.email}
             />
             {/* </div> */}
             <h1 className='text-[10px] xl:text-[12px] mt-[20px] lg:mt-[25px] xl:mt-[30px] font-medium'>
@@ -344,6 +351,9 @@ function Credentials () {
   }
 
   const [openModal, setOpenModal] = React.useState(false)
+  const [AnotherWay, SetAnotherWay] = useState(false)
+
+  const dispatch = useDispatch()
 
   const handleClickOpenModal = () => {
     setOpenModal(true)
@@ -352,6 +362,10 @@ function Credentials () {
   const handleCloseModal = () => {
     setOpenModal(false)
     setActiveTab2(1)
+    SetAnotherWay(false)
+    dispatch({
+      type: RESET_PASSWORD_STEP
+    })
   }
 
   const [activeTab2, setActiveTab2] = useState(1)
@@ -380,11 +394,6 @@ function Credentials () {
     }
 
     const [Loading, setLoading] = useState(false)
-
-    // let Email
-    // useEffect(() => {
-    //   Email = localStorage.getItem('email')
-    // }, [])
 
     const [userPassword, SetusersPassword] = useState({
       currentPassword: '',
@@ -444,7 +453,7 @@ function Credentials () {
         const axios = require('axios')
         const currentEmail = localStorage.getItem('email')
         let data = JSON.stringify({
-          email: currentEmail
+          email: userprofile?.email
         })
 
         let config = {
@@ -569,7 +578,7 @@ function Credentials () {
             <div className='flex place-items-center w-[100%]  h-[37px] lg:h-[43px] xl:h-[50px] mt-[1%]  border-[1px] border-[#E6E6E6] rounded-[8px] px-[15px] '>
               <input
                 name='confirmPassword'
-                value={userPassword.confirmPassword}
+                value={userPassword?.confirmPassword}
                 onChange={HandlePasswordChange}
                 type={showPassword?.inptut3 ? 'text' : 'password'}
                 className=' w-full h-full outline-none text-[12px] lg:text-[14px]  xl:text-[16px] '
@@ -816,7 +825,7 @@ function Credentials () {
 
         const axios = require('axios')
         let bodydata = JSON.stringify({
-          email: data?.email
+          email: userprofile?.email
         })
 
         let config = {
@@ -849,8 +858,8 @@ function Credentials () {
         let bodydata = JSON.stringify({
           // email: ChnagedEmail.currentEmail,
           // mobileNumber: ChnagedEmail.mobileNumber,
-          email: data?.email,
-          mobileNumber: data?.mobileNumber,
+          email: userprofile?.email,
+          mobileNumber: userprofile?.mobileNumber,
           otp: otpNumber
         })
 
@@ -895,7 +904,7 @@ function Credentials () {
             </h1>
             <div className='flex place-items-center w-[100%]  h-[37px] lg:h-[43px] xl:h-[50px] mt-[1%]  border-[1px] border-[#E6E6E6] rounded-[8px] px-[15px] '>
               <input
-                value={data?.mobileNumber}
+                value={userprofile?.mobileNumber}
                 className='outline-none text-[12px] lg:text-[14px]  xl:text-[16px] placeholder:text-[black]'
                 placeholder='********92'
               />
@@ -1132,10 +1141,17 @@ function Credentials () {
               // placeholder={Email}
               value={Email}
             />
-            <img
-              className='absolute mt-[20px] ml-[175px]'
-              src='/assests/dashboard/seting/Verified-icon.svg'
-            ></img>
+            <Tooltip
+              className='cursor-pointer'
+              title='Verified'
+              placement='top'
+              color='white'
+            >
+              <img
+                className='absolute mt-[20px] ml-[175px]'
+                src='/assests/dashboard/seting/Verified-icon.svg'
+              />
+            </Tooltip>
           </div>
         </div>
         <div className=' mt-[15px] xl:mt-[20px] w-[570px] lg:w-[640px] xl:w-[700px] h-[1px] bg-[#ECECEC]'></div>
@@ -1159,21 +1175,15 @@ function Credentials () {
               />
             </div>
           </div>
-          <Modal
-            className='focus:outline-none '
-            BackdropProps={{ style: { opacity: 1 } }}
-            open={openModal}
-            onClose={handleCloseModal}
-          >
-            <Box>
-              <Typography
-                id='boxshadow'
-                className='bg-[white] py-[1%] xl:py-[2%] px-[1%] xl:px-[2.5%] 2xl:px-[3%] w-[80%] md:w-[30%]  rounded-[18px] absolute right-[10%] md:right-[33%] top-[45%] md:top-[22%] lg:top-[22%]'
-              >
-                {renderTabContent2()}
-              </Typography>
-            </Box>
-          </Modal>
+
+          {
+            <PasswordUpdateModal
+              handleCloseModal={handleCloseModal}
+              openModal={openModal}
+              AnotherWay={AnotherWay}
+              SetAnotherWay={SetAnotherWay}
+            />
+          }
           <Input
             type='password'
             className='focus:outline-none border-none text-[14px] w-[550px] lg:w-[620px] xl:w-[680px]'
@@ -1217,20 +1227,28 @@ function Credentials () {
               </Typography>
             </Box>
           </Modal>
-          <div className='flex '>
-            <Input
-              className='border-none text-[14px] w-[550px] focus:outline-none  lg:w-[620px] xl:w-[680px]'
-              variant='static'
-              value={data?.mobileNumber}
+          <div className='flex relative'>
+            <div
+              className='border-none  w-[550px] lg:w-[620px] xl:w-[680px] flex items-center space-x-2'
               // value={MobileNumberOfUser}
-            />
-            {MobileNumberOfUser ? (
-              <img
-                className='absolute mt-[18px] ml-[170px]'
-                src='/assests/dashboard/seting/Verified-icon.svg'
-                alt='Verified Icon'
-              />
-            ) : null}
+            >
+              <p className='text-[14px]'>{userprofile?.mobileNumber}</p>
+
+              {MobileNumberOfUser ? (
+                <Tooltip
+                  className='cursor-pointer'
+                  title='Verified'
+                  placement='top'
+                  color='white'
+                >
+                  <img
+                    className=''
+                    src='/assests/dashboard/seting/Verified-icon.svg'
+                    alt='Verified Icon'
+                  />
+                </Tooltip>
+              ) : null}
+            </div>
           </div>
         </div>
         <div className=' mt-[15px] xl:mt-[20px] w-[570px] lg:w-[640px] xl:w-[700px] h-[1px] bg-[#ECECEC]'></div>

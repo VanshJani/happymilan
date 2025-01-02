@@ -3,7 +3,8 @@ import styles from '../../../../styles/styles.module.css'
 import Image from "next/image";
 
 
-function SendRequestBtn({ Requeststatus, RequestId, HandleRequestModal }) {
+function SendRequestBtn({ Requeststatus, RequestId, HandleRequestModal , }) {
+console.log("🚀 ~ SendRequestBtn ~ Requeststatus:", Requeststatus)
 
   const BoldText = {
     fontFamily: "Poppins",
@@ -43,13 +44,13 @@ function SendRequestBtn({ Requeststatus, RequestId, HandleRequestModal }) {
           >
           </h1>
           <button
-            id={RequestId || Requeststatus?.status == "requested" ? "req-sent" : "Req-btn"}
-            className={`group hover:opacity-90 w-[134px] h-[40px] rounded-[22px] dark:bg-[#141516] dark:text-[#EDEDED] ${RequestId || Requeststatus?.status == "requested" ? "bg-[#EDEDED] text-[black] dark:text-[#EDEDED] dark:bg-[#141516]" : " dark:hover:text-[#FFF] text-[#000]"}  text-[#000] dark:hover:text-[#FFF]`}
+            id={ Requeststatus?.status == "requested" ? "req-sent" : "Req-btn"}
+            className={`group hover:opacity-90 w-[134px] h-[40px] rounded-[22px] dark:bg-[#141516] dark:text-[#EDEDED] ${ Requeststatus?.status == "requested" ? "bg-[#EDEDED] text-[black] dark:text-[#EDEDED] dark:bg-[#141516]" : " dark:hover:text-[#FFF] text-[#000]"}  text-[#000] dark:hover:text-[#FFF]`}
             style={RequestText}
             onClick={HandleRequestModal}
           >
 
-            {RequestId || Requeststatus?.status == "requested" ? "Sent" :
+            { Requeststatus?.status == "requested" ? "Sent" :
               <>
                 <ul className="flex justify-center space-x-[16px]">
                   <li className="group-dark:hover:text-[#FFF] dark:text-[#EDEDED]">

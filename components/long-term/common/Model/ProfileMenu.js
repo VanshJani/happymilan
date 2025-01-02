@@ -17,7 +17,8 @@ function ProfileMenu ({
   Section,
   accepteddata,
   blockprofile,
-  Blockdata
+  Blockdata,
+  SentData
 }) {
   const { darkMode } = useDarkMode()
 
@@ -167,6 +168,7 @@ function ProfileMenu ({
     const HandleUnfriend = () => {
       setisCancelModalOpen(true)
       console.log('acdata = ', accepteddata)
+      console.log('acdata2 = ', SentData)
     }
     return (
       <>
@@ -190,8 +192,8 @@ function ProfileMenu ({
 
         <CancelRequestModal
           data={{
-            currUser: accepteddata?._id || accepteddata?.id,
-            OtherUser: accepteddata?.friend?._id,
+            currUser: SentData?._id || SentData?.id,
+            OtherUser: SentData?.friend?.id || SentData?.friend?._id,
             status: 'rejected'
           }}
           isOpen={isCancelModalOpen}

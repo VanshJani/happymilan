@@ -51,7 +51,6 @@ function index () {
 
   const QuestionCards = () => {
     const CardContentText = {
-      // color: '#000',
       fontFamily: 'Poppins',
       fontSize: '16px',
       fontStyle: 'normal',
@@ -104,7 +103,7 @@ function index () {
 
     return (
       <>
-        <div className='flex space-x-12 flex-wrap'>
+        <div className='flex md:flex-row flex-col space-x-12 flex-wrap md:space-y-0 space-y-5 '>
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
               <li>
@@ -128,8 +127,7 @@ function index () {
             </ul>
           </div>
 
-          <div className='h-[135px] w-[1px] bg-[#C9C9C9]'></div>
-
+          <div className=' md:h-[135px] md:w-[1px] h-[1px] w-[90%] bg-[#C9C9C9] '></div>
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
               <li>
@@ -152,7 +150,8 @@ function index () {
               </li>
             </ul>
           </div>
-          <div className='h-[135px] w-[1px] bg-[#C9C9C9]'></div>
+          <div className='md:h-[135px] md:w-[1px] h-[1px] w-[90%] bg-[#C9C9C9]'></div>
+
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
               <li>

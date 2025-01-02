@@ -294,6 +294,7 @@ function SentRequest () {
                               <ProfileMenu
                                 accepteddata={res?.friend}
                                 res={res?.friend}
+                                SentData={res}
                                 Section={'sent'}
                                 View={'ListView'}
                               />

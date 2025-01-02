@@ -7,6 +7,7 @@ import {
   HIDE_MY_PROFILE_CLOSEMODAL,
   HIDE_MY_PROFILE_FAILURE,
   HIDE_MY_PROFILE_SUCCESS,
+  RESET_USER_CRED,
   SHOW_MISSING_FIELDS_FAILURE,
   SHOW_MISSING_FIELDS_REQUEST,
   SHOW_MISSING_FIELDS_SUCCESS,
@@ -16,7 +17,10 @@ import {
   UPDATE_DISPLAY_STATUS,
   UPDATE_PRIVACY_QUESTIONS,
   UPDATE_PRIVACY_QUESTIONS_FAILURE,
-  UPDATE_PRIVACY_QUESTIONS_SUCCESS
+  UPDATE_PRIVACY_QUESTIONS_SUCCESS,
+  UPDATE_USER_PASSWORD_FALIURE,
+  UPDATE_USER_PASSWORD_REQUEST,
+  UPDATE_USER_PASSWORD_SUCCESS
 } from '../type'
 import { logoutuser } from './UsersAction'
 
@@ -26,7 +30,6 @@ export const Hidemyprofile = credetials => {
 
     const axios = require('axios')
     const token = getCookie('authtoken')
-    const userID = getCookie('userid')
 
     let config = {
       method: 'delete',
@@ -48,35 +51,6 @@ export const Hidemyprofile = credetials => {
         dispatch({ type: HIDE_MY_PROFILE_FAILURE, payload: error })
         console.log(error)
       })
-
-    // const Credentials = {
-    //     "profileHideAndDelete": {
-    //         "isProfileDelete": credetials?.isProfileDelete,
-    //         "reasonForProfileDelete": credetials?.reasonForProfileDelete
-    //     }
-    // }
-
-    // let config = {
-    //     method: 'put',
-    //     maxBodyLength: Infinity,
-    //     url: `${process.env.NEXT_PUBLIC_API_URL}/v1/user/auth/update-user`,
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${token}`
-    //     },
-    //     data: Credentials
-    // };
-
-    // axios.request(config)
-    //     .then((response) => {
-    //         console.log(JSON.stringify(response.data));
-    //         dispatch({ type: HIDE_MY_PROFILE_SUCCESS, payload: response.data })
-    //         dispatch(logoutuser())
-    //     })
-    //     .catch((error) => {
-    //         dispatch({ type: HIDE_MY_PROFILE_FAILURE, payload: error })
-    //         console.log(error);
-    //     });
   }
 }
 
@@ -236,3 +210,61 @@ export const MissingFields = () => {
       })
   }
 }
+
+export const UpdateUserPassword = Credentials => {
+  console.log('🚀 ~ UpdateUserPassword ~ Credentials:', Credentials)
+  return async dispatch => {
+    dispatch({ type: UPDATE_USER_PASSWORD_REQUEST })
+
+    const axios = require('axios')
+    const Token = getCookie('authtoken')
+    let data = JSON.stringify({
+      oldPassword: Credentials?.currentPassword,
+      newPassword: Credentials?.password
+    })
+
+    let config = {
+      method: 'put',
+      maxBodyLength: Infinity,
+      url: 'https://stag.mntech.website/api/v1/user/auth/update-password',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${Token}`
+      },
+      data: data
+    }
+
+    axios
+      .request(config)
+      .then(response => {
+        console.log(JSON.stringify(response.data))
+        dispatch({
+          type: UPDATE_USER_PASSWORD_SUCCESS,
+          payload: response.data
+        })
+      })
+      .catch(error => {
+        console.log('Error :', error?.response?.data?.message)
+        dispatch({
+          type: UPDATE_USER_PASSWORD_FALIURE,
+          payload: error?.response?.data?.message
+        })
+      })
+  }
+}
+
+export const ResetUserCred = () => {
+  return async dispatch => {
+    dispatch({
+      type: RESET_USER_CRED
+    })
+  }
+}
+
+// export const ResetPasswordStep = () => {
+//   return async dispatch => {
+//     dispatch({
+//       type: RESET_PASSWORD_STEP
+//     })
+//   }
+// }

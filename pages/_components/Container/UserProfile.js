@@ -13,6 +13,7 @@ import {
   userDatas
 } from '../../../store/actions/GetingAlluser'
 import {
+  Cancelfriendrequest,
   Postrecentuserprofile,
   sendRequest
 } from '../../../store/actions/UsersAction'
@@ -191,26 +192,151 @@ function SampleUserProfile () {
 
   // Handle send request
   const HandleRequestModal = res => {
+    console.log('🚀 ~ HandleRequestModal ~ res:', res)
+    // if (thedata?.data?.userProfileCompleted) {
+    //   if (res?.friendsDetails) {
+    //     // Define the statuses for which `sendRequest` should be called
+    //     const sendRequestStatuses = [
+    //       'requested',
+    //       'received',
+    //       'accepted',
+    //       'rejected',
+    //       'removed',
+    //       'blocked'
+    //     ]
+
+    //     if (sendRequestStatuses.includes(status)) {
+    //       const data = {
+    //         currUser: res?.friendsDetails?._id || res?.friendsDetails?.id,
+    //         OtherUser: res?._id || res?.id,
+    //         status: 'rejected'
+    //       }
+
+    //       dispatch(
+    //         Cancelfriendrequest(data?.currUser, data?.OtherUser, data?.status)
+    //       )
+
+    //       setTimeout(() => {
+    //         setopenShortlistModal(false)
+    //         dispatch(userDatas({ page: 1 }))
+    //       }, 900)
+    //     } else {
+    //       const userId = res?._id || res?.id
+    //       dispatch(sendRequest('long-term', userId))
+
+    //       setsentRequest(prev => ({
+    //         ...prev,
+    //         [userId]: !prev[userId]
+    //       }))
+
+    //       setshortlistText(
+    //         !sentrequest[userId]
+    //           ? `You sent a request to ${res?.name}`
+    //           : 'Request Removed..'
+    //       )
+    //       setopenShortlistModal(true)
+
+    //       setTimeout(() => {
+    //         setopenShortlistModal(false)
+    //         dispatch(userDatas({ page: 1 }))
+    //       }, 900)
+    //     }
+    //   } else {
+    //     const userId = res?._id || res?.id
+    //     dispatch(sendRequest('long-term', userId))
+
+    //     setsentRequest(prev => ({
+    //       ...prev,
+    //       [userId]: !prev[userId]
+    //     }))
+
+    //     setshortlistText(
+    //       !sentrequest[userId]
+    //         ? `You sent a request to ${res?.name}`
+    //         : 'Request Removed..'
+    //     )
+    //     setopenShortlistModal(true)
+
+    //     setTimeout(() => {
+    //       setopenShortlistModal(false)
+    //       dispatch(userDatas({ page: 1 }))
+    //     }, 900)
+    //   }
+
     if (thedata?.data?.userProfileCompleted) {
-      const userId = res?._id || res?.id
-      dispatch(sendRequest('long-term', userId))
+      if (res?.friendsDetails) {
+        const { status } = res.friendsDetails
+        const userId = res?._id || res?.id
 
-      setsentRequest(prev => ({
-        ...prev,
-        [userId]: !prev[userId]
-      }))
+        // Define the statuses for which `sendRequest` should be called
+        const sendRequestStatuses = [
+          'requested',
+          // 'received',
+          // 'accepted',
+          // 'rejected',
+          'removed',
+          // 'blocked'
+        ]
 
-      setshortlistText(
-        !sentrequest[userId]
-          ? `You sent a request to ${res?.name}`
-          : 'Request Removed..'
-      )
-      setopenShortlistModal(true)
+        if (sendRequestStatuses.includes(status)) {
+          // Call `Cancelfriendrequest` for existing friend details
+          const data = {
+            currUser: res?.friendsDetails?._id || res?.friendsDetails?.id,
+            OtherUser: userId,
+            status: 'rejected'
+          }
 
-      setTimeout(() => {
-        setopenShortlistModal(false)
-        dispatch(userDatas({ page: 1 }))
-      }, 900)
+          dispatch(
+            Cancelfriendrequest(data.currUser, data.OtherUser, data.status)
+          )
+
+          setTimeout(() => {
+            setopenShortlistModal(false)
+            dispatch(userDatas({ page: 1 }))
+          }, 900)
+        } else {
+          // Call `sendRequest` for non-matching statuses
+          dispatch(sendRequest('long-term', userId))
+
+          setsentRequest(prev => ({
+            ...prev,
+            [userId]: !prev[userId]
+          }))
+
+          setshortlistText(
+            !sentrequest[userId]
+              ? `You sent a request to ${res?.name}`
+              : 'Request Removed..'
+          )
+          setopenShortlistModal(true)
+
+          setTimeout(() => {
+            setopenShortlistModal(false)
+            dispatch(userDatas({ page: 1 }))
+          }, 900)
+        }
+      } else {
+        // Case where `friendsDetails` does not exist
+        const userId = res?._id || res?.id
+        dispatch(sendRequest('long-term', userId))
+
+        setsentRequest(prev => ({
+          ...prev,
+          [userId]: !prev[userId]
+        }))
+
+        setshortlistText(
+          !sentrequest[userId]
+            ? `You sent a request to ${res?.name}`
+            : 'Request Removed..'
+        )
+        setopenShortlistModal(true)
+
+        setTimeout(() => {
+          setopenShortlistModal(false)
+          dispatch(userDatas({ page: 1 }))
+        }, 900)
+      }
     } else {
       OpenRegisterModal()
     }
@@ -564,7 +690,7 @@ function SampleUserProfile () {
                               <SendRequestBtn
                                 userdata={res?.name}
                                 Requeststatus={res?.friendsDetails}
-                                RequestId={sentrequest[res?._id]}
+                                // RequestId={sentrequest[res?._id]}
                                 HandleRequestModal={() =>
                                   HandleRequestModal(res)
                                 }
