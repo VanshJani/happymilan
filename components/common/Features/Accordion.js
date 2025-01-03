@@ -16,7 +16,7 @@ function Accordion ({ title, itsRound, children }) {
           onClick={() => setAccordionOpen(!accordionOpen)}
           className='flex justify-between w-full items-center'
         >
-          <span>{title}</span>
+          <span className='text-left'>{title}</span>
 
           {accordionOpen ? (
             <Image
