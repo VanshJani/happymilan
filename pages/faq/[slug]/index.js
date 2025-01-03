@@ -33,7 +33,7 @@ function index () {
 
     return (
       <>
-        <div className='flex space-x-12 flex-wrap'>
+        <div className='flex space-y-[40px] md:space-y-[0px] md:space-x-6 lg:space-x-12 flex-wrap justify-center'>
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
               <li>
@@ -57,7 +57,7 @@ function index () {
             </ul>
           </div>
 
-          <div className='h-[135px] w-[1px] bg-[#C9C9C9]'></div>
+          <div className='h-[1px] md:h-[135px] w-[100%] md:w-[1px] bg-[#C9C9C9]'></div>
 
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
@@ -81,7 +81,7 @@ function index () {
               </li>
             </ul>
           </div>
-          <div className='h-[135px] w-[1px] bg-[#C9C9C9]'></div>
+          <div className='h-[1px] md:h-[135px] w-[100%] md:w-[1px] bg-[#C9C9C9]'></div>
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
               <li>
@@ -123,7 +123,7 @@ function index () {
     color: '#000',
     textAlign: 'center',
     fontFamily: 'Poppins',
-    fontSize: '18px',
+
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: 'normal'
@@ -133,10 +133,9 @@ function index () {
     color: '#000',
     textAlign: 'center',
     fontFamily: 'Poppins',
-    fontSize: '44px',
+
     fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: '70px'
+    fontWeight: '700'
   }
 
   const slugText = {
@@ -190,9 +189,14 @@ function index () {
   return (
     <>
       <AuthNavbar />
-      <div className='w-full pt-[80px] lg:pt-[120px] mt-[37px] h-full lg:grid place-items-center pb-[80px]'>
+      <div className='w-full pt-[80px] lg:pt-[120px] mt-[37px] h-full lg:grid place-items-center pb-[80px] px-[20px] lg:px-[0px]'>
         <div className='space-y-[14px]'>
-          <h1 style={Textstyle}>Payment Related Queries</h1>
+          <h1
+            className='text-[34px] lg:text-[44px] lg:leading-[70px]'
+            style={Textstyle}
+          >
+            Payment Related Queries
+          </h1>
           <ul className='flex space-x-2 items-center justify-center'>
             <li>
               <p
@@ -225,19 +229,24 @@ function index () {
           </ul>
         </div>
 
-        <div className='mt-11 lg:w-full w-[90%] grid place-items-center '>
+        <div className='mt-11 lg:w-full w-[100%] grid place-items-center '>
           <div className='w-full lg:w-[964px]'>{RenderQuestionUI()}</div>
         </div>
         <div className='mt-16'>
           <div className='space-y-2'>
             <h1 style={TitleText2}>Still have questions?</h1>
-            <p style={Textstyle2}>
-              Can’t find the answer you’re looking for? Please chat to our
-              friendly team
-            </p>
+            <div className='flex justify-center'>
+              <p
+                className='text-[12px] md:text-[18px] w-[250px] md:w-[100%] '
+                style={Textstyle2}
+              >
+                Can’t find the answer you’re looking for? Please chat to our
+                friendly team
+              </p>
+            </div>
           </div>
 
-          <div className='mt-16'>
+          <div className='mt-10 md:16'>
             <PersonalSection />
           </div>
         </div>

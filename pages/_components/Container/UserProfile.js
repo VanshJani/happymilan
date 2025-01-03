@@ -9,6 +9,7 @@ import { Dialog } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   addToShortlist,
+  RemoveShortlist,
   setCurrentSlideIndex,
   userDatas
 } from '../../../store/actions/GetingAlluser'
@@ -181,88 +182,61 @@ function SampleUserProfile () {
   }
 
   // Handle shortlist
-  const HandleShortlist = id => {
-    dispatch(addToShortlist(id))
-    setshortlistText('Profile has been shortlisted')
+  const HandleShortlist = obj => {
+    // { data: res, id: res?._id }
+
+    // if (obj?.userShortListDetails?.shortlistId) {
+    //   dispatch(RemoveShortlist(obj?.id))
+
+    //   setshortlistText('shortliste has been removed')
+    //   setopenShortlistModal(true)
+
+    //   setTimeout(() => {
+    //     setopenShortlistModal(false)
+    //     dispatch(userDatas({ page: 1 }))
+    //   }, 900)
+
+    //   setTimeout(() => setopenShortlistModal(false), 800)
+    // } else {
+    //   dispatch(addToShortlist(obj?.id))
+    //   setshortlistText('Profile has been shortlisted')
+    //   setopenShortlistModal(true)
+
+    //   setTimeout(() => {
+    //     setopenShortlistModal(false)
+    //     dispatch(userDatas({ page: 1 }))
+    //   }, 900)
+
+    const { data, id } = obj
+    console.log('🚀 ~ HandleShortlist ~ userShortListDetails:', data)
+
+    if (data?.userShortListDetails) {
+      // Remove from shortlist
+      dispatch(
+        RemoveShortlist(
+          data?.userShortListDetails?.id || data?.userShortListDetails?._id
+        )
+      )
+      setshortlistText('Shortlist has been removed')
+    } else {
+      // Add to shortlist
+      dispatch(addToShortlist(id))
+      setshortlistText('Profile has been shortlisted')
+    }
+
     setopenShortlistModal(true)
 
+    setTimeout(() => {
+      setopenShortlistModal(false)
+      dispatch(userDatas({ page: 1 }))
+    }, 900)
+
     setTimeout(() => setopenShortlistModal(false), 800)
-    swiperRef.current?.swiper.slideNext()
+    // swiperRef.current?.swiper.slideNext()
   }
 
   // Handle send request
   const HandleRequestModal = res => {
-    console.log('🚀 ~ HandleRequestModal ~ res:', res)
-    // if (thedata?.data?.userProfileCompleted) {
-    //   if (res?.friendsDetails) {
-    //     // Define the statuses for which `sendRequest` should be called
-    //     const sendRequestStatuses = [
-    //       'requested',
-    //       'received',
-    //       'accepted',
-    //       'rejected',
-    //       'removed',
-    //       'blocked'
-    //     ]
-
-    //     if (sendRequestStatuses.includes(status)) {
-    //       const data = {
-    //         currUser: res?.friendsDetails?._id || res?.friendsDetails?.id,
-    //         OtherUser: res?._id || res?.id,
-    //         status: 'rejected'
-    //       }
-
-    //       dispatch(
-    //         Cancelfriendrequest(data?.currUser, data?.OtherUser, data?.status)
-    //       )
-
-    //       setTimeout(() => {
-    //         setopenShortlistModal(false)
-    //         dispatch(userDatas({ page: 1 }))
-    //       }, 900)
-    //     } else {
-    //       const userId = res?._id || res?.id
-    //       dispatch(sendRequest('long-term', userId))
-
-    //       setsentRequest(prev => ({
-    //         ...prev,
-    //         [userId]: !prev[userId]
-    //       }))
-
-    //       setshortlistText(
-    //         !sentrequest[userId]
-    //           ? `You sent a request to ${res?.name}`
-    //           : 'Request Removed..'
-    //       )
-    //       setopenShortlistModal(true)
-
-    //       setTimeout(() => {
-    //         setopenShortlistModal(false)
-    //         dispatch(userDatas({ page: 1 }))
-    //       }, 900)
-    //     }
-    //   } else {
-    //     const userId = res?._id || res?.id
-    //     dispatch(sendRequest('long-term', userId))
-
-    //     setsentRequest(prev => ({
-    //       ...prev,
-    //       [userId]: !prev[userId]
-    //     }))
-
-    //     setshortlistText(
-    //       !sentrequest[userId]
-    //         ? `You sent a request to ${res?.name}`
-    //         : 'Request Removed..'
-    //     )
-    //     setopenShortlistModal(true)
-
-    //     setTimeout(() => {
-    //       setopenShortlistModal(false)
-    //       dispatch(userDatas({ page: 1 }))
-    //     }, 900)
-    //   }
-
     if (thedata?.data?.userProfileCompleted) {
       if (res?.friendsDetails) {
         const { status } = res.friendsDetails
@@ -274,7 +248,7 @@ function SampleUserProfile () {
           // 'received',
           // 'accepted',
           // 'rejected',
-          'removed',
+          'removed'
           // 'blocked'
         ]
 
@@ -495,7 +469,9 @@ function SampleUserProfile () {
 
                               <li
                                 className='cursor-pointer'
-                                onClick={() => HandleShortlist(res?._id)}
+                                onClick={() =>
+                                  HandleShortlist({ data: res, id: res?._id })
+                                }
                               >
                                 <div className='cursor-pointer hover:bg-[#F2F7FF] dark:hover:bg-[#383838] p-[5px] rounded-[50%] relative top-[-5px]'>
                                   <Image
@@ -503,7 +479,11 @@ function SampleUserProfile () {
                                     width={15}
                                     height={14}
                                     alt='star'
-                                    src={'/assests/Black/Stars-2.svg'}
+                                    src={
+                                      res?.userShortListDetails?.shortlistId
+                                        ? '/assests/Black/filled-star.svg'
+                                        : '/assests/Black/Stars-2.svg'
+                                    }
                                   />
                                 </div>
                               </li>

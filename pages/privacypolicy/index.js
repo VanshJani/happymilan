@@ -17,7 +17,7 @@ function index () {
     color: '#000',
     textAlign: 'center',
     fontFamily: 'Poppins',
-    fontSize: '44px',
+
     fontStyle: 'normal',
     fontWeight: '700',
     lineHeight: '70px' /* 159.091% */
@@ -27,9 +27,11 @@ function index () {
     <>
       <AuthNavbar />
       <div className='lg:pt-[120px] pt-[100px] w-full h-full grid place-items-center'>
-        <div className='w-full lg:w-[750px]'>
-          <div className='lg:pl-0 lg:pr-0 pl-[20px] pr-[20px] w-full space-y-5 text-center lg:text-left pb-4'>
-            <h1 style={TitleText}>Privacy Policy</h1>
+        <div className='w-full lg:w-[750px] lg:pl-0 lg:pr-0 pl-[20px] pr-[20px]'>
+          <div className=' w-full space-y-5 text-left pb-4'>
+            <h1 className='text-[34px] lg:text-[44px]' style={TitleText}>
+              Privacy Policy
+            </h1>
             <p style={ContentText} className='mt-[10px]'>
               Welcome to HappyMilan.com, a platform dedicated to fostering
               meaningful connections and relationships. The protection and

@@ -41,7 +41,7 @@ function ProfileNotFound() {
             <div className='w-full h-full grid place-items-center'>
                 <div style={Boxshadow} className='grid place-items-center w-[600px] h-[400px] bg-[#FFF]  mt-[50px]'>
 
-                    <div className='pl-[20px] pr-[20px]'>
+                    <div className='px-5'>
                         <ul className='text-center space-y-[20px]'>
                             <li className='grid place-items-center'>
                                 <Image width={100} height={100} loading='lazy' alt='error' src={"/assests/Error/Error-image.png"} />

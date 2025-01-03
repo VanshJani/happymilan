@@ -225,6 +225,8 @@ function RecentViewUser () {
                           <li className='cursor-pointer'>
                             <ShortlistUser
                               UserId={res?.viewerId?._id || res?.viewerId?.id}
+                              Section={"RecentlyView"}
+                              UserDetail={res?.viewerId}
                             />
                           </li>
                           <li>

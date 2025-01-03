@@ -82,7 +82,7 @@ function UploadContent({ formData, updateFormData, handleSendMessage, setMessage
                     left: isMinimized ? "340px" : undefined,
                     height: "150px", width: "200px", background: "#FFF", boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", borderRadius: "10px"
                 }}>
-                    <ul className='flex flex-col justify-evenly  h-full pl-[5px] pr-[5px]'>
+                    <ul className='flex flex-col justify-evenly  h-full  px-1'>
                         <li {...getRootProps()} className='p-[10px]  rounded-[10px] hover:bg-[#F1F6FF] cursor-pointer'>
                             <input {...getInputProps()} type='file' className='cursor-pointer opacity-0 w-[11px] absolute' />
                             <div className='flex space-x-[20px]'>

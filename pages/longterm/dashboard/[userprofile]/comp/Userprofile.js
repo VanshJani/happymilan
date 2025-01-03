@@ -18,7 +18,7 @@ import LocationTab from './tabs/LocationTab'
 import Notfound from '../../../../../components/common/Error/Notfound'
 import ViewProfile from '../../../../../components/common/Models/ViewProfile'
 import UserProfileMenu from '../../../../../components/long-term/common/Model/UserPopover'
-import GridLikeButton from '../../../../_components/common/Buttons/LikeSections/GridLikeButton'
+import UserProfileLikeBtn from '../../../../_components/common/Buttons/LikeSections/UserProfileLikeBtn'
 
 // Utilities
 import moment from 'moment'
@@ -563,13 +563,8 @@ function Userprofile ({ params, toggleDrawer }) {
                   style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
-                  {data && data.userPartner?.age
-                    ? `${
-                        data.userPartner?.age.min && data.userPartner.age.min
-                      } - ${
-                        data.userPartner?.age.max && data.userPartner.age.max
-                      }`
-                    : 'NA - NA'}
+                  {data?.userPartnerDetails?.age?.min || 'NA'} -
+                  {data?.userPartnerDetails?.age?.max || 'NA'}
                 </h1>
               </div>
               <div>
@@ -583,13 +578,13 @@ function Userprofile ({ params, toggleDrawer }) {
                   style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
-                  {data && data.userPartner?.height
+                  {data && data.userPartnerDetails?.height
                     ? `${
-                        data.userPartner?.height.min &&
-                        data.userPartner.height.min
+                        data.userPartnerDetails?.height.min &&
+                        data.userPartnerDetails.height.min
                       } to ${
-                        data.userPartner?.height.max &&
-                        data.userPartner.height.max
+                        data.userPartnerDetails?.height.max &&
+                        data.userPartnerDetails.height.max
                       } ft`
                     : 'NA - NA'}
                 </h1>
@@ -605,9 +600,13 @@ function Userprofile ({ params, toggleDrawer }) {
                   style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
-                  {data && data.userPartner?.city
-                    ? `${data.userPartner?.city && data.userPartner.city},  ${
-                        data.userPartner?.state && data.userPartner.state
+                  {data && data.userPartnerDetails?.city
+                    ? `${
+                        data.userPartnerDetails?.city &&
+                        data.userPartnerDetails.city
+                      },  ${
+                        data.userPartnerDetails?.state &&
+                        data.userPartnerDetails.state
                       }`
                     : 'NA'}
                 </h1>
@@ -623,8 +622,9 @@ function Userprofile ({ params, toggleDrawer }) {
                   style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
-                  {data && data.userPartner?.country
-                    ? data.userPartner?.country && data.userPartner.country
+                  {data && data.userPartnerDetails?.country
+                    ? data.userPartnerDetails?.country &&
+                      data.userPartnerDetails.country
                     : 'NA'}
                 </h1>
               </div>
@@ -640,8 +640,9 @@ function Userprofile ({ params, toggleDrawer }) {
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
                   INR{' '}
-                  {data && data.userPartner?.income
-                    ? data.userPartner?.income && data.userPartner.income
+                  {data && data.userPartnerDetails?.income
+                    ? data.userPartnerDetails?.income &&
+                      data.userPartnerDetails.income
                     : 'NA'}
                 </h1>
               </div>
@@ -656,8 +657,9 @@ function Userprofile ({ params, toggleDrawer }) {
                   style={ProfileStyle?.Text5}
                   className='2xl:text-[16px]  xl:text-[14px] text-[14px]'
                 >
-                  {data && data.userPartner?.diet
-                    ? data.userPartner?.diet && data.userPartner.diet
+                  {data && data.userPartnerDetails?.diet
+                    ? data.userPartnerDetails?.diet &&
+                      data.userPartnerDetails.diet
                     : 'NA'}
                 </h1>
               </div>
@@ -840,7 +842,7 @@ function Userprofile ({ params, toggleDrawer }) {
                 </ul>
               </div>
               <div className='pt-5 pb-5'>
-                <GridLikeButton
+                <UserProfileLikeBtn
                   userId={user?._id || user?.id}
                   TheUsername={user?.name}
                   userdata={user}

@@ -63,7 +63,7 @@ function GridprofileLayout ({ user, index, showButton, children }) {
           <ul className='pr-[10px] flex space-x-[30px]'>
             <li>
               <li>
-                <ShortlistUser UserId={user?.id} />
+                <ShortlistUser UserId={user?.id || user?._id} UserDetail={user}/>
               </li>
             </li>
             <li>{children?.ProfileMenu && children.ProfileMenu()}</li>

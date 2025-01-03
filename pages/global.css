@@ -148,6 +148,13 @@ body {
   color: black;
 }
 
+#Pagination-action-btn{
+
+}
+#Dark-Pagination-action-btn{
+
+}
+
 #Gradient-logout-btn-2 {
   border: none;
   outline: none;
@@ -1099,6 +1106,10 @@ body::-webkit-scrollbar {
 
 .shortlist-button:hover {
   background-color: #FFBC47;
+}
+
+.the-shortlist-icon-active path {
+  fill: #FFF;
 }
 
 .the-shortlist-icon path {

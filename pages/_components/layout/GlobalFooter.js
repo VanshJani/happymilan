@@ -7,7 +7,7 @@ function GlobalFooter () {
   const footerlinks = {
     cursor: 'pointer',
     fontFamily: 'Poppins',
-    fontSize: '14px',
+
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: '14px' /* 87.5% */
@@ -15,7 +15,7 @@ function GlobalFooter () {
   const copyright = {
     color: '#959595',
     fontFamily: 'Poppins',
-    fontSize: '14px',
+
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: 'normal' /* 87.5% */
@@ -23,8 +23,8 @@ function GlobalFooter () {
 
   const router = useRouter()
   return (
-    <footer className='pt-[40px]'>
-      <div className='flex justify-between pl-[100px] pr-[100px]'>
+    <footer className='pt-[40px] '>
+      <div className='flex justify-between md:pl-[100px] md:pr-[100px] px-[20px] md:px-[0px]'>
         <ul className='space-y-[15px]'>
           <li
             style={footerlinks}
@@ -34,7 +34,9 @@ function GlobalFooter () {
                 : 'text-[#000] hover:text-[#0F52BA]'
             }`}
           >
-            <Link href='/aboutus'>About</Link>
+            <Link className='text-[12px] md:text-[14px]' href='/aboutus'>
+              About
+            </Link>
           </li>
           <li
             style={footerlinks}
@@ -44,7 +46,9 @@ function GlobalFooter () {
                 : 'text-[#000] hover:text-[#0F52BA]'
             }`}
           >
-            <Link href='/successstories'>Success Stories</Link>
+            <Link className='text-[12px] md:text-[14px]' href='/successstories'>
+              Success Stories
+            </Link>
           </li>
           <li
             style={footerlinks}
@@ -54,7 +58,9 @@ function GlobalFooter () {
                 : 'text-[#000] hover:text-[#0F52BA]'
             }`}
           >
-            <Link href='/faq'>FAQs</Link>
+            <Link className='text-[12px] md:text-[14px]' href='/faq'>
+              FAQs
+            </Link>
           </li>
         </ul>
         <ul className='space-y-[15px]'>
@@ -66,9 +72,14 @@ function GlobalFooter () {
                 : 'text-[#000] hover:text-[#0F52BA]'
             }`}
           >
-            <Link href='/career'>Hiring</Link>
+            <Link className='text-[12px] md:text-[14px]' href='/career'>
+              Hiring
+            </Link>
           </li>
-          <li style={footerlinks} className='hover:text-[#0F52BA] text-[#000]'>
+          <li
+            style={footerlinks}
+            className='hover:text-[#0F52BA] text-[#000] text-[12px] md:text-[14px]'
+          >
             Contact us
           </li>
           <li
@@ -79,7 +90,9 @@ function GlobalFooter () {
                 : 'text-[#000] hover:text-[#0F52BA]'
             }`}
           >
-            <Link href='/updates'>What's new</Link>
+            <Link className='text-[12px] md:text-[14px]' href='/updates'>
+              What's new
+            </Link>
           </li>
         </ul>
         <ul className='space-y-[15px]'>
@@ -91,7 +104,9 @@ function GlobalFooter () {
                 : 'text-[#000] hover:text-[#0F52BA]'
             }`}
           >
-            <Link href='/termsofuse'>Term of Use</Link>
+            <Link className='text-[12px] md:text-[14px]' href='/termsofuse'>
+              Term of Use
+            </Link>
           </li>
           <li
             style={footerlinks}
@@ -101,7 +116,9 @@ function GlobalFooter () {
                 : 'text-[#000] hover:text-[#0F52BA]'
             }`}
           >
-            <Link href='/privacypolicy'>Privacy Policy</Link>
+            <Link className='text-[12px] md:text-[14px]' href='/privacypolicy'>
+              Privacy Policy
+            </Link>
           </li>
           <li
             style={footerlinks}
@@ -111,10 +128,12 @@ function GlobalFooter () {
                 : 'text-[#000] hover:text-[#0F52BA]'
             }`}
           >
-            Blogs
+            <Link className='text-[12px] md:text-[14px]' href='/blog'>
+              <h1 className='text-[12px] md:text-[14px]'>Blogs</h1>
+            </Link>
           </li>
         </ul>
-        <ul className='flex justify-between w-[131.551px]'>
+        <ul className='hidden  md:flex  justify-between w-[131.551px]'>
           <li>
             <Image
               width={16}
@@ -146,12 +165,47 @@ function GlobalFooter () {
       </div>
       <div className='pt-[40px] pb-[40px]'>
         <div className=''>
-          <div className='flex justify-between pl-[100px] pr-[100px]'>
-            <div className=''>
-              <h1 style={copyright}>©2023 -2024 HappyMilan.com</h1>
+          <div className='md:flex justify-between md:pl-[100px] md:pr-[100px] px-[20px] md:px-[0px]'>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h1 className='text-[12px] md:text-[14px]' style={copyright}>
+                  ©2023 -2024 HappyMilan.com
+                </h1>
+              </div>
+              <ul className=' md:hidden flex justify-between w-[131.551px]'>
+                <li>
+                  <Image
+                    width={16}
+                    height={16}
+                    alt='instgarm'
+                    loading='lazy'
+                    src={'/heroSec/icon/instagram-icon.svg'}
+                  />
+                </li>
+                <li>
+                  <Image
+                    width={8.31}
+                    height={16}
+                    alt='facebook'
+                    loading='lazy'
+                    src={'/heroSec/icon/facebook-icon.svg'}
+                  />
+                </li>
+                <li>
+                  <Image
+                    width={16}
+                    height={16}
+                    alt='yotube'
+                    loading='lazy'
+                    src={'/heroSec/icon/youtube-icon.svg'}
+                  />
+                </li>
+              </ul>
             </div>
             <div className=''>
-              <h1 style={copyright}>A Product by MN Techgroup</h1>
+              <h1 className='text-[12px] md:text-[14px]' style={copyright}>
+                A Product by MN Techgroup
+              </h1>
             </div>
           </div>
         </div>

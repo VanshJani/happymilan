@@ -6,8 +6,10 @@ import {
   addToShortlist,
   RemoveShortlist
 } from '../../../../store/actions/GetingAlluser'
+import { GetrecentuserprofileData } from '../../../../store/actions/UsersAction'
+import { fetchFriends } from '../../../../store/matrimoney-services/slices/UserSentRequestPagination'
 
-function ShortlistUser ({ UserId, alreadyshortlist }) {
+function ShortlistUser ({ UserId, UserDetail, Section }) {
   const [shortlistedUser, SetshortlistedUser] = useState(false)
 
   const dispatch = useDispatch()
@@ -16,7 +18,41 @@ function ShortlistUser ({ UserId, alreadyshortlist }) {
   const [shortlistText, setshortlistText] = useState()
 
   const HandleShortlist = () => {
-    // if (alreadyshortlist !== null ) {
+    if (UserDetail?.userShortListDetails) {
+      // Remove from shortlist
+      dispatch(
+        RemoveShortlist(
+          UserDetail?.userShortListDetails?.id ||
+            UserDetail?.userShortListDetails?._id
+        )
+      )
+      setshortlistText('Shortlist has been removed')
+      setopenShortlistModal(true)
+      setTimeout(() => {
+        setopenShortlistModal(false)
+        if (Section == 'RecentlyView') {
+          dispatch(GetrecentuserprofileData())
+        } else if (Section == 'Sent') {
+          dispatch(fetchFriends('ListView', { currentPage: 1 }))
+        }
+      }, 800)
+    } else {
+      // Add to shortlist
+      dispatch(addToShortlist(UserId)) // Dispatch the action with the shortlist ID
+
+      setshortlistText('Profile has been shortlisted')
+      setopenShortlistModal(true)
+      setTimeout(() => {
+        setopenShortlistModal(false)
+        if (Section == 'RecentlyView') {
+          dispatch(GetrecentuserprofileData())
+        } else if (Section == 'Sent') {
+          dispatch(fetchFriends('ListView', { currentPage: 1 }))
+        }
+      }, 800)
+    }
+
+    // if (data?.userShortListDetails) {
     //   dispatch(RemoveShortlist(alreadyshortlist?.id || alreadyshortlist?._id))
     //   SetshortlistedUser(!shortlistedUser)
     //   setshortlistText('Profile has been unshortlisted')
@@ -34,25 +70,6 @@ function ShortlistUser ({ UserId, alreadyshortlist }) {
     //     setopenShortlistModal(false)
     //   }, 800)
     // }
-
-    if (shortlistedUser) {
-      dispatch(RemoveShortlist(alreadyshortlist?.id || alreadyshortlist?._id))
-      SetshortlistedUser(!shortlistedUser)
-      setshortlistText('Profile has been unshortlisted')
-      setopenShortlistModal(true)
-      setTimeout(() => {
-        setopenShortlistModal(false)
-      }, 800)
-    } else {
-      SetshortlistedUser(!shortlistedUser)
-      dispatch(addToShortlist(UserId)) // Dispatch the action with the shortlist ID
-
-      setshortlistText('Profile has been shortlisted')
-      setopenShortlistModal(true)
-      setTimeout(() => {
-        setopenShortlistModal(false)
-      }, 800)
-    }
   }
 
   const Urlmodaltext = {
@@ -73,21 +90,21 @@ function ShortlistUser ({ UserId, alreadyshortlist }) {
         onMouseLeave={() => sethovericon(false)}
       >
         {/* <div className='w-[25px] h-[25px] border-[1px] border-[black] grid place-items-center rounded-full  hover:bg-[#F2F7FF] dark:hover:bg-[#383838]'> */}
-<div>
-        <Image
-          loading='lazy'
-          onClick={HandleShortlist}
-          alt='star-icon'
-          className='absolute'
-          width={15}
-          height={14}
-          src={
-            shortlistedUser || hovericon
-              ? // || alreadyshortlist !== null
-                '/assests/Black/filled-star.svg'
-              : '/assests/Black/Stars-2.svg'
-          }
-        />
+        <div>
+          <Image
+            loading='lazy'
+            onClick={HandleShortlist}
+            alt='star-icon'
+            className='absolute'
+            width={15}
+            height={14}
+            src={
+              UserDetail?.userShortListDetails || hovericon
+                ? // || alreadyshortlist !== null
+                  '/assests/Black/filled-star.svg'
+                : '/assests/Black/Stars-2.svg'
+            }
+          />
         </div>
       </div>
       <React.Fragment>

@@ -9,7 +9,7 @@ function Accordion ({ title, itsRound, children }) {
       onClick={() => setAccordionOpen(!accordionOpen)}
       className={`list-none group w-[full] h-[full] border-[1px] hover:border-[#000] border-[#ECECEC] ${
         itsRound && !accordionOpen ? 'rounded-[20px]' : 'rounded-[18px]'
-      } pr-[20px] pl-[20px]`}
+      } px-5`}
     >
       <div className='py-[20px]'>
         <button

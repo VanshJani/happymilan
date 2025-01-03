@@ -51,6 +51,7 @@ function index () {
 
   const QuestionCards = () => {
     const CardContentText = {
+      // color: '#000',
       fontFamily: 'Poppins',
       fontSize: '16px',
       fontStyle: 'normal',
@@ -60,13 +61,13 @@ function index () {
 
     return (
       <>
-        <div className='grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5'>
+        <div className='grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-3 md:gap-5'>
           {Options.map((options, index) => {
             return (
               <Link href={`/faq/${options?.slug}`}>
                 <div
                   key={index}
-                  className='group hover:bg-[black] bg-[#FAFAFA] cursor-pointer duration-200 w-[227px] h-[84px] rounded-[24px] grid place-items-center '
+                  className='group hover:bg-[black] bg-[#FAFAFA] cursor-pointer duration-200 w-[100%] px-[5px] md:w-[227px] h-[84px] rounded-[24px] grid place-items-center '
                 >
                   <h1
                     style={CardContentText}
@@ -103,7 +104,7 @@ function index () {
 
     return (
       <>
-        <div className='flex md:flex-row flex-col space-x-12 flex-wrap md:space-y-0 space-y-5 '>
+        <div className='flex space-y-[40px] md:space-y-[0px] md:space-x-6 lg:space-x-12 flex-wrap justify-center'>
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
               <li>
@@ -127,7 +128,8 @@ function index () {
             </ul>
           </div>
 
-          <div className=' md:h-[135px] md:w-[1px] h-[1px] w-[90%] bg-[#C9C9C9] '></div>
+          <div className='h-[1px] md:h-[135px] w-[100%] md:w-[1px] bg-[#C9C9C9]'></div>
+
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
               <li>
@@ -150,8 +152,7 @@ function index () {
               </li>
             </ul>
           </div>
-          <div className='md:h-[135px] md:w-[1px] h-[1px] w-[90%] bg-[#C9C9C9]'></div>
-
+          <div className='h-[1px] md:h-[135px] w-[100%] md:w-[1px] bg-[#C9C9C9]'></div>
           <div className='grid place-items-center'>
             <ul className=' grid place-items-center space-y-[22px]'>
               <li>
@@ -193,7 +194,7 @@ function index () {
     color: '#000',
     textAlign: 'center',
     fontFamily: 'Poppins',
-    fontSize: '18px',
+
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: 'normal'
@@ -203,34 +204,43 @@ function index () {
     color: '#000',
     textAlign: 'center',
     fontFamily: 'Poppins',
-    fontSize: '44px',
+
     fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: '70px' /* 159.091% */
+    fontWeight: '700'
   }
   return (
     <>
       <AuthNavbar />
-      <div className='w-full pt-[80px] lg:pt-[120px] mt-[37px] h-full lg:grid place-items-center pb-[80px]'>
+      <div className='w-[100%] pt-[80px] lg:pt-[120px] mt-[37px] h-full lg:grid place-items-center pb-[80px] px-[20px]'>
         <div className='space-y-2'>
-          <h1 style={TitleText}>How can we help you?</h1>
+          <h1
+            className='text-[34px] lg:text-[44px] lg:leading-[70px]'
+            style={TitleText}
+          >
+            How can we help you?
+          </h1>
           <p style={Textstyle}>Explore the below topics for FAQs</p>
         </div>
 
-        <div className='w-[80%] grid place-items-center mt-10'>
+        <div className='w-[100%] grid place-items-center mt-10'>
           <QuestionCards />
         </div>
 
-        <div className='mt-16'>
-          <div className='space-y-2'>
+        <div className='mt-16 '>
+          <div className='space-y-2 '>
             <h1 style={TitleText2}>Still have questions?</h1>
-            <p style={Textstyle}>
-              Can’t find the answer you’re looking for? Please chat to our
-              friendly team
-            </p>
+            <div className='flex justify-center'>
+              <p
+                className='text-[12px] md:text-[18px] w-[250px] md:w-[100%] '
+                style={Textstyle}
+              >
+                Can’t find the answer you’re looking for? Please chat to our
+                friendly team
+              </p>
+            </div>
           </div>
 
-          <div className='mt-16'>
+          <div className='mt-10 md:mt-16'>
             <PersonalSection />
           </div>
         </div>
@@ -244,5 +254,3 @@ function index () {
 }
 
 export default index
-
-8866428582

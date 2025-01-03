@@ -288,6 +288,8 @@ function SentRequest () {
                             <li className='cursor-pointer'>
                               <ShortlistUser
                                 UserId={res?.friend?.id || res?.friend?._id}
+                                Section={'Sent'}
+                                UserDetail={res?.friend}
                               />
                             </li>
                             <li>
