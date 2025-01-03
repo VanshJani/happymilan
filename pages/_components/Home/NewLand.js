@@ -460,7 +460,8 @@ function NewLand () {
                   alt='chat-ui'
                   loading='lazy'
                   src={'/heroSec/assests/chat-img-1.svg'}
-                  className='md:hidden flex justify-center 2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px] '
+                  // className='md:hidden flex justify-center 2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] h-[530px] '
+                className='md:hidden flex justify-center 2xl:w-[530px] 2xl:h-[530px] xl:w-[490px] xl:h-[490px] lg:w-[530px] lg:h-[530px] w-[530px] py-[20px] lg:py-[0px]'
                 />
                 <ul className='flex space-x-[50px] sm:space-x-[70px] justify-center md:justify-start'>
                   <li className='space-y-[8px] flex flex-col justify-center items-center'>
